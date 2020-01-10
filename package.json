@@ -10,8 +10,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ant-design/react-native": "^3.2.2",
+    "babel-plugin-import": "^1.13.0",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "0.61.5",
+    "react-native-gesture-handler": "^1.5.3",
+    "react-native-reanimated": "^1.4.0",
+    "react-native-safe-area-context": "^0.6.2",
+    "react-native-screens": "^2.0.0-alpha.22",
+    "react-navigation": "^4.0.10",
+    "react-navigation-tabs": "^2.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
+import { Header } from '../components'
+import { commonStyles } from '../commonStyles'
 
 class MessageScreen extends Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <SafeAreaView style={commonStyles.body}>
+                <Header title="message" />
                 <Text>message!</Text>
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -26,6 +26,8 @@ import {
 
 import ShowApp from './src/router';
 
+import { Modal, Provider } from '@ant-design/react-native';
+
 // class App extends Component {
 //   render() {
 //     return (
@@ -39,7 +41,7 @@ import ShowApp from './src/router';
 
 const App: () => React$Node = () => {
   return (
-    <>
+    <Provider>
       <ShowApp />
       {/* <StatusBar barStyle="dark-content" />
       <SafeAreaView>
@@ -82,7 +84,7 @@ const App: () => React$Node = () => {
           </View>
         </ScrollView>
       </SafeAreaView> */}
-    </>
+    </Provider>
   );
 };
 

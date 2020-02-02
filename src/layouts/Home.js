@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
 import { Button } from '@ant-design/react-native'
-import { Header, SignItem } from '../components'
+import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px } from '../utils'
 
@@ -20,7 +20,10 @@ class HomeScreen extends Component {
                 <Button onPress={this.addWxLogin} style={styles.buttonStyle}>微信登录</Button>
                 <Button onPress={this.addWxPay} style={styles.buttonStyle}>微信支付</Button>
                 <Button onPress={this.addMessageSend} style={styles.buttonStyle}>短信发送</Button>
-                <SignItem />
+                {/* <SignItem /> */}
+                {/* <AddItem /> */}
+                {/* <WarnHeader /> */}
+                <SignSuccessModal />
             </SafeAreaView>
         );
     }

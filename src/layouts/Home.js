@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
 import { Button } from '@ant-design/react-native'
-import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal } from '../components'
+import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px } from '../utils'
 
@@ -12,18 +12,19 @@ class HomeScreen extends Component {
             <SafeAreaView style={commonStyles.body}>
                 {/* <Text>Home!</Text> */}
                 <Header leftIsBack={false} title="唯友首页" rightComponent={this.rightComponent()} />
-                <Button onPress={this.addCalender} style={styles.buttonStyle}>添加日历</Button>
+                {/* <Button onPress={this.addCalender} style={styles.buttonStyle}>添加日历</Button>
                 <Button onPress={this.addTimeAlert} style={styles.buttonStyle}>闹钟</Button>
                 <Button onPress={this.addPushNotification} style={styles.buttonStyle}>消息推送</Button>
                 <Button onPress={this.addWeakUpApp} style={styles.buttonStyle}>微信唤醒app</Button>
                 <Button onPress={this.addWxShare} style={styles.buttonStyle}>微信分享</Button>
                 <Button onPress={this.addWxLogin} style={styles.buttonStyle}>微信登录</Button>
-                <Button onPress={this.addWxPay} style={styles.buttonStyle}>微信支付</Button>
+                <Button onPress={this.addWxPay} style={styles.buttonStyle}>微信支付</Button> */}
                 <Button onPress={this.addMessageSend} style={styles.buttonStyle}>短信发送</Button>
                 {/* <SignItem /> */}
                 {/* <AddItem /> */}
                 {/* <WarnHeader /> */}
-                <SignSuccessModal />
+                {/* <SignSuccessModal /> */}
+                <MessageItem />
             </SafeAreaView>
         );
     }

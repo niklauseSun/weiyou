@@ -28,7 +28,9 @@ const styles = StyleSheet.create({
         height: px(90),
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#EBEBEB'
+        backgroundColor: '#fff',
+        borderBottomColor: '#EBEBEB',
+        borderBottomWidth: px(1)
     },
     title: {
         flex: 1,

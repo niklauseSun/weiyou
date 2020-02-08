@@ -3,6 +3,10 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import { Home, Message, Setting } from '../layouts'
+import React, { Component } from "react";
+import { Image, StyleSheet } from 'react-native'
+import { px } from '../utils';
+import { ASSET_IMAGES } from '../config';
 
 const defaultNavigationOptions = {
     headerShown: false
@@ -34,21 +38,72 @@ const TabNavigator = createBottomTabNavigator({
         screen: HomeStack,
         navigationOptions: {
             header: null,
-            tabBarLabel: "打卡"
+            tabBarLabel: "打卡",
+            tabBarIcon: ({ tintColor, focused }) => {
+                if (focused) {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_DAKA_SELECT}
+                        />
+                    );
+                } else {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_DAKA}
+                        />
+                    );
+                }
+            }
         }
     },
     Message: {
         screen: MessageStack,
         navigationOptions: {
             header: null,
-            tabBarLabel: "邻里"
+            tabBarLabel: "邻里",
+            tabBarIcon: ({ tintColor, focused }) => {
+                if (focused) {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_DAKA_SELECT}
+                        />
+                    );
+                } else {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_DAKA}
+                        />
+                    );
+                }
+            }
         }
     },
     Settings: {
         screen: SettingStack,
         navigationOptions: {
             header: null,
-            tabBarLabel: "我的"
+            tabBarLabel: "我的",
+            tabBarIcon: ({ tintColor, focused }) => {
+                if (focused) {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_DAKA_SELECT}
+                        />
+                    );
+                } else {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_DAKA}
+                        />
+                    );
+                }
+            }
         }
     }
 }, {
@@ -57,5 +112,12 @@ const TabNavigator = createBottomTabNavigator({
         activeTintColor: "#FBA345"
     }
 });
+
+const styles = StyleSheet.create({
+    iconStyle: {
+        height: px(18),
+        width: px(18)
+    }
+})
 
 export default createAppContainer(TabNavigator);

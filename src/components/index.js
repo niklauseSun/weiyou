@@ -4,6 +4,7 @@ import AddItem from './AddItem'
 import WarnHeader from './WarnHeader'
 import SignSuccessModal from './SignSuccessModal'
 import MessageItem from './MessageItem'
+import WeekItem from './WeekItem'
 
 export {
     Header,
@@ -11,5 +12,6 @@ export {
     AddItem,
     WarnHeader,
     SignSuccessModal,
-    MessageItem
+    MessageItem,
+    WeekItem
 }

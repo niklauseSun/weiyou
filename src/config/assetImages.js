@@ -13,6 +13,7 @@ const ASSET_IMAGES = {
     ICON_ADD: require('../assets/icon_add.png'),
     ICON_MORE: require('../assets/icon_more.png'),
     ICON_SIGN_SUCCESS: require('../assets/icon_sign_success.png'),
+    ICON_MESSAGE: require('../assets/icon_message.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
 

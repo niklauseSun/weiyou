@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
 import { px } from '../utils';
+import { ASSET_IMAGES } from '../config';
 
 export default class Header extends Component {
     render() {
@@ -8,8 +9,8 @@ export default class Header extends Component {
         return (
             <View style={styles.content}>
                 <View style={styles.left}>
-                    { leftIsBack ? <TouchableOpacity activeOpacity={1} style={styles.back}>
-                        <Text>返回</Text>
+                    {leftIsBack ? <TouchableOpacity onPress={this.goBack.bind(this)} activeOpacity={1} style={styles.back}>
+                        <Image source={ASSET_IMAGES.ICON_BACK} />
                     </TouchableOpacity>: leftComponent }
                 </View>
                 <View style={styles.title}><Text style={styles.titleText}>{title}</Text></View>
@@ -18,6 +19,12 @@ export default class Header extends Component {
                 </View>
             </View>
         )
+    }
+
+    goBack() {
+        if (this.props.navigation) {
+            this.props.navigation.goBack()
+        }
     }
 }
 
@@ -42,12 +49,10 @@ const styles = StyleSheet.create({
     },
     back: {
         width: px(80),
-        backgroundColor: 'blue',
         marginLeft: px(30)
     },
     left: {
         width: px(160),
-        backgroundColor: 'yellow',
     },
     right: {
         width: px(160),

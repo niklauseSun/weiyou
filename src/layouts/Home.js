@@ -47,50 +47,18 @@ class HomeScreen extends Component {
 
     rightComponent(){
         return (
-            <TouchableOpacity activeOpacity={0.7} style={styles.messageButton}>
+            <TouchableOpacity onPress={this.navigateToMessageList.bind(this)} activeOpacity={0.7} style={styles.messageButton}>
+                <Image style={styles.messageIcon} source={ASSET_IMAGES.ICON_MESSAGE} />
                 <View style={styles.messageCount}>
                     <Text style={styles.messageCountText}>99+</Text>
                 </View>
-                <Image style={styles.messageIcon} source={ASSET_IMAGES.ICON_MESSAGE} />
             </TouchableOpacity>
         )
     }
 
     // action
-    addCalender() {
-        console.log('addCalender');
-        // 暂时不做
-    }
-
-    addTimeAlert() {
-        console.log('time alert');
-        // 暂时不做
-    }
-
-    addPushNotification() {
-        console.log('push');
-    }
-
-    addWeakUpApp() {
-        console.log('weak up');
-        // 通过分享给微信的url
-        // url直接打开本app
-    }
-
-    addWxShare() {
-        console.log('wx share');
-    }
-
-    addWxLogin() {
-        console.log('wx login');
-    }
-
-    addWxPay() {
-        console.log('wx pay');
-    }
-
-    addMessageSend() {
-        console.log('message send');
+    navigateToMessageList() {
+        this.props.navigation.navigate('MessageList')
     }
 }
 
@@ -117,7 +85,7 @@ const styles = StyleSheet.create({
     },
     messageCountText: {
         fontSize: px(16),
-        color: '#fff'
+        color: '#fff',
     },
     messageIcon: {
         marginLeft: px(10),

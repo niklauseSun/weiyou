@@ -5,6 +5,8 @@ import WarnHeader from './WarnHeader'
 import SignSuccessModal from './SignSuccessModal'
 import MessageItem from './MessageItem'
 import WeekItem from './WeekItem'
+import MyDetailItem from './MyDetailItem'
+import AccountView from './AccountView'
 
 export {
     Header,
@@ -13,5 +15,7 @@ export {
     WarnHeader,
     SignSuccessModal,
     MessageItem,
-    WeekItem
+    WeekItem,
+    MyDetailItem,
+    AccountView
 }

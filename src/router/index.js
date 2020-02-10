@@ -2,7 +2,7 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import { Home, Message, Setting } from '../layouts'
+import { Home, Message, Setting, MessageList } from '../layouts'
 import React, { Component } from "react";
 import { Image, StyleSheet } from 'react-native'
 import { px } from '../utils';
@@ -16,8 +16,22 @@ const HomeStack = createStackNavigator({
     Home: {
         screen: Home,
         navigationOptions: defaultNavigationOptions
+    },
+    MessageList: {
+        screen: MessageList,
+        navigationOptions: defaultNavigationOptions
     }
 })
+
+HomeStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+    return {
+        tabBarVisible
+    };
+}
 
 const MessageStack = createStackNavigator({
     Message: {
@@ -26,12 +40,32 @@ const MessageStack = createStackNavigator({
     }
 })
 
+MessageStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+    return {
+        tabBarVisible
+    };
+}
+
 const SettingStack = createStackNavigator({
     Setting: {
         screen: Setting,
         navigationOptions: defaultNavigationOptions
     }
 })
+
+SettingStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+    return {
+        tabBarVisible
+    };
+}
 
 const TabNavigator = createBottomTabNavigator({
     Home: {
@@ -68,14 +102,14 @@ const TabNavigator = createBottomTabNavigator({
                     return (
                         <Image
                             style={styles.styles}
-                            source={ASSET_IMAGES.ICON_DAKA_SELECT}
+                            source={ASSET_IMAGES.ICON_LINLI_SLECT}
                         />
                     );
                 } else {
                     return (
                         <Image
                             style={styles.styles}
-                            source={ASSET_IMAGES.ICON_DAKA}
+                            source={ASSET_IMAGES.ICON_LINLI}
                         />
                     );
                 }
@@ -92,14 +126,14 @@ const TabNavigator = createBottomTabNavigator({
                     return (
                         <Image
                             style={styles.styles}
-                            source={ASSET_IMAGES.ICON_DAKA_SELECT}
+                            source={ASSET_IMAGES.ICON_MY_SELECT}
                         />
                     );
                 } else {
                     return (
                         <Image
                             style={styles.styles}
-                            source={ASSET_IMAGES.ICON_DAKA}
+                            source={ASSET_IMAGES.ICON_MY}
                         />
                     );
                 }

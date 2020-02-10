@@ -14,8 +14,18 @@ const ASSET_IMAGES = {
     ICON_MORE: require('../assets/icon_more.png'),
     ICON_SIGN_SUCCESS: require('../assets/icon_sign_success.png'),
     ICON_MESSAGE: require('../assets/icon_message.png'),
+    ICON_BACK: require('../assets/icon_back.png'),
+    ICON_SET: require('../assets/icon_set.png'),
+    ICON_ABOUT_US: require('../assets/icon_about_us.png'),
+    ICON_OPINION: require('../assets/icon_opinion.png'),
+    ICON_EVALUATION: require('../assets/icon_evaluation.png'),
+    ICON_RECOMMEND: require('../assets/icon_recommend.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
+    IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),
+    IMAGE_VIP_BG: require('../assets/image_vip_bg.png'),
+    IMAGE_DEFAULT_UN_LOGIN: require('../assets/image_default_headImage_un_login.png'),
+    IMAGE_DEFAULT_LOGIN: require('../assets/image_login_default.png'),
 
 }
 

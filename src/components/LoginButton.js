@@ -14,11 +14,21 @@ export default class LoginButton extends Component {
         const { title } = this.props;
         return (
             <View style={styles.LoginView}>
-                <TouchableOpacity style={styles.loginButton}>
+                <TouchableOpacity onPress={this.actionOfLoginButton.bind(this)} style={styles.loginButton}>
                     <Text style={styles.loginButtonText}>{title}</Text>
                 </TouchableOpacity>
             </View>
         )
+    }
+
+    actionOfLoginButton() {
+        console.log('action')
+        const { buttonAction = null } = this.props;
+        console.log('bbb', buttonAction);
+        if (buttonAction) {
+            console.log('fff');
+            buttonAction();
+        }
     }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import { InputItem, InputButtonItem, Header, AgreeProtocolItem, LoginButton } from '../components';
 import { px } from '../utils';
+import { unReadCount } from '../requests';
 
 export default class ShortLoginView extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class ShortLoginView extends Component {
                 <InputItem placeholder="请输入手机号" />
                 <InputButtonItem placeholder="请输入验证码" />
                 <AgreeProtocolItem isSelect={this.state.isAgreeSelect} statusChange={this.selectChange.bind(this)} />
-                <LoginButton title="登录"/>
+                <LoginButton buttonAction={this.getUnReadCount.bind(this)} title="登录"/>
             </SafeAreaView>
         )
     }
@@ -38,6 +39,13 @@ export default class ShortLoginView extends Component {
     selectChange(status) {
         this.setState({
             isAgreeSelect: status
+        })
+    }
+
+    getUnReadCount() {
+        console.log('getUnReadCount');
+        unReadCount({
+            id: '100'
         })
     }
 }

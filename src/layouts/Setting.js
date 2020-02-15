@@ -8,7 +8,7 @@ class SettingScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.content}>
-                <MyDetailItem />
+                <MyDetailItem loginAction={this.loginAction.bind(this)} />
                 <AccountView />
                 <SetInfoItem imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} />
                 <SetInfoItem imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
@@ -16,6 +16,11 @@ class SettingScreen extends Component {
                 <SetInfoItem imageUrl={ASSET_IMAGES.ICON_RECOMMEND} title={"推荐给好友"} />
             </SafeAreaView>
         );
+    }
+
+    // action
+    loginAction() {
+        this.props.navigation.navigate('LoginView')
     }
 }
 

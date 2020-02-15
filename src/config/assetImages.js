@@ -20,6 +20,8 @@ const ASSET_IMAGES = {
     ICON_OPINION: require('../assets/icon_opinion.png'),
     ICON_EVALUATION: require('../assets/icon_evaluation.png'),
     ICON_RECOMMEND: require('../assets/icon_recommend.png'),
+    ICON_AGREE_SELECT: require('../assets/icon_agree_select.png'),
+    ICON_AGREE_UN_SELECT: require('../assets/icon_agree_un_select.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

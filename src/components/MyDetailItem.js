@@ -20,7 +20,7 @@ export default class MyDetailItem extends Component {
                 <View style={styles.myDetailView}>
                     <Image source={isLogin ? ASSET_IMAGES.IMAGE_DEFAULT_LOGIN: ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />
                     <View style={styles.loginView}>
-                        <TouchableOpacity activeOpacity={0.7} style={styles.loginButton}>
+                        <TouchableOpacity onPress={this.loginAction.bind(this)} activeOpacity={0.7} style={styles.loginButton}>
                             <Text style={styles.loginText}>{ isLogin? name: "登录/注册" }</Text>
                         </TouchableOpacity>
                         <Text style={styles.loginSubText}>唯友在手  都是好友</Text>
@@ -65,6 +65,11 @@ export default class MyDetailItem extends Component {
         } else {
             console.log('升级为vip');
         }
+    }
+
+    loginAction() {
+        const { loginAction } = this.props;
+        loginAction()
     }
 }
 

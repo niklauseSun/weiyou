@@ -2,7 +2,7 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import { Home, Message, Setting, MessageList } from '../layouts'
+import { Home, Message, Setting, MessageList, LoginView, ShortLoginView, ForgetPassword, ResetPassword } from '../layouts'
 import React, { Component } from "react";
 import { Image, StyleSheet } from 'react-native'
 import { px } from '../utils';
@@ -53,6 +53,22 @@ MessageStack.navigationOptions = ({ navigation }) => {
 const SettingStack = createStackNavigator({
     Setting: {
         screen: Setting,
+        navigationOptions: defaultNavigationOptions
+    },
+    LoginView: {
+        screen: LoginView,
+        navigationOptions: defaultNavigationOptions
+    },
+    ShortLoginView: {
+        screen: ShortLoginView,
+        navigationOptions: defaultNavigationOptions
+    },
+    ForgetPassword: {
+        screen: ForgetPassword,
+        navigationOptions: defaultNavigationOptions
+    },
+    ResetPassword: {
+        screen: ResetPassword,
         navigationOptions: defaultNavigationOptions
     }
 })

@@ -7,6 +7,9 @@ import LoginView from './LoginView'
 import ShortLoginView from './ShortLoginView'
 import ForgetPassword from './ForgetPassword'
 import ResetPassword from './ResetPassword'
+import Task from './Task'
+import AddContract from './AddContract'
+import AddSpecial from './AddSpecial'
 
 export {
     Home,
@@ -17,5 +20,8 @@ export {
     LoginView,
     ShortLoginView,
     ForgetPassword,
-    ResetPassword
+    ResetPassword,
+    Task,
+    AddContract,
+    AddSpecial
 }

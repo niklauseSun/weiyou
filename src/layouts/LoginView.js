@@ -55,14 +55,15 @@ export default class LoginView extends Component {
             passwd: '123456',
             callback: this.loginActionCallback.bind(this)
         }
-
-        console.log('dddd')
-
         loginWithPasswordAction(params);
     }
 
     loginActionCallback(res) {
         console.log('res', res);
+        if (res.success) {
+            global.isLogin = true
+            this.props.navigation.goBack();
+        }
     }
 }
 

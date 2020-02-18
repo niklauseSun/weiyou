@@ -59,9 +59,9 @@ const searchUser = ({ callback = null, pageNum, pageSize, orderByColumn = '', is
     postAction('/api/customer/search', callback, params);
 }
 
-// 用户数据提示
-const unReadCount = ({ callback }) => {
-    getAction('/api/customer/customerData');
+// 用户数据提示，未读消息数
+const unReadCount = ({ callback = null }) => {
+    getAction('/api/customer/customerData', callback);
 }
 
 // 预览用户信息

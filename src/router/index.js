@@ -2,7 +2,10 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import { Home, Message, Setting, MessageList, LoginView, ShortLoginView, ForgetPassword, ResetPassword } from '../layouts'
+import {
+    Home, Message, Setting, MessageList, LoginView, ShortLoginView, ForgetPassword, ResetPassword, Task, AddContract, AddHabit, AddSpecial
+}
+from '../layouts'
 import React, { Component } from "react";
 import { Image, StyleSheet } from 'react-native'
 import { px } from '../utils';
@@ -20,6 +23,14 @@ const HomeStack = createStackNavigator({
     MessageList: {
         screen: MessageList,
         navigationOptions: defaultNavigationOptions
+    },
+    AddHabit: {
+        screen: AddHabit,
+        navigationOptions: defaultNavigationOptions
+    },
+    AddSpecial: {
+        screen: AddSpecial,
+        navigationOptions: defaultNavigationOptions
     }
 })
 
@@ -33,9 +44,30 @@ HomeStack.navigationOptions = ({ navigation }) => {
     };
 }
 
+const TaskStack = createStackNavigator({
+    Task: {
+        screen: Task,
+        navigationOptions: defaultNavigationOptions
+    }
+})
+
+TaskStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+    return {
+        tabBarVisible
+    };
+}
+
 const MessageStack = createStackNavigator({
     Message: {
         screen: Message,
+        navigationOptions: defaultNavigationOptions
+    },
+    AddContract: {
+        screen: AddContract,
         navigationOptions: defaultNavigationOptions
     }
 })
@@ -102,6 +134,30 @@ const TabNavigator = createBottomTabNavigator({
                         <Image
                             style={styles.styles}
                             source={ASSET_IMAGES.ICON_DAKA}
+                        />
+                    );
+                }
+            }
+        }
+    },
+    Task: {
+        screen: TaskStack,
+        navigationOptions: {
+            header: null,
+            tabBarLabel: "任务",
+            tabBarIcon: ({ tintColor, focused }) => {
+                if (focused) {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_TASK_SELECT}
+                        />
+                    );
+                } else {
+                    return (
+                        <Image
+                            style={styles.styles}
+                            source={ASSET_IMAGES.ICON_TASK}
                         />
                     );
                 }

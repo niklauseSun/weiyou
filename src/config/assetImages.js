@@ -9,6 +9,8 @@ const ASSET_IMAGES = {
     ICON_EMERGENCY: require('../assets/icon_emergency.png'),
     ICON_DAKA_SELECT: require('../assets/icon_daka.png'),
     ICON_DAKA: require('../assets/icon_daka_un_select.png'),
+    ICON_TASK: require('../assets/icon_task.png'),
+    ICON_TASK_SELECT: require('../assets/icon_task_select.png'),
     ICON_CUSTOM: require('../assets/icon_custom.png'),
     ICON_ADD: require('../assets/icon_add.png'),
     ICON_MORE: require('../assets/icon_more.png'),
@@ -22,12 +24,24 @@ const ASSET_IMAGES = {
     ICON_RECOMMEND: require('../assets/icon_recommend.png'),
     ICON_AGREE_SELECT: require('../assets/icon_agree_select.png'),
     ICON_AGREE_UN_SELECT: require('../assets/icon_agree_un_select.png'),
+    ICON_SPECIAL_DEFAULT: require('../assets/icon_special_default.png'),
+    ICON_HOME_TASK_ADD: require('../assets/icon_home_task_add.png'),
+    ICON_ADD_FRIEND: require('../assets/icon_add_friend.png'),
+    ICON_CODE_IMAGE: require('../assets/icon_code_image.png'),
+    ICON_SEARCH: require('../assets/icon_search.png'),
+    ICON_SPECIAL_LOCATION: require('../assets/icon_special_location.png'),
+    ICON_SPECIAL_TIME: require('../assets/icon_special_time.png'),
+    ICON_SPECIAL_QUESTION: require('../assets/icon_special_question.png'),
+    ICON_SPECIAL_REPEAT: require('../assets/icon_special_repeat.png'),
+    ICON_SPECIAL_SIGN: require('../assets/icon_special_sign.png'),
+    ICON_SPECIAL_CONTRACT: require('../assets/icon_special_contract.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),
     IMAGE_VIP_BG: require('../assets/image_vip_bg.png'),
     IMAGE_DEFAULT_UN_LOGIN: require('../assets/image_default_headImage_un_login.png'),
     IMAGE_DEFAULT_LOGIN: require('../assets/image_login_default.png'),
+    IMAGE_NONE_CONTRACT: require('../assets/image_none_contracts.png')
 
 }
 

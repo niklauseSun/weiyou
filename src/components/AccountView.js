@@ -11,11 +11,11 @@ export default class AccountView extends Component {
     }
 
     render() {
-        const { account = "0.00" } = this.props;
+        const { score = "0.00" } = this.props;
         return (
             <View style={styles.content}>
                 <View style={styles.accountView}>
-                    <Text style={styles.accountNum}>{account}</Text>
+                    <Text style={styles.accountNum}>{score.toFixed(2)}</Text>
                     <Text style={styles.accountText}>我的积分</Text>
                 </View>
                 <TouchableOpacity activeOpacity={0.7} style={styles.accountButton}>

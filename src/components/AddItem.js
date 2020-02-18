@@ -16,21 +16,21 @@ export default class AddItem extends Component {
         const { isAdd } = this.state;
         return (
             <View style={[styles.content, {
-                width: isAdd ? px(600): px(114)
+                width: isAdd ? px(450): px(114)
             }]}>
                 {this.state.isAdd ? <View style={styles.typeView}>
-                    <TouchableOpacity style={styles.addTypeBtn}>
+                    <TouchableOpacity onPress={this.normalAction.bind(this)} style={styles.addTypeBtn}>
                         <Image style={styles.addImage} source={ASSET_IMAGES.ICON_CUSTOM} />
                         <Text style={styles.addTypeTitle}>日常</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.addTypeBtn}>
+                    <TouchableOpacity onPress={this.specialAction.bind(this)} style={styles.addTypeBtn}>
                         <Image style={styles.addImage} source={ASSET_IMAGES.ICON_SPECIAL} />
                         <Text style={styles.addTypeTitle}>特殊</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.addTypeBtn}>
+                    {/* <TouchableOpacity style={styles.addTypeBtn}>
                         <Image style={styles.addImage} source={ASSET_IMAGES.ICON_EMERGENCY} />
                         <Text style={styles.addTypeTitle}>紧急</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>: null}
                 <View style={styles.addBtnView}>
                     <TouchableOpacity activeOpacity={1} onPress={this.showAddView.bind(this)} style={styles.addBtn}>
@@ -47,6 +47,24 @@ export default class AddItem extends Component {
         });
         LayoutAnimation.easeInEaseOut();
     }
+
+    normalAction() {
+        const {
+            addNormal = null
+        } = this.props;
+        if (addNormal) {
+            addNormal();
+        }
+    }
+
+    specialAction() {
+        const {
+            addSpecial = null
+        } = this.props;
+        if (addSpecial) {
+            addSpecial();
+        }
+    }
 }
 
 
@@ -55,7 +73,7 @@ const styles = StyleSheet.create({
         // width: '100%',
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        backgroundColor: '#fff',
+        backgroundColor: '#fafafa',
         position: 'absolute',
         right: px(50),
         bottom: px(120),
@@ -69,7 +87,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fafafa'
     },
     addTypeBtn: {
         alignItems: 'center'

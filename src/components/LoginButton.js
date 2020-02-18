@@ -22,11 +22,8 @@ export default class LoginButton extends Component {
     }
 
     actionOfLoginButton() {
-        console.log('action')
         const { buttonAction = null } = this.props;
-        console.log('bbb', buttonAction);
         if (buttonAction) {
-            console.log('fff');
             buttonAction();
         }
     }

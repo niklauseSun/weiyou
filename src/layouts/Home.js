@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Image } from 'react-native'
-import { Button } from '@ant-design/react-native'
-import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, WeekItem } from '../components'
+import React, { Component, Fragment } from 'react'
+import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Image, LayoutAnimation, FlatList, SectionList, ScrollView } from 'react-native'
+import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, WeekItem, NormalItem, SpecialItem, SectionHeader } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px, getCurrentDays } from '../utils'
 import { ASSET_IMAGES } from '../config'
+import { getPersonalClockByDay, getSpecialClockByDay, unReadCount } from '../requests'
 
 class HomeScreen extends Component {
 
@@ -12,53 +12,182 @@ class HomeScreen extends Component {
         super(props);
         this.state = {
             currentWeek: null,
-            today: null
+            today: null,
+            selectIndex: 0,
+            weeks: null,
+            normalList: [],
+            specialList: [],
+            messageCnt: 0
         }
     }
 
     componentDidMount() {
+        this.loadWeekConfig();
+        this.loadUnReadCount();
     }
 
     render() {
+        const { messageCnt } = this.state;
         return (
-            <SafeAreaView style={commonStyles.body}>
+            <SafeAreaView style={commonStyles.content}>
                 {/* <Text>Home!</Text> */}
-                <Header leftIsBack={false} title="唯友首页" rightComponent={this.rightComponent()} />
-                {/* <Button onPress={this.addCalender} style={styles.buttonStyle}>添加日历</Button>
-                <Button onPress={this.addTimeAlert} style={styles.buttonStyle}>闹钟</Button>
-                <Button onPress={this.addPushNotification} style={styles.buttonStyle}>消息推送</Button>
-                <Button onPress={this.addWeakUpApp} style={styles.buttonStyle}>微信唤醒app</Button>
-                <Button onPress={this.addWxShare} style={styles.buttonStyle}>微信分享</Button>
-                <Button onPress={this.addWxLogin} style={styles.buttonStyle}>微信登录</Button>
-                <Button onPress={this.addWxPay} style={styles.buttonStyle}>微信支付</Button> */}
-                {/* <Button onPress={this.addMessageSend} style={styles.buttonStyle}>短信发送</Button> */}
+                <Header leftIsBack={false} title="唯友首页" rightComponent={this.rightComponent(messageCnt)} />
                 {/* <SignItem /> */}
-                <AddItem />
-                {/* <WarnHeader /> */}
-                {/* <SignSuccessModal /> */}
-
-                {/* <MessageItem /> */}
-                <WeekItem />
+                <WeekItem
+                    currentWeek={this.state.currentWeek}
+                    weeks={this.state.weeks}
+                    selectIndex={this.state.selectIndex}
+                    onChangeSelect={this.changeDaySelect.bind(this)}
+                />
+                <ScrollView>
+                    {this.renderListItem(this.state.normalList, this.state.specialList)}
+                </ScrollView>
+                <AddItem
+                    addNormal = {
+                        this.navigateToNormal.bind(this)
+                    }
+                    addSpecial = {
+                        this.navigateToSpecial.bind(this)
+                    }
+                />
             </SafeAreaView>
         );
     }
 
     // view
-
-    rightComponent(){
+    rightComponent(messageCnt){
         return (
             <TouchableOpacity onPress={this.navigateToMessageList.bind(this)} activeOpacity={0.7} style={styles.messageButton}>
                 <Image style={styles.messageIcon} source={ASSET_IMAGES.ICON_MESSAGE} />
-                <View style={styles.messageCount}>
-                    <Text style={styles.messageCountText}>99+</Text>
-                </View>
+                {this.renderUnReadComponent(messageCnt)}
             </TouchableOpacity>
+        )
+    }
+
+    renderUnReadComponent(messageCnt) {
+        if (messageCnt == 0) return null;
+        if (messageCnt <= 99) {
+            return <View style={styles.messageCount}>
+                <Text style={styles.messageCountText}>{messageCnt}</Text>
+            </View>
+        }
+        return <View style={styles.messageCount}>
+            <Text style={styles.messageCountText}>99+</Text>
+        </View>
+    }
+
+    renderListItem(normalList = [], specialList = []) {
+        if (normalList.length === 0 && specialList.length === 0) {
+            return <Text>暂无数据</Text>
+        }
+        return (
+            <Fragment>
+                <SectionHeader type={'normal'} title={"日常"} />
+                {normalList.map((item, index) => {
+                    return <NormalItem data={item} key={index} />
+                })}
+                <SectionHeader type={'special'} title={"特殊"} />
+                {specialList.map((item, index) => {
+                    return <SpecialItem data={item} key={index + normalList.length}/>
+                })}
+            </Fragment>
         )
     }
 
     // action
     navigateToMessageList() {
         this.props.navigation.navigate('MessageList')
+    }
+
+    navigateToNormal() {
+        this.props.navigation.navigate('AddHabit');
+    }
+
+    navigateToSpecial() {
+        this.props.navigation.navigate('AddSpecial');
+    }
+
+    changeDaySelect(index) {
+        this.setState({
+            selectIndex: index
+        })
+        LayoutAnimation.easeInEaseOut();
+    }
+
+    loadWeekConfig() {
+        let days = getCurrentDays();
+        const {
+            currentWeek,
+            today,
+            weeks,
+            requestWeeks
+        } = days;
+        const index = currentWeek.indexOf(today)
+        this.setState({
+            currentWeek: currentWeek,
+            today: today,
+            weeks: weeks,
+            selectIndex: index,
+            requestWeeks: requestWeeks
+        }, () => {
+            this.loadTasks();
+        })
+    }
+
+    // request
+    loadTasks() {
+        const { selectIndex, requestWeeks } = this.state;
+        const data = {
+            callback: this.loadClockCallback.bind(this),
+            day: '2020-02-17'
+        }
+        const specialData = {
+            callback: this.loadSpecialClockCallback.bind(this),
+            day: requestWeeks[selectIndex]
+        }
+        getPersonalClockByDay(data);
+        getSpecialClockByDay(specialData)
+    }
+
+    loadClockCallback(res) {
+        const {
+            success,
+            data
+        } = res;
+        if (success) {
+            this.setState({
+                normalList: data
+            })
+        }
+    }
+
+    loadSpecialClockCallback(res) {
+        const {
+            success,
+            data
+        } = res;
+        if (success) {
+            this.setState({
+                specialList: data
+            })
+        }
+    }
+
+    loadUnReadCount() {
+        unReadCount({
+            callback: this.loadUnReadCountCallback.bind(this)
+        })
+    }
+
+    loadUnReadCountCallback(res) {
+        const { success, data } = res;
+        console.log('unreadCount', data);
+        if (success) {
+            const { messageCnt = 0 } = data;
+            this.setState({
+                messageCnt: messageCnt
+            })
+        }
     }
 }
 

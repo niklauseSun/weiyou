@@ -16,24 +16,10 @@ export default class WeekItem extends Component {
     }
 
     componentDidMount() {
-        let days = getCurrentDays()
-        console.log('days', days)
-        const {
-            currentWeek,
-            today,
-            weeks
-        } = days;
-        const index = currentWeek.indexOf(today)
-        this.setState({
-            currentWeek: currentWeek,
-            today: today,
-            weeks: weeks,
-            selectIndex: index
-        })
     }
 
     render() {
-        const { currentWeek, weeks, selectIndex } = this.state;
+        const { currentWeek, weeks, selectIndex } = this.props;
 
         return (
             <View style={styles.content}>
@@ -49,7 +35,7 @@ export default class WeekItem extends Component {
                                         color: index === selectIndex ? '#fff': '#000'
                                     }]}>{ item === this.state.today ? '今': item }</Text>
                                 </TouchableOpacity>
-                                <View style={styles.dotView} />
+                                {/* <View style={styles.dotView} /> */}
                             </View>
                         )
                     })
@@ -59,10 +45,8 @@ export default class WeekItem extends Component {
     }
 
     selectItem(index) {
-        this.setState({
-            selectIndex: index
-        })
-        LayoutAnimation.easeInEaseOut();
+        const { onChangeSelect } = this.props;
+        onChangeSelect(index)
     }
 }
 

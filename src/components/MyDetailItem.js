@@ -13,7 +13,7 @@ export default class MyDetailItem extends Component {
         const {
             isLogin = false,
             isVip = false,
-            name = "唯友昵称"
+            nickname = "唯友昵称"
         } = this.props
         return (
             <ImageBackground source={ASSET_IMAGES.IMAGE_MY_DETAIL_BG} style={styles.content}>
@@ -21,7 +21,7 @@ export default class MyDetailItem extends Component {
                     <Image source={isLogin ? ASSET_IMAGES.IMAGE_DEFAULT_LOGIN: ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />
                     <View style={styles.loginView}>
                         <TouchableOpacity onPress={this.loginAction.bind(this)} activeOpacity={0.7} style={styles.loginButton}>
-                            <Text style={styles.loginText}>{ isLogin? name: "登录/注册" }</Text>
+                            <Text style={styles.loginText}>{ isLogin? nickname: "登录/注册" }</Text>
                         </TouchableOpacity>
                         <Text style={styles.loginSubText}>唯友在手  都是好友</Text>
                     </View>

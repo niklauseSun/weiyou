@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView } from 'react-native'
 
 export default class AddHabit extends Component {
     render() {
         return (
-            <View>
+            <SafeAreaView>
                 <Text>添加兴趣</Text>
-            </View>
+            </SafeAreaView>
         )
     }
 }

@@ -3,7 +3,19 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import {
-    Home, Message, Setting, MessageList, LoginView, ShortLoginView, ForgetPassword, ResetPassword, Task, AddContract, AddHabit, AddSpecial
+    Home,
+    Message,
+    Setting,
+    MessageList,
+    LoginView,
+    ShortLoginView,
+    ForgetPassword,
+    ResetPassword,
+    Task,
+    AddContract,
+    AddHabit,
+    AddSpecial,
+    AddHabitDetail
 }
 from '../layouts'
 import React, { Component } from "react";
@@ -30,6 +42,10 @@ const HomeStack = createStackNavigator({
     },
     AddSpecial: {
         screen: AddSpecial,
+        navigationOptions: defaultNavigationOptions
+    },
+    AddHabitDetail: {
+        screen: AddHabitDetail,
         navigationOptions: defaultNavigationOptions
     }
 })

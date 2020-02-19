@@ -10,6 +10,7 @@ import ResetPassword from './ResetPassword'
 import Task from './Task'
 import AddContract from './AddContract'
 import AddSpecial from './AddSpecial'
+import AddHabitDetail from './AddHabitDetail'
 
 export {
     Home,
@@ -23,5 +24,6 @@ export {
     ResetPassword,
     Task,
     AddContract,
-    AddSpecial
+    AddSpecial,
+    AddHabitDetail
 }

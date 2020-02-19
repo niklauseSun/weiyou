@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Image, LayoutAnimation, FlatList, SectionList, ScrollView } from 'react-native'
-import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, WeekItem, NormalItem, SpecialItem, SectionHeader } from '../components'
+import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, WeekItem, NormalItem, SpecialItem, SectionHeader, NoneData } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px, getCurrentDays } from '../utils'
 import { ASSET_IMAGES } from '../config'
@@ -39,7 +39,7 @@ class HomeScreen extends Component {
                     selectIndex={this.state.selectIndex}
                     onChangeSelect={this.changeDaySelect.bind(this)}
                 />
-                <ScrollView>
+                <ScrollView style={commonStyles.content}>
                     {this.renderListItem(this.state.normalList, this.state.specialList)}
                 </ScrollView>
                 <AddItem
@@ -78,7 +78,7 @@ class HomeScreen extends Component {
 
     renderListItem(normalList = [], specialList = []) {
         if (normalList.length === 0 && specialList.length === 0) {
-            return <Text>暂无数据</Text>
+            return <NoneData />
         }
         return (
             <Fragment>
@@ -100,7 +100,7 @@ class HomeScreen extends Component {
     }
 
     navigateToNormal() {
-        this.props.navigation.navigate('AddHabit');
+        this.props.navigation.navigate('AddHabitDetail');
     }
 
     navigateToSpecial() {

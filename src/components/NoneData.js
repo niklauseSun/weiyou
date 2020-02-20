@@ -16,7 +16,7 @@ export default class NoneData extends Component {
         return (
             <View style={styles.content}>
                 <Image style={styles.noneImage} source={ASSET_IMAGES.ICON_NONE} />
-                <Text style={styles.noneTitle}>暂无任务</Text>
+                <Text style={styles.noneTitle}>{title}</Text>
             </View>
         )
     }

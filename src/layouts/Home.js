@@ -4,7 +4,8 @@ import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, W
 import { commonStyles } from '../commonStyles'
 import { px, getCurrentDays } from '../utils'
 import { ASSET_IMAGES } from '../config'
-import { getPersonalClockByDay, getSpecialClockByDay, unReadCount } from '../requests'
+import { getPersonalClockByDay, getSpecialClockByDay, unReadCount, signAction } from '../requests'
+import { Toast } from '@ant-design/react-native'
 
 class HomeScreen extends Component {
 
@@ -17,13 +18,15 @@ class HomeScreen extends Component {
             weeks: null,
             normalList: [],
             specialList: [],
-            messageCnt: 0
+            messageCnt: 0,
+            showSignSuccess: false
         }
     }
 
     componentDidMount() {
         this.loadWeekConfig();
         this.loadUnReadCount();
+        this.addSign();
     }
 
     render() {
@@ -50,6 +53,7 @@ class HomeScreen extends Component {
                         this.navigateToSpecial.bind(this)
                     }
                 />
+                <SignSuccessModal dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  />
             </SafeAreaView>
         );
     }
@@ -82,11 +86,11 @@ class HomeScreen extends Component {
         }
         return (
             <Fragment>
-                <SectionHeader type={'normal'} title={"日常"} />
+                <SectionHeader type={'normal'} title={"日常"} addAction={this.navigateToNormal.bind(this)} />
                 {normalList.map((item, index) => {
                     return <NormalItem data={item} key={index} />
                 })}
-                <SectionHeader type={'special'} title={"特殊"} />
+                <SectionHeader type={'special'} title={"特殊"} addAction={this.navigateToSpecial.bind(this)} />
                 {specialList.map((item, index) => {
                     return <SpecialItem data={item} key={index + normalList.length}/>
                 })}
@@ -110,8 +114,16 @@ class HomeScreen extends Component {
     changeDaySelect(index) {
         this.setState({
             selectIndex: index
+        }, () => {
+            this.loadTasks();
         })
         LayoutAnimation.easeInEaseOut();
+    }
+
+    dismissSignSuccessModal() {
+        this.setState({
+            showSignSuccess: false
+        })
     }
 
     loadWeekConfig() {
@@ -136,10 +148,11 @@ class HomeScreen extends Component {
 
     // request
     loadTasks() {
+        Toast.info('加载中', 0.5);
         const { selectIndex, requestWeeks } = this.state;
         const data = {
             callback: this.loadClockCallback.bind(this),
-            day: '2020-02-17'
+            day: requestWeeks[selectIndex]
         }
         const specialData = {
             callback: this.loadSpecialClockCallback.bind(this),
@@ -186,6 +199,28 @@ class HomeScreen extends Component {
             const { messageCnt = 0 } = data;
             this.setState({
                 messageCnt: messageCnt
+            })
+        }
+    }
+
+    addSign() {
+        signAction({
+            callback: this.addSignCallback.bind(this)
+        })
+    }
+
+    addSignCallback(res) {
+        console.log('addSign', res);
+        const { success } = res;
+        if (success) {
+            this.setState({
+                showSignSuccess: true
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        showSignSuccess: false,
+                    }, 3000);
+                })
             })
         }
     }

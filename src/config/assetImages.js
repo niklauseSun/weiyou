@@ -37,6 +37,8 @@ const ASSET_IMAGES = {
     ICON_SPECIAL_CONTRACT: require('../assets/icon_special_contract.png'),
     ICON_DELETE: require('../assets/icon_delete.png'),
     ICON_NONE: require('../assets/icon_none.png'),
+    ICON_TASK_DEFAULT: require('../assets/icon_task_default.png'),
+    ICON_TASK_SIGN_SUCCESS: require('../assets/icon_task_sign_success.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

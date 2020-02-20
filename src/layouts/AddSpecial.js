@@ -13,7 +13,8 @@ import {
 import {
     Header,
     SpecialSelectItem,
-    SpecialRepeatItem
+    SpecialRepeatItem,
+    NormalContractItem
 } from '../components';
 import { ASSET_IMAGES } from '../config';
 import { px } from '../utils';

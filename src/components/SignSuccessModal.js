@@ -15,7 +15,7 @@ export default class SignSuccessModal extends Component {
                     visible={isShow}
                     transparent={true}
                 >
-                    <View style={styles.showView}>
+                    <TouchableOpacity onPress={this.hideModal.bind(this)} style={styles.showTouchableOpacity}>
                         <ImageBackground style={styles.showImageBg} source={ASSET_IMAGES.IMAGE_SHOW_BG}>
                             <View style={styles.modalContent}>
                                 <Image style={styles.modalSuccessIcon} source={ASSET_IMAGES.ICON_SIGN_SUCCESS} />
@@ -30,11 +30,19 @@ export default class SignSuccessModal extends Component {
                                 <Text style={styles.modalButtonTitle}>知道了</Text>
                             </TouchableOpacity>
                         </ImageBackground>
-                    </View>
+                    </TouchableOpacity>
                 </Modal>
             </Fragment>
         )
     }
+
+    hideModal() {
+        const { dismiss } = this.props;
+        if (dismiss) {
+            dismiss();
+        }
+    }
+
 }
 
 

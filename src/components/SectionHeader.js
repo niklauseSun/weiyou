@@ -16,11 +16,18 @@ export default class SectionHeader extends Component {
         return (
             <View style={styles.content}>
                 <Text style={styles.header}>{title}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.headAction}>
                     <Image source={ASSET_IMAGES.ICON_HOME_TASK_ADD} />
                 </TouchableOpacity>
             </View>
         )
+    }
+
+    headAction = () => {
+        const { addAction } = this.props;
+        if (addAction) {
+            addAction();
+        }
     }
 }
 

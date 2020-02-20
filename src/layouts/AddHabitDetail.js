@@ -14,6 +14,7 @@ import {
   NormalRepeatItem,
   NormalContractItem,
   SelectModal,
+  NormalRemindTextItem,
 } from '../components';
 
 export default class AddHabitDetail extends Component {
@@ -30,11 +31,13 @@ export default class AddHabitDetail extends Component {
       <SafeAreaView style={styles.content}>
         <Header title="新建打卡任务" navigation={this.props.navigation} />
         <SelectModal onSelectData={this.SelectData.bind(this)} />
-        <NormalNameItem />
+        <NormalNameItem changeText={this.changeName.bind(this)} data={this.state.taskData} />
+        <NormalRepeatItem />
         <NormalDateSelectItem />
         <NormalRemindItem />
-        <NormalRepeatItem />
-        <NormalRepeatItem />
+        <NormalRemindTextItem title="开始提示音" placeholder="请输入开始提示音" />
+        <NormalRemindTextItem title="延迟提示音" placeholder="请输入延迟提示音" />
+        <NormalRemindTextItem title="结束提示音" placeholder="请输入结束提示音" />
         <NormalContractItem />
       </SafeAreaView>
     );
@@ -50,6 +53,13 @@ export default class AddHabitDetail extends Component {
 
   // 选择模板数据
   SelectData(data) {
+    this.setState({
+      taskData: data
+    })
+  }
+
+  changeName(text) {
+    let data = Object.assign({}, this.state.taskData, { name: text })
     this.setState({
       taskData: data
     })

@@ -12,12 +12,13 @@ export default class NormalNameItem extends Component {
     }
 
     render() {
-        const { imageUrl = null, value = "" } = this.props;
+        const { data = {}} = this.props;
+        const { icon = null, name = "" } = data || {};
         return (
             <View style={styles.content}>
-                {imageUrl == null ? <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />: <Image source={{ uri: imageUrl }} />}
+                {icon == null ? <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />: <Image style={styles.headImage} source={{ uri: icon }} />}
                 {/* <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} /> */}
-                <TextInput placeholder="请输入任务名称" onChangeText={this.changeText.bind(this)} value={value} />
+                <TextInput style={styles.inputItem} placeholder="请输入任务名称" onChangeText={this.changeText.bind(this)} value={name} />
             </View>
         );
     }
@@ -45,5 +46,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#999',
         marginRight: px(20),
         borderRadius: px(45)
+    },
+    inputItem: {
+        fontSize: px(36)
     }
 })

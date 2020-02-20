@@ -31,6 +31,7 @@ import NormalContractItem from './NormalContractItem'
 import TaskItem from './TaskItem'
 import NoneData from './NoneData'
 import SelectModal from './SelectModal'
+import NormalRemindTextItem from './NormalRemindTextItem'
 
 export {
     Header,
@@ -65,5 +66,6 @@ export {
     NormalContractItem,
     TaskItem,
     NoneData,
-    SelectModal
+    SelectModal,
+    NormalRemindTextItem
 }

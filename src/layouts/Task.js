@@ -17,8 +17,8 @@ export default class Test extends Component {
             <SafeAreaView style={commonStyles.content}>
                 <Header leftIsBack={false} title="任务" />
                 <View style={commonStyles.body}>
-                    <TaskItem imageUrl={ASSET_IMAGES.ICON_CUSTOM} />
-                    <TaskItem imageUrl={ASSET_IMAGES.ICON_EMERGENCY} />
+                    <TaskItem navigation={this.props.navigation} title="普通任务" imageUrl={ASSET_IMAGES.ICON_CUSTOM} />
+                    <TaskItem navigation={this.props.navigation} type="emergency" imageUrl={ASSET_IMAGES.ICON_EMERGENCY} />
                 </View>
             </SafeAreaView>
         )

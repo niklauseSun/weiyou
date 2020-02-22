@@ -68,8 +68,13 @@ export default class MyDetailItem extends Component {
     }
 
     loginAction() {
+        if (this.props.isLogin) {
+            return;
+        }
         const { loginAction } = this.props;
-        loginAction()
+        if (loginAction) {
+            loginAction()
+        }
     }
 }
 

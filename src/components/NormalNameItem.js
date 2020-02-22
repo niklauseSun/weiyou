@@ -12,8 +12,7 @@ export default class NormalNameItem extends Component {
     }
 
     render() {
-        const { data = {}} = this.props;
-        const { icon = null, name = "" } = data || {};
+        const { icon = null, name = "" } = this.props;
         return (
             <View style={styles.content}>
                 {icon == null ? <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />: <Image style={styles.headImage} source={{ uri: icon }} />}
@@ -48,6 +47,8 @@ const styles = StyleSheet.create({
         borderRadius: px(45)
     },
     inputItem: {
-        fontSize: px(36)
+        fontSize: px(36),
+        flex: 1,
+        textAlign: 'right'
     }
 })

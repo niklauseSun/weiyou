@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Image, LayoutAnimation, FlatList, SectionList, ScrollView } from 'react-native'
+import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Image, LayoutAnimation, FlatList, SectionList, ScrollView, DeviceEventEmitter } from 'react-native'
 import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, WeekItem, NormalItem, SpecialItem, SectionHeader, NoneData } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px, getCurrentDays } from '../utils'
@@ -27,6 +27,15 @@ class HomeScreen extends Component {
         this.loadWeekConfig();
         this.loadUnReadCount();
         this.addSign();
+
+        this.listener = DeviceEventEmitter.addListener('taskReload', (message) => {
+            //收到监听后想做的事情
+            this.loadTasks()
+        })
+    }
+
+    componentWillUnmount() {
+        this.listener = null;
     }
 
     render() {

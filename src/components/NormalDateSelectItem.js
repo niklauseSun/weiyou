@@ -9,44 +9,44 @@ export default class NormalDateSelectItem extends Component {
     this.state = {
       startTimeShow: false,
       endTimeShow: false,
-      startTime: null,
-      endTime: null,
     };
   }
 
   render() {
-    const {startTime = '', endTime = ''} = this.props;
+    const {startTime = null, endTime = null } = this.props;
     return (
       <View style={styles.content}>
         <View style={styles.startView}>
           <Text style={styles.title}>开始时间</Text>
           <TouchableOpacity onPress={this.showStartSelect.bind(this)} style={styles.selectButton}>
-            <Text style={styles.selectButtonText}>{this.state.startTime == null ? '今天': formateDateType(this.state.startTime)}</Text>
+            <Text style={styles.selectButtonText}>{startTime == null ? '今天': formateDateType(startTime)}</Text>
           </TouchableOpacity>
           {/* <Text style={styles.subTitle}>subTitle</Text> */}
         </View>
         <View style={styles.endView}>
           <Text style={styles.title}>结束时间</Text>
           <TouchableOpacity onPress={this.showEndSelect.bind(this)} style={styles.selectButton}>
-            <Text style={styles.selectButtonText}>{this.state.endTime == null ? '无限期目标': formateDateType(this.state.endTime)}</Text>
+            <Text style={styles.selectButtonText}>{endTime == null ? '无限期目标': formateDateType(endTime)}</Text>
           </TouchableOpacity>
         </View>
         <DatePicker
           minDate={new Date()}
-          value={ this.state.startTimeShow ? this.state.startTime: this.state.endTime}
+          value={ this.state.startTimeShow ? startTime: endTime}
           visible={this.state.startTimeShow || this.state.endTimeShow}
           mode='date'
           onOk={(e) => {
               if (this.state.startTimeShow) {
                 this.setState({
                     startTimeShow: false,
-                    startTime: e
                 })
+                const { changeTime } = this.props;
+                changeTime(e, this.props.endTime);
               } else {
                 this.setState({
                     endTimeShow: false,
-                    endTime: e
                 })
+                const { changeTime } = this.props;
+                changeTime(this.props.startTime, e);
               }
           }}
           onDismiss={() => {

@@ -12,14 +12,21 @@ export default class TaskItem extends Component {
     }
 
     render() {
-        const { imageUrl = null, name = "紧急任务" } = this.props;
+        const { imageUrl = null, title = "紧急任务", type="normal" } = this.props;
         return (
-            <TouchableOpacity activeOpacity={0.7} style={styles.content}>
+            <TouchableOpacity onPress={this.navigateList.bind(this)} activeOpacity={0.7} style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />
-                <Text style={styles.title}>{name}</Text>
+                <Text style={styles.title}>{title}</Text>
                 <Image style={styles.moreIcon} source={ASSET_IMAGES.ICON_MORE} />
             </TouchableOpacity>
         )
+    }
+
+    navigateList() {
+        const { type = "normal" } = this.props;
+        this.props.navigation.navigate('TaskList', {
+            type: type
+        });
     }
 }
 

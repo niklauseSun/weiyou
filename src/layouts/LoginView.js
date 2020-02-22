@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, Keyboard, DeviceEventEmitter } from 'react-native'
 import { Header, InputItem, LoginButton } from '../components'
 import { px } from '../utils';
 import { loginWithPasswordAction } from '../requests';
@@ -8,7 +8,8 @@ export default class LoginView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            phone: null,
+            password: null
         }
     }
 
@@ -21,14 +22,14 @@ export default class LoginView extends Component {
                 }} activeOpacity={1} style={styles.content}>
                     <Text style={styles.loginAccountText}>账号密码登录</Text>
                     <Text style={styles.loginText}>请您输入您的注册手机号码和登录密码</Text>
-                    <InputItem placeholder={"请输入手机号码"} />
-                    <InputItem placeholder={"请输入密码"} />
+                    <InputItem value={this.state.phone} changeText={this.changePhone.bind(this)} placeholder={"请输入手机号码"} />
+                    <InputItem value={this.state.password} changeText={this.changePassword.bind(this)} placeholder={"请输入密码"} />
                     <LoginButton buttonAction={this.loginAction.bind(this)} title="登录" />
-                    <View style={styles.forgetView}>
+                    {/* <View style={styles.forgetView}>
                         <TouchableOpacity style={styles.forgetButton} onPress={this.forgetPasswordAction.bind(this)}>
                             <Text style={styles.forgetText}>忘记密码？</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -49,10 +50,22 @@ export default class LoginView extends Component {
         this.props.navigation.navigate('ForgetPassword');
     }
 
+    changePhone(text) {
+        this.setState({
+            phone: text
+        })
+    }
+
+    changePassword(text) {
+        this.setState({
+            password: text
+        })
+    }
+
     loginAction() {
         const params = {
-            username: 'admin',
-            passwd: '123456',
+            username: this.state.phone || 'admin',
+            passwd: this.state.password || '123456',
             callback: this.loginActionCallback.bind(this)
         }
         loginWithPasswordAction(params);
@@ -63,6 +76,7 @@ export default class LoginView extends Component {
         if (res.success) {
             global.isLogin = true
             this.props.navigation.goBack();
+            DeviceEventEmitter.emit('reloadLogin');
         }
     }
 }

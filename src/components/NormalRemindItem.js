@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { ASSET_IMAGES } from '../config';
-import { px, formatHour } from '../utils';
+import { px, formatHourWithString, formatHour } from '../utils';
 
 import { DatePicker } from '@ant-design/react-native';
 
@@ -22,21 +22,26 @@ export default class NormalRemindItem extends Component {
 
   render() {
     const { isShow } = this.state;
+    const { clockTime } = this.props;
     return (
       <View style={styles.content}>
         <Image style={styles.headImage} source={ASSET_IMAGES.ICON_SPECIAL_TIME}  />
         <Text style={styles.title}>提醒</Text>
         <TouchableOpacity onPress={this.showDatePicker.bind(this)} style={styles.remindButton}>
-            <Text style={styles.remindText}>{this.state.selectTime == null ? '+': formatHour(this.state.selectTime)}</Text>
+            <Text style={styles.remindText}>{clockTime == null ? '+': formatHourWithString(clockTime)}</Text>
         </TouchableOpacity>
         <DatePicker
           visible={isShow}
-          value={this.state.selectTime}
+          value={clockTime}
           onOk={(e) => {
             this.setState({
               isShow: false,
-              selectTime: e
             })
+            const { changeTime = null } = this.props;
+            if (changeTime) {
+              console.log('remind', formatHour(e));
+              changeTime(e);
+            }
           }}
           onDismiss={(e) => {
             this.setState({

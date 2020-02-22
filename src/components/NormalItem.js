@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { px } from '../utils'
 import { ASSET_IMAGES } from '../config';
 import { Toast } from '@ant-design/react-native'
+import { reportCustomerClock } from '../requests';
 
 export default class NormalItem extends Component {
     constructor(props) {
@@ -41,6 +42,8 @@ export default class NormalItem extends Component {
                 return <Image style={styles.signIcon} source={ASSET_IMAGES.ICON_SIGN_ITEM_SELECT} />
             case 'fail':
                 return null
+            case 'notYet':
+                return null
             default:
                 return <Image style={styles.signIcon} source={ASSET_IMAGES.ICON_SIGN_ITEM_UNSELECT} />
         }
@@ -78,7 +81,9 @@ export default class NormalItem extends Component {
     }
 
     action() {
-        const { status } = this.props.data || {};
+        console.log('action', this.props.data);
+        const { data = {} } = this.props;
+        const { status } = data
         if (status == 'fail') {
             Toast.info('已过期');
         }
@@ -88,7 +93,28 @@ export default class NormalItem extends Component {
         }
 
         if (status == 'start') {
-            
+            let reportData = {
+                id: null,
+                clock_id: data.id,
+                status: 'success',
+                position: '上海市',
+                city: '310114',
+                longitude: '121.48',
+                latitude: '31.22'
+            };
+            const requestData = {
+                params:reportData,
+                callback: this.reportDataCallback.bind(this)
+            }
+            reportCustomerClock(requestData);
+        }
+    }
+
+    reportDataCallback(res) {
+        console.log('red', res);
+        const { success } = res;
+        if (success) {
+            DeviceEventEmitter.emit('taskReload');
         }
     }
 }

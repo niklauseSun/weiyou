@@ -2,21 +2,23 @@ import React, { Component, Fragment } from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import { ASSET_IMAGES } from '../config'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { px } from '../utils'
+import { px, formatHourWithString } from '../utils'
 
 export default class MessageItem extends Component {
     render() {
+        const { data } = this.props;
+        const { content, create_time, nickname } = data;
         return (
             <View style={styles.messageItem}>
                 <View style={styles.timeLine}>
                     <View style={styles.timeView}>
-                        <Text style={styles.timeLabel}>08-31 09:30</Text>
+                        <Text style={styles.timeLabel}>{formatHourWithString(create_time)}</Text>
                     </View>
                 </View>
                 <View style={styles.content}>
                     <View style={styles.contentView}>
-                        <Text style={styles.contentTitle}>好友“妞妞鸡汁豆”的消息</Text>
-                        <Text style={styles.contentLabel}>我现在下班了，你还在上班吗？</Text>
+                        <Text style={styles.contentTitle}>好友{nickname}的消息</Text>
+                        <Text style={styles.contentLabel}>{content}</Text>
                     </View>
                     <TouchableOpacity style={styles.detail}>
                         <Text style={styles.detailTitle}>详情</Text>
@@ -25,6 +27,11 @@ export default class MessageItem extends Component {
                 </View>
             </View>
         )
+    }
+
+    navigateMessageDetail() {
+        // const { id } = this.props.data || {};
+
     }
 }
 

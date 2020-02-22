@@ -16,7 +16,8 @@ export default class InputItem extends Component {
         } = this.state;
         const {
             placeholder,
-            value
+            value,
+            keyboardType = null
         } = this.props;
         return (
             <View style={styles.content}>
@@ -24,7 +25,8 @@ export default class InputItem extends Component {
                     style={[styles.textInput,onFocus ? styles.focusStyle : styles.unFocusStyle]}
                     placeholder={placeholder}
                     value={value}
-                    placeholderTextColor={"#B9B9B9"}
+                    keyboardType={keyboardType}
+                    // placeholderTextColor={"#B9B9B9"}
                     onChangeText={this.onChangeText.bind(this)}
                     onFocus={(e) => {
                         this.setState({

@@ -11,6 +11,8 @@ import Task from './Task'
 import AddContract from './AddContract'
 import AddSpecial from './AddSpecial'
 import AddHabitDetail from './AddHabitDetail'
+import AddQuestion from './AddQuestion'
+import TaskList from './TaskList'
 
 export {
     Home,
@@ -25,5 +27,7 @@ export {
     Task,
     AddContract,
     AddSpecial,
-    AddHabitDetail
+    AddHabitDetail,
+    AddQuestion,
+    TaskList
 }

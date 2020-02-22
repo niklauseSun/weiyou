@@ -1,13 +1,20 @@
-import px from './px'
-import getCurrentDays from './GetCurrentDay'
+import px from './px';
+import getCurrentDays from './GetCurrentDay';
 
-import { formatDate, formatHour, formatHourWithString, formateDateType } from './FormatDate'
+import {
+  formatDate,
+  formatHour,
+  formatHourWithString,
+  formateDateType,
+  formateDateWithString,
+} from './FormatDate';
 
 export {
-    px,
-    getCurrentDays,
-    formatHour,
-    formatDate,
-    formatHourWithString,
-    formateDateType
-}
+  px,
+  getCurrentDays,
+  formatHour,
+  formatDate,
+  formatHourWithString,
+  formateDateType,
+  formateDateWithString,
+};

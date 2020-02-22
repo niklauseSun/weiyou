@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { InputItem, InputButtonItem, Header, AgreeProtocolItem, LoginButton } from '../components';
 import { px } from '../utils';
-import { unReadCount } from '../requests';
+import { unReadCount, loginWithCode } from '../requests';
+import { Toast } from '@ant-design/react-native';
 
 export default class ShortLoginView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAgreeSelect: false
+            isAgreeSelect: false,
+            phone: null,
+            smsCode: null,
+            position: '上海市',
+            longitude: 121.48,
+            latitude: 31.23,
+            city: 310114
         }
     }
 
@@ -18,10 +25,10 @@ export default class ShortLoginView extends Component {
                 <Header navigation={this.props.navigation} title="" rightComponent={this.rightComponent()} />
                 <Text style={styles.loginAccountText}>手机快捷登录</Text>
                 <Text style={styles.loginText}>新用户登录将自动注册</Text>
-                <InputItem placeholder="请输入手机号" />
-                <InputButtonItem placeholder="请输入验证码" />
+                <InputItem keyboardType="number-pad" changeText={this.changePhone.bind(this)} value={this.state.phone} placeholder="请输入手机号" />
+                <InputButtonItem changeText={this.changeSmsCode.bind(this)} value={this.state.smsCode} placeholder="请输入验证码" />
                 <AgreeProtocolItem isSelect={this.state.isAgreeSelect} statusChange={this.selectChange.bind(this)} />
-                <LoginButton buttonAction={this.getUnReadCount.bind(this)} title="登录"/>
+                <LoginButton buttonAction={this.loginAction.bind(this)} title="登录"/>
             </SafeAreaView>
         )
     }
@@ -42,11 +49,56 @@ export default class ShortLoginView extends Component {
         })
     }
 
-    getUnReadCount() {
-        console.log('getUnReadCount');
-        unReadCount({
-            id: '100'
+    changePhone(phone) {
+        this.setState({
+            phone: phone
         })
+    }
+
+    changeSmsCode(code) {
+        this.setState({
+            smsCode: code
+        })
+    }
+
+    loginAction() {
+        if (this.state.phone == null) {
+            Toast.info('请输入手机号');
+            return;
+        }
+        if (this.state.smsCode == null) {
+            Toast.info('请输入雅正吗');
+            return;
+        }
+        if (!this.state.isAgreeSelect) {
+            Toast.info('请点击确认登录协议');
+            return;
+        }
+
+        const data = {
+            phone: this.state.phone,
+            smsCode: this.state.smsCode,
+            position: this.state.position,
+            longitude: this.state.longitude,
+            latitude: this.state.latitude,
+            city: this.state.city,
+            callback: this.shortLoginCallback.bind(this)
+        }
+        // loginWithCode
+        loginWithCode(data);
+    }
+
+    shortLoginCallback(res) {
+        console.log('res', res);
+        const { success, error } = res;
+        if (success) {
+            Toast.info('登录成功');
+            this.props.navigation.popToTop();
+            DeviceEventEmitter.emit('reloadLogin');
+        } else {
+            Toast.info(error);
+        }
+
     }
 }
 

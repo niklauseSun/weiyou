@@ -14,7 +14,9 @@ import {
     Header,
     SpecialSelectItem,
     SpecialRepeatItem,
-    NormalContractItem
+    NormalContractItem,
+    SpecialLocationItem,
+    SpecialQuestionItem
 } from '../components';
 import { ASSET_IMAGES } from '../config';
 import { px } from '../utils';
@@ -23,9 +25,11 @@ import SpecialContractItem from '../components/SpecialContractItem';
 export default class AddSpecial extends Component {
     constructor(props) {
         super(props);
-        const nowDate = this.formatDate(new Date())
         this.state = {
-            selectDate: nowDate
+            selectDate: new Date(),
+            name: null,
+            cnt: 5,
+            repeat: 3
         }
     }
 
@@ -44,12 +48,12 @@ export default class AddSpecial extends Component {
                         <View style={styles.nameView}>
                             <Image style={styles.nameHeadImage} source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} />
                             <Text style={styles.nameLabel}>特殊</Text>
-                            <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" />
+                            <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" value={this.state.value} onChangeText={this.changeName.bind(this)} />
                         </View>
-                        <SpecialSelectItem showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} />
-                        <SpecialSelectItem imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.state.selectDate} />
-                        <SpecialSelectItem imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} title="我的小学老师是谁？" />
-                        <SpecialRepeatItem />
+                        <SpecialLocationItem showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} />
+                        <SpecialSelectItem onChangeTime={this.onChangeTime.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.formatDate(this.state.selectDate)} />
+                        <SpecialQuestionItem onChangeQuestion={this.onChangeQuestion.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} title="我的小学老师是谁？" />
+                        <SpecialRepeatItem cnt={this.state.cnt} repeat={this.state.repeat} changeCnt={this.onChangeCnt.bind(this)} changeRepeat={this.onChangeRepeat.bind(this)} />
                         <SpecialContractItem />
                         <TouchableOpacity style={styles.addButton}>
                             <Text style={styles.addButtonText}>添加</Text>
@@ -71,7 +75,35 @@ export default class AddSpecial extends Component {
         minute = minute < 10 ? ('0' + minute) : minute;
         let second= date.getSeconds();
         second = minute < 10 ? ('0' + second) : second;
-        return y + '.' + m + '.' + d+' '+h+':'+minute+':'+ second;
+        return y + '.' + m + '.' + d+' '+h+':'+minute;
+    }
+
+    changeName(text) {
+        this.setState({
+            name: text
+        })
+    }
+
+    onChangeCnt(cnt) {
+        this.setState({
+            cnt: cnt
+        })
+    }
+
+    onChangeRepeat(repeat) {
+        this.setState({
+            repeat: repeat
+        })
+    }
+
+    onChangeTime(e) {
+        this.setState({
+            selectDate: e
+        })
+    }
+
+    onChangeQuestion() {
+        this.props.navigation.navigate('AddQuestion');
     }
 };
 
@@ -106,7 +138,9 @@ const styles = StyleSheet.create({
     },
     nameInput: {
         marginLeft: px(10),
-        height: '100%'
+        height: '100%',
+        flex: 1,
+        textAlign: 'right'
     },
     addButton: {
         height: px(120),

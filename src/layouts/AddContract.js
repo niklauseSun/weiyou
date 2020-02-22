@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView } from 'react-native'
-import { Header, SearchItem } from '../components';
+import { Header, SearchItem, PredictContract } from '../components';
 
 export default class AddContract extends Component {
     constructor(props) {
@@ -14,7 +14,8 @@ export default class AddContract extends Component {
         return (
             <SafeAreaView style={styles.content}>
                 <Header navigation={this.props.navigation} title="添加" />
-                <SearchItem placeholder="输入关键字" />
+                {/* <SearchItem placeholder="输入关键字" /> */}
+                <PredictContract />
             </SafeAreaView>
         )
     }

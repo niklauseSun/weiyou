@@ -4,6 +4,7 @@ import { HeaderItem, SearchItem, ContractItem, LineItem } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
+import { getContractList } from '../requests';
 
 class MessageScreen extends Component {
 
@@ -13,11 +14,16 @@ class MessageScreen extends Component {
             contractList: []
         }
     }
+
+    componentDidMount() {
+        this.loadContractList();
+    }
+
     render() {
         return (
             <SafeAreaView style={commonStyles.content}>
                 <HeaderItem leftAction={this.navigateAddContract.bind(this)} title="联系人" />
-                <SearchItem />
+                {/* <SearchItem /> */}
                 {this.state.contractList.length == 0 ? 
                 <View style={styles.noneContent}>
                    <Image source={ASSET_IMAGES.IMAGE_NONE_CONTRACT} />
@@ -36,6 +42,21 @@ class MessageScreen extends Component {
 
     navigateAddContract() {
         this.props.navigation.navigate('AddContract')
+    }
+
+    // request
+    loadContractList() {
+        // getContractList
+        const data = {
+            pageNum: 0,
+            pageSize: 10,
+            callback: this.loadContractListCallback.bind(this)
+        }
+        getContractList(data);
+    }
+
+    loadContractListCallback(res) {
+        console.log('res', res);
     }
 }
 

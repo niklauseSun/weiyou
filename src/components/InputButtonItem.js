@@ -24,6 +24,7 @@ export default class InputButtonItem extends Component {
                     style={[styles.textInput, onFocus ? styles.focusStyle : styles.unFocusStyle]}
                     placeholder={placeholder}
                     value={value}
+                    keyboardType="number-pad"
                     placeholderTextColor={"#B9B9B9"}
                     onChangeText={this.onChangeText.bind(this)}
                     onFocus={(e) => {
@@ -53,6 +54,10 @@ export default class InputButtonItem extends Component {
         if (changeText == null) return;
         changeText(text);
     }
+
+    sendAction() {
+        
+    }
 }
 
 
@@ -70,7 +75,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ED7539'
     },
     textInput: {
-        height: px(90)
+        height: px(90),
+        color: '#000'
     },
     sendButton: {
         position: "absolute",

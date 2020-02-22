@@ -17,7 +17,7 @@ export default class ForgetPassword extends Component {
                 <Header title="" navigation={this.props.navigation} />
                 <Text style={styles.loginAccountText}>忘记密码</Text>
                 <Text style={styles.loginText}>请输入您注册的手机号</Text>
-                <InputItem placeholder="请输入手机号码" />
+                <InputItem keyboardType="number-pad" placeholder="请输入手机号码" />
                 <LoginButton title="忘记密码" />
             </SafeAreaView>
         )

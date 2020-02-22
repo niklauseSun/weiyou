@@ -20,6 +20,11 @@ import ContractItem from './ContractItem'
 import LineItem from './LineItem'
 import SpecialSelectItem from './SpecialSelectItem'
 import SpecialRepeatItem from './SpecialRepeatItem'
+import SpecialLocationItem from './SpecialLocationItem'
+import SpecialQuestionItem from './SpecialQuestionItem'
+import QuestionItem from './QuestionItem'
+import SpecialDeleteItem from './SpecialDeleteItem'
+
 import AddNormalHeader from './AddNormalHeader'
 import AddNormalItem from './AddNormalItem'
 import TabHeader from './TabHeader'
@@ -32,6 +37,8 @@ import TaskItem from './TaskItem'
 import NoneData from './NoneData'
 import SelectModal from './SelectModal'
 import NormalRemindTextItem from './NormalRemindTextItem'
+import NormalDeleteItem from './NormalDeleteItem'
+import PredictContract from './PredictContract'
 
 export {
     Header,
@@ -67,5 +74,11 @@ export {
     TaskItem,
     NoneData,
     SelectModal,
-    NormalRemindTextItem
+    NormalRemindTextItem,
+    SpecialLocationItem,
+    SpecialQuestionItem,
+    QuestionItem,
+    SpecialDeleteItem,
+    NormalDeleteItem,
+    PredictContract
 }

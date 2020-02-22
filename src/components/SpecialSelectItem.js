@@ -9,28 +9,46 @@ import {
 } from 'react-native'
 import { ASSET_IMAGES } from '../config';
 import { px } from '../utils'
+import { DatePicker } from '@ant-design/react-native';
 
 export default class SpecialSelectItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            isShow: false
         }
     }
 
     render() {
-        const { type = 'text', imageUrl = null, title = 'test', placeholder = 'testHolder', showMoreButton = true } = this.props;
+        const { imageUrl = null, title = 'test' } = this.props;
         return (
             <View style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />
-                <View style={styles.middleView}>
-                    {type == 'input' ? <TextInput placeholderTextColor="#C9C7C7" style={styles.inputItem} placeholder={placeholder} /> : <Text>{title}</Text>}
-                </View>
-                {showMoreButton? <TouchableOpacity style={styles.moreButton}>
+                <TouchableOpacity onPress={this.showTimePick.bind(this)} style={styles.moreButton}>
+                    <Text style={styles.title}>{title}</Text>
                     <Image source={ASSET_IMAGES.ICON_MORE} />
-                </TouchableOpacity>: null }
+                </TouchableOpacity>
+                <DatePicker
+                    minDate={new Date()}
+                    visible={this.state.isShow}
+                    onOk={(e) => {
+                        const { onChangeTime = null } = this.props;
+                        if (onChangeTime) {
+                            onChangeTime(e);
+                        }
+                        this.showTimePick();
+                    }}
+                    onDismiss={() => {
+                        this.showTimePick();
+                    }}
+                />
             </View>
         )
+    }
+    showTimePick() {
+        this.setState({
+            isShow: !this.state.isShow
+        })
     }
 }
 
@@ -57,10 +75,14 @@ const styles = StyleSheet.create({
         flex: 1,
         height: '100%'
     },
+    title: {
+        fontSize: px(28),
+        marginRight: px(10),
+    },
     moreButton: {
-        width: px(90),
-        height: px(90),
-        alignItems: 'flex-end',
-        justifyContent: 'center'
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     }
 })

@@ -32,7 +32,7 @@ const loginWithCode = ({ callback = null, phone, smsCode, position, longitude, l
         latitude,
         city
     }
-    postAction('/api/customer/getLoginCode', callback, params);
+    postAction('/api/customer/loginBySms', callback, params);
 }
 
 // 通过手机验证码修改密码
@@ -372,6 +372,22 @@ const editEmergencyItem = ({ callback, params }) => {
 const getPersonScoreList = ({ callback = null, pageNum, pageSize = 10, orderByColumn = '', isAsc = true, where = '' }) => {
     getAction(`/api/customer/score/list?pageNum=${pageNum}&pageSize=${pageSize}&orderByColumn=${orderByColumn}&isAsc=${isAsc}&where=${where}`, callback);
 }
+const getPersonQuestionList = ({ callback = null, pageNum, pageSize = 10, orderByColumn = '', isAsc = true, where = '' }) => {
+    getAction(`/api/customer/secret/list?pageNum=${pageNum}&pageSize=${pageSize}&orderByColumn=${orderByColumn}&isAsc=${isAsc}&where=${where}`, callback);
+}
+
+const getPersonQuestionDetail = ({ callback = null, id }) => {
+    getAction(`/api/customer/secret/${id}`, callback);
+}
+
+const addPersonQuestion = ({ callback = null, params }) => {
+    postAction(`/api/customer/secret/`, callback, params);
+}
+
+const editPersonQuestion = ({ callback = null, params }) => {
+    putAction(`/api/customer/secret/`, callback, params);
+}
+
 
 postAction = (url, callback = null, params = null) => {
     console.log('postAction')
@@ -388,6 +404,8 @@ postAction = (url, callback = null, params = null) => {
     if (params != null) {
         opts['body'] = JSON.stringify(params);
     }
+
+    console.log('opts', opts);
 
     fetch(serverHome + url, opts).then((response) => {
         if (response.ok) {
@@ -540,6 +558,10 @@ export {
     getEmergencyDetail,
     addEmergencyItem,
     editEmergencyItem,
-    getPersonScoreList
+    getPersonScoreList,
+    getPersonQuestionList,
+    getPersonQuestionDetail,
+    addPersonQuestion,
+    editPersonQuestion
 }
 

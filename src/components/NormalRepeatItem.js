@@ -20,7 +20,9 @@ export default class NormalRepeatItem extends Component {
   }
 
   render() {
-    const showData = this.showItem();
+    const { repeats } = this.props;
+    let aString = this.switchToArray(repeats)
+    const showData = this.showItem(aString);
     return (
       <View style={styles.content}>
         {/* <View style={styles.headImage}></View> */}
@@ -48,26 +50,26 @@ export default class NormalRepeatItem extends Component {
                 </View>
 
                 <View style={styles.selectButtonViews}>
-                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 0)} style={this.state.selectIndexArray[0]? styles.selectedWeekButton: styles.selectWeekButton}>
-                        <Text style={this.state.selectIndexArray[0]?styles.selectedWeekButtonText: styles.selectWeekButtonText}>日</Text>
+                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 0, aString)} style={aString[0] == '1'? styles.selectedWeekButton: styles.selectWeekButton}>
+                        <Text style={aString[0] == '1'?styles.selectedWeekButtonText: styles.selectWeekButtonText}>一</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 1)} style={this.state.selectIndexArray[1]? styles.selectedWeekButton: styles.selectWeekButton}>
-                        <Text style={this.state.selectIndexArray[1]?styles.selectedWeekButtonText: styles.selectWeekButtonText}>一</Text>
+                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 1, aString)} style={aString[1] == '1'? styles.selectedWeekButton: styles.selectWeekButton}>
+                        <Text style={aString[1] == '1'?styles.selectedWeekButtonText: styles.selectWeekButtonText}>二</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 2)} style={this.state.selectIndexArray[2]? styles.selectedWeekButton: styles.selectWeekButton}>
-                        <Text style={this.state.selectIndexArray[2]?styles.selectedWeekButtonText: styles.selectWeekButtonText}>二</Text>
+                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 2, aString)} style={aString[2] == '1'? styles.selectedWeekButton: styles.selectWeekButton}>
+                        <Text style={aString[2] == '1'?styles.selectedWeekButtonText: styles.selectWeekButtonText}>三</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 3)} style={this.state.selectIndexArray[3]? styles.selectedWeekButton: styles.selectWeekButton}>
-                        <Text style={this.state.selectIndexArray[3]?styles.selectedWeekButtonText: styles.selectWeekButtonText}>三</Text>
+                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 3, aString)} style={aString[3] == '1'? styles.selectedWeekButton: styles.selectWeekButton}>
+                        <Text style={aString[3] == '1'?styles.selectedWeekButtonText: styles.selectWeekButtonText}>四</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 4)} style={this.state.selectIndexArray[4]? styles.selectedWeekButton: styles.selectWeekButton}>
-                        <Text style={this.state.selectIndexArray[4]?styles.selectedWeekButtonText: styles.selectWeekButtonText}>四</Text>
+                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 4, aString)} style={aString[4] == '1'? styles.selectedWeekButton: styles.selectWeekButton}>
+                        <Text style={aString[4] == '1'?styles.selectedWeekButtonText: styles.selectWeekButtonText}>五</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 5)} style={this.state.selectIndexArray[5]? styles.selectedWeekButton: styles.selectWeekButton}>
-                        <Text style={this.state.selectIndexArray[5]?styles.selectedWeekButtonText: styles.selectWeekButtonText}>五</Text>
+                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 5, aString)} style={aString[5] == '1'? styles.selectedWeekButton: styles.selectWeekButton}>
+                        <Text style={aString[5] == '1'?styles.selectedWeekButtonText: styles.selectWeekButtonText}>六</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 6)} style={this.state.selectIndexArray[6]? styles.selectedWeekButton: styles.selectWeekButton}>
-                        <Text style={this.state.selectIndexArray[6]?styles.selectedWeekButtonText: styles.selectWeekButtonText}>六</Text>
+                    <TouchableOpacity onPress={this.changeSelectIndex.bind(this, 6, aString)} style={aString[6] == '1'? styles.selectedWeekButton: styles.selectWeekButton}>
+                        <Text style={aString[6] == '1'?styles.selectedWeekButtonText: styles.selectWeekButtonText}>日</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -97,39 +99,60 @@ export default class NormalRepeatItem extends Component {
         })
     }
 
-    changeSelectIndex(index) {
-        let data = this.state.selectIndexArray;
-        data[index] = !data[index];
-        this.setState({
-            selectIndexArray: data
-        })
+    changeSelectIndex(index, aString) {
+      let array = (aString + '').split('');
+      let selectString = aString[index];
+      console.log('change', array, index, selectString);
+      if (selectString == '0') {
+        console.log('1110')
+        array[index] = '1'
+        console.log('111')
+      } else {
+        array[index] = '0'
+      }
+      let num = parseInt(array.join(''), 2);
+      const { changeRepeatsNum } = this.props;
+      if (changeRepeatsNum) {
+        changeRepeatsNum(num);
+      }
     }
 
-    showItem() {
+    switchToArray(repeats) {
+      let value = parseInt(repeats + '').toString(2);
+      let l = value.length;    //获取要格式化数字的长度，如二进制1的话长度为1
+      if(l < 8){     //补全位数 0000，这里我要显示4位
+          for(var i = 0; i < 8-l; i++) {
+              value = "0" + value;     //不够的就在前面补0
+          }
+      }
+      return value;
+    }
+
+    showItem(aString) {
         let data = []
-        for (let i = 0;i < this.state.selectIndexArray.length; i++) {
-            if (this.state.selectIndexArray[i]) {
+        for (let i = 0;i < aString.length; i++) {
+            if (aString[i] == '1') {
                 switch(i) {
                     case 0:
-                    data.push('周日');
+                    data.push('周一');
                     break;
                     case 1:
-                    data.push('周一')
+                    data.push('周二')
                     break;
                     case 2:
-                    data.push('周二');
+                    data.push('周三');
                     break;
                     case 3:
-                    data.push('周三')
+                    data.push('周四')
                     break;
                     case 4:
-                    data.push('周四');
+                    data.push('周五');
                     break;
                     case 5:
-                    data.push('周无')
+                    data.push('周六')
                     break;
                     case 6:
-                    data.push('周六')
+                    data.push('周日')
                     break;
                     default:
                         break;
@@ -173,8 +196,11 @@ const styles = StyleSheet.create({
   weekView: {
     borderRadius: px(6),
     backgroundColor: '#ED7539',
-    padding: px(10),
+    padding: px(6),
     marginRight: px(15),
+  },
+  weekText: {
+    fontSize: px(24),
   },
   showView: {
     // alignItems: 'center',

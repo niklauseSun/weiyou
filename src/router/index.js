@@ -15,7 +15,9 @@ import {
     AddContract,
     AddHabit,
     AddSpecial,
-    AddHabitDetail
+    AddHabitDetail,
+    AddQuestion,
+    TaskList
 }
 from '../layouts'
 import React, { Component } from "react";
@@ -47,6 +49,10 @@ const HomeStack = createStackNavigator({
     AddHabitDetail: {
         screen: AddHabitDetail,
         navigationOptions: defaultNavigationOptions
+    },
+    AddQuestion: {
+        screen: AddQuestion,
+        navigationOptions: defaultNavigationOptions
     }
 })
 
@@ -63,6 +69,10 @@ HomeStack.navigationOptions = ({ navigation }) => {
 const TaskStack = createStackNavigator({
     Task: {
         screen: Task,
+        navigationOptions: defaultNavigationOptions
+    },
+    TaskList: {
+        screen: TaskList,
         navigationOptions: defaultNavigationOptions
     }
 })

@@ -15,21 +15,22 @@ export default class NormalRemindTextItem extends Component {
     render() {
         const {
             title="开始提示音",
-            placeholder = '请输入开始提示音'
+            placeholder = '请输入开始提示音',
+            value = null
         } = this.props;
         return (
             <View style={styles.content}>
                 <Image style={styles.headImage} source={ASSET_IMAGES.ICON_SPECIAL_QUESTION} />
                 <Text style={styles.title}>{title}</Text>
-                <TextInput onChangeText={this.changeText.bind(this)} style={styles.textInput} placeholder={placeholder} />
+                <TextInput value={value} onChangeText={this.changeText.bind(this)} style={styles.textInput} placeholder={placeholder} />
             </View>
         )
     }
 
     changeText(text) {
-        const { onChangeText } = this.props;
+        const { onChangeText, type } = this.props;
         if (onChangeText) {
-            onChangeText(text);
+            onChangeText(type, text);
         }
     }
 }

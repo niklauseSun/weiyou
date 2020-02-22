@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { Header, MyDetailItem, AccountView } from '../components'
 import SetInfoItem from '../components/SetInfoItem'
 import { ASSET_IMAGES } from '../config';
-import { getLoginInfo } from '../requests';
+import { getLoginInfo, logoutAction } from '../requests';
+import { px } from '../utils';
+import { Toast } from '@ant-design/react-native';
 
 class SettingScreen extends Component {
     constructor(props) {
@@ -21,6 +23,14 @@ class SettingScreen extends Component {
 
     componentDidMount() {
         this.loadPersonalInfo();
+        this.listener = DeviceEventEmitter.addListener('reloadLogin', (message) => {
+            //收到监听后想做的事情
+            this.loadPersonalInfo()
+        })
+    }
+
+    componentWillUnmount() {
+        this.listener = null
     }
 
     render() {
@@ -36,8 +46,11 @@ class SettingScreen extends Component {
                 <AccountView score={this.state.score} />
                 <SetInfoItem imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} />
                 <SetInfoItem imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
-                <SetInfoItem imageUrl={ASSET_IMAGES.ICON_EVALUATION} title={"评价鼓励"} />
-                <SetInfoItem imageUrl={ASSET_IMAGES.ICON_RECOMMEND} title={"推荐给好友"} />
+                {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_EVALUATION} title={"评价鼓励"} /> */}
+                {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_RECOMMEND} title={"推荐给好友"} /> */}
+                {this.state.isLogin ? <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logoutButton}>
+                    <Text style={styles.logoutButtonText}>退出登录</Text>
+                </TouchableOpacity>: null }
             </SafeAreaView>
         );
     }
@@ -45,6 +58,23 @@ class SettingScreen extends Component {
     // action
     loginAction() {
         this.props.navigation.navigate('LoginView')
+    }
+
+    logout() {
+        // logoutAction
+        logoutAction({ callback: this.logoutCallback.bind(this)});
+    }
+
+    logoutCallback(res) {
+        console.log('res', res);
+        const { success } = res;
+        if (success) {
+            Toast.info('已退出')
+            this.setState({
+                isLogin: false,
+                score: 0
+            })
+        }
     }
 
     loadPersonalInfo() {
@@ -77,5 +107,18 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    logoutButton: {
+        height: px(120),
+        marginHorizontal: px(50),
+        backgroundColor: '#ED7539',
+        borderRadius: px(20),
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: px(60)
+    },
+    logoutButtonText: {
+        fontSize: px(34),
+        color: '#fff'
     }
 })

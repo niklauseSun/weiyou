@@ -51,6 +51,7 @@ export default class AddQuestion extends Component {
                 <QuestionItem
                   showEditView={this.showEditView.bind(this)}
                   data={item}
+                  navigation={this.props.navigation}
                   key={index + ''}
                 />
               );

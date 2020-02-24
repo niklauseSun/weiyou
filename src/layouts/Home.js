@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
-import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Image, LayoutAnimation, FlatList, SectionList, ScrollView, DeviceEventEmitter } from 'react-native'
-import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, WeekItem, NormalItem, SpecialItem, SectionHeader, NoneData } from '../components'
+import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Image, LayoutAnimation, FlatList, SectionList, ScrollView, DeviceEventEmitter, NativeModules } from 'react-native'
+import { Header, SignItem, AddItem, WarnHeader, SignSuccessModal, MessageItem, WeekItem, NormalItem, SpecialItem, SectionHeader, NoneData, BeginModal } from '../components'
 import { commonStyles } from '../commonStyles'
-import { px, getCurrentDays } from '../utils'
+import { px, getCurrentDays, formatDateToString } from '../utils'
 import { ASSET_IMAGES } from '../config'
 import { getPersonalClockByDay, getSpecialClockByDay, unReadCount, signAction } from '../requests'
 import { Toast } from '@ant-design/react-native'
@@ -19,7 +19,8 @@ class HomeScreen extends Component {
             normalList: [],
             specialList: [],
             messageCnt: 0,
-            showSignSuccess: false
+            showSignSuccess: false,
+            isShow: true
         }
     }
 
@@ -32,10 +33,18 @@ class HomeScreen extends Component {
             //收到监听后想做的事情
             this.loadTasks()
         })
+
+        this.timer = setTimeout(() => {
+            console.log('ddd');
+            this.setState({
+                isShow: false,
+            });
+        }, 3000);
     }
 
     componentWillUnmount() {
         this.listener = null;
+        this.timer = null;
     }
 
     render() {
@@ -63,6 +72,7 @@ class HomeScreen extends Component {
                     }
                 />
                 <SignSuccessModal dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  />
+                <BeginModal isShow={this.state.isShow} />
             </SafeAreaView>
         );
     }
@@ -114,6 +124,10 @@ class HomeScreen extends Component {
 
     navigateToNormal() {
         this.props.navigation.navigate('AddHabitDetail');
+        // let date = new Date('2020-02-23T09:50:36.669Z');
+        // let timeString = formatDateToString(date);
+        // var alarmManager = NativeModules.AlarmManager;
+        // alarmManager.addNormalAlarm('normal'+ 7, '测试', timeString, ['周日']);
     }
 
     navigateToSpecial() {

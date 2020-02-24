@@ -13,6 +13,7 @@ import AddSpecial from './AddSpecial'
 import AddHabitDetail from './AddHabitDetail'
 import AddQuestion from './AddQuestion'
 import TaskList from './TaskList'
+import EditPassword from './EditPassword'
 
 export {
     Home,
@@ -29,5 +30,6 @@ export {
     AddSpecial,
     AddHabitDetail,
     AddQuestion,
-    TaskList
+    TaskList,
+    EditPassword
 }

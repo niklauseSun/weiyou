@@ -32,7 +32,7 @@ export default class NormalRemindItem extends Component {
         </TouchableOpacity>
         <DatePicker
           visible={isShow}
-          value={clockTime}
+          value={clockTime == null? new Date(): clockTime}
           onOk={(e) => {
             this.setState({
               isShow: false,

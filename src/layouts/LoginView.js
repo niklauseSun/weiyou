@@ -25,11 +25,11 @@ export default class LoginView extends Component {
                     <InputItem value={this.state.phone} changeText={this.changePhone.bind(this)} placeholder={"请输入手机号码"} />
                     <InputItem value={this.state.password} changeText={this.changePassword.bind(this)} placeholder={"请输入密码"} />
                     <LoginButton buttonAction={this.loginAction.bind(this)} title="登录" />
-                    {/* <View style={styles.forgetView}>
+                    <View style={styles.forgetView}>
                         <TouchableOpacity style={styles.forgetButton} onPress={this.forgetPasswordAction.bind(this)}>
                             <Text style={styles.forgetText}>忘记密码？</Text>
                         </TouchableOpacity>
-                    </View> */}
+                    </View>
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -47,7 +47,7 @@ export default class LoginView extends Component {
     }
 
     forgetPasswordAction() {
-        this.props.navigation.navigate('ForgetPassword');
+        this.props.navigation.navigate('EditPassword');
     }
 
     changePhone(text) {

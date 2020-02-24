@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { px } from '../utils';
 
 export default class QuestionItem extends Component {
@@ -18,6 +18,9 @@ export default class QuestionItem extends Component {
                 <View style={styles.questionView}>
                     <Text style={styles.questionTitle}>问题</Text>
                     <Text style={styles.title}>{question}</Text>
+                    <TouchableOpacity onPress={this.selectAction.bind(this)} style={styles.editButton}>
+                        <Text style={styles.selectText}>选择</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.answerView}>
                     <View style={styles.answerTitleView}>
@@ -49,6 +52,12 @@ export default class QuestionItem extends Component {
             showEditView(this.props.data);
         }
     }
+
+    selectAction() {
+        const { data } = this.props;
+        DeviceEventEmitter.emit('changeQuestion', data);
+        this.props.navigation.goBack();
+    }
 }
 
 // #ED7539
@@ -70,7 +79,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: px(30),
-        marginLeft: px(30)
+        marginLeft: px(30),
+        flex: 1
     },
     answerView: {
         flexDirection: 'row',
@@ -118,6 +128,10 @@ const styles = StyleSheet.create({
     },
     editText: {
         fontSize: px(30),
+        color: '#ED7539'
+    },
+    selectText: {
+        fontSize: px(28),
         color: '#ED7539'
     }
 })

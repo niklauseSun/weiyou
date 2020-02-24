@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, FlatList } from 'react-native'
-import { Header, NormalDeleteItem, NoneData, SpecialDeleteItem } from '../components'
+import { Header, NormalDeleteItem, NoneData, SpecialDeleteItem, EndComponent } from '../components'
 import { getPersonalClockList, getSpecialClockList } from '../requests';
 
 export default class TaskList extends Component {
@@ -37,6 +37,7 @@ export default class TaskList extends Component {
                     renderItem={({item}) => {
                         return <NormalDeleteItem reloadTask={this.loadNormalTaskList.bind(this)} data={item} />
                     }}
+                    ListFooterComponent={() => <EndComponent />}
                     ListEmptyComponent={() => <NoneData />}
                 />
             )
@@ -49,6 +50,7 @@ export default class TaskList extends Component {
                     return <SpecialDeleteItem reloadTask={this.loadSpecialTaskList.bind(this)} data={item} />
                 }}
                 ListEmptyComponent={() => <NoneData />}
+                ListFooterComponent={() => <EndComponent />}
             />
         )
     }

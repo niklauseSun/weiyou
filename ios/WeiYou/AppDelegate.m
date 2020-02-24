@@ -17,8 +17,9 @@
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
 #endif
+#import "UNNotificationsManager.h"
 
-@interface AppDelegate()<JPUSHRegisterDelegate>
+@interface AppDelegate()<JPUSHRegisterDelegate, UNUserNotificationCenterDelegate>
 
 @end
 
@@ -52,6 +53,7 @@
                          channel:@"appstore"
                 apsForProduction:false
            advertisingIdentifier:@""];
+  [UNNotificationsManager registerLocalNotification];
 
   
   return YES;

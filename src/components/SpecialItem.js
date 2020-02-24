@@ -1,14 +1,24 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import React, { Component, Fragment } from 'react'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Modal } from 'react-native'
 import { px } from '../utils'
 import { ASSET_IMAGES } from '../config';
+import { getPersonQuestionDetail, postSpecialClockStatus } from '../requests';
+import { Toast } from '@ant-design/react-native';
 
 export default class SpecialItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            isShow:false,
+            selectIndex: 0,
+            correct: 0,
+            answer: [],
+            question: null
         }
+    }
+
+    componentDidMount() {
+        this.loadAnswerById();
     }
 
     render() {
@@ -17,7 +27,7 @@ export default class SpecialItem extends Component {
         const { icon, interval_min, start_time, error_cnt, name, status } = data
         const startTime = this.parseDate(start_time)
         return (
-            <View style={styles.content}>
+            <TouchableOpacity activeOpacity={0.8} onPress={this.specialItemAction.bind(this)} style={styles.content}>
                 <View style={styles.head}>
                     <Image style={styles.headImage} defaultSource={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} source={{ uri: icon }} />
                 </View>
@@ -33,16 +43,146 @@ export default class SpecialItem extends Component {
                         <Text style={styles.tipTimeLabel}>每{interval_min}分钟提醒</Text>
                         <Text style={styles.startTimeLabel}>开始时间{startTime}</Text>
                     </View>
-
                 </View>
-            </View>
+                <Modal
+                    visible={this.state.isShow}
+                    transparent={true}
+                >
+                    <TouchableOpacity onPress={this.showModal.bind(this)} activeOpacity={1} style={styles.showView}>
+                        <View style={styles.modalContent}>
+                            <Text style={styles.title}>选择答案</Text>
+                            {
+                                this.state.correct.length == 0 ? null:
+                                    <Fragment>
+                                    <Text style={styles.question}>{this.state.question}</Text>
+                                    <View style={styles.answerView}>
+                                        <TouchableOpacity onPress={this.changeSelect.bind(this, 0)} style={styles.selectButtonOne}>
+                                            <Text style={0 == this.state.selectIndex ? styles.selectText: styles.selectButtonTextNormal}>{this.state.answer[0]}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={this.changeSelect.bind(this, 1)} style={styles.selectButtonTwo}>
+                                            <Text style={1 == this.state.selectIndex ? styles.selectText: styles.selectButtonTextNormal}>{this.state.answer[1]}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={styles.confirmView}>
+                                        <TouchableOpacity onPress={this.showModal.bind(this)} style={styles.cancelButton}>
+                                            <Text>取消</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={this.report.bind(this)} style={styles.confirmButton}>
+                                            <Text>确认</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </Fragment>
+                            }
+                        </View>
+                    </TouchableOpacity>
+                </Modal>
+            </TouchableOpacity>
         )
+    }
+
+    specialItemAction() {
+        const { status } = this.props.data;
+        if (status == 'fail') {
+            Toast.info('已过期')
+            return;
+        }
+        this.showModal()
+    }
+
+    loadAnswerById() {
+        // getPersonQuestionDetail
+        const { question_id } = this.props.data;
+        getPersonQuestionDetail({
+            id: question_id,
+            callback: this.loadAnswerCallback.bind(this)
+        })
+    }
+
+    changeSelect(index) {
+        this.setState({
+            selectIndex: index
+        })
+    }
+
+    loadAnswerCallback(res) {
+        console.log('res', res)
+        const { success, data } = res;
+        if (success) {
+            const { answer, correct, question } = data;
+            this.setState({
+                answer: answer,
+                correct: correct,
+                question: question
+            })
+        }
+    }
+
+    showModal() {
+        this.setState({
+            isShow: !this.state.isShow
+        })
     }
 
     parseDate(dateString) {
         const t = Date.parse(dateString);
         const date = new Date(t);
         return date.getFullYear() + '-' + date.getHours() + '-' + date.getMinutes();
+    }
+
+//     id  			任务id
+// icon		图标	
+// name	任务名称
+// start_time	开始日期
+// interval_min	间隔时间（分钟）
+// error_cnt	错误次数
+// position	地理位置（汉化）
+// question_id	问题ID
+// longitude	经度
+// latitude	纬度
+// city		城市编码
+// status		状态（"created", "runing", "finish", "fail"）已创建 提醒中 已结束 已失败
+// status	状态("runing","success", "fail", "delay", "notYet") 已开始 成功 失败 延迟  未到打卡时间(获取某天的任务时才有此字段)
+// contacts		设置时为联系人结构体ID数组；获取时为联系人结构体数组
+// question	问题详情(获取任务详情时)
+// deleted
+    report() {
+        const { data } = this.props;
+
+        const params = {
+            id: data.id,
+            icon: data.icon,
+            name: data.name,
+            start_time: data.start_time,
+            interval_min: data.interval_min,
+            error_cnt: data.error_cnt,
+            position: data.position,
+            question_id: data.question_id,
+            longitude: data.longitude,
+            latitude: data.latitude,
+            city: data.city,
+            status: this.state.selectIndex == this.state.correct ? 'success': 'fail',
+            contacts: data.contacts,
+            question: data.question
+        }
+
+        console.log('report param', params);
+        // postSpecialClockStatus
+        postSpecialClockStatus({
+            params: params,
+            callback:this.reportCallback.bind(this)
+        });
+    }
+
+    reportCallback(res) {
+        const { success, error } = res;
+        console.log('report', res);
+        if (success) {
+            Toast.info('签到成功！');
+        } else {
+            Toast.info(error);
+        }
+
+        this.showModal();
     }
 }
 
@@ -115,5 +255,58 @@ const styles = StyleSheet.create({
     startTimeLabel: {
         fontSize: px(20),
         color: '#999'
+    },
+    showView: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        // justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        height: '100%',
+        width: '100%',
+    },
+    modalContent: {
+        height: px(330),
+        width: px(500),
+        backgroundColor: '#fff',
+        borderRadius: px(30)
+    },
+    title: {
+        fontSize: px(32),
+        marginTop: px(30),
+        marginBottom: px(30),
+        textAlign: 'center'
+    },
+    answerView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // justifyContent: 'space-evenly'
+    },
+    selectButtonOne: {
+        flex: 1,
+        height: px(60),
+        paddingHorizontal: px(10)
+    },
+    selectButtonTwo: {
+        flex: 1,
+        height: px(60),
+        paddingHorizontal: px(10)
+    },
+    selectButtonTextNormal: {
+        textAlign: 'center',
+        color: '#333'
+    },
+    selectText: {
+        textAlign: 'center',
+        backgroundColor: '#ED7539',
+        color: '#fff'
+    },
+    confirmView: {
+        marginTop: px(30),
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    },
+    question: {
+        textAlign: 'center',
+        marginBottom: px(40)
     }
 })

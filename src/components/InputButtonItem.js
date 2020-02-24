@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TextInput, LayoutAnimation, TouchableOpacity } from 'react-native'
-import { px } from '../utils';
+import { StyleSheet, View, Text, TextInput, LayoutAnimation, TouchableOpacity, ToastAndroid } from 'react-native'
+import { px, checkPhone } from '../utils';
+import { Toast } from '@ant-design/react-native'
+import { getIdentifyCode, getEditCode } from '../requests';
 
 export default class InputButtonItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            onFocus: false
+            onFocus: false,
+            codeNum: 60,
+            sendCode: false
         }
     }
 
@@ -40,8 +44,8 @@ export default class InputButtonItem extends Component {
                         LayoutAnimation.easeInEaseOut();
                     }}
                 />
-                <TouchableOpacity style={styles.sendButton}>
-                    <Text style={styles.sendButtonText}>发送验证码</Text>
+                <TouchableOpacity disabled={this.state.sendCode} onPress={this.sendCode.bind(this)} style={styles.sendButton}>
+                    <Text style={styles.sendButtonText}>{this.state.sendCode ? `${this.state.codeNum}秒`: "发送验证码"}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -55,8 +59,57 @@ export default class InputButtonItem extends Component {
         changeText(text);
     }
 
-    sendAction() {
-        
+    // getIdentifyCode
+    // getEditCode
+    sendCode() {
+        console.log('snedCode', this.props.phone);
+        if (this.props.phone == null || checkPhone(this.props.phone)) {
+            Toast.info('请输入正确的手机号');
+            return;
+        }
+
+        const { type = 'login' } = this.props;
+        if (type == 'login') {
+            getIdentifyCode({
+                phone: this.props.phone,
+                callback: this.getCodeCallback.bind(this)
+            })
+        } else {
+            getEditCode({
+                phone: this.props.phone,
+                callback: this.getCodeCallback.bind(this)
+            })
+        }
+
+
+        this.setState({
+            sendCode: true
+        })
+        this.timer = setInterval(() => {
+            if (this.state.codeNum < 0) {
+                this.setState({
+                    sendCode:false,
+                    codeNum: 60
+                })
+            } else {
+                this.setState({
+                    codeNum: this.state.codeNum - 1
+                })
+            }
+        }, 1000);
+    }
+
+    getCodeCallback(res) {
+        const { success, error } = res;
+        if (success) {
+            Toast.info('验证码发送成功');
+        } else {
+            Toast.info(error);
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
 }
 

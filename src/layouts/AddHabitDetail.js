@@ -9,6 +9,7 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     DeviceEventEmitter,
+    NativeModules
 } from 'react-native';
 import {
   Header,
@@ -20,7 +21,7 @@ import {
   SelectModal,
   NormalRemindTextItem,
 } from '../components';
-import { px } from '../utils';
+import { px, formatDateToString } from '../utils';
 import { Toast } from '@ant-design/react-native';
 import { addCustomerClock } from '../requests';
 
@@ -28,7 +29,6 @@ export default class AddHabitDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskData: '',
       id: null, // 任务id
       icon: null,		//图标
       tmpl_id: '',	//模板ID
@@ -43,7 +43,6 @@ export default class AddHabitDetail extends Component {
       tips_end: null, //	结束好友提示语
       interval_min: 5, //	再响间隔（分钟）
       interval_cnt: 2, //	再响次数
-      deleted: null, //		是否已删除
       contacts: null, //		设置时为联系人结构体ID数组；获取时为联系人结构体数组
       status: null
     };
@@ -54,15 +53,22 @@ export default class AddHabitDetail extends Component {
     return (
       <SafeAreaView style={styles.content}>
         <Header title="新建打卡任务" navigation={this.props.navigation} />
-        <TouchableOpacity activeOpacity={1} onPress={() => {
+        <TouchableOpacity  style={styles.content} activeOpacity={1} onPress={() => {
           Keyboard.dismiss()
         }}>
           <ScrollView>
               <SelectModal onSelectData={this.SelectData.bind(this)} />
               <NormalNameItem changeText={this.changeName.bind(this)} name={this.state.name} icon={this.state.icon} />
-              <NormalRepeatItem repeats={this.state.repeats} changeRepeatsNum={this.changeRepeatNumAction.bind(this)} />
-              <NormalDateSelectItem startTime={this.state.start_time} endTime = {this.state.end_time} changeTime={this.changeTimeAction.bind(this)} />
-              <NormalRemindItem clockTime={this.state.clock_time} changeTime={this.changeClockTime.bind(this)} />
+              <NormalRepeatItem
+                repeats={this.state.repeats}
+                changeRepeatsNum={this.changeRepeatNumAction.bind(this)} />
+              <NormalDateSelectItem
+                startTime={this.state.start_time == null ? this.state.start_time : new Date(this.state.start_time)}
+                endTime = {this.state.end_time == null ? this.state.end_time: new Date(this.state.end_time)}
+                changeTime={this.changeTimeAction.bind(this)} />
+              <NormalRemindItem
+                clockTime={this.state.clock_time == null? this.state.clock_time: new Date(this.state.clock_time)}
+                changeTime={this.changeClockTime.bind(this)} />
               <NormalRemindTextItem title="开始提示音" type='start' value={this.state.tips_start} placeholder="请输入开始提示音" onChangeText={this.changeText.bind(this)} />
               <NormalRemindTextItem title="延迟提示音" type='delay' value={this.state.tips_delay} placeholder="请输入延迟提示音" onChangeText={this.changeText.bind(this)} />
               <NormalRemindTextItem title="结束提示音" type='end'   value={this.state.tips_end}   placeholder="请输入结束提示音" onChangeText={this.changeText.bind(this)} />
@@ -102,7 +108,6 @@ export default class AddHabitDetail extends Component {
       tips_end: data.tips_end, //	结束好友提示语
       interval_min: data.interval_min, //	再响间隔（分钟）
       interval_cnt: data.interval_cnt, //	再响次数
-      deleted: null, //		是否已删除
       contacts: null, //		设置时为联系人结构体ID数组；获取时为联系人结构体数组
       status: null
     })
@@ -120,14 +125,14 @@ export default class AddHabitDetail extends Component {
 
   changeTimeAction(startTime, endTime) {
     this.setState({
-      start_time: startTime,
-      end_time:endTime
+      start_time: startTime == null? startTime: startTime.toISOString(),
+      end_time:endTime == null ? endTime: endTime.toISOString()
     })
   }
 
   changeClockTime(time) {
     this.setState({
-      clock_time: time
+      clock_time: time == null ? time: time.toISOString()
     })
   }
 
@@ -177,15 +182,16 @@ export default class AddHabitDetail extends Component {
       return;
     }
 
+
     const data = {
       params: {
-        id: null,
+        id: '',
         icon: this.state.icon || '',
         tmpl_id: this.state.tmpl_id,
         name: this.state.name,
         clock_time: this.state.clock_time,
-        start_time: this.state.start_time == null? new Date().getTime(): this.state.start_time,
-        end_time: this.state.end_time,
+        start_time: this.state.start_time == null? String(new Date().toISOString()): this.state.start_time,
+        end_time: this.state.end_time == null ? null: this.state.end_time.toISOString(),
         repeats: this.state.repeats,
         ring: this.state.ring || '',
         tips_start: this.state.tips_start,
@@ -193,7 +199,6 @@ export default class AddHabitDetail extends Component {
         tips_end: this.state.tips_end,
         interval_min: this.state.interval_min,
         interval_cnt: this.state.interval_cnt,
-        deleted: this.state.deleted,
         contacts: this.state.contacts
       },
       callback: this.addClockCallback.bind(this)
@@ -208,9 +213,65 @@ export default class AddHabitDetail extends Component {
     const { success } = res;
     if (success) {
       Toast.info('添加成功！');
+      this.addNativeClock()
       DeviceEventEmitter.emit('taskReload');
       this.props.navigation.goBack();
     }
+  }
+
+  addNativeClock() {
+    let date = new Date(this.state.clock_time);
+    let timeString = formatDateToString(date);
+    var alarmManager = NativeModules.AlarmManager;
+    let aString = this.switchToArray(this.state.repeats);
+    let weeks = this.showItem(aString);
+    console.log(weeks);
+    alarmManager.addNormalAlarm('normal'+ new Date().getTime(), this.state.name, timeString, weeks);
+  }
+
+  switchToArray(repeats) {
+    let value = parseInt(repeats + '').toString(2);
+    let l = value.length;    //获取要格式化数字的长度，如二进制1的话长度为1
+    if(l < 7){     //补全位数 0000，这里我要显示4位
+        for(var i = 0; i < 7-l; i++) {
+            value = "0" + value;     //不够的就在前面补0
+        }
+    }
+    return value;
+  }
+
+  showItem(aString) {
+      let data = []
+      for (let i = 0;i < aString.length; i++) {
+          if (aString[i] == '1') {
+              switch(i) {
+                  case 0:
+                  data.push('周一');
+                  break;
+                  case 1:
+                  data.push('周二')
+                  break;
+                  case 2:
+                  data.push('周三');
+                  break;
+                  case 3:
+                  data.push('周四')
+                  break;
+                  case 4:
+                  data.push('周五');
+                  break;
+                  case 5:
+                  data.push('周六')
+                  break;
+                  case 6:
+                  data.push('周日')
+                  break;
+                  default:
+                      break;
+              }
+          }
+      }
+      return data;
   }
 }
 
@@ -226,7 +287,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ED7539',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: px(30)
+    marginTop: px(30),
+    marginBottom: px(60)
   },
   saveText: {
     fontSize: px(40),

@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#eaeaea',
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: px(30)
+        paddingHorizontal: px(30),
+        marginTop: px(30)
     },
     headImage: {
         width: px(90),

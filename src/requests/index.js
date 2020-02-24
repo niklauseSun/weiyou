@@ -1,4 +1,5 @@
-const serverHome = 'http://47.99.56.231:98';
+// const serverHome = 'http://47.99.56.231:98';
+const serverHome = 'https://wy.99rongle.com';
 
 // 用户密码登录
 const loginWithPasswordAction = ({ callback = null, username, passwd }) => {
@@ -22,6 +23,13 @@ const getIdentifyCode = ({ callback = null, phone }) => {
     postAction('/api/customer/getLoginCode', callback, params);
 }
 
+const getEditCode = ({ callback = null, phone }) => {
+    const params = {
+        phone: phone
+    }
+    postAction('/api/customer/getPasswdCode', callback, params);
+}
+
 // 手机验证码登录
 const loginWithCode = ({ callback = null, phone, smsCode, position, longitude, latitude, city }) => {
     const params = {
@@ -36,13 +44,7 @@ const loginWithCode = ({ callback = null, phone, smsCode, position, longitude, l
 }
 
 // 通过手机验证码修改密码
-const getResetPasswordCode = ({ callback= null, phone, sms, password }) => {
-    const params = {
-        phone,
-        sms,
-        password
-    }
-
+const getResetPasswordCode = ({ callback= null, params }) => {
     postAction('/api/customer/modPasswdBySms', callback, params);
 }
 
@@ -56,7 +58,7 @@ const searchUser = ({ callback = null, pageNum, pageSize, orderByColumn = '', is
         skey
     }
 
-    postAction('/api/customer/search', callback, params);
+    getAction(`/api/customer/search?pageNum=${pageNum}&pageSize=${pageSize}&orderByColumn=${orderByColumn}&isAsc=${isAsc}&skey=${skey}`, callback);
 }
 
 // 用户数据提示，未读消息数
@@ -195,6 +197,7 @@ const postSpecialClockStatus = ({ callback = null, params }) => {
     postAction('/api/customer/spClock/reportRecord', callback, params);
 }
 
+// 联系人列表
 const getContractList = ({ callback = null, pageNum, pageSize = 10, orderByColumn = '', isAsc = true, where = '' }) => {
     getAction(`/api/customer/contact/list?pageNum=${pageNum}&pageSize=${pageSize}&orderByColumn=${orderByColumn}&isAsc=${isAsc}&where=${where}`, callback);
 }
@@ -205,6 +208,12 @@ const getContractDetail = ({ callback = null, id }) => {
 
 const editContract = ({ callback = null, params }) => {
     putAction('/api/customer/contact', callback, params);
+}
+
+// 我监护的人
+const getGuardianList = ({ callback = null, pageNum, pageSize = 10, orderByColumn = '', isAsc = true, where = '' }) => {
+    // /api/customer/contact/listMy
+    getAction(`/api/customer/contact/listMy?pageNum=${pageNum}&pageSize=${pageSize}&orderByColumn=${orderByColumn}&isAsc=${isAsc}&where=${where}`, callback);
 }
 
 // 推荐联系人列表
@@ -408,8 +417,8 @@ postAction = (url, callback = null, params = null) => {
     console.log('opts', opts);
 
     fetch(serverHome + url, opts).then((response) => {
+        console.log('fetch', response);
         if (response.ok) {
-            console.log('fetch', response);
             return response.json();
         }
     }).then((responseJson) => {
@@ -562,6 +571,8 @@ export {
     getPersonQuestionList,
     getPersonQuestionDetail,
     addPersonQuestion,
-    editPersonQuestion
+    editPersonQuestion,
+    getEditCode,
+    getGuardianList
 }
 

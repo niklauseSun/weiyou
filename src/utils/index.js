@@ -7,7 +7,10 @@ import {
   formatHourWithString,
   formateDateType,
   formateDateWithString,
+  formatDateToString
 } from './FormatDate';
+
+import { checkPhone } from './IdentifyPhone'
 
 export {
   px,
@@ -17,4 +20,6 @@ export {
   formatHourWithString,
   formateDateType,
   formateDateWithString,
+  formatDateToString,
+  checkPhone
 };

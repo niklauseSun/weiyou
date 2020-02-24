@@ -16,7 +16,6 @@ export default class NormalItem extends Component {
     render() {
         const { data } = this.props;
         const { name, clock_time, status, icon = null } = data;
-        console.log('normalItem', data)
         const time = this.parseDate(clock_time);
         return (
             <TouchableOpacity onPress={this.action.bind(this)} style={styles.content}>
@@ -65,7 +64,6 @@ export default class NormalItem extends Component {
     parseDate(dateString) {
         const t = Date.parse(dateString);
         const date = new Date(t);
-        console.log('dd', date.getHours());
         return date.getHours() + ':' + date.getMinutes();
     }
 
@@ -81,7 +79,6 @@ export default class NormalItem extends Component {
     }
 
     action() {
-        console.log('action', this.props.data);
         const { data = {} } = this.props;
         const { status } = data
         if (status == 'fail') {
@@ -111,7 +108,6 @@ export default class NormalItem extends Component {
     }
 
     reportDataCallback(res) {
-        console.log('red', res);
         const { success } = res;
         if (success) {
             DeviceEventEmitter.emit('taskReload');

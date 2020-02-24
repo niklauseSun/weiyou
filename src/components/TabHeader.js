@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { px } from '../utils';
 
 export default class TabHeader extends Component {
@@ -12,16 +12,24 @@ export default class TabHeader extends Component {
 
     render() {
         const { data = [], selectIndex = 0 } = this.props;
+        console.log('headerTab', data);
         return (
             <View style={styles.content}>
+                <ScrollView
+                    style={styles.scrollView}
+                    horizontal={true} 
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.content}>
                 {
                     data.map((item, index) => {
-                        return <TouchableOpacity onPress={this.changeIndex.bind(this, index)} style={styles.tabButton}>
+                        return <TouchableOpacity key={index} onPress={this.changeIndex.bind(this, index)} style={styles.tabButton}>
                             <Text style={[styles.defaultText, selectIndex === index ? styles.selectText: null ]}>{item.name}</Text>
                         </TouchableOpacity>
                     })
                 }
+            </ScrollView>
             </View>
+            
         )
     }
 
@@ -37,18 +45,23 @@ const styles = StyleSheet.create({
     content: {
         height: px(90),
         flexDirection: 'row',
-        marginLeft: px(30)
+        borderBottomColor: '#eaeaea',
+        borderBottomWidth: px(1),
+        paddingHorizontal: px(20)
+    },
+    scrollView: {
+        height: px(90),
     },
     tabButton: {
-        width: px(120),
+        paddingHorizontal: px(20),
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     defaultText: {
-        fontSize: px(32),
+        fontSize: px(28),
         color: '#999'
     },
     selectText: {
-        color: '#333333'
+        color: '#ED7539'
     }
 })

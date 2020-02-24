@@ -40,6 +40,12 @@ import NormalRemindTextItem from './NormalRemindTextItem'
 import NormalDeleteItem from './NormalDeleteItem'
 import PredictContract from './PredictContract'
 
+import BeginModal from './BeginModal'
+import EndComponent from './EndComponent'
+import NewApplyItem from './NewApplyItem'
+import GuardianItem from './GuardianItem'
+import SearchApplyItem from './SearchApplyItem'
+
 export {
     Header,
     SignItem,
@@ -80,5 +86,10 @@ export {
     QuestionItem,
     SpecialDeleteItem,
     NormalDeleteItem,
-    PredictContract
+    PredictContract,
+    BeginModal,
+    EndComponent,
+    NewApplyItem,
+    GuardianItem,
+    SearchApplyItem
 }

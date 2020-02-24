@@ -97,6 +97,10 @@ class SettingScreen extends Component {
                 isLogin: true,
                 score: score
             })
+
+            if (!data.password) {
+                this.props.navigation.navigate('EditPassword');
+            }
         }
     }
 }

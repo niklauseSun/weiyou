@@ -12,17 +12,34 @@ export default class SearchItem extends Component {
     }
 
     render() {
-        const { placeholder = "搜索手机号/昵称" } = this.props;
+        const { placeholder = "搜索手机号/昵称", value } = this.props;
         return (
             <View style={styles.content}>
                 <TextInput
                     placeholder={placeholder}
                     placeholderTextColor="#999"
+                    value={value}
                     style={styles.textInput}
                     returnKeyType="search"
+                    onChangeText={this.onChangeText.bind(this)}
+                    onSubmitEditing={this.keyPress.bind(this)}
                 />
             </View>
         )
+    }
+
+    keyPress() {
+        const { searchAction } = this.props;
+        if (searchAction) {
+            searchAction();
+        }
+    }
+
+    onChangeText(text) {
+        const { changeText } = this.props;
+        if (changeText) {
+            changeText(text);
+        }
     }
 }
 

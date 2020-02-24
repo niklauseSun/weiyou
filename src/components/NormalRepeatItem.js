@@ -43,7 +43,7 @@ export default class NormalRepeatItem extends Component {
             <View style={styles.modalContent}>
                 <View style={styles.headerView}>
                     <View style={styles.headerButtonView}/>
-                    <Text style={styles.headerTitle}>title</Text>
+                    <Text style={styles.headerTitle}>选择</Text>
                     <TouchableOpacity onPress={this.closeModal.bind(this)} style={styles.headerButton}>
                         <Text style={styles.headerButtonText}>关闭</Text>
                     </TouchableOpacity>
@@ -74,13 +74,13 @@ export default class NormalRepeatItem extends Component {
                 </View>
 
                 <View style={styles.selectAllBgView}>
-                    <TouchableOpacity style={styles.selectAllButton}>
+                    <TouchableOpacity onPress={this.selectAll.bind(this)} style={styles.selectAllButton}>
                         <Text style={styles.selectAllButtonText}>全选</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.confirmView}>
-                    <TouchableOpacity style={styles.confirmButton}>
+                    <TouchableOpacity onPress={this.closeModal.bind(this)} style={styles.confirmButton}>
                         <Text style={styles.confirmButtonText}>确认</Text>
                     </TouchableOpacity>
                 </View>
@@ -99,20 +99,25 @@ export default class NormalRepeatItem extends Component {
         })
     }
 
+    selectAll() {
+      const { changeRepeatsNum } = this.props;
+      if (changeRepeatsNum) {
+        changeRepeatsNum(127)
+      }
+    }
+
     changeSelectIndex(index, aString) {
       let array = (aString + '').split('');
       let selectString = aString[index];
-      console.log('change', array, index, selectString);
       if (selectString == '0') {
-        console.log('1110')
         array[index] = '1'
-        console.log('111')
       } else {
         array[index] = '0'
       }
       let num = parseInt(array.join(''), 2);
       const { changeRepeatsNum } = this.props;
       if (changeRepeatsNum) {
+        console.log('num', num);
         changeRepeatsNum(num);
       }
     }
@@ -120,8 +125,8 @@ export default class NormalRepeatItem extends Component {
     switchToArray(repeats) {
       let value = parseInt(repeats + '').toString(2);
       let l = value.length;    //获取要格式化数字的长度，如二进制1的话长度为1
-      if(l < 8){     //补全位数 0000，这里我要显示4位
-          for(var i = 0; i < 8-l; i++) {
+      if(l < 7){     //补全位数 0000，这里我要显示4位
+          for(var i = 0; i < 7-l; i++) {
               value = "0" + value;     //不够的就在前面补0
           }
       }

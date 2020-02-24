@@ -26,7 +26,7 @@ export default class ShortLoginView extends Component {
                 <Text style={styles.loginAccountText}>手机快捷登录</Text>
                 <Text style={styles.loginText}>新用户登录将自动注册</Text>
                 <InputItem keyboardType="number-pad" changeText={this.changePhone.bind(this)} value={this.state.phone} placeholder="请输入手机号" />
-                <InputButtonItem changeText={this.changeSmsCode.bind(this)} value={this.state.smsCode} placeholder="请输入验证码" />
+                <InputButtonItem phone={this.state.phone} changeText={this.changeSmsCode.bind(this)} value={this.state.smsCode} placeholder="请输入验证码" />
                 <AgreeProtocolItem isSelect={this.state.isAgreeSelect} statusChange={this.selectChange.bind(this)} />
                 <LoginButton buttonAction={this.loginAction.bind(this)} title="登录"/>
             </SafeAreaView>

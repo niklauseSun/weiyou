@@ -17,10 +17,11 @@ import {
     AddSpecial,
     AddHabitDetail,
     AddQuestion,
-    TaskList
+    TaskList,
+    EditPassword
 }
 from '../layouts'
-import React, { Component } from "react";
+import React from "react";
 import { Image, StyleSheet } from 'react-native'
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
@@ -127,6 +128,10 @@ const SettingStack = createStackNavigator({
     },
     ResetPassword: {
         screen: ResetPassword,
+        navigationOptions: defaultNavigationOptions
+    },
+    EditPassword: {
+        screen: EditPassword,
         navigationOptions: defaultNavigationOptions
     }
 })

@@ -20,7 +20,7 @@ export default class HeaderItem extends Component {
                 </TouchableOpacity>
                 <Text style={styles.title}>{title}</Text>
                 <TouchableOpacity style={styles.leftButton}>
-                    <Image source={ASSET_IMAGES.ICON_CODE_IMAGE} />
+                    {/* <Image source={ASSET_IMAGES.ICON_CODE_IMAGE} /> */}
                 </TouchableOpacity>
             </View>
         )

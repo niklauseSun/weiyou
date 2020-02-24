@@ -19,7 +19,7 @@ export default class SpecialQuestionItem extends Component {
     }
 
     render() {
-        const { imageUrl = null, title = 'test' } = this.props;
+        const { imageUrl = null, title = null } = this.props;
         return (
             <View style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />
@@ -29,7 +29,7 @@ export default class SpecialQuestionItem extends Component {
                         onChangeQuestion();
                     }
                 }} style={styles.moreButton}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}>{title == null? '请选择': title}</Text>
                     <Image source={ASSET_IMAGES.ICON_MORE} />
                 </TouchableOpacity>
             </View>

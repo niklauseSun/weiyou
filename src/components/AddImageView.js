@@ -18,7 +18,7 @@ export default class AddImageView extends Component {
         } = this.props;
         return (
             <View style={[styles.content, style]}>
-                <TouchableOpacity activeOpacity={0.9} style={styles.deleteButton}>
+                <TouchableOpacity onPress={this.deleteAction.bind(this)} activeOpacity={0.9} style={styles.deleteButton}>
                     <Image style={styles.deleteIcon} source={ASSET_IMAGES.ICON_IMAGE_DELETE} />
                 </TouchableOpacity>
                 {imageUrl == null ? null :<Image source={{ uri: imageUrl}} style={styles.headImage} />}
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         width: px(160),
         backgroundColor: 'blue',
         justifyContent: 'flex-end',
-        marginRight: px(30),
+        marginRight: px(10),
         borderRadius: px(10)
     },
     deleteButton: {

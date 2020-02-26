@@ -19,7 +19,7 @@ export default class SpecialQuestionItem extends Component {
     }
 
     render() {
-        const { imageUrl = null, title = null } = this.props;
+        const { imageUrl = null, title = null, question } = this.props;
         return (
             <View style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />
@@ -29,7 +29,7 @@ export default class SpecialQuestionItem extends Component {
                         onChangeQuestion();
                     }
                 }} style={styles.moreButton}>
-                    <Text style={styles.title}>{title == null? '请选择': title}</Text>
+                    <Text style={styles.title}>{question == null? '请选择': question}</Text>
                     <Image source={ASSET_IMAGES.ICON_MORE} />
                 </TouchableOpacity>
             </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: px(156),
         backgroundColor: '#fff',
-        marginHorizontal: px(20),
+        marginHorizontal: px(30),
         borderRadius: px(10),
         marginTop: px(20),
         alignItems: 'center',

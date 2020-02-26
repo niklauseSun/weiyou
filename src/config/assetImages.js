@@ -42,13 +42,15 @@ const ASSET_IMAGES = {
     ICON_SELECT_CORRECT: require('../assets/icon_select_correct.png'),
     ICON_IMAGE_DELETE: require('../assets/icon_image_delete.png'),
     ICON_IMAGE_ADD: require('../assets/icon_image_add.png'),
+    ICON_EMERGENCY_IMAGE_ADD: require('../assets/icon_emergency_image_add.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),
     IMAGE_VIP_BG: require('../assets/image_vip_bg.png'),
     IMAGE_DEFAULT_UN_LOGIN: require('../assets/image_default_headImage_un_login.png'),
     IMAGE_DEFAULT_LOGIN: require('../assets/image_login_default.png'),
-    IMAGE_NONE_CONTRACT: require('../assets/image_none_contracts.png')
+    IMAGE_NONE_CONTRACT: require('../assets/image_none_contracts.png'),
+    IMAGE_EMERGENCY_BG: require('../assets/image_emergency_bg.png')
 
 }
 

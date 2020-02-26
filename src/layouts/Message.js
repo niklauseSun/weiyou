@@ -14,7 +14,7 @@ class MessageScreen extends Component {
             contractList: [],
             tabItems:[
                 {
-                    name: '联系人',
+                    name: '监护人',
                 },
                 {
                     name: '推荐联系人',
@@ -113,7 +113,10 @@ class MessageScreen extends Component {
     }
 
     loadContractListCallback(res) {
-        console.log('res', res);
+        console.log('res contract', res);
+        this.setState({
+            contractList: res.data
+        })
     }
 }
 

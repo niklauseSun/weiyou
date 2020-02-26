@@ -37,31 +37,36 @@ export default class NormalDeleteItem extends Component {
         return (
             <TouchableOpacity onPress={this.goToNormal.bind(this)} style={styles.content}>
                 <Image style={styles.headImage} source={{ uri: icon }} />
-                <View style={styles.nameView}>
-                    <Text style={styles.nameTitle}>{name}</Text>
-                    <Text style={styles.clockTitle}>{formatHourWithString(clock_time)}</Text>
-                </View>
-                <View style={styles.deleteView}>
-                    <TouchableOpacity onPress={() => {
-                        alert('确认', '确定要删除么', [
-                            { text: '确认', onPress: () => {
-                                this.removeTask()
-                            } },
-                            { text: '取消', onPress: () => {
+                <View style={{flex: 1}}>
+                    <View style={styles.nameView}>
+                        <Text style={styles.nameTitle}>{name}</Text>
+                        <TouchableOpacity onPress={() => {
+                            alert('确认', '确定要删除么', [
+                                { text: '确认', onPress: () => {
+                                    this.removeTask()
+                                } },
+                                { text: '取消', onPress: () => {
 
-                            } },
-                        ])
-                    }} style={styles.deleteButton}>
-                        <Text style={styles.deleteTitle}>删除</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.timeLabel}>{formateDateWithString(start_time)}-{endText}</Text>
+                                } },
+                            ])
+                        }} style={styles.deleteButton}>
+                            <Text style={styles.deleteTitle}>删除</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.deleteView}>
+                        <Text style={styles.clockTitle}>{formatHourWithString(clock_time)}</Text>
+                        <Text style={styles.timeLabel}>{formateDateWithString(start_time)}-{endText}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         )
     }
 
     goToNormal() {
-        // this.props.navigation.navigate('')
+        this.props.navigation.navigate('AddHabitDetail', {
+            addType: 'edit',
+            id: this.props.data.id
+        })
     }
 
     removeTask() {
@@ -106,19 +111,20 @@ const styles = StyleSheet.create({
         marginRight: px(20)
     },
     nameView: {
-        width: px(120)
+        flexDirection: 'row',
     },
     nameTitle: {
-        fontSize: px(30)
+        fontSize: px(30),
+        flex: 1
     },
     clockTitle: {
         fontSize: px(26),
         color: '#999',
-        marginTop: px(20)
+        flex: 1,
     },
     deleteView: {
-        alignItems: 'flex-end',
-        flex: 1
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     deleteButton: {
         width: px(120),

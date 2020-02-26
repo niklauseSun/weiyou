@@ -23,13 +23,15 @@ import {
 } from '../components';
 import { px, formatDateToString } from '../utils';
 import { Toast } from '@ant-design/react-native';
-import { addCustomerClock } from '../requests';
+import { addCustomerClock, getClockDetailById, editCustomerClock } from '../requests';
 
 export default class AddHabitDetail extends Component {
   constructor(props) {
     super(props);
+    const { addType = 'add', id = '' } = props.navigation.state.params || {}
     this.state = {
-      id: null, // 任务id
+      addType: addType,
+      id: id, // 任务id
       icon: null,		//图标
       tmpl_id: '',	//模板ID
       name: null,	//任务名称
@@ -48,8 +50,13 @@ export default class AddHabitDetail extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.state.addType == 'edit') {
+      this.loadHabitDetail()
+    }
+  }
+
   render() {
-    console.log('fff', this.state.taskData);
     return (
       <SafeAreaView style={styles.content}>
         <Header title="新建打卡任务" navigation={this.props.navigation} />
@@ -185,13 +192,13 @@ export default class AddHabitDetail extends Component {
 
     const data = {
       params: {
-        id: '',
+        id: this.state.id,
         icon: this.state.icon || '',
         tmpl_id: this.state.tmpl_id,
         name: this.state.name,
         clock_time: this.state.clock_time,
         start_time: this.state.start_time == null? String(new Date().toISOString()): this.state.start_time,
-        end_time: this.state.end_time == null ? null: this.state.end_time.toISOString(),
+        end_time: this.state.end_time == null ? null: this.state.end_time,
         repeats: this.state.repeats,
         ring: this.state.ring || '',
         tips_start: this.state.tips_start,
@@ -206,15 +213,25 @@ export default class AddHabitDetail extends Component {
 
     console.log('addData', data);
 
-    // addCustomerClock
-    addCustomerClock(data);
+    if (this.state.addType == 'add') {
+       // addCustomerClock
+      addCustomerClock(data);
+    } else {
+      editCustomerClock(data);
+    }
   }
   addClockCallback(res) {
     const { success } = res;
+    console.log('ddd', res);
     if (success) {
-      Toast.info('添加成功！');
+      if (this.state.addType == 'add') {
+        Toast.info('添加成功！');
+        DeviceEventEmitter.emit('taskReload');
+      } else {
+        Toast.info('修改成功');
+        DeviceEventEmitter.emit('taskListReload');
+      }
       this.addNativeClock()
-      DeviceEventEmitter.emit('taskReload');
       this.props.navigation.goBack();
     }
   }
@@ -272,6 +289,54 @@ export default class AddHabitDetail extends Component {
           }
       }
       return data;
+  }
+
+  loadHabitDetail() {
+    getClockDetailById({
+      id: this.state.id,
+      callback: this.loadHabitDetailCallback.bind(this)
+    })
+  }
+
+  loadHabitDetailCallback(res) {
+    console.log('habit detail', res);
+    const { success, data } = res;
+    if (success) {
+      this.setState({
+        id: data.id,
+        tmpl_id: data.tmpl_id,
+        name: data.name,
+        clock_time: data.clock_time,
+        start_time: data.start_time,
+        end_time: data.end_time,
+        repeats: data.repeats,
+        ring: data.ring,
+        tips_start: data.tips_start,
+        tips_delay: data.tips_delay,
+        tips_end: data.tips_end,
+        interval_min: data.interval_min,
+        interval_cnt: data.interval_cnt,
+      })
+    }
+//     icon: ""
+// id: 93
+// tmpl_id: 0
+// customer_id: 100
+// name: "test"
+// clock_time: "2020-02-26T13:59:16.000Z"
+// start_time: "2020-02-25T16:00:00.000Z"
+// end_time: null
+// repeats: 127
+// ring: ""
+// tips_start: "我"
+// tips_delay: "我"
+// tips_end: "我"
+// interval_min: 5
+// interval_cnt: 2
+// deleted: false
+// create_time: "2020-02-26T13:56:30.000Z"
+// update_time: "2020-02-26T13:56:30.000Z"
+    
   }
 }
 

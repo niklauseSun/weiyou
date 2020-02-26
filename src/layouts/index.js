@@ -17,6 +17,9 @@ import EditPassword from './EditPassword'
 import SignSpecial from './SignSpecial'
 import SettingDetail from './SettingDetail'
 import QuestionReport from './QuestionReport'
+import AddEmergency from './AddEmergency'
+import EmergencyList from './EmergencyList'
+
 
 export {
     Home,
@@ -37,5 +40,7 @@ export {
     EditPassword,
     SignSpecial,
     SettingDetail,
-    QuestionReport
+    QuestionReport,
+    AddEmergency,
+    EmergencyList
 }

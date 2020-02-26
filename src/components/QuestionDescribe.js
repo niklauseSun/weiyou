@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity, FlatList } 
 import { px } from '../utils';
 import AddImageView from './AddImageView';
 import { ASSET_IMAGES } from '../config';
+import { AddImageList } from '.';
 
 export default class QuestionDescribe extends Component {
     constructor(props) {
@@ -13,27 +14,32 @@ export default class QuestionDescribe extends Component {
     }
 
     render() {
-        const { question = '' } = this.props;
+        const { question = '', imageList } = this.props;
         return (
             <View style={styles.content}>
                 <View style={styles.headerView}>
                     <Text style={styles.headTitle}>意见/问题描述</Text>
-                    <Text style={styles.headNum}>{question.length}/200</Text>
+                    <Text style={styles.headNum}>{question == null ? 0: question.length}/200</Text>
                 </View>
-                <TextInput multiline={true} placeholder="请填写10字以上的问题描述，以便我们更好的为您解决问题" style={styles.input} />
-                <View>
-                    <Text style={styles.uploadText}>上传问题截图，最多4张（选填）</Text>
-                    <View style={styles.imageViews}>
-                        {this.props.imageList.map((item, index) => {
-                            return <AddImageView imageUrl={item} removeAction={this._removeImage.bind(this, index)} />
-                        })}
-                        <TouchableOpacity onPress={this.addImageAction.bind(this)} style={styles.addButton}>
-                            <Image style={styles.addImage} source={ASSET_IMAGES.ICON_IMAGE_ADD} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                <TextInput value={question} onChangeText={this._changeText.bind(this)} multiline={true} placeholder="请填写10字以上的问题描述，以便我们更好的为您解决问题" style={styles.input} />
+                <Text style={styles.uploadText}>上传问题截图，最多4张（选填）</Text>
+                <AddImageList style={styles.imageList} imageList={imageList} changeImageList={this.onChangeImageList.bind(this)} />
             </View>
         )
+    }
+
+    onChangeImageList(pics) {
+        const { changeImageList } = this.props;
+        if (changeImageList) {
+            changeImageList(pics)
+        }
+    }
+
+    _changeText(text) {
+        const { onChangeQuestion } = this.props;
+        if (onChangeQuestion) {
+            onChangeQuestion(text);
+        }
     }
 
     addImageAction() {
@@ -94,9 +100,7 @@ const styles = StyleSheet.create({
         fontSize: px(26),
         color: '#999'
     },
-    imageViews: {
-        height: px(210),
-        flexDirection: 'row',
-        alignItems: 'center'
+    imageList: {
+        marginHorizontal: px(0)
     }
 })

@@ -21,7 +21,9 @@ import {
     EditPassword,
     SignSpecial,
     SettingDetail,
-    QuestionReport
+    QuestionReport,
+    AddEmergency,
+    EmergencyList
 }
 from '../layouts'
 import React from "react";
@@ -82,7 +84,15 @@ const TaskStack = createStackNavigator({
     TaskList: {
         screen: TaskList,
         navigationOptions: defaultNavigationOptions
-    }
+    },
+    AddSpecial: {
+        screen: AddSpecial,
+        navigationOptions: defaultNavigationOptions
+    },
+    AddHabitDetail: {
+        screen: AddHabitDetail,
+        navigationOptions: defaultNavigationOptions
+    },
 })
 
 TaskStack.navigationOptions = ({ navigation }) => {
@@ -147,6 +157,14 @@ const SettingStack = createStackNavigator({
     },
     QuestionReport: {
         screen: QuestionReport,
+        navigationOptions: defaultNavigationOptions
+    },
+    AddEmergency: {
+        screen: AddEmergency,
+        navigationOptions: defaultNavigationOptions
+    },
+    EmergencyList: {
+        screen: EmergencyList,
         navigationOptions: defaultNavigationOptions
     }
 })

@@ -10,7 +10,8 @@ import {
     TouchableOpacity,
     ScrollView,
     DeviceEventEmitter,
-    NativeModules
+    NativeModules,
+    Platform
 } from 'react-native'
 import {
     Header,
@@ -23,18 +24,20 @@ import {
 import { ASSET_IMAGES } from '../config';
 import { px, formatDateToString } from '../utils';
 import SpecialContractItem from '../components/SpecialContractItem';
-import { addSpecialClock } from '../requests';
+import { addSpecialClock, getSpecialClockDetail, editSpecialClock } from '../requests';
 import { Toast } from '@ant-design/react-native';
 
 export default class AddSpecial extends Component {
     constructor(props) {
         super(props);
+        const { addType = 'add', id = '' } = props.navigation.state.params || {}
         this.state = {
             selectDate: new Date(),
+            addType: addType,
             name: null,
-            id: '',
+            id: id,
             icon: '',
-            start_time: new Date(),
+            start_time: new Date().toISOString(),
             interval_min: 5,
             error_cnt: 3,
             position: '上海市',
@@ -56,6 +59,9 @@ export default class AddSpecial extends Component {
                 question: question
             })
         })
+        if (this.state.addType == 'edit') {
+            this.loadSpecialDetail()
+        }
     }
 
     componentWillUnmount() {
@@ -63,6 +69,7 @@ export default class AddSpecial extends Component {
     }
 
     render() {
+        console.log('special', this.state)
         return (
             <SafeAreaView style={styles.content}>
                 <Header title="特殊" navigation={this.props.navigation} />
@@ -73,11 +80,11 @@ export default class AddSpecial extends Component {
                         <View style={styles.nameView}>
                             <Image style={styles.nameHeadImage} source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} />
                             <Text style={styles.nameLabel}>特殊</Text>
-                            <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" value={this.state.value} onChangeText={this.changeName.bind(this)} />
+                            <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" value={this.state.name} onChangeText={this.changeName.bind(this)} />
                         </View>
-                        <SpecialLocationItem showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} />
+                        <SpecialLocationItem showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} title={this.state.position} />
                         <SpecialSelectItem onChangeTime={this.onChangeTime.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.state.start_time} />
-                        <SpecialQuestionItem onChangeQuestion={this.onChangeQuestion.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} title={this.state.question}/>
+                        <SpecialQuestionItem onChangeQuestion={this.onChangeQuestion.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} question={this.state.question}/>
                         <SpecialRepeatItem cnt={this.state.interval_min} repeat={this.state.error_cnt} changeCnt={this.onChangeCnt.bind(this)} changeRepeat={this.onChangeRepeat.bind(this)} />
                         <SpecialContractItem />
                         <TouchableOpacity onPress={this.addSpecialTask.bind(this)} style={styles.addButton}>
@@ -123,7 +130,7 @@ export default class AddSpecial extends Component {
 
     onChangeTime(e) {
         this.setState({
-            start_time: e
+            start_time: e.toISOString()
         })
     }
 
@@ -157,7 +164,7 @@ export default class AddSpecial extends Component {
             id: this.state.id,
             icon: this.state.icon,
             name: this.state.name,
-            start_time: this.state.start_time == null ? new Date().toISOString(): this.state.start_time.toISOString(),
+            start_time: this.state.start_time == null ? new Date().toISOString(): this.state.start_time,
             interval_min: this.state.interval_min,
             error_cnt: this.state.error_cnt,
             position: '上海市',
@@ -172,29 +179,90 @@ export default class AddSpecial extends Component {
             params: params,
             callback: this.addSpecialTaskCallback.bind(this)
         }
+
+        if (this.state.addType == 'add') {
+            addSpecialClock(data);
+        } else {
+            editSpecialClock(data);
+        }
         console.log('addRequest', data)
         // addSpecialClock
-        addSpecialClock(data);
     }
 
     addSpecialTaskCallback(res) {
         console.log('res', res);
         const { success } = res;
         if (success) {
-            Toast.info('添加成功');
+            if (this.state.addType == 'add') {
+                Toast.info('添加成功');
+                DeviceEventEmitter.emit('taskReload');
+            } else {
+                Toast.info('修改成功');
+                DeviceEventEmitter.emit('taskListReload');
+            }
             this.props.navigation.goBack();
-            DeviceEventEmitter.emit('taskReload');
             this.addNativeClock()
         }
     }
 
+    loadSpecialDetail() {
+        // getSpecialClockDetail()
+        getSpecialClockDetail({
+            id: this.state.id,
+            callback: this.loadSpecialDetailCallback.bind(this)
+        })
+    }
+
+    // icon: ""
+// id: 7
+// name: "Shanghai "
+// customer_id: 100
+// question_id: 5
+// start_time: "2020-02-22T13:40:56.000Z"
+// start_day: "2020-02-21T16:00:00.000Z"
+// interval_min: 3
+// error_cnt: 3
+// position: "上海市"
+// longitude: "121,48"
+// latitude: "31.23"
+// city: "310114"
+// status: "created"
+// deleted: false
+// create_time: "2020-02-22T13:40:56.000Z"
+// update_time: "2020-02-22T13:40:56.000Z"
+// contacts: []
+// question: {answer: Array(2), id: 5, customer_
+
+    loadSpecialDetailCallback(res) {
+        const { success, data } = res;
+        console.log('special detail', res);
+        const { question } = data;
+        if (success) {
+            this.setState({
+                icon: data.icon,
+                name: data.name,
+                question_id: data.question_id,
+                start_time: data.start_time,
+                interval_min: data.interval_min,
+                error_cnt: data.error_cnt,
+                position: data.position,
+                longitude: data.longitude,
+                latitude: data.latitude,
+                city: data.city,
+                question: question.question,
+                contracts: data.contracts
+            })
+        }
+    }
+
     addNativeClock() {
-        let date = this.state.start_time == null ? new Date(): new Date(this.state.start_time);
-        let timeString = formatDateToString(date);
-        var alarmManager = NativeModules.AlarmManager;
-        alarmManager.addSpecialAlarm('special' + new Date().getTime(), this.state.name, timeString);
-        // alarmManager.addNormalAlarm('normal'+ new Date().getTime(), this.state.name, timeString, weeks);
-      }
+        if (Platform.OS == 'ios') {
+            let date = this.state.start_time == null ? new Date(): new Date(this.state.start_time);
+            let timeString = formatDateToString(date);
+            var alarmManager = NativeModules.AlarmManager;
+            alarmManager.addSpecialAlarm('special' + new Date().getTime(), this.state.name, timeString);
+        }
+    }
 };
 
 const styles = StyleSheet.create({
@@ -210,7 +278,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: px(156),
         backgroundColor: '#fff',
-        marginHorizontal: px(20),
+        marginHorizontal: px(30),
         borderRadius: px(10),
         marginTop: px(20),
         alignItems: 'center',

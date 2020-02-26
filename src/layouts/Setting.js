@@ -47,6 +47,7 @@ class SettingScreen extends Component {
                 <AccountView score={this.state.score} />
                 <SetInfoItem setItemAction={this.navigateSettingDetail.bind(this)} imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} />
                 <SetInfoItem setItemAction={this.navigateQuestionReport.bind(this)} imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
+                <SetInfoItem setItemAction={this.navigateEmergencyList.bind(this)} imageUrl={ASSET_IMAGES.ICON_EMERGENCY} title={"紧急事件"} />
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_EVALUATION} title={"评价鼓励"} /> */}
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_RECOMMEND} title={"推荐给好友"} /> */}
                 {this.state.isLogin ? <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logoutButton}>
@@ -63,6 +64,10 @@ class SettingScreen extends Component {
 
     navigateQuestionReport() {
         this.props.navigation.navigate('QuestionReport');
+    }
+
+    navigateEmergencyList() {
+        this.props.navigation.navigate('EmergencyList')
     }
 
     loginAction() {

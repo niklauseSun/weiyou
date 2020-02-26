@@ -24,7 +24,7 @@ export default class SpecialLocationItem extends Component {
             <View style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />
                 <View style={styles.middleView}>
-                    {type == 'input' ? <TextInput placeholderTextColor="#C9C7C7" style={styles.inputItem} placeholder={placeholder} /> : <Text>{title}</Text>}
+                    {type == 'input' ? <TextInput placeholderTextColor="#C9C7C7" value={title} style={styles.inputItem} placeholder={placeholder} /> : <Text>{title}</Text>}
                 </View>
                 {showMoreButton? <TouchableOpacity style={styles.moreButton}>
                     <Image source={ASSET_IMAGES.ICON_MORE} />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: px(156),
         backgroundColor: '#fff',
-        marginHorizontal: px(20),
+        marginHorizontal: px(30),
         borderRadius: px(10),
         marginTop: px(20),
         alignItems: 'center',

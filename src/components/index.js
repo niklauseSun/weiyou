@@ -49,6 +49,10 @@ import SignEnd from './SignEnd'
 import SetDetailItem from './SetDetailItem'
 import QuestionReportItem from './QuestionReportItem'
 import QuestionDescribe from './QuestionDescribe'
+import EmergencyListItem from './EmergencyListItem'
+import EmergencyInputItem from './EmergencyInputItem'
+import AddImageList from './AddImageList'
+import SpecialContractItem from './SpecialContractItem'
 
 export {
     Header,
@@ -99,5 +103,9 @@ export {
     SignEnd,
     SetDetailItem,
     QuestionReportItem,
-    QuestionDescribe
+    QuestionDescribe,
+    EmergencyListItem,
+    EmergencyInputItem,
+    AddImageList,
+    SpecialContractItem
 }

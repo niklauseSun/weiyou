@@ -12,12 +12,18 @@ export default class ContractItem extends Component {
     }
 
     render() {
-        const { name = 'Alone', detail = '“阅读”在02.10 09:30 完成打卡' } = this.props.data;
+//         id: 24
+// friend_id: 121
+// remark_name: null
+// username: "18301709959"
+// nickname: "孙玉建🍁"
+// avatar: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erKay7VOFxBXRpRxyZfrBI
+        const { nickname = 'Alone', detail = '“阅读”在02.10 09:30 完成打卡', avatar } = this.props.data;
         return (
             <View style={styles.content}>
-                <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_LOGIN} />
-                <Text style={styles.nameLabel}>{name}</Text>
-                <Text style={styles.detailLabel}>{detail}</Text>
+                {avatar == '' ? <View style={styles.headImage} />: <Image style={styles.headImage} source={{ uri: avatar }} />}
+                <Text style={styles.nameLabel}>{nickname}</Text>
+                {/* <Text style={styles.detailLabel}>{detail}</Text> */}
             </View>
         )
     }
@@ -33,10 +39,10 @@ const styles = StyleSheet.create({
     headImage: {
         width: px(90),
         height: px(90),
-        borderRadius: px(45)
+        borderRadius: px(45),
+        backgroundColor: '#999'
     },
     nameLabel: {
-        width: px(160),
         marginLeft: px(20),
         fontSize: px(34)
     },

@@ -36,7 +36,7 @@ export default class SpecialDeleteItem extends Component {
     render() {
         const { icon, name, error_cnt, interval_min } = this.props.data;
         return (
-            <View style={styles.content}>
+            <TouchableOpacity onPress={this.navigateSpecialDetail.bind(this)} style={styles.content}>
                 <View style={styles.headImageView}>
                     {icon == '' ? <Image source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} />: <Image style={styles.headImage} source={{ uri: icon }} />}
                 </View>
@@ -57,8 +57,15 @@ export default class SpecialDeleteItem extends Component {
                     }} style={styles.deleteButton}>
                     <Text style={styles.deleteButtonText}>删除</Text>
                 </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
         )
+    }
+
+    navigateSpecialDetail() {
+        this.props.navigation.navigate('AddSpecial', {
+            addType: 'edit',
+            id: this.props.data.id
+        })
     }
 
     removeTask() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, FlatList } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, FlatList, DeviceEventEmitter } from 'react-native'
 import { Header, NormalDeleteItem, NoneData, SpecialDeleteItem, EndComponent } from '../components'
 import { getPersonalClockList, getSpecialClockList } from '../requests';
 
@@ -16,6 +16,13 @@ export default class TaskList extends Component {
 
     componentDidMount() {
         this.loadTaskList();
+        this.emitter = DeviceEventEmitter.addListener('taskListReload',(dict) => {
+            this.loadTaskList();
+        })
+    }
+
+    componentWillUnmount() {
+        this.emitter = null;
     }
 
     render() {

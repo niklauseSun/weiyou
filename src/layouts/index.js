@@ -14,6 +14,9 @@ import AddHabitDetail from './AddHabitDetail'
 import AddQuestion from './AddQuestion'
 import TaskList from './TaskList'
 import EditPassword from './EditPassword'
+import SignSpecial from './SignSpecial'
+import SettingDetail from './SettingDetail'
+import QuestionReport from './QuestionReport'
 
 export {
     Home,
@@ -31,5 +34,8 @@ export {
     AddHabitDetail,
     AddQuestion,
     TaskList,
-    EditPassword
+    EditPassword,
+    SignSpecial,
+    SettingDetail,
+    QuestionReport
 }

@@ -34,7 +34,7 @@ export default class SpecialItem extends Component {
                 <View style={styles.titleView}>
                     <View style={styles.firstLine}>
                         <Text style={styles.titleLabel}>{name}</Text>
-                        <Text style={styles.statusLabel}>{status === 'fail'? '已过期': '进行中'}</Text>
+                        <Text style={styles.statusLabel}>{this.statusText(status)}</Text>
                     </View>
                     <View style={styles.secondLine}>
                         <Text style={styles.subTitleLabel}>重复{error_cnt}次无应答或错误，通知监护人</Text>
@@ -80,13 +80,35 @@ export default class SpecialItem extends Component {
         )
     }
 
+    statusText(status) {
+        switch (status) {
+            case 'fail':
+                return '已过期'
+            case 'success':
+                return '已成功'
+            case 'created':
+                return '已创建'
+            default:
+                return '进行中'
+        }
+    }
+
     specialItemAction() {
         const { status } = this.props.data;
         if (status == 'fail') {
             Toast.info('已过期')
             return;
         }
-        this.showModal()
+
+        if (status == 'success') {
+            Toast.info('已成功')
+            return;
+        }
+        // this.showModal()
+        this.props.navigation.navigate('SignSpecial', {
+            id: this.props.data.id,
+            question_id: this.props.data.question_id
+        });
     }
 
     loadAnswerById() {

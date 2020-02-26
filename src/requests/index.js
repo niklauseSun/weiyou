@@ -189,7 +189,7 @@ const editSpecialClock = ({ callback = null, params }) => {
     putAction(`/api/customer/spClock`,callback, params);
 }
 
-const getSpecialClockRecordList = ({ callback = null, clock_id, pageNum, pageSize = 10, orderByColumn = '', isAsc = true, where = '' }) => {
+const getSpecialClockRecordList = ({ callback = null, clock_id, pageNum, pageSize = 10, orderByColumn = '', isAsc = false, where = '' }) => {
     getAction(`/api/customer/spClock/listRecord?clock_id=${clock_id}&pageNum=${pageNum}&pageSize=${pageSize}&orderByColumn=${orderByColumn}&isAsc=${isAsc}&where=${where}`, callback);
 }
 

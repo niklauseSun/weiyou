@@ -35,7 +35,7 @@ export default class NormalDeleteItem extends Component {
         const { icon, name, clock_time, start_time, end_time } = this.props.data;
         const endText = end_time === null ? '无限期': formateDateWithString(end_time);
         return (
-            <View style={styles.content}>
+            <TouchableOpacity onPress={this.goToNormal.bind(this)} style={styles.content}>
                 <Image style={styles.headImage} source={{ uri: icon }} />
                 <View style={styles.nameView}>
                     <Text style={styles.nameTitle}>{name}</Text>
@@ -56,8 +56,12 @@ export default class NormalDeleteItem extends Component {
                     </TouchableOpacity>
                     <Text style={styles.timeLabel}>{formateDateWithString(start_time)}-{endText}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
+    }
+
+    goToNormal() {
+        // this.props.navigation.navigate('')
     }
 
     removeTask() {

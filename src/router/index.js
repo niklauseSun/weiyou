@@ -18,7 +18,10 @@ import {
     AddHabitDetail,
     AddQuestion,
     TaskList,
-    EditPassword
+    EditPassword,
+    SignSpecial,
+    SettingDetail,
+    QuestionReport
 }
 from '../layouts'
 import React from "react";
@@ -53,6 +56,10 @@ const HomeStack = createStackNavigator({
     },
     AddQuestion: {
         screen: AddQuestion,
+        navigationOptions: defaultNavigationOptions
+    },
+    SignSpecial: {
+        screen: SignSpecial,
         navigationOptions: defaultNavigationOptions
     }
 })
@@ -132,6 +139,14 @@ const SettingStack = createStackNavigator({
     },
     EditPassword: {
         screen: EditPassword,
+        navigationOptions: defaultNavigationOptions
+    },
+    SettingDetail: {
+        screen: SettingDetail,
+        navigationOptions: defaultNavigationOptions
+    },
+    QuestionReport: {
+        screen: QuestionReport,
         navigationOptions: defaultNavigationOptions
     }
 })

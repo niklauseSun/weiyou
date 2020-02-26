@@ -76,6 +76,10 @@ export default class MyDetailItem extends Component {
             loginAction()
         }
     }
+
+    navigateSettingDetail() {
+        this.props.navigation.naivgate('SettingDetail')
+    }
 }
 
 

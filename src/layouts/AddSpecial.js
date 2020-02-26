@@ -34,7 +34,7 @@ export default class AddSpecial extends Component {
             name: null,
             id: '',
             icon: '',
-            start_time: null,
+            start_time: new Date(),
             interval_min: 5,
             error_cnt: 3,
             position: '上海市',
@@ -76,7 +76,7 @@ export default class AddSpecial extends Component {
                             <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" value={this.state.value} onChangeText={this.changeName.bind(this)} />
                         </View>
                         <SpecialLocationItem showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} />
-                        <SpecialSelectItem onChangeTime={this.onChangeTime.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.formatDate(this.state.selectDate)} />
+                        <SpecialSelectItem onChangeTime={this.onChangeTime.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.state.start_time} />
                         <SpecialQuestionItem onChangeQuestion={this.onChangeQuestion.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} title={this.state.question}/>
                         <SpecialRepeatItem cnt={this.state.interval_min} repeat={this.state.error_cnt} changeCnt={this.onChangeCnt.bind(this)} changeRepeat={this.onChangeRepeat.bind(this)} />
                         <SpecialContractItem />
@@ -183,6 +183,7 @@ export default class AddSpecial extends Component {
         if (success) {
             Toast.info('添加成功');
             this.props.navigation.goBack();
+            DeviceEventEmitter.emit('taskReload');
             this.addNativeClock()
         }
     }

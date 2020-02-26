@@ -18,12 +18,19 @@ export default class SetInfoItem extends Component {
                 {
                     imageUrl == null ? null: <Image style={styles.icon} source={imageUrl} />
                 }
-                <Text style={styles.title}>{title}</Text>
-                <TouchableOpacity style={styles.moreButton}>
+                <TouchableOpacity onPress={this.infoAction.bind(this)} style={styles.moreButton}>
+                    <Text style={styles.title}>{title}</Text>
                     <Image style={styles.moreButtonIcon} source={ASSET_IMAGES.ICON_MORE} />
                 </TouchableOpacity>
             </View>
         )
+    }
+
+    infoAction() {
+        const { setItemAction } = this.props;
+        if (setItemAction) {
+            setItemAction();
+        }
     }
 }
 
@@ -48,8 +55,8 @@ const styles = StyleSheet.create({
     },
     moreButton: {
         height: '100%',
-        width: px(100),
-        alignItems: 'flex-end',
-        justifyContent: 'center'
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })

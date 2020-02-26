@@ -35,7 +35,7 @@ export default class TaskList extends Component {
                     data={this.state.normalList}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({item}) => {
-                        return <NormalDeleteItem reloadTask={this.loadNormalTaskList.bind(this)} data={item} />
+                        return <NormalDeleteItem navigation={this.props.navigation} reloadTask={this.loadNormalTaskList.bind(this)} data={item} />
                     }}
                     ListFooterComponent={() => <EndComponent />}
                     ListEmptyComponent={() => <NoneData />}
@@ -47,7 +47,7 @@ export default class TaskList extends Component {
                 data={this.state.specialList}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({item}) => {
-                    return <SpecialDeleteItem reloadTask={this.loadSpecialTaskList.bind(this)} data={item} />
+                    return <SpecialDeleteItem navigation={this.props.navigation} reloadTask={this.loadSpecialTaskList.bind(this)} data={item} />
                 }}
                 ListEmptyComponent={() => <NoneData />}
                 ListFooterComponent={() => <EndComponent />}

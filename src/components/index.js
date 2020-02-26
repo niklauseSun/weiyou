@@ -45,6 +45,8 @@ import EndComponent from './EndComponent'
 import NewApplyItem from './NewApplyItem'
 import GuardianItem from './GuardianItem'
 import SearchApplyItem from './SearchApplyItem'
+import SignEnd from './SignEnd'
+import SetDetailItem from './SetDetailItem'
 
 export {
     Header,
@@ -91,5 +93,7 @@ export {
     EndComponent,
     NewApplyItem,
     GuardianItem,
-    SearchApplyItem
+    SearchApplyItem,
+    SignEnd,
+    SetDetailItem
 }

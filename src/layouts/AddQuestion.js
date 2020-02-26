@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import {Header, QuestionItem} from '../components';
+import {Header, QuestionItem, NoneData} from '../components';
 import {commonStyles} from '../commonStyles';
 import {getPersonQuestionList, editPersonQuestion, addPersonQuestion} from '../requests';
 import {px} from '../utils';
@@ -46,6 +46,7 @@ export default class AddQuestion extends Component {
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             data={this.state.questionList}
+            ListEmptyComponent={() => <NoneData title="暂无问题，请添加问题"/>}
             renderItem={({item, index}) => {
               return (
                 <QuestionItem

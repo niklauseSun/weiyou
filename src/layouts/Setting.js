@@ -37,6 +37,7 @@ class SettingScreen extends Component {
         return (
             <SafeAreaView style={styles.content}>
                 <MyDetailItem
+                    navigation={this.props.navigation}
                     avatar={this.state.avatar}
                     nickname={this.state.nickname}
                     status={this.state.status}
@@ -44,8 +45,8 @@ class SettingScreen extends Component {
                     isVip={this.state.status !== 'normal'}
                     loginAction={this.loginAction.bind(this)} />
                 <AccountView score={this.state.score} />
-                <SetInfoItem imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} />
-                <SetInfoItem imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
+                <SetInfoItem setItemAction={this.navigateSettingDetail.bind(this)} imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} />
+                <SetInfoItem setItemAction={this.navigateQuestionReport.bind(this)} imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_EVALUATION} title={"评价鼓励"} /> */}
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_RECOMMEND} title={"推荐给好友"} /> */}
                 {this.state.isLogin ? <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logoutButton}>
@@ -56,6 +57,14 @@ class SettingScreen extends Component {
     }
 
     // action
+    navigateSettingDetail() {
+        this.props.navigation.navigate('SettingDetail');
+    }
+
+    navigateQuestionReport() {
+        this.props.navigation.navigate('QuestionReport');
+    }
+
     loginAction() {
         this.props.navigation.navigate('LoginView')
     }

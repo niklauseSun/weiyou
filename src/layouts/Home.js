@@ -20,7 +20,7 @@ class HomeScreen extends Component {
             specialList: [],
             messageCnt: 0,
             showSignSuccess: false,
-            isShow: true
+            isShow: false
         }
     }
 
@@ -35,7 +35,6 @@ class HomeScreen extends Component {
         })
 
         this.timer = setTimeout(() => {
-            console.log('ddd');
             this.setState({
                 isShow: false,
             });
@@ -106,13 +105,21 @@ class HomeScreen extends Component {
         return (
             <Fragment>
                 <SectionHeader type={'normal'} title={"日常"} addAction={this.navigateToNormal.bind(this)} />
-                {normalList.map((item, index) => {
+                <FlatList
+                    data={normalList}
+                    renderItem={({item, index}) => <NormalItem data={item} key={index} />}
+                />
+                {/* {normalList.map((item, index) => {
                     return <NormalItem data={item} key={index} />
-                })}
+                })} */}
                 <SectionHeader type={'special'} title={"特殊"} addAction={this.navigateToSpecial.bind(this)} />
-                {specialList.map((item, index) => {
-                    return <SpecialItem data={item} key={index + normalList.length}/>
-                })}
+                <FlatList
+                    data={specialList}
+                    renderItem={({item, index}) => <SpecialItem navigation={this.props.navigation} data={item} key={index + normalList.length}/>}
+                />
+                {/* {specialList.map((item, index) => {
+                    return <SpecialItem navigation={this.props.navigation} data={item} key={index + normalList.length}/>
+                })} */}
             </Fragment>
         )
     }
@@ -198,6 +205,7 @@ class HomeScreen extends Component {
     }
 
     loadSpecialClockCallback(res) {
+        console.log('special', res);
         const {
             success,
             data
@@ -206,6 +214,16 @@ class HomeScreen extends Component {
             this.setState({
                 specialList: data
             })
+
+            let runArray = data.filter((item) => item.status == 'runing');
+            if (runArray.length >= 1) {
+                // 跳转到 特殊打卡页面
+                console.log('jump sign special')
+                this.props.navigation.navigate('SignSpecial', {
+                    id: runArray[0].id,
+                    question_id: runArray[0].question_id
+                })
+            }
         }
     }
 
@@ -217,7 +235,6 @@ class HomeScreen extends Component {
 
     loadUnReadCountCallback(res) {
         const { success, data } = res;
-        console.log('unreadCount', data);
         if (success) {
             const { messageCnt = 0 } = data;
             this.setState({
@@ -233,7 +250,6 @@ class HomeScreen extends Component {
     }
 
     addSignCallback(res) {
-        console.log('addSign', res);
         const { success } = res;
         if (success) {
             this.setState({

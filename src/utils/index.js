@@ -7,7 +7,8 @@ import {
   formatHourWithString,
   formateDateType,
   formateDateWithString,
-  formatDateToString
+  formatDateToString,
+  formateDateHourWithString
 } from './FormatDate';
 
 import { checkPhone } from './IdentifyPhone'
@@ -21,5 +22,6 @@ export {
   formateDateType,
   formateDateWithString,
   formatDateToString,
-  checkPhone
+  checkPhone,
+  formateDateHourWithString
 };

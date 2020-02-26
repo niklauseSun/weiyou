@@ -8,7 +8,7 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { ASSET_IMAGES } from '../config';
-import { px } from '../utils'
+import { px, formatDateToString } from '../utils'
 import { DatePicker } from '@ant-design/react-native';
 
 export default class SpecialSelectItem extends Component {
@@ -20,16 +20,17 @@ export default class SpecialSelectItem extends Component {
     }
 
     render() {
-        const { imageUrl = null, title = 'test' } = this.props;
+        const { imageUrl = null, title } = this.props;
         return (
             <View style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />
                 <TouchableOpacity onPress={this.showTimePick.bind(this)} style={styles.moreButton}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}>{formatDateToString(title)}</Text>
                     <Image source={ASSET_IMAGES.ICON_MORE} />
                 </TouchableOpacity>
                 <DatePicker
                     minDate={new Date()}
+                    value={title}
                     visible={this.state.isShow}
                     onOk={(e) => {
                         const { onChangeTime = null } = this.props;

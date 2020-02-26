@@ -47,6 +47,8 @@ import GuardianItem from './GuardianItem'
 import SearchApplyItem from './SearchApplyItem'
 import SignEnd from './SignEnd'
 import SetDetailItem from './SetDetailItem'
+import QuestionReportItem from './QuestionReportItem'
+import QuestionDescribe from './QuestionDescribe'
 
 export {
     Header,
@@ -95,5 +97,7 @@ export {
     GuardianItem,
     SearchApplyItem,
     SignEnd,
-    SetDetailItem
+    SetDetailItem,
+    QuestionReportItem,
+    QuestionDescribe
 }

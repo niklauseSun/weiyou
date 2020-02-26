@@ -53,6 +53,7 @@ import EmergencyListItem from './EmergencyListItem'
 import EmergencyInputItem from './EmergencyInputItem'
 import AddImageList from './AddImageList'
 import SpecialContractItem from './SpecialContractItem'
+import SelectContactItem from './SelectContactItem'
 
 export {
     Header,
@@ -107,5 +108,6 @@ export {
     EmergencyListItem,
     EmergencyInputItem,
     AddImageList,
-    SpecialContractItem
+    SpecialContractItem,
+    SelectContactItem
 }

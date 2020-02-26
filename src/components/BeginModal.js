@@ -23,7 +23,7 @@ export default class BeginModal extends Component {
         return (
             <Modal visible={isShow}>
                 { this.state.pic == null? null:<ImageBackground imageStyle={styles.imageStyle} source={{ uri: this.state.pic }} style={styles.imageBg}>
-                    <Text style={styles.day}>{date.getDay()}</Text>
+                    <Text style={styles.day}>{date.getDate()}</Text>
                     <Text style={styles.month}>{date.getMonth() + 1}月 {date.getFullYear()}</Text>
                     <Text style={styles.content}>{this.state.content}</Text>
                     <Text style={styles.content_en} style={styles.content_en}>{this.state.content_en}</Text>

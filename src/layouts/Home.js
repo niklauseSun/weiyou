@@ -20,7 +20,7 @@ class HomeScreen extends Component {
             specialList: [],
             messageCnt: 0,
             showSignSuccess: false,
-            isShow: false
+            isShow: true
         }
     }
 

@@ -43,6 +43,8 @@ const ASSET_IMAGES = {
     ICON_IMAGE_DELETE: require('../assets/icon_image_delete.png'),
     ICON_IMAGE_ADD: require('../assets/icon_image_add.png'),
     ICON_EMERGENCY_IMAGE_ADD: require('../assets/icon_emergency_image_add.png'),
+    ICON_CONTACT_SELECT: require('../assets/icon_contact_select.png'),
+    ICON_CONTACT_UN_SELECT: require('../assets/icon_contact_un_select.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity, Modal, SafeAreaView } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Modal, SafeAreaView, FlatList } from 'react-native'
 import { ASSET_IMAGES } from '../config';
 import { px } from '../utils';
-import { NoneData } from '.';
+import { NoneData, SelectContactItem } from '.';
+import { getContractList } from '../requests';
 
 export default class NormalContractItem extends Component {
     constructor(props) {
@@ -10,6 +11,10 @@ export default class NormalContractItem extends Component {
         this.state = {
             isShow: false
         }
+    }
+
+    componentDidMount() {
+        this.loadContactList();
     }
 
     render() {
@@ -30,7 +35,13 @@ export default class NormalContractItem extends Component {
                                 </TouchableOpacity>
                             </View>
                             <SafeAreaView style={styles.contractView}>
-                                <NoneData title="暂无数据" />
+                            <FlatList
+                                data={this.state.contactList}
+                                renderItem={({item, index}) => {
+                                    return <SelectContactItem onChangeSelect={this._changeContacts.bind(this)} selectIndexArray={this.props.contactList} data={item} />
+                                }}
+                                ListEmptyComponent={() => <NoneData title="暂无数据" />}
+                            />
                             </SafeAreaView>
                         </View>
                     </View>
@@ -43,6 +54,33 @@ export default class NormalContractItem extends Component {
         this.setState({
             isShow: !this.state.isShow
         })
+    }
+
+    _changeContacts(contacts) {
+        const { onChangeContact } = this.props;
+        if (onChangeContact) {
+            onChangeContact(contacts);
+        }
+    }
+
+    loadContactList() {
+        getContractList({
+            pageNum: 0,
+            pageSize: 10,
+            callback: this.loadContactListCallback.bind(this)
+        });
+    }
+
+    // onChangeContact()
+
+    loadContactListCallback(res) {
+        console.log('contact list', res);
+        const { success } = res;
+        if (success) {
+            this.setState({
+                contactList: res.data
+            })
+        }
     }
 }
 

@@ -9,7 +9,8 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     DeviceEventEmitter,
-    NativeModules
+    NativeModules,
+    Platform
 } from 'react-native';
 import {
   Header,
@@ -45,7 +46,7 @@ export default class AddHabitDetail extends Component {
       tips_end: null, //	结束好友提示语
       interval_min: 5, //	再响间隔（分钟）
       interval_cnt: 2, //	再响次数
-      contacts: null, //		设置时为联系人结构体ID数组；获取时为联系人结构体数组
+      contacts: [], //		设置时为联系人结构体ID数组；获取时为联系人结构体数组
       status: null
     };
   }
@@ -79,7 +80,7 @@ export default class AddHabitDetail extends Component {
               <NormalRemindTextItem title="开始提示音" type='start' value={this.state.tips_start} placeholder="请输入开始提示音" onChangeText={this.changeText.bind(this)} />
               <NormalRemindTextItem title="延迟提示音" type='delay' value={this.state.tips_delay} placeholder="请输入延迟提示音" onChangeText={this.changeText.bind(this)} />
               <NormalRemindTextItem title="结束提示音" type='end'   value={this.state.tips_end}   placeholder="请输入结束提示音" onChangeText={this.changeText.bind(this)} />
-              <NormalContractItem />
+              <NormalContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.contacts} />
               <TouchableOpacity onPress={this.addNewNormalClock.bind(this)} style={styles.saveButton}>
                 <Text style={styles.saveText}>保存</Text>
               </TouchableOpacity>
@@ -96,6 +97,11 @@ export default class AddHabitDetail extends Component {
       </TouchableOpacity>
     );
   };
+  changeContact(contact) {
+    this.setState({
+      contacts: contact
+    })
+  }
 
   // 选择模板数据
   SelectData(data) {
@@ -206,7 +212,7 @@ export default class AddHabitDetail extends Component {
         tips_end: this.state.tips_end,
         interval_min: this.state.interval_min,
         interval_cnt: this.state.interval_cnt,
-        contacts: this.state.contacts
+        contact: this.state.contacts
       },
       callback: this.addClockCallback.bind(this)
     }
@@ -237,13 +243,15 @@ export default class AddHabitDetail extends Component {
   }
 
   addNativeClock() {
-    let date = new Date(this.state.clock_time);
-    let timeString = formatDateToString(date);
-    var alarmManager = NativeModules.AlarmManager;
-    let aString = this.switchToArray(this.state.repeats);
-    let weeks = this.showItem(aString);
-    console.log(weeks);
-    alarmManager.addNormalAlarm('normal'+ new Date().getTime(), this.state.name, timeString, weeks);
+    if (Platform.OS == 'ios') {
+      let date = new Date(this.state.clock_time);
+      let timeString = formatDateToString(date);
+      var alarmManager = NativeModules.AlarmManager;
+      let aString = this.switchToArray(this.state.repeats);
+      let weeks = this.showItem(aString);
+      console.log(weeks);
+      alarmManager.addNormalAlarm('normal'+ new Date().getTime(), this.state.name, timeString, weeks);
+    }
   }
 
   switchToArray(repeats) {

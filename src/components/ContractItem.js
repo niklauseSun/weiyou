@@ -12,12 +12,6 @@ export default class ContractItem extends Component {
     }
 
     render() {
-//         id: 24
-// friend_id: 121
-// remark_name: null
-// username: "18301709959"
-// nickname: "孙玉建🍁"
-// avatar: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erKay7VOFxBXRpRxyZfrBI
         const { nickname = 'Alone', detail = '“阅读”在02.10 09:30 完成打卡', avatar } = this.props.data;
         return (
             <View style={styles.content}>

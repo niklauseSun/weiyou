@@ -45,7 +45,7 @@ export default class AddSpecial extends Component {
             longitude: '121,48',
             latitude: '31.23',
             city: '310114',
-            contracts: null,
+            contact: [],
             question: null
         }
     }
@@ -86,7 +86,7 @@ export default class AddSpecial extends Component {
                         <SpecialSelectItem onChangeTime={this.onChangeTime.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.state.start_time} />
                         <SpecialQuestionItem onChangeQuestion={this.onChangeQuestion.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} question={this.state.question}/>
                         <SpecialRepeatItem cnt={this.state.interval_min} repeat={this.state.error_cnt} changeCnt={this.onChangeCnt.bind(this)} changeRepeat={this.onChangeRepeat.bind(this)} />
-                        <SpecialContractItem />
+                        <SpecialContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.contact} />
                         <TouchableOpacity onPress={this.addSpecialTask.bind(this)} style={styles.addButton}>
                             <Text style={styles.addButtonText}>添加</Text>
                         </TouchableOpacity>
@@ -108,6 +108,12 @@ export default class AddSpecial extends Component {
         let second= date.getSeconds();
         second = minute < 10 ? ('0' + second) : second;
         return y + '.' + m + '.' + d+' '+h+':'+minute;
+    }
+
+    changeContact(contact) {
+        this.setState({
+            contact: contact
+        })
     }
 
     changeName(text) {
@@ -172,7 +178,7 @@ export default class AddSpecial extends Component {
             longitude: '121,48',
             latitude: '31.23',
             city: '310114',
-            contracts: this.state.contracts,
+            contacts: this.state.contact,
             question: this.state.question
         }
         const data = {
@@ -250,7 +256,7 @@ export default class AddSpecial extends Component {
                 latitude: data.latitude,
                 city: data.city,
                 question: question.question,
-                contracts: data.contracts
+                contact: data.contacts
             })
         }
     }

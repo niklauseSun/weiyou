@@ -36,7 +36,7 @@ export default class QuestionReport extends Component {
   render() {
     return (
       <SafeAreaView style={commonStyles.content}>
-        <Header title="意见反馈" />
+        <Header title="意见反馈" navigation={this.props.navigation} />
         <ScrollView style={commonStyles.body}>
           <Text style={styles.titleLabel}>
             请选择你在闪退、卡顿或界面异常中遇到的问题

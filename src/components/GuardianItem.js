@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, FlatList, Image } from 'react-native'
 import { getGuardianList } from '../requests';
 import { px } from '../utils';
-import { LineItem } from '.';
+import { LineItem, NoneData } from '.';
 
 export default class GuardianItem extends Component {
     constructor(props) {
@@ -39,6 +39,7 @@ export default class GuardianItem extends Component {
                     }}
                     ItemSeparatorComponent={() => <LineItem />}
                     keyExtractor={(item, index) => index.toString()}
+                    ListEmptyComponent={() => <NoneData title="暂无监护人" />}
                 />
             </View>
         )

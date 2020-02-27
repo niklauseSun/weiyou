@@ -213,12 +213,12 @@ const styles = StyleSheet.create({
         marginRight: px(30),
         marginLeft: px(30),
         backgroundColor: '#f7f6fd',
-        height: px(155),
         borderRadius: px(16),
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: px(20),
-        paddingRight: px(30)
+        paddingRight: px(30),
+        paddingVertical:px(20)
     },
     head: {
         width: px(106),
@@ -241,7 +241,6 @@ const styles = StyleSheet.create({
     titleLabel: {
         color: '#333',
         fontSize: px(36),
-        lineHeight: px(36),
         flex: 1
     },
     subTitleLabel: {
@@ -263,7 +262,8 @@ const styles = StyleSheet.create({
     },
     firstLine: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: px(40)
     },
     thirdLine: {
         flexDirection: 'row',

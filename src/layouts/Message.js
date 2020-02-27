@@ -114,9 +114,11 @@ class MessageScreen extends Component {
 
     loadContractListCallback(res) {
         console.log('res contract', res);
-        this.setState({
-            contractList: res.data
-        })
+        if (res.success) {
+            this.setState({
+                contractList: res.data
+            })
+        }
     }
 }
 

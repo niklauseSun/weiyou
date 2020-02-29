@@ -48,6 +48,12 @@ const ASSET_IMAGES = {
     ICON_HOME_NORMAL_ADD: require('../assets/icon_home_normal_add.png'),
     ICON_HOME_SPECIAL_ADD: require('../assets/icon_home_special_add.png'),
     ICON_DEFAULT_HEAD_IMAGE: require('../assets/icon_default_head_image.png'),
+    ICON_LEFT_LINE: require('../assets/icon_left_line.png'),
+    ICON_RIGHT_LINE: require('../assets/icon_right_line.png'),
+    ICON_SCORE_BG_VIEW: require('../assets/icon_score_bg_view.png'),
+    ICON_ADD_PIG: require('../assets/icon_add_pig.png'),
+    ICON_DELETE_PIG: require('../assets/icon_delete_pig.png'),
+    ICON_SCORE_DOT: require('../assets/icon_score_dot.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

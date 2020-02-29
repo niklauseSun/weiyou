@@ -28,7 +28,9 @@ import {
     ContactDetail,
     GuardianMessageList,
     MessageDetail,
-    GuardianList
+    GuardianList,
+    PersonDetail,
+    AccountView
 }
 from '../layouts'
 import React from "react";
@@ -194,6 +196,14 @@ const SettingStack = createStackNavigator({
     },
     EmergencyList: {
         screen: EmergencyList,
+        navigationOptions: defaultNavigationOptions
+    },
+    PersonDetail: {
+        screen: PersonDetail,
+        navigationOptions: defaultNavigationOptions
+    },
+    AccountView: {
+        screen: AccountView,
         navigationOptions: defaultNavigationOptions
     }
 })

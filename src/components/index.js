@@ -59,6 +59,7 @@ import SpecialAddItem from './SpecialAddItem'
 import HomeContactHeader from './HomeContactHeader'
 import EditItem from './EditItem'
 import ContactListItem from './ContactListItem'
+import ScoreListItem from './ScoreListItem'
 
 export {
     Header,
@@ -119,5 +120,6 @@ export {
     SpecialAddItem,
     HomeContactHeader,
     EditItem,
-    ContactListItem
+    ContactListItem,
+    ScoreListItem
 }

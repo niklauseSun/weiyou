@@ -43,9 +43,10 @@ class SettingScreen extends Component {
                     status={this.state.status}
                     isLogin={this.state.isLogin}
                     isVip={this.state.status !== 'normal'}
+                    id={this.state.id}
                     loginAction={this.loginAction.bind(this)} />
-                <AccountView score={this.state.score} />
-                <SetInfoItem setItemAction={this.navigateSettingDetail.bind(this)} imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} />
+                <AccountView enterAccount={this._enterAccount.bind(this)} score={this.state.score} />
+                {/* <SetInfoItem setItemAction={this.navigateSettingDetail.bind(this)} imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} /> */}
                 <SetInfoItem setItemAction={this.navigateQuestionReport.bind(this)} imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
                 <SetInfoItem setItemAction={this.navigateEmergencyList.bind(this)} imageUrl={ASSET_IMAGES.ICON_EMERGENCY} title={"紧急事件"} />
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_EVALUATION} title={"评价鼓励"} /> */}
@@ -70,6 +71,13 @@ class SettingScreen extends Component {
         this.props.navigation.navigate('EmergencyList')
     }
 
+    _enterAccount() {
+        this.props.navigation.navigate('AccountView', {
+            id: this.state.id,
+            score: this.state.score
+        })
+    }
+
     loginAction() {
         this.props.navigation.navigate('LoginView')
     }
@@ -80,7 +88,6 @@ class SettingScreen extends Component {
     }
 
     logoutCallback(res) {
-        console.log('res', res);
         const { success } = res;
         if (success) {
             Toast.info('已退出')
@@ -98,7 +105,6 @@ class SettingScreen extends Component {
     }
 
     loadPersonalInfoCallback(res) {
-        console.log('loadPersonalInfo', res);
         const { success, data } = res;
         if (success) {
             const { avatar, id, nickname, sex, status, score } = data;

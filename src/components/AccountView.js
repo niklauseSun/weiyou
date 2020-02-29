@@ -18,11 +18,18 @@ export default class AccountView extends Component {
                     <Text style={styles.accountNum}>{score.toFixed(2)}</Text>
                     <Text style={styles.accountText}>我的积分</Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.7} style={styles.accountButton}>
+                <TouchableOpacity onPress={this.navigateAccount.bind(this)} activeOpacity={0.7} style={styles.accountButton}>
                     <Text style={styles.accountButtonText}>进入账户</Text>
                 </TouchableOpacity>
             </View>
         )
+    }
+
+    navigateAccount() {
+        const { enterAccount } = this.props;
+        if (enterAccount) {
+            enterAccount();
+        }
     }
 }
 

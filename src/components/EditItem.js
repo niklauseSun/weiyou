@@ -15,9 +15,16 @@ export default class EditItem extends Component {
         return (
             <View style={styles.content}>
                     <Text style={styles.title}>{title}</Text>
-                <TextInput editable={editable} style={styles.input} value={subTitle} />
+                <TextInput onChangeText={this.changeValue.bind(this)} editable={editable} style={styles.input} value={subTitle} />
             </View>
         )
+    }
+
+    changeValue(text) {
+        const { changeText } = this.props;
+        if (changeText) {
+            changeText(text);
+        }
     }
 }
 

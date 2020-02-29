@@ -24,6 +24,8 @@ import ContactDetail from './ContactDetail'
 import GuardianMessageList from './GuardianMessageList'
 import MessageDetail from './MessageDetail'
 import GuardianList from './GuardianList'
+import PersonDetail from './PersonDetail'
+import AccountView from './AccountView'
 
 export {
     Home,
@@ -51,5 +53,7 @@ export {
     ContactDetail,
     GuardianMessageList,
     MessageDetail,
-    GuardianList
+    GuardianList,
+    PersonDetail,
+    AccountView
 }

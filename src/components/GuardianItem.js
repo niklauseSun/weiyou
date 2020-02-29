@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, FlatList, Image } from 'react-native'
+import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import { getGuardianList } from '../requests';
 import { px } from '../utils';
 import { LineItem, NoneData } from '.';
+import { ASSET_IMAGES } from '../config';
 
 export default class GuardianItem extends Component {
     constructor(props) {
@@ -20,22 +21,15 @@ export default class GuardianItem extends Component {
         return (
             <View style={styles.content}>
                 <FlatList
-                    data={this.state.guardianList}
+                    data={this.state.guardianList.filter((item) => item.username != null )}
                     renderItem={({item, index}) => {
-                        // return <View key={index}>
-                        //     <Image source={{ uri: item.avatar }} />
-                        //     <View>
-                        //         <Text>{item.nickname}</Text>
-                        //         <Text>{item.message}</Text>
-                        //     </View>
-                        // </View>
-                        return <View style={styles.itemContent} key={index}>
-                            {item.avatar == '' ? <View style={styles.headImage}  />:<Image style={styles.headImage} source={{ uri: item.avatar}} />}
+                        return <TouchableOpacity onPress={this.navigate.bind(this, item)} style={styles.itemContent} key={index}>
+                            {item.avatar == ''||item.avatar == null ? <Image source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} style={styles.headImage}  />:<Image style={styles.headImage} source={{ uri: item.avatar}} />}
                             <View style={styles.detailView}>
-                                <Text style={styles.name}>{item.nickname}</Text>
+                                <Text style={styles.name}>{item.nickname == null ? '': item.nickname}</Text>
                                 <Text style={styles.detailText}>{item.message == null ? '': item.message.content}</Text>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     }}
                     ItemSeparatorComponent={() => <LineItem />}
                     keyExtractor={(item, index) => index.toString()}
@@ -43,6 +37,15 @@ export default class GuardianItem extends Component {
                 />
             </View>
         )
+    }
+
+    navigate(item) {
+        const { message }= item;
+        this.props.navigation.navigate('GuardianMessageList', {
+            nickname: item.nickname,
+            avatar: item.avatar,
+            messageList: message == null ? []:[message]
+        })
     }
 
     loadList() {

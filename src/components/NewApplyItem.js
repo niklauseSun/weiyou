@@ -36,17 +36,9 @@ export default class NewApplyItem extends Component {
     }
 
     renderItem(item) {
-//         id: 60
-// friend_id: 100
-// reason: "s"
-// status: "applying"
-// username: "admin"
-// nickname: "admin"
-// avatar: ""
-console.log('item', item);
         const { reason = '', nickname = '', avatar = '', id } = item;
 
-        return <View style={styles.actionContent}>
+        return <TouchableOpacity style={styles.actionContent}>
             {avatar == '' || avatar == null ? <View style={styles.headImage}></View> :<Image style={styles.headImage} source={{ uri: avatar }} /> }
             <View style={styles.detail}>
                 <Text style={styles.name}>{nickname == null ? '': nickname}</Text>
@@ -57,7 +49,15 @@ console.log('item', item);
                     <Text style={styles.agreeText}>同意</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </TouchableOpacity>
+    }
+
+    navigate(item) {
+        const { id } = item;
+        this.props.navigation.navigate('ContactDetail', {
+            id: id,
+            type: 'add'
+        })
     }
 
     agreeAction(id) {

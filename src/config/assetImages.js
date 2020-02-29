@@ -45,6 +45,9 @@ const ASSET_IMAGES = {
     ICON_EMERGENCY_IMAGE_ADD: require('../assets/icon_emergency_image_add.png'),
     ICON_CONTACT_SELECT: require('../assets/icon_contact_select.png'),
     ICON_CONTACT_UN_SELECT: require('../assets/icon_contact_un_select.png'),
+    ICON_HOME_NORMAL_ADD: require('../assets/icon_home_normal_add.png'),
+    ICON_HOME_SPECIAL_ADD: require('../assets/icon_home_special_add.png'),
+    ICON_DEFAULT_HEAD_IMAGE: require('../assets/icon_default_head_image.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

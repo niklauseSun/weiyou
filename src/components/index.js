@@ -54,6 +54,11 @@ import EmergencyInputItem from './EmergencyInputItem'
 import AddImageList from './AddImageList'
 import SpecialContractItem from './SpecialContractItem'
 import SelectContactItem from './SelectContactItem'
+import NormalAddItem from './NormalAddItem'
+import SpecialAddItem from './SpecialAddItem'
+import HomeContactHeader from './HomeContactHeader'
+import EditItem from './EditItem'
+import ContactListItem from './ContactListItem'
 
 export {
     Header,
@@ -109,5 +114,10 @@ export {
     EmergencyInputItem,
     AddImageList,
     SpecialContractItem,
-    SelectContactItem
+    SelectContactItem,
+    NormalAddItem,
+    SpecialAddItem,
+    HomeContactHeader,
+    EditItem,
+    ContactListItem
 }

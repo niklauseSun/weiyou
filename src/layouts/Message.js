@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { View, Text, SafeAreaView, FlatList, StyleSheet, Image } from 'react-native'
-import { HeaderItem, SearchItem, ContractItem, LineItem, TabHeader, PredictContract, NewApplyItem, GuardianItem } from '../components'
+import { HeaderItem, SearchItem, ContractItem, LineItem, TabHeader, PredictContract, NewApplyItem, GuardianItem, ContactListItem } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
@@ -14,16 +14,13 @@ class MessageScreen extends Component {
             contractList: [],
             tabItems:[
                 {
-                    name: '监护人',
+                    name: '我监护的人',
                 },
                 {
                     name: '推荐联系人',
                 },
                 {
                     name: '新的申请',
-                },
-                {
-                    name: '我监护的人'
                 }
             ],
             selectIndex: 0
@@ -56,8 +53,8 @@ class MessageScreen extends Component {
                 return this.renderPredictContract()
             case 2:
                 return this.renderNewApply()
-            case 3:
-                return this.renderGuardian()
+            // case 3:
+            //     return this.renderGuardian()
         }
     }
 
@@ -68,9 +65,9 @@ class MessageScreen extends Component {
                    <Image source={ASSET_IMAGES.IMAGE_NONE_CONTRACT} />
                 </View>:<FlatList
                         style={styles.contractList}
-                        data={this.state.contractList}
+                        data={this.state.contractList.filter((item) => item.username != null)}
                         renderItem={({ item }) => {
-                            return <ContractItem data={item} />
+                            return <ContactListItem navigation={this.props.navigation} data={item} />
                         }}
                         ItemSeparatorComponent={() => <LineItem />}
                     />
@@ -79,16 +76,16 @@ class MessageScreen extends Component {
     }
 
     renderPredictContract() {
-        return <PredictContract />;
+        return <PredictContract navigation={this.props.navigation} />;
         // <PredictContract />
     }
 
     renderNewApply() {
-        return <NewApplyItem />
+        return <NewApplyItem navigation={this.props.navigation} />
     }
 
     renderGuardian() {
-        return <GuardianItem />
+        return <GuardianItem navigation={this.props.navigation} />
     }
 
     navigateAddContract() {

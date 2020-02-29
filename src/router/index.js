@@ -23,7 +23,12 @@ import {
     SettingDetail,
     QuestionReport,
     AddEmergency,
-    EmergencyList
+    EmergencyList,
+    ContactList,
+    ContactDetail,
+    GuardianMessageList,
+    MessageDetail,
+    GuardianList
 }
 from '../layouts'
 import React from "react";
@@ -62,6 +67,26 @@ const HomeStack = createStackNavigator({
     },
     SignSpecial: {
         screen: SignSpecial,
+        navigationOptions: defaultNavigationOptions
+    },
+    ContactList: {
+        screen: ContactList,
+        navigationOptions: defaultNavigationOptions
+    },
+    ContactDetail: {
+        screen: ContactDetail,
+        navigationOptions: defaultNavigationOptions
+    },
+    GuardianMessageList: {
+        screen: GuardianMessageList,
+        navigationOptions: defaultNavigationOptions
+    },
+    MessageDetail: {
+        screen: MessageDetail,
+        navigationOptions: defaultNavigationOptions
+    },
+    GuardianList: {
+        screen: GuardianList,
         navigationOptions: defaultNavigationOptions
     }
 })
@@ -112,6 +137,10 @@ const MessageStack = createStackNavigator({
     },
     AddContract: {
         screen: AddContract,
+        navigationOptions: defaultNavigationOptions
+    },
+    ContactDetail: {
+        screen: ContactDetail,
         navigationOptions: defaultNavigationOptions
     }
 })

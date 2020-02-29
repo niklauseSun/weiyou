@@ -24,7 +24,7 @@ export default class MessageList extends Component {
                     title={"消息列表"} />
                 <View style={commonStyles.body}>
                 <FlatList
-                    data={this.state.messageList}
+                    data={this.state.messageList.filter((item) => item.username != null )}
                     renderItem={({item}) => <MessageItem data={item} />}
                 />
                 </View>

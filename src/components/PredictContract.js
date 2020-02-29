@@ -32,7 +32,7 @@ export default class PredictContract extends Component {
             <View style={styles.content}>
                 <FlatList
                     contentContainerStyle={styles.content}
-                    data={this.state.recommendList}
+                    data={this.state.recommendList.filter((item) => item.username != null )}
                     renderItem={({item}) => {
                         return <TouchableOpacity onPress={this.applyAction.bind(this, item)} style={styles.actionContent}>
                             {item.avatar == '' ? <View style={styles.headImage}></View> :<Image style={styles.headImage} source={{ uri: item.avatar }} /> }

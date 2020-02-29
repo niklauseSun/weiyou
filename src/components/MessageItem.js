@@ -7,7 +7,7 @@ import { px, formatHourWithString } from '../utils'
 export default class MessageItem extends Component {
     render() {
         const { data } = this.props;
-        const { content, create_time, nickname } = data;
+        const { content, create_time, nickname, avatar = '' } = data;
         return (
             <View style={styles.messageItem}>
                 <View style={styles.timeLine}>
@@ -17,10 +17,13 @@ export default class MessageItem extends Component {
                 </View>
                 <View style={styles.content}>
                     <View style={styles.contentView}>
-                        <Text style={styles.contentTitle}>好友{nickname}的消息</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', height: px(120)}}>
+                            { avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} /> :<Image style={styles.headImage} source={{uri: avatar}} /> }
+                            <Text style={styles.contentTitle}>好友{nickname}的消息</Text>
+                        </View>
                         <Text style={styles.contentLabel}>{content}</Text>
                     </View>
-                    <TouchableOpacity style={styles.detail}>
+                    <TouchableOpacity onPress={this.navigateMessageDetail.bind(this)} style={styles.detail}>
                         <Text style={styles.detailTitle}>详情</Text>
                         <Image style={styles.detailIcon} source={ASSET_IMAGES.ICON_MORE} />
                     </TouchableOpacity>
@@ -30,8 +33,10 @@ export default class MessageItem extends Component {
     }
 
     navigateMessageDetail() {
-        // const { id } = this.props.data || {};
-
+        const { id } = this.props.data || {};
+        this.props.navigation.navigate('MessageDetail', {
+            id: id
+        });
     }
 }
 
@@ -41,6 +46,12 @@ const styles = StyleSheet.create({
     },
     timeLine: {
         alignItems: 'center'
+    },
+    headImage: {
+        width: px(80),
+        height: px(80),
+        marginLeft: px(30),
+        borderRadius: px(40)
     },
     timeView: {
         marginTop: px(36),
@@ -71,7 +82,6 @@ const styles = StyleSheet.create({
     contentTitle: {
         marginLeft: px(27),
         marginRight: px(27),
-        marginTop: px(39),
         fontSize: px(34),
         color: '#383C3D'
     },

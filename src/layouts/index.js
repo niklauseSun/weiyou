@@ -19,7 +19,11 @@ import SettingDetail from './SettingDetail'
 import QuestionReport from './QuestionReport'
 import AddEmergency from './AddEmergency'
 import EmergencyList from './EmergencyList'
-
+import ContactList from './ContactList'
+import ContactDetail from './ContactDetail'
+import GuardianMessageList from './GuardianMessageList'
+import MessageDetail from './MessageDetail'
+import GuardianList from './GuardianList'
 
 export {
     Home,
@@ -42,5 +46,10 @@ export {
     SettingDetail,
     QuestionReport,
     AddEmergency,
-    EmergencyList
+    EmergencyList,
+    ContactList,
+    ContactDetail,
+    GuardianMessageList,
+    MessageDetail,
+    GuardianList
 }

@@ -77,8 +77,17 @@ export default class SpecialContractItem extends Component {
 
     loadContactListCallback(res) {
         console.log('contact list', res);
-        const { success } = res;
+        const { success, data } = res;
         if (success) {
+            let aArray = [];
+            for (let i = 0;i<data.length;i++) {
+                aArray.push(data[i].id);
+            }
+            const { onChangeContact } = this.props;
+            if (onChangeContact) {
+                onChangeContact(aArray);
+            }
+
             this.setState({
                 contactList: res.data
             })

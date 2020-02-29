@@ -271,7 +271,6 @@ const styles = StyleSheet.create({
   },
   questionInput: {
       flex: 1,
-      height: px(60),
       paddingHorizontal: px(10),
       color: '#999'
   },

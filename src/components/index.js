@@ -60,6 +60,8 @@ import HomeContactHeader from './HomeContactHeader'
 import EditItem from './EditItem'
 import ContactListItem from './ContactListItem'
 import ScoreListItem from './ScoreListItem'
+import UserHeader from './UserHeader'
+import RuleItem from './RuleItem'
 
 export {
     Header,
@@ -121,5 +123,7 @@ export {
     HomeContactHeader,
     EditItem,
     ContactListItem,
-    ScoreListItem
+    ScoreListItem,
+    UserHeader,
+    RuleItem
 }

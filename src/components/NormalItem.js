@@ -154,8 +154,7 @@ const styles = StyleSheet.create({
     },
     titleLabel: {
         color: '#333',
-        fontSize: px(36),
-        lineHeight: px(36)
+        fontSize: px(34)
     },
     subTitleLabel: {
         marginTop: px(12),

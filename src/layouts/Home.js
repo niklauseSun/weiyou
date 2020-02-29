@@ -65,12 +65,12 @@ class HomeScreen extends Component {
   componentDidMount() {
     this.loadWeekConfig();
     this.loadUnReadCount();
-    this.addSign();
-    this.loadContractList();
+    // this.addSign();
 
     this.listener = DeviceEventEmitter.addListener('taskReload', message => {
       //收到监听后想做的事情
       this.loadTasks();
+      this.loadContractList();
     });
 
     this.timer = setTimeout(() => {

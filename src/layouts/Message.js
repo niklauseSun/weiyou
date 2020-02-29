@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { View, Text, SafeAreaView, FlatList, StyleSheet, Image } from 'react-native'
+import { View, Text, SafeAreaView, FlatList, StyleSheet, Image, DeviceEventEmitter } from 'react-native'
 import { HeaderItem, SearchItem, ContractItem, LineItem, TabHeader, PredictContract, NewApplyItem, GuardianItem, ContactListItem } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px } from '../utils';
@@ -28,6 +28,10 @@ class MessageScreen extends Component {
     }
 
     componentDidMount() {
+        this.listener = DeviceEventEmitter.addListener('taskReload', message => {
+            //收到监听后想做的事情
+            this.loadContractList();
+          });
         this.loadContractList();
     }
 

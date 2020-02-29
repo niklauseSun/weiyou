@@ -26,6 +26,9 @@ import MessageDetail from './MessageDetail'
 import GuardianList from './GuardianList'
 import PersonDetail from './PersonDetail'
 import AccountView from './AccountView'
+import NormalUser from './NormalUser'
+import VipUser from './VipUser'
+import BuyVipView from './BuyVipView'
 
 export {
     Home,
@@ -55,5 +58,8 @@ export {
     MessageDetail,
     GuardianList,
     PersonDetail,
-    AccountView
+    AccountView,
+    NormalUser,
+    BuyVipView,
+    VipUser
 }

@@ -41,14 +41,14 @@ export default class MyDetailItem extends Component {
                 <View style={styles.vipView}>
                     {
                         isLogin ? <View style={styles.vipLoginView}>
-                            <View style={styles.vipNumView}>
+                            <TouchableOpacity onPress={this.goNormalView.bind(this)} style={styles.vipNumView}>
                                 <Text style={styles.rateNumText}>{ isVip ? "3项": "无" }</Text>
                                 <Text style={styles.rateNumSubText}>特权</Text>
-                            </View>
-                            <View style={styles.rateView}>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.goVipView.bind(this)} style={styles.rateView}>
                                 <Text style={styles.rateText}>{isVip ? "VIP会员": "普通用户"}</Text>
                                 <Text style={styles.rateSubText}>等级</Text>
-                            </View>
+                            </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.7} style={styles.updateVip} onPress={this.updateVip.bind(this)}>
                                 <ImageBackground style={styles.vipImageBg} source={ASSET_IMAGES.IMAGE_VIP_BG}>
                                     <Text style={styles.vipText}>
@@ -84,6 +84,14 @@ export default class MyDetailItem extends Component {
         this.props.navigation.navigate('SettingDetail');
     }
 
+    goVipView() {
+        this.props.navigation.navigate('VipUser');
+    }
+
+    goNormalView() {
+        this.props.navigation.navigate('NormalUser');
+    }
+
     updateVip() {
         const {
             isVip = true
@@ -92,6 +100,7 @@ export default class MyDetailItem extends Component {
             console.log('延长时限');
         } else {
             console.log('升级为vip');
+            this.props.navigation.navigate('BuyVipView')
         }
     }
 

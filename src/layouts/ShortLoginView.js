@@ -95,6 +95,7 @@ export default class ShortLoginView extends Component {
             Toast.info('登录成功');
             this.props.navigation.popToTop();
             DeviceEventEmitter.emit('reloadLogin');
+            DeviceEventEmitter.emit('taskReload');
         } else {
             Toast.info(error);
         }

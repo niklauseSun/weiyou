@@ -77,6 +77,7 @@ export default class LoginView extends Component {
             global.isLogin = true
             this.props.navigation.goBack();
             DeviceEventEmitter.emit('reloadLogin');
+            DeviceEventEmitter.emit('taskReload');
         }
     }
 }

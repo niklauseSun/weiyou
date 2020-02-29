@@ -30,7 +30,10 @@ import {
     MessageDetail,
     GuardianList,
     PersonDetail,
-    AccountView
+    AccountView,
+    NormalUser,
+    BuyVipView,
+    VipUser
 }
 from '../layouts'
 import React from "react";
@@ -204,6 +207,18 @@ const SettingStack = createStackNavigator({
     },
     AccountView: {
         screen: AccountView,
+        navigationOptions: defaultNavigationOptions
+    },
+    NormalUser: {
+        screen: NormalUser,
+        navigationOptions: defaultNavigationOptions
+    },
+    VipUser: {
+        screen: VipUser,
+        navigationOptions: defaultNavigationOptions
+    },
+    BuyVipView: {
+        screen: BuyVipView,
         navigationOptions: defaultNavigationOptions
     }
 })

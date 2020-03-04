@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, FlatList, DeviceEventEmitter } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, FlatList, DeviceEventEmitter, TouchableOpacity } from 'react-native'
 import { Header, NormalDeleteItem, NoneData, SpecialDeleteItem, EndComponent } from '../components'
 import { getPersonalClockList, getSpecialClockList } from '../requests';
+import { px } from '../utils';
 
 export default class TaskList extends Component {
     constructor(props) {
@@ -28,10 +29,16 @@ export default class TaskList extends Component {
     render() {
         return (
             <SafeAreaView style={styles.body}>
-                <Header navigation={this.props.navigation} title={this.state.type == 'normal'? '普通任务': '紧急任务'} />
+                <Header navigation={this.props.navigation} title={this.state.type == 'normal'? '普通任务': '紧急任务'} rightComponent={this.rightComponent()} />
                 {this.renderItemList()}
             </SafeAreaView>
         )
+    }
+
+    rightComponent() {
+        return <TouchableOpacity onPress={this.goToAdd.bind(this)} style={styles.addButton}>
+            <Text style={styles.addButtonText}>添加</Text>
+        </TouchableOpacity>
     }
 
     renderItemList() {
@@ -60,6 +67,14 @@ export default class TaskList extends Component {
                 ListFooterComponent={() => <EndComponent />}
             />
         )
+    }
+
+    goToAdd() {
+        if (this.state.type == 'normal') {
+            this.props.navigation.navigate('AddHabitDetail');
+        } else {
+            this.props.navigation.navigate('AddSpecial');
+        }
     }
 
     loadTaskList() {
@@ -113,5 +128,11 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    addButton: {
+        width: px(100)
+    },
+    addButtonText: {
+        color: '#ED7539'
     }
 })

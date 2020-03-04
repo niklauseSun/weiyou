@@ -12,6 +12,7 @@ import {
   ScrollView,
   DeviceEventEmitter,
   NativeModules,
+  Platform,
 } from 'react-native';
 import {
   Header,
@@ -106,14 +107,14 @@ class HomeScreen extends Component {
           {this.renderContactList()}
           {this.renderListItem(this.state.normalList, this.state.specialList)}
         </ScrollView>
-        {/* <AddItem
-                    addNormal = {
-                        this.navigateToNormal.bind(this)
-                    }
-                    addSpecial = {
-                        this.navigateToSpecial.bind(this)
-                    }
-                /> */}
+        <AddItem
+          addNormal = {
+              this.navigateToNormal.bind(this)
+          }
+          addSpecial = {
+              this.navigateToSpecial.bind(this)
+          }
+        />
         {/* <SignSuccessModal dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  /> */}
         <BeginModal isShow={this.state.isShow} />
       </SafeAreaView>
@@ -222,15 +223,21 @@ class HomeScreen extends Component {
   }
 
   navigateToNormal() {
-    this.props.navigation.navigate('AddHabitDetail');
-    // let date = new Date('2020-02-23T09:50:36.669Z');
-    // let timeString = formatDateToString(date);
-    // var alarmManager = NativeModules.AlarmManager;
-    // alarmManager.addNormalAlarm('normal'+ 7, '测试', timeString, ['周日']);
+    // this.props.navigation.navigate('AddHabitDetail');
+    let date = new Date('2020-02-23T13:53:36.669Z');
+    let timeString = formatDateToString(date);
+    var alarmManager = NativeModules.AlarmManager;
+    alarmManager.addNormalAlarm('normal'+ 7, '测试11', timeString, ['周三'], 'add');
   }
 
   navigateToSpecial() {
-    this.props.navigation.navigate('AddSpecial');
+    // this.props.navigation.navigate('AddSpecial');
+    let date = new Date('2020-03-04T14:28:36.669Z');
+    let timeString = formatDateToString(date);
+    if (Platform.OS == 'android') {
+      var alarmManager = NativeModules.AlarmManager;
+      alarmManager.addSpecialAlarm('special', '我是测试 特殊', timeString);
+    }
   }
 
   changeDaySelect(index) {

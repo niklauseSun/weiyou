@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
 import { Header } from '../components';
+import { commonStyles } from '../commonStyles';
 
 export default class Test extends Component {
     constructor(props) {
@@ -12,8 +13,11 @@ export default class Test extends Component {
 
     render() {
         return (
-            <SafeAreaView>
+            <SafeAreaView style={commonStyles.content}>
                 <Header title="购买会员" navigation={this.props.navigation} />
+                <ScrollView style={commonStyles.body}>
+                    
+                </ScrollView>
             </SafeAreaView>
         )
     }

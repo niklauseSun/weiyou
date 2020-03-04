@@ -7,8 +7,12 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.weiyou.NativeModule.AlarmModule;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -25,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+            packages.add(new AlarmModule());
           return packages;
         }
 
@@ -41,9 +46,10 @@ public class MainApplication extends Application implements ReactApplication {
 
   @Override
   public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-    initializeFlipper(this); // Remove this line if you don't want Flipper enabled
+      super.onCreate();
+      SoLoader.init(this, /* native exopackage */ false);
+      JPushInterface.init(this);
+      initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
 
   /**

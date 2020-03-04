@@ -20,14 +20,14 @@
 		9C18CAD6E13EEB4E4670EAB8 /* libPods-WeiYouTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A17DEFBDAAD8DF10C17D594E /* libPods-WeiYouTests.a */; };
 		CE66EC680C1B1821BA4CA82A /* libPods-WeiYou-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B61FD4DC529C39A49264AD /* libPods-WeiYou-tvOSTests.a */; };
 		E0766A94753BE9D878F7A3E5 /* libPods-WeiYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E32C29E426735DBC9D212267 /* libPods-WeiYou.a */; };
+		F40B40972410107300EBEEAF /* lightM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40912410107300EBEEAF /* lightM_01.caf */; };
+		F40B40982410107300EBEEAF /* hotM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40922410107300EBEEAF /* hotM_02.caf */; };
+		F40B40992410107300EBEEAF /* lightM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40932410107300EBEEAF /* lightM_02.caf */; };
+		F40B409A2410107300EBEEAF /* lightM_03.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40942410107300EBEEAF /* lightM_03.caf */; };
+		F40B409B2410107300EBEEAF /* hotM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40952410107300EBEEAF /* hotM_01.caf */; };
+		F40B409C2410107300EBEEAF /* lightM_04.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40962410107300EBEEAF /* lightM_04.caf */; };
 		F44A5A572401680C00F92B64 /* UNNotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A562401680C00F92B64 /* UNNotificationsManager.m */; };
 		F44A5A5A24016F0B00F92B64 /* AlarmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A5924016F0B00F92B64 /* AlarmManager.m */; };
-		F44A5A6424020E7E00F92B64 /* lightM_04.caf in Resources */ = {isa = PBXBuildFile; fileRef = F44A5A5E24020E7E00F92B64 /* lightM_04.caf */; };
-		F44A5A6524020E7E00F92B64 /* lightM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F44A5A5F24020E7E00F92B64 /* lightM_02.caf */; };
-		F44A5A6624020E7E00F92B64 /* lightM_03.caf in Resources */ = {isa = PBXBuildFile; fileRef = F44A5A6024020E7E00F92B64 /* lightM_03.caf */; };
-		F44A5A6724020E7E00F92B64 /* lightM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F44A5A6124020E7E00F92B64 /* lightM_01.caf */; };
-		F44A5A6824020E7E00F92B64 /* hotM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F44A5A6224020E7E00F92B64 /* hotM_02.caf */; };
-		F44A5A6924020E7E00F92B64 /* hotM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F44A5A6324020E7E00F92B64 /* hotM_01.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,16 +75,16 @@
 		EAE614615852190A35467C9E /* Pods-WeiYou-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-WeiYou-tvOSTests/Pods-WeiYou-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F40B40912410107300EBEEAF /* lightM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_01.caf; sourceTree = "<group>"; };
+		F40B40922410107300EBEEAF /* hotM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hotM_02.caf; sourceTree = "<group>"; };
+		F40B40932410107300EBEEAF /* lightM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_02.caf; sourceTree = "<group>"; };
+		F40B40942410107300EBEEAF /* lightM_03.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_03.caf; sourceTree = "<group>"; };
+		F40B40952410107300EBEEAF /* hotM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hotM_01.caf; sourceTree = "<group>"; };
+		F40B40962410107300EBEEAF /* lightM_04.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_04.caf; sourceTree = "<group>"; };
 		F44A5A552401680C00F92B64 /* UNNotificationsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UNNotificationsManager.h; sourceTree = "<group>"; };
 		F44A5A562401680C00F92B64 /* UNNotificationsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UNNotificationsManager.m; sourceTree = "<group>"; };
 		F44A5A5824016F0B00F92B64 /* AlarmManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmManager.h; sourceTree = "<group>"; };
 		F44A5A5924016F0B00F92B64 /* AlarmManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmManager.m; sourceTree = "<group>"; };
-		F44A5A5E24020E7E00F92B64 /* lightM_04.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_04.caf; sourceTree = "<group>"; };
-		F44A5A5F24020E7E00F92B64 /* lightM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_02.caf; sourceTree = "<group>"; };
-		F44A5A6024020E7E00F92B64 /* lightM_03.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_03.caf; sourceTree = "<group>"; };
-		F44A5A6124020E7E00F92B64 /* lightM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_01.caf; sourceTree = "<group>"; };
-		F44A5A6224020E7E00F92B64 /* hotM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hotM_02.caf; sourceTree = "<group>"; };
-		F44A5A6324020E7E00F92B64 /* hotM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hotM_01.caf; sourceTree = "<group>"; };
 		F4DB198C23FFFD7D00DD1496 /* WeiYou.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = WeiYou.entitlements; path = WeiYou/WeiYou.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,12 +225,12 @@
 		F44A5A5D24020E7E00F92B64 /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				F44A5A5E24020E7E00F92B64 /* lightM_04.caf */,
-				F44A5A5F24020E7E00F92B64 /* lightM_02.caf */,
-				F44A5A6024020E7E00F92B64 /* lightM_03.caf */,
-				F44A5A6124020E7E00F92B64 /* lightM_01.caf */,
-				F44A5A6224020E7E00F92B64 /* hotM_02.caf */,
-				F44A5A6324020E7E00F92B64 /* hotM_01.caf */,
+				F40B40952410107300EBEEAF /* hotM_01.caf */,
+				F40B40922410107300EBEEAF /* hotM_02.caf */,
+				F40B40912410107300EBEEAF /* lightM_01.caf */,
+				F40B40932410107300EBEEAF /* lightM_02.caf */,
+				F40B40942410107300EBEEAF /* lightM_03.caf */,
+				F40B40962410107300EBEEAF /* lightM_04.caf */,
 			);
 			name = resource;
 			path = "../../../../Downloads/Alarm_Clock_UserNotifications-master/Alarm_Clock_UserNotifications/resource";
@@ -383,14 +383,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44A5A6724020E7E00F92B64 /* lightM_01.caf in Resources */,
-				F44A5A6424020E7E00F92B64 /* lightM_04.caf in Resources */,
-				F44A5A6624020E7E00F92B64 /* lightM_03.caf in Resources */,
-				F44A5A6924020E7E00F92B64 /* hotM_01.caf in Resources */,
-				F44A5A6824020E7E00F92B64 /* hotM_02.caf in Resources */,
+				F40B409B2410107300EBEEAF /* hotM_01.caf in Resources */,
+				F40B409A2410107300EBEEAF /* lightM_03.caf in Resources */,
+				F40B40982410107300EBEEAF /* hotM_02.caf in Resources */,
+				F40B40972410107300EBEEAF /* lightM_01.caf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				F40B409C2410107300EBEEAF /* lightM_04.caf in Resources */,
+				F40B40992410107300EBEEAF /* lightM_02.caf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				F44A5A6524020E7E00F92B64 /* lightM_02.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

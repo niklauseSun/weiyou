@@ -262,12 +262,12 @@ export default class AddSpecial extends Component {
     }
 
     addNativeClock() {
-        if (Platform.OS == 'ios') {
+        // if (Platform.OS == 'ios') {
             let date = this.state.start_time == null ? new Date(): new Date(this.state.start_time);
             let timeString = formatDateToString(date);
             var alarmManager = NativeModules.AlarmManager;
             alarmManager.addSpecialAlarm('special' + new Date().getTime(), this.state.name, timeString);
-        }
+        // }
     }
 };
 

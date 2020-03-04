@@ -19,7 +19,7 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
   RCTLogInfo(@"Pretending to create an event %@ at %@", name, location);
 }
 
-RCT_EXPORT_METHOD(addNormalAlarm:(NSString *)idStr name:(NSString *)name time:(NSString *)timeString repeats:(NSArray *) repeats) {
+RCT_EXPORT_METHOD(addNormalAlarm:(NSString *)idStr name:(NSString *)name time:(NSString *)timeString repeats:(NSArray *) repeats addType:(NSString *)type) {
   
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
   [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];

@@ -243,15 +243,15 @@ export default class AddHabitDetail extends Component {
   }
 
   addNativeClock() {
-    if (Platform.OS == 'ios') {
+    // if (Platform.OS == 'ios') {
       let date = new Date(this.state.clock_time);
       let timeString = formatDateToString(date);
       var alarmManager = NativeModules.AlarmManager;
       let aString = this.switchToArray(this.state.repeats);
       let weeks = this.showItem(aString);
       console.log(weeks);
-      alarmManager.addNormalAlarm('normal'+ new Date().getTime(), this.state.name, timeString, weeks);
-    }
+      alarmManager.addNormalAlarm('normal'+ new Date().getTime(), this.state.name, timeString, weeks, 'add');
+    // }
   }
 
   switchToArray(repeats) {

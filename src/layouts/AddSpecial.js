@@ -199,6 +199,7 @@ export default class AddSpecial extends Component {
         console.log('res', res);
         const { success } = res;
         if (success) {
+            const { data } = res;
             if (this.state.addType == 'add') {
                 Toast.info('添加成功');
                 DeviceEventEmitter.emit('taskReload');
@@ -207,7 +208,7 @@ export default class AddSpecial extends Component {
                 DeviceEventEmitter.emit('taskListReload');
             }
             this.props.navigation.goBack();
-            this.addNativeClock()
+            this.addNativeClock(data)
         }
     }
 
@@ -261,12 +262,13 @@ export default class AddSpecial extends Component {
         }
     }
 
-    addNativeClock() {
+    addNativeClock(data) {
         // if (Platform.OS == 'ios') {
+            const { id } = data;
             let date = this.state.start_time == null ? new Date(): new Date(this.state.start_time);
             let timeString = formatDateToString(date);
             var alarmManager = NativeModules.AlarmManager;
-            alarmManager.addSpecialAlarm('special' + new Date().getTime(), this.state.name, timeString);
+            alarmManager.addSpecialAlarm('special' + id, this.state.name, timeString);
         // }
     }
 };

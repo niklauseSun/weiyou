@@ -59,7 +59,7 @@ class HomeScreen extends Component {
       specialList: [],
       messageCnt: 0,
       showSignSuccess: false,
-      isShow: true,
+      isShow: false,
       contactList: [],
     };
   }
@@ -107,6 +107,10 @@ class HomeScreen extends Component {
   componentWillUnmount() {
     this.listener = null;
     this.timer = null;
+    this.connectListener = null;
+    this.notificationListener = null;
+    this.localNotificationListener = null;
+    this.tagAliasListener = null;
   }
 
   render() {
@@ -128,7 +132,7 @@ class HomeScreen extends Component {
         />
         <ScrollView style={commonStyles.content}>
           {this.renderContactList()}
-          {this.renderListItem(this.state.normalList, this.state.specialList)}
+          {this.renderListItem()}
         </ScrollView>
         {/* <AddItem
           addNormal = {
@@ -187,7 +191,7 @@ class HomeScreen extends Component {
     );
   }
 
-  renderListItem(normalList = [], specialList = []) {
+  renderListItem() {
     return (
       <View style={styles.moduleContent}>
         <SectionHeader
@@ -196,7 +200,7 @@ class HomeScreen extends Component {
           addAction={this.navigateToNormal.bind(this)}
         />
         <FlatList
-          data={normalList}
+          data={this.state.normalList}
           renderItem={({item, index}) => <NormalItem data={item} key={index} />}
           ListEmptyComponent={() => {
             return (
@@ -213,7 +217,7 @@ class HomeScreen extends Component {
           addAction={this.navigateToSpecial.bind(this)}
         />
         <FlatList
-          data={specialList}
+          data={this.state.specialList}
           renderItem={({item, index}) => (
             <SpecialItem
               navigation={this.props.navigation}

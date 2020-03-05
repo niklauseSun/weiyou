@@ -129,12 +129,14 @@ class SettingScreen extends Component {
 
     updateAlias(id) {
         const params = 'user' + id;
-        JPush.setAlias(params);
+        const alias = {"sequence":1,"alias":params}
+        JPush.setAlias(alias)
     }
 
     deleteAlias(id) {
         const params = 'user' + id;
-        JPush.deleteAlias(params);
+        const alias = {"sequence":1,"alias":params}
+        JPush.deleteAlias(alias);
     }
 }
 

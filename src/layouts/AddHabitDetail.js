@@ -230,6 +230,7 @@ export default class AddHabitDetail extends Component {
     const { success } = res;
     console.log('ddd', res);
     if (success) {
+      const { data } = res;
       if (this.state.addType == 'add') {
         Toast.info('添加成功！');
         DeviceEventEmitter.emit('taskReload');
@@ -237,21 +238,20 @@ export default class AddHabitDetail extends Component {
         Toast.info('修改成功');
         DeviceEventEmitter.emit('taskListReload');
       }
-      this.addNativeClock()
+      this.addNativeClock(data)
       this.props.navigation.goBack();
     }
   }
 
-  addNativeClock() {
-    // if (Platform.OS == 'ios') {
+  addNativeClock(data) {
+      const { id } = data;
       let date = new Date(this.state.clock_time);
       let timeString = formatDateToString(date);
       var alarmManager = NativeModules.AlarmManager;
       let aString = this.switchToArray(this.state.repeats);
       let weeks = this.showItem(aString);
       console.log(weeks);
-      alarmManager.addNormalAlarm('normal'+ new Date().getTime(), this.state.name, timeString, weeks, 'add');
-    // }
+      alarmManager.addNormalAlarm('normal'+ id, this.state.name, timeString, weeks, 'add');
   }
 
   switchToArray(repeats) {

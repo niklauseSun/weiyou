@@ -13,7 +13,7 @@ import com.weiyou.NativeModule.AlarmModule;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import cn.jpush.android.api.JPushInterface;
+import cn.jiguang.plugins.push.JPushModule;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -49,7 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
       super.onCreate();
       SoLoader.init(this, /* native exopackage */ false);
-      JPushInterface.init(this);
+//      JPushInterface.init(this);
+      JPushModule.registerActivityLifecycle(this);
       registerCactus();
       initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }

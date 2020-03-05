@@ -10,6 +10,17 @@ import {
   formatDateToString,
   formateDateHourWithString
 } from './FormatDate';
+import {
+  requestCameraPermission,
+  requestReadContactsPermission,
+  requestFineLocation,
+  requestCoarseLocation,
+  requestPhoneState,
+  requestWapPush,
+  requestReadStorage,
+  requestWriteStorage,
+  checkAll
+} from './CheckPermissions'
 
 import { checkPhone } from './IdentifyPhone'
 
@@ -23,5 +34,6 @@ export {
   formateDateWithString,
   formatDateToString,
   checkPhone,
-  formateDateHourWithString
+  formateDateHourWithString,
+  checkAll
 };

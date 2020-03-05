@@ -6,6 +6,7 @@ import { ASSET_IMAGES } from '../config';
 import { getLoginInfo, logoutAction } from '../requests';
 import { px } from '../utils';
 import { Toast } from '@ant-design/react-native';
+import JPush from 'jpush-react-native';
 
 class SettingScreen extends Component {
     constructor(props) {
@@ -91,6 +92,7 @@ class SettingScreen extends Component {
         const { success } = res;
         if (success) {
             Toast.info('已退出')
+            this.deleteAlias(this.state.id);
             this.setState({
                 isLogin: false,
                 score: 0
@@ -117,11 +119,22 @@ class SettingScreen extends Component {
                 isLogin: true,
                 score: score
             })
+            this.updateAlias(id);
 
             if (!data.password) {
                 this.props.navigation.navigate('EditPassword');
             }
         }
+    }
+
+    updateAlias(id) {
+        const params = 'user' + id;
+        JPush.setAlias(params);
+    }
+
+    deleteAlias(id) {
+        const params = 'user' + id;
+        JPush.deleteAlias(params);
     }
 }
 

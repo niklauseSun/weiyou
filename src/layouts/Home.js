@@ -34,7 +34,7 @@ import {
   GuardianItem,
 } from '../components';
 import {commonStyles} from '../commonStyles';
-import {px, getCurrentDays, formatDateToString} from '../utils';
+import {px, getCurrentDays, formatDateToString, checkAll} from '../utils';
 import {ASSET_IMAGES} from '../config';
 import {
   getPersonalClockByDay,
@@ -45,6 +45,7 @@ import {
   getGuardianList,
 } from '../requests';
 import {Toast} from '@ant-design/react-native';
+import JPush from 'jpush-react-native';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -64,6 +65,25 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
+    JPush.init();
+    this.connectListener = result => {
+        console.log("connectListener:" + JSON.stringify(result))
+    };
+    JPush.addConnectEventListener(this.connectListener);
+    //通知回调
+    this.notificationListener = result => {
+        console.log("notificationListener:" + JSON.stringify(result))
+    };
+    JPush.addNotificationListener(this.notificationListener);
+    //本地通知回调
+    this.localNotificationListener = result => {
+        console.log("localNotificationListener:" + JSON.stringify(result))
+    };
+    //tag alias事件回调
+    this.tagAliasListener = result => {
+        console.log("tagAliasListener:" + JSON.stringify(result))
+    };
+    JPush.addTagAliasListener(this.tagAliasListener);
     this.loadWeekConfig();
     this.loadUnReadCount();
     // this.addSign();
@@ -79,6 +99,9 @@ class HomeScreen extends Component {
         isShow: false,
       });
     }, 3000);
+    if (Platform.OS == 'android') {
+      checkAll();
+    }
   }
 
   componentWillUnmount() {

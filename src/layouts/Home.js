@@ -130,14 +130,14 @@ class HomeScreen extends Component {
           {this.renderContactList()}
           {this.renderListItem(this.state.normalList, this.state.specialList)}
         </ScrollView>
-        <AddItem
+        {/* <AddItem
           addNormal = {
               this.navigateToNormal.bind(this)
           }
           addSpecial = {
               this.navigateToSpecial.bind(this)
           }
-        />
+        /> */}
         {/* <SignSuccessModal dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  /> */}
         <BeginModal isShow={this.state.isShow} />
       </SafeAreaView>
@@ -254,11 +254,11 @@ class HomeScreen extends Component {
   }
 
   navigateToSpecial() {
-    // this.props.navigation.navigate('AddSpecial');
-    let date = new Date('2020-03-05T07:38:50.669Z');
-    let timeString = formatDateToString(date);
-    var alarmManager = NativeModules.AlarmManager;
-    alarmManager.addSpecialAlarm('special', '我是测试 特殊', timeString);
+    this.props.navigation.navigate('AddSpecial');
+    // let date = new Date('2020-03-05T07:38:50.669Z');
+    // let timeString = formatDateToString(date);
+    // var alarmManager = NativeModules.AlarmManager;
+    // alarmManager.addSpecialAlarm('special', '我是测试 特殊', timeString);
   }
 
   changeDaySelect(index) {

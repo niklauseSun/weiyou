@@ -7,6 +7,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.gyf.cactus.Cactus;
 import com.weiyou.NativeModule.AlarmModule;
 
 import java.lang.reflect.InvocationTargetException;
@@ -49,6 +50,7 @@ public class MainApplication extends Application implements ReactApplication {
       super.onCreate();
       SoLoader.init(this, /* native exopackage */ false);
       JPushInterface.init(this);
+      registerCactus();
       initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
 
@@ -76,5 +78,14 @@ public class MainApplication extends Application implements ReactApplication {
         e.printStackTrace();
       }
     }
+  }
+
+  private void registerCactus() {
+      Cactus.getInstance()
+              .setContent("唯友")
+              .setMusicEnabled(true)
+              .setBackgroundMusicEnabled(true)
+              .setOnePixEnabled(true)
+              .register(this);
   }
 }

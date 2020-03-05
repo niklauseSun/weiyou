@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { px } from '../utils'
 import { ASSET_IMAGES } from '../config';
-import { Toast } from '@ant-design/react-native'
+import { Toast, ActionSheet } from '@ant-design/react-native'
 import { reportCustomerClock } from '../requests';
 
 export default class NormalItem extends Component {
@@ -68,17 +68,24 @@ export default class NormalItem extends Component {
     }
 
     statusText(status) {
+        // "start","success", "fail", "delay", "notYet") 已开始 成功 失败 延迟  未到时间(获取某天的任务时才有此字段)
+
         switch(status) {
             case 'success':
-                return ''
+                return '成功'
             case 'fail':
                 return '已过期'
             case 'start':
-                return '进行中'
+                return '已开始'
+            case 'delay':
+                return '延迟'
+            case 'notYet':
+                return '未开始'
         }
     }
 
     action() {
+        console.log('action', this.props.data);
         const { data = {} } = this.props;
         const { status } = data
         if (status == 'fail') {
@@ -90,26 +97,49 @@ export default class NormalItem extends Component {
         }
 
         if (status == 'start') {
-            let reportData = {
-                id: null,
-                clock_id: data.id,
-                status: 'success',
-                position: '上海市',
-                city: '310114',
-                longitude: '121.48',
-                latitude: '31.22'
-            };
-            const requestData = {
-                params:reportData,
-                callback: this.reportDataCallback.bind(this)
-            }
-            reportCustomerClock(requestData);
+
+            const BUTTONS = ['完成', '延迟', 'Cancel'];
+            ActionSheet.showActionSheetWithOptions({
+                options: BUTTONS,
+                cancelButtonIndex: BUTTONS.length - 1,
+                // destructiveButtonIndex: BUTTONS.length - 2,
+                // title: 'title',
+                message: '是否完成当前任务',
+                maskClosable: true,
+            },(buttonIndex) => {
+                console.log('buttonIndex', buttonIndex);
+                let status = "";
+                if (buttonIndex == 0) {
+                    status = "success";
+                } else if (buttonIndex == 1) {
+                    status = "delay"
+                } else {
+                    return;
+                }
+                let reportData = {
+                    id: null,
+                    clock_id: data.id,
+                    status: status,
+                    position: '上海市',
+                    city: '310114',
+                    longitude: '121.48',
+                    latitude: '31.22',
+                };
+                const requestData = {
+                    params:reportData,
+                    callback: this.reportDataCallback.bind(this)
+                }
+                reportCustomerClock(requestData);
+            });
         }
     }
 
     reportDataCallback(res) {
-        const { success } = res;
+        const { success, error } = res;
         if (success) {
+            DeviceEventEmitter.emit('taskReload');
+        } else {
+            Toast.fail(error);
             DeviceEventEmitter.emit('taskReload');
         }
     }

@@ -87,15 +87,29 @@ export default class NormalItem extends Component {
     action() {
         console.log('action', this.props.data);
         const { data = {} } = this.props;
-        const { status } = data
+        const { status, id } = data
         if (status == 'fail') {
             Toast.info('已过期');
+            // return;
+        }
+
+        if (status == 'notYet') {
+            Toast.info('暂未开始');
+            // return;
         }
 
         if (status == 'success') {
             // buzuorenhechuli
+            Toast.info('已完成');
+            return;
         }
 
+        // this.props.navigation.navigate('NormalSign', {
+        //     id:id
+        // });
+        // return;
+
+        // return;
         if (status == 'start') {
 
             const BUTTONS = ['完成', '延迟', 'Cancel'];
@@ -117,7 +131,7 @@ export default class NormalItem extends Component {
                     return;
                 }
                 let reportData = {
-                    id: null,
+                    id: '',
                     clock_id: data.id,
                     status: status,
                     position: '上海市',

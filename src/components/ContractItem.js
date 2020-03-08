@@ -15,7 +15,7 @@ export default class ContractItem extends Component {
         const { nickname = 'Alone', detail = '“阅读”在02.10 09:30 完成打卡', avatar } = this.props.data;
         return (
             <TouchableOpacity onPress={this.navigate.bind(this)} style={styles.content}>
-                {avatar == '' ? <View style={styles.headImage} />: <Image style={styles.headImage} source={{ uri: avatar }} />}
+                {avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: avatar }} />}
                 <Text style={styles.nameLabel}>{nickname}</Text>
                 <Text style={styles.detailLabel}>正常</Text>
             </TouchableOpacity>

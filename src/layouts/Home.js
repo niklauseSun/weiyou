@@ -84,8 +84,6 @@ class HomeScreen extends Component {
         console.log("tagAliasListener:" + JSON.stringify(result))
     };
     JPush.addTagAliasListener(this.tagAliasListener);
-    this.loadWeekConfig();
-    this.loadUnReadCount();
     // this.addSign();
 
     this.listener = DeviceEventEmitter.addListener('taskReload', message => {
@@ -102,6 +100,10 @@ class HomeScreen extends Component {
     if (Platform.OS == 'android') {
       checkAll();
     }
+
+    this.loadWeekConfig();
+    this.loadUnReadCount();
+    this.loadContractList();
   }
 
   componentWillUnmount() {
@@ -167,6 +169,7 @@ class HomeScreen extends Component {
         <HomeContactHeader navigation={this.props.navigation} />
         <FlatList
           data={this.state.contactList.filter((item) => item.username != null)}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
             <ContractItem navigation={this.props.navigation} data={item} />
           )}
@@ -200,8 +203,9 @@ class HomeScreen extends Component {
           addAction={this.navigateToNormal.bind(this)}
         />
         <FlatList
-          data={this.state.normalList}
-          renderItem={({item, index}) => <NormalItem data={item} key={index} />}
+          data={this.state.normalList.filter((item) => item.deleted == false)}
+          renderItem={({item, index}) => <NormalItem navigation={this.props.navigation} data={item} key={index} />}
+          keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={() => {
             return (
               <NormalAddItem
@@ -217,12 +221,13 @@ class HomeScreen extends Component {
           addAction={this.navigateToSpecial.bind(this)}
         />
         <FlatList
-          data={this.state.specialList}
+          data={this.state.specialList.filter((item) => item.deleted == false)}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => (
             <SpecialItem
               navigation={this.props.navigation}
               data={item}
-              key={index + normalList.length}
+              key={index + this.state.normalList.length}
             />
           )}
           ListEmptyComponent={() => {

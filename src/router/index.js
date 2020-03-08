@@ -33,7 +33,8 @@ import {
     AccountView,
     NormalUser,
     BuyVipView,
-    VipUser
+    VipUser,
+    NormalSign
 }
 from '../layouts'
 import React from "react";
@@ -92,6 +93,10 @@ const HomeStack = createStackNavigator({
     },
     GuardianList: {
         screen: GuardianList,
+        navigationOptions: defaultNavigationOptions
+    },
+    NormalSign: {
+        screen: NormalSign,
         navigationOptions: defaultNavigationOptions
     }
 })

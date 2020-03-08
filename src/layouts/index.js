@@ -29,6 +29,7 @@ import AccountView from './AccountView'
 import NormalUser from './NormalUser'
 import VipUser from './VipUser'
 import BuyVipView from './BuyVipView'
+import NormalSign from './NormalSign'
 
 export {
     Home,
@@ -61,5 +62,6 @@ export {
     AccountView,
     NormalUser,
     BuyVipView,
-    VipUser
+    VipUser,
+    NormalSign
 }

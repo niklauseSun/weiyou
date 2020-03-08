@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, Modal } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, Modal, DeviceEventEmitter } from 'react-native'
 import { getSpecialClockDetail, getSpecialClockRecordList, postSpecialClockStatus, getPersonQuestionDetail } from '../requests';
 import { Header, SignEnd } from '../components';
 import { commonStyles } from '../commonStyles';
@@ -35,7 +35,8 @@ export default class SignSpecial extends Component {
             answer: [],
             question: null,
             detail: null,
-            recordList: []
+            recordList: [],
+            isSign: true,
         }
     }
 
@@ -74,18 +75,18 @@ export default class SignSpecial extends Component {
                         {icon == '' ? <View style={styles.headImage} />: <Image style={styles.headImage} source={{ uri: icon }} />}
                         <View>
                             <Text style={styles.titleLabel}>{name}</Text>
-                            <Text style={styles.timeLabel}>上次更新时间：{recordList.length == 0 ? formateDateHourWithString(start_time): formateDateHourWithString(recordList[recordList.length - 1].create_time)}</Text>
+                            <Text style={styles.timeLabel}>上次更新时间：{recordList.length == 0 ? formateDateHourWithString(start_time): formateDateHourWithString(recordList[0].create_time)}</Text>
                             {/* <Text style={styles.timeLabel}>上次更新时间：{formateDateHourWithString(start_time)}</Text> */}
                         </View>
                     </View>
                     <View style={styles.signContent}>
                         {
-                            status == 'runing' || status == 'created' ?
+                            status == 'delay' || status == 'runing' || status == 'created' || status == 'answerError' ?
                             <Fragment>
-                                <TouchableOpacity style={styles.signButton} onPress={this.showModal.bind(this)}>
+                                <TouchableOpacity style={styles.signButton} onPress={this.signAction.bind(this)}>
                                     <Text style={styles.signText}>签到</Text>
                                 </TouchableOpacity>
-                                <SignEnd singEndAction={this.signEnd.bind(this)} />
+                                <SignEnd singEndAction={this.signEndAction.bind(this)} />
                             </Fragment>
                         : <View style={styles.failView}>
                                 <Text style={styles.failText}>{this.statusText(status)}</Text>
@@ -116,7 +117,7 @@ export default class SignSpecial extends Component {
                                         <TouchableOpacity onPress={this.showModal.bind(this)} style={styles.cancelButton}>
                                             <Text>取消</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity onPress={this.report.bind(this)} style={styles.confirmButton}>
+                                        <TouchableOpacity onPress={this.signRequest.bind(this)} style={styles.confirmButton}>
                                             <Text>确认</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -137,6 +138,8 @@ export default class SignSpecial extends Component {
                 return '已成功'
             case 'created':
                 return '已创建'
+            case 'answerError':
+                return '问题回答错误'
             default:
                 return '进行中'
         }
@@ -200,6 +203,24 @@ export default class SignSpecial extends Component {
         })
     }
 
+    signAction() {
+        this.setState({
+            isSign: true,
+            selectIndex: 0
+        }, () => {
+            this.showModal();
+        })
+    }
+
+    signEndAction() {
+        this.setState({
+            isSign: false,
+            selectIndex: 0
+        }, () => {
+            this.showModal();
+        })
+    }
+
     loadAnswerCallback(res) {
         console.log('resss', res)
         const { success, data } = res;
@@ -239,6 +260,33 @@ export default class SignSpecial extends Component {
         });
     }
 
+    signRequest() {
+        const { detail } = this.state;
+        console.log('isSign', this.state.isSign)
+        console.log('index', this.state.selectIndex)
+        let status = ''
+        if (this.state.isSign) {
+            status = 'delay'
+        } else {
+            status = 'success'
+        }
+
+        const params = {
+            id: '',
+            clock_id: this.state.id,
+            longitude: detail.longitude,
+            latitude: detail.latitude,
+            city: detail.city,
+            status: status,
+            answer_id: this.state.selectIndex
+        }
+
+        postSpecialClockStatus({
+            params: params,
+            callback:this.reportCallback.bind(this)
+        });
+    }
+
     report() {
         const { detail } = this.state;
 
@@ -248,7 +296,7 @@ export default class SignSpecial extends Component {
             longitude: detail.longitude,
             latitude: detail.latitude,
             city: detail.city,
-            status: this.state.selectIndex == this.state.correct ? 'delay': 'fail',
+            status: 'success',
         }
 
         console.log('report param', params);
@@ -260,10 +308,16 @@ export default class SignSpecial extends Component {
     }
 
     reportCallback(res) {
-        const { success, error } = res;
+        const { success, error, data } = res;
         console.log('report', res);
         if (success) {
             Toast.info('签到成功！');
+            const { status } = data;
+            if (status == 'success') {
+                this.props.navigation.goBack();
+                DeviceEventEmitter.emit('taskReload');
+                return;
+            }
             this.loadSpecialDetail()
             this.loadRecordList()
         } else {
@@ -371,5 +425,13 @@ const styles = StyleSheet.create({
     question: {
         textAlign: 'center',
         marginBottom: px(40)
+    },
+    cancelButton: {
+        paddingHorizontal: px(50),
+        paddingVertical: px(10),
+    },
+    confirmButton: {
+        paddingHorizontal: px(50),
+        paddingVertical: px(10),
     }
 })

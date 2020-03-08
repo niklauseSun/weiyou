@@ -452,7 +452,7 @@ getAction = (url, callback = null) => {
             return response.json();
         }
     }).then((responseJson) => {
-        console.log('get responseJson', responseJson)
+        console.log('get responseJson', responseJson, url);
         if (callback) {
             callback(responseJson);
         }

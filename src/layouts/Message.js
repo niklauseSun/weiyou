@@ -119,6 +119,10 @@ class MessageScreen extends Component {
             this.setState({
                 contractList: res.data
             })
+        } else if (error == '未登录') {
+            this.setState({
+                contractList: [],
+            })
         }
     }
 }

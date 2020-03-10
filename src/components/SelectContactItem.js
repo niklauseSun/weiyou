@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
 
-export default class SlectContactItem extends Component {
+export default class SelectContactItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,13 +12,8 @@ export default class SlectContactItem extends Component {
     }
 
     render() {
-//         id: 24
-// friend_id: 121
-// remark_name: null
-// username: "18301709959"
-// nickname: "孙玉建🍁"
-// avatar: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erKay7VOFxBXRpRxyZf
         const { data, selectIndexArray =[] } = this.props;
+        console.log('error', selectIndexArray)
         const { id, nickname, avatar = '' } = data;
         let isSelect = selectIndexArray.indexOf(id) >= 0;
         return (
@@ -37,9 +32,7 @@ export default class SlectContactItem extends Component {
         let isSelect = selectIndexArray.indexOf(this.props.data.id)
         let retArray = []
         if (isSelect >= 0) {
-            
             retArray = selectIndexArray.filter((item) => item != this.props.data.id)
-            
         } else {
             retArray = selectIndexArray;
             retArray.push(this.props.data.id);

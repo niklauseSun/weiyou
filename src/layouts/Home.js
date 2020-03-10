@@ -25,13 +25,10 @@ import {
   NormalItem,
   SpecialItem,
   SectionHeader,
-  NoneData,
   BeginModal,
   NormalAddItem,
-  SpecialAddItem,
   ContractItem,
-  HomeContactHeader,
-  GuardianItem,
+  HomeContactHeader
 } from '../components';
 import {commonStyles} from '../commonStyles';
 import {px, getCurrentDays, formatDateToString, checkAll} from '../utils';
@@ -41,8 +38,7 @@ import {
   getSpecialClockByDay,
   unReadCount,
   signAction,
-  getContractList,
-  getGuardianList,
+  getGuardianList
 } from '../requests';
 import {Toast} from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
@@ -60,7 +56,7 @@ class HomeScreen extends Component {
       messageCnt: 0,
       showSignSuccess: false,
       isShow: false,
-      contactList: [],
+      contactList: []
     };
   }
 
@@ -173,6 +169,17 @@ class HomeScreen extends Component {
           renderItem={({item}) => (
             <ContractItem navigation={this.props.navigation} data={item} />
           )}
+          ListEmptyComponent={() => {
+            return (
+              <NormalAddItem
+                type="addContact"
+                title="添加您的监护人"
+                subTitle="关注您的健康生活状态"
+                imageUrl={ASSET_IMAGES.ICON_HOME_SPECIAL_ADD}
+                navigation={this.props.navigation}
+              />
+            );
+          }}
         />
       </View>
     );
@@ -233,7 +240,7 @@ class HomeScreen extends Component {
           ListEmptyComponent={() => {
             return (
               <NormalAddItem
-                imageUrl={ASSET_IMAGES.ICON_HOME_SPECIAL_ADD}
+                imageUrl={ASSET_IMAGES.ICON_SPECIAL_DEFAULT}
                 title="添加特殊打卡任务"
                 subTitle="发生紧急情况通知监护人"
                 type="special"
@@ -323,11 +330,15 @@ class HomeScreen extends Component {
   }
 
   loadClockCallback(res) {
-    const {success, data} = res;
+    const {success, data, error} = res;
     if (success) {
       this.setState({
         normalList: data,
       });
+    } else if (error == '未登录') {
+      this.setState({
+        normalList: [],
+      })
     }
   }
 
@@ -348,6 +359,10 @@ class HomeScreen extends Component {
           question_id: runArray[0].question_id,
         });
       }
+    } else if (error == '未登录') {
+      this.setState({
+        specialList: [],
+      })
     }
   }
 
@@ -410,6 +425,10 @@ class HomeScreen extends Component {
       this.setState({
         contactList: res.data,
       });
+    } else if (error == '未登录') {
+      this.setState({
+        contactList: [],
+      })
     }
   }
 }

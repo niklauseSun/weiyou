@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, DeviceEventEmit
 import { Header, MyDetailItem, AccountView } from '../components'
 import SetInfoItem from '../components/SetInfoItem'
 import { ASSET_IMAGES } from '../config';
-import { getLoginInfo, logoutAction } from '../requests';
+import { getLoginInfo, logoutAction, addUserPushInfo } from '../requests';
 import { px } from '../utils';
 import { Toast } from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
@@ -93,6 +93,7 @@ class SettingScreen extends Component {
         if (success) {
             Toast.info('已退出')
             this.deleteAlias(this.state.id);
+            DeviceEventEmitter.emit('taskReload');
             this.setState({
                 isLogin: false,
                 score: 0
@@ -130,6 +131,11 @@ class SettingScreen extends Component {
     updateAlias(id) {
         const params = 'user' + id;
         const alias = {"sequence":1,"alias":params}
+        // addUserPushInfo
+        addUserPushInfo({
+            id: params,
+            callback: this.addPushCallback.bind(this)
+        })
         JPush.setAlias(alias)
     }
 
@@ -137,6 +143,10 @@ class SettingScreen extends Component {
         const params = 'user' + id;
         const alias = {"sequence":1,"alias":params}
         JPush.deleteAlias(alias);
+    }
+
+    addPushCallback(res) {
+        console.log('re', res);
     }
 }
 

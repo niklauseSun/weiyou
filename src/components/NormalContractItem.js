@@ -9,7 +9,8 @@ export default class NormalContractItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShow: false
+            isShow: false,
+            contactList: []
         }
     }
 
@@ -36,9 +37,10 @@ export default class NormalContractItem extends Component {
                             </View>
                             <SafeAreaView style={styles.contractView}>
                             <FlatList
-                                data={this.state.contactList}
+                                data={this.state.contactList.filter((item) => item.username != null)}
+                                keyExtractor={(item, index) => index.toString()}
                                 renderItem={({item, index}) => {
-                                    return <SelectContactItem onChangeSelect={this._changeContacts.bind(this)} selectIndexArray={this.props.contactList} data={item} />
+                                    return <SelectContactItem onChangeSelect={this._changeContacts.bind(this)} selectIndexArray={this.props.contactList || []} data={item} />
                                 }}
                                 ListEmptyComponent={() => <NoneData title="暂无数据" />}
                             />

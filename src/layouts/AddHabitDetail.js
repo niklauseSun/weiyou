@@ -121,7 +121,6 @@ export default class AddHabitDetail extends Component {
       tips_end: data.tips_end, //	结束好友提示语
       interval_min: data.interval_min, //	再响间隔（分钟）
       interval_cnt: data.interval_cnt, //	再响次数
-      contacts: null, //		设置时为联系人结构体ID数组；获取时为联系人结构体数组
       status: null
     })
   }
@@ -212,7 +211,7 @@ export default class AddHabitDetail extends Component {
         tips_end: this.state.tips_end,
         interval_min: this.state.interval_min,
         interval_cnt: this.state.interval_cnt,
-        contact: this.state.contacts
+        contacts: this.state.contacts
       },
       callback: this.addClockCallback.bind(this)
     }

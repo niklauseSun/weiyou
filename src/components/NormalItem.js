@@ -110,14 +110,12 @@ export default class NormalItem extends Component {
         // return;
 
         // return;
-        if (status == 'start') {
+        if (status == 'start' || status == 'delay') {
 
             const BUTTONS = ['完成', '延迟', 'Cancel'];
             ActionSheet.showActionSheetWithOptions({
                 options: BUTTONS,
                 cancelButtonIndex: BUTTONS.length - 1,
-                // destructiveButtonIndex: BUTTONS.length - 2,
-                // title: 'title',
                 message: '是否完成当前任务',
                 maskClosable: true,
             },(buttonIndex) => {

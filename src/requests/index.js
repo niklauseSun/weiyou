@@ -397,6 +397,13 @@ const editPersonQuestion = ({ callback = null, params }) => {
     putAction(`/api/customer/secret/`, callback, params);
 }
 
+const addUserPushInfo = ({ callback = null, id }) => {
+    const params = {
+        uuid: id
+    }
+    postAction(`/api/customer/app`, callback, params);
+}
+
 
 postAction = (url, callback = null, params = null) => {
     console.log('postAction')
@@ -573,6 +580,7 @@ export {
     addPersonQuestion,
     editPersonQuestion,
     getEditCode,
-    getGuardianList
+    getGuardianList,
+    addUserPushInfo
 }
 

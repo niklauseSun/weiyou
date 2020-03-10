@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image,TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image,TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { px, formateDateWithString, formatHourWithString } from '../utils';
 import { Modal } from '@ant-design/react-native';
 import { deleteCustomerClock } from '../requests';
@@ -85,6 +85,7 @@ export default class NormalDeleteItem extends Component {
             const { reloadTask } = this.props;
             if (reloadTask) {
                 reloadTask();
+                DeviceEventEmitter.emit('taskReload');
             }
         }
     }

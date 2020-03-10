@@ -27,6 +27,8 @@ export default class NormalAddItem extends Component {
         const { type = 'normal' } = this.props;
         if (type == 'special') {
             this.props.navigation.navigate('AddSpecial');
+        } else if (type == 'addContact') {
+            this.props.navigation.navigate('Message')
         } else {
             this.props.navigation.navigate('AddHabitDetail');
         }

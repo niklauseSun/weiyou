@@ -22,6 +22,7 @@
     "react-native-reanimated": "^1.4.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.22",
+    "react-native-wechat": "^1.9.12",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^2.0.15",
     "react-navigation-tabs": "^2.6.2"

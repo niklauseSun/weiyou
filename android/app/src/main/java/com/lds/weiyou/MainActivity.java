@@ -1,4 +1,4 @@
-package com.weiyou;
+package com.lds.weiyou;
 
 import com.facebook.react.ReactActivity;
 

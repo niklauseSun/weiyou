@@ -30,6 +30,15 @@ const getEditCode = ({ callback = null, phone }) => {
     postAction('/api/customer/getPasswdCode', callback, params);
 }
 
+const getWxLogin = ({ callback = null, id }) => {
+    getAction(`/api/customer/app/auth?code=${id}`, callback);
+}
+
+const postWxLoginAuth = ({ callback, params }) => {
+    postAction('/api/customer/app/authLogin', callback, params);
+}
+
+
 // 手机验证码登录
 const loginWithCode = ({ callback = null, phone, smsCode, position, longitude, latitude, city }) => {
     const params = {
@@ -581,6 +590,8 @@ export {
     editPersonQuestion,
     getEditCode,
     getGuardianList,
-    addUserPushInfo
+    addUserPushInfo,
+    getWxLogin,
+    postWxLoginAuth
 }
 

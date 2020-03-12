@@ -128,6 +128,10 @@ const TaskStack = createStackNavigator({
         screen: AddHabitDetail,
         navigationOptions: defaultNavigationOptions
     },
+    AddQuestion: {
+        screen: AddQuestion,
+        navigationOptions: defaultNavigationOptions
+    }
 })
 
 TaskStack.navigationOptions = ({ navigation }) => {

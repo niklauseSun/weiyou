@@ -1,4 +1,4 @@
-package com.weiyou.NativeModule;
+package com.lds.weiyou.NativeModule;
 
 import androidx.annotation.NonNull;
 
@@ -23,6 +23,7 @@ public class AlarmModule implements ReactPackage {
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new AlarmSetManager(reactContext));
+
         return modules;
     }
 }

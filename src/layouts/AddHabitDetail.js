@@ -143,6 +143,7 @@ export default class AddHabitDetail extends Component {
   }
 
   changeClockTime(time) {
+    console.log('time', time)
     this.setState({
       clock_time: time == null ? time: time.toISOString()
     })
@@ -233,6 +234,7 @@ export default class AddHabitDetail extends Component {
       if (this.state.addType == 'add') {
         Toast.info('添加成功！');
         DeviceEventEmitter.emit('taskReload');
+        DeviceEventEmitter.emit('taskListReload');
       } else {
         Toast.info('修改成功');
         DeviceEventEmitter.emit('taskListReload');

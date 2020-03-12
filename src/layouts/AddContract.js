@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView,FlatList } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView,FlatList, TouchableOpacity } from 'react-native'
 import { Header, SearchItem, PredictContract, NoneData, SearchApplyItem, LineItem } from '../components';
 import { searchUser } from '../requests';
 import { Toast } from '@ant-design/react-native';
 import { px } from '../utils';
+import * as WeChat from 'react-native-wechat'
 
 export default class AddContract extends Component {
     constructor(props) {
@@ -19,6 +20,9 @@ export default class AddContract extends Component {
             <SafeAreaView style={styles.content}>
                 <Header navigation={this.props.navigation} title="添加" />
                 <SearchItem searchAction={this.search.bind(this)} value={this.state.search} changeText={this.onChangeText.bind(this)} placeholder="输入关键字" />
+                <TouchableOpacity onPress={this.shareToFriend.bind(this)} style={styles.shareToWxButton}>
+                    <Text>分享到微信</Text>
+                </TouchableOpacity>
                 {
                     this.state.searchList == null? null :<FlatList
                     contentContainerStyle={styles.flatList}
@@ -64,9 +68,25 @@ export default class AddContract extends Component {
             })
         }
     }
+
+    shareToFriend() {
+        WeChat.isWXAppInstalled().then(res => {
+            if (res) {
+                // 是否安装
+                WeChat.shareToSession({
+                    type: 'text',
+                    description: '测试分享'
+                })
+            }
+        })
+    }
 }
 
 const styles = StyleSheet.create({
+    shareToWxButton: {
+        height: px(120),
+        backgroundColor: 'red'
+    },
     flatList: {
         marginTop: px(30)
     },

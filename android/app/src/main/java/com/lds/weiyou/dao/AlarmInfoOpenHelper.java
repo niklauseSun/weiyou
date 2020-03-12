@@ -1,10 +1,10 @@
-package com.weiyou.dao;
+package com.lds.weiyou.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.weiyou.utils.ConsUtils;
+import com.lds.weiyou.utils.ConsUtils;
 
 public class AlarmInfoOpenHelper extends SQLiteOpenHelper {
     private Context mContext;

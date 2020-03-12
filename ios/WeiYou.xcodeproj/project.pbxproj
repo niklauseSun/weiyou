@@ -28,6 +28,8 @@
 		F40B409C2410107300EBEEAF /* lightM_04.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40962410107300EBEEAF /* lightM_04.caf */; };
 		F44A5A572401680C00F92B64 /* UNNotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A562401680C00F92B64 /* UNNotificationsManager.m */; };
 		F44A5A5A24016F0B00F92B64 /* AlarmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A5924016F0B00F92B64 /* AlarmManager.m */; };
+		3DECD999FEF046AB825F9C9A /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88F07BBEB5974C7A81062CF2 /* antfill.ttf */; };
+		4F2EA5D7F31848738E2365FE /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +87,10 @@
 		F44A5A562401680C00F92B64 /* UNNotificationsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UNNotificationsManager.m; sourceTree = "<group>"; };
 		F44A5A5824016F0B00F92B64 /* AlarmManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmManager.h; sourceTree = "<group>"; };
 		F44A5A5924016F0B00F92B64 /* AlarmManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmManager.m; sourceTree = "<group>"; };
+		F4B367752418C9AA0075BB33 /* WeiYouDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = WeiYouDebug.entitlements; path = WeiYou/WeiYouDebug.entitlements; sourceTree = "<group>"; };
 		F4DB198C23FFFD7D00DD1496 /* WeiYou.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = WeiYou.entitlements; path = WeiYou/WeiYou.entitlements; sourceTree = "<group>"; };
+		88F07BBEB5974C7A81062CF2 /* antfill.ttf */ = {isa = PBXFileReference; name = "antfill.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */ = {isa = PBXFileReference; name = "antoutline.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +149,7 @@
 		13B07FAE1A68108700A75B9A /* WeiYou */ = {
 			isa = PBXGroup;
 			children = (
+				F4B367752418C9AA0075BB33 /* WeiYouDebug.entitlements */,
 				F4DB198C23FFFD7D00DD1496 /* WeiYou.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				F44A5A5D24020E7E00F92B64 /* resource */,
@@ -190,6 +196,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BC0DA15261B96CB187A416AA /* Pods */,
+				01FD4A0DCCC649AC8F38D976 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -235,6 +242,16 @@
 			name = resource;
 			path = "../../../../Downloads/Alarm_Clock_UserNotifications-master/Alarm_Clock_UserNotifications/resource";
 			sourceTree = "<group>";
+		};
+		01FD4A0DCCC649AC8F38D976 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				88F07BBEB5974C7A81062CF2 /* antfill.ttf */,
+				CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -324,7 +341,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -391,6 +408,8 @@
 				F40B409C2410107300EBEEAF /* lightM_04.caf in Resources */,
 				F40B40992410107300EBEEAF /* lightM_02.caf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				3DECD999FEF046AB825F9C9A /* antfill.ttf in Resources */,
+				4F2EA5D7F31848738E2365FE /* antoutline.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +724,7 @@
 			baseConfigurationReference = 2BB74A289F90523E94DB7364 /* Pods-WeiYou.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = WeiYou/WeiYou.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WeiYou/WeiYouDebug.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -730,6 +749,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeiYou/WeiYou.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3SWR22SFDH;
@@ -742,7 +762,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lds.weiyou;
 				PRODUCT_NAME = WeiYou;
-				PROVISIONING_PROFILE_SPECIFIER = "notice-dev";
+				PROVISIONING_PROFILE_SPECIFIER = "notice-ad-hoc";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

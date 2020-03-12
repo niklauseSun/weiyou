@@ -1,6 +1,6 @@
-package com.weiyou.domain;
+package com.lds.weiyou.domain;
 
-import com.weiyou.dao.AlarmInfoDao;
+import com.lds.weiyou.dao.AlarmInfoDao;
 
 import java.io.Serializable;
 

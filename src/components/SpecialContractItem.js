@@ -38,7 +38,7 @@ export default class SpecialContractItem extends Component {
                             </View>
                             <SafeAreaView style={styles.contractView}>
                                 <FlatList
-                                    data={this.state.contactList}
+                                    data={this.state.contactList.filter((item) => item.username != null)}
                                     renderItem={({item, index}) => {
                                         return <SelectContactItem onChangeSelect={this._changeContacts.bind(this)} selectIndexArray={this.props.contactList} data={item} />
                                     }}

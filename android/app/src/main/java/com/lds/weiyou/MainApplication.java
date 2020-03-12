@@ -1,4 +1,4 @@
-package com.weiyou;
+package com.lds.weiyou;
 
 import android.app.Application;
 import android.content.Context;
@@ -8,7 +8,8 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.gyf.cactus.Cactus;
-import com.weiyou.NativeModule.AlarmModule;
+import com.theweflex.react.WeChatPackage;
+import com.lds.weiyou.NativeModule.AlarmModule;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
             packages.add(new AlarmModule());
+//            packages.add(new WeChatPackage());
           return packages;
         }
 

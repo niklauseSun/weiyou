@@ -1,4 +1,4 @@
-package com.weiyou.utils;
+package com.lds.weiyou.utils;
 
 public class ConsUtils {
     //Fragment的tag

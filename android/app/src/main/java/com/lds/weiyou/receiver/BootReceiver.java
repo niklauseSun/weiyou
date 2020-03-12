@@ -1,14 +1,14 @@
-package com.weiyou.receiver;
+package com.lds.weiyou.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.weiyou.dao.AlarmInfoDao;
-import com.weiyou.domain.AlarmClock;
-import com.weiyou.domain.AlarmInfo;
-import com.weiyou.utils.PrefUtils;
+import com.lds.weiyou.dao.AlarmInfoDao;
+import com.lds.weiyou.domain.AlarmClock;
+import com.lds.weiyou.domain.AlarmInfo;
+import com.lds.weiyou.utils.PrefUtils;
 
 import java.util.ArrayList;
 

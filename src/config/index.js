@@ -1,5 +1,7 @@
 import ASSET_IMAGES from './assetImages'
+import E from './E'
 
 export {
-    ASSET_IMAGES
+    ASSET_IMAGES,
+    E
 }

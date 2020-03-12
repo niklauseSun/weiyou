@@ -80,6 +80,7 @@ export default class NormalDeleteItem extends Component {
     }
 
     removeTaskCallback(res) {
+        console.log('remove', res);
         const { success } = res;
         if (success) {
             const { reloadTask } = this.props;

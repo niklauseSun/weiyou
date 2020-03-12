@@ -1,8 +1,5 @@
-package com.weiyou.NativeModule;
+package com.lds.weiyou.NativeModule;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,17 +8,13 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
-import com.weiyou.MainActivity;
-import com.weiyou.dao.AlarmInfoDao;
-import com.weiyou.domain.AlarmClock;
-import com.weiyou.domain.AlarmInfo;
-import com.weiyou.receiver.AlarmReceiver;
+import com.lds.weiyou.dao.AlarmInfoDao;
+import com.lds.weiyou.domain.AlarmClock;
+import com.lds.weiyou.domain.AlarmInfo;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class AlarmSetManager extends ReactContextBaseJavaModule {
     private static ReactApplicationContext reactContext;
@@ -52,20 +45,45 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
         }
         Log.e("date", sdf1.format(d));
 
-        Intent intent = new Intent(reactContext, AlarmReceiver.class);
-        intent.setAction("NOTIFICATION");
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        int[] day = new int[]{};
+
+        AlarmInfoDao dao = new AlarmInfoDao(reactContext.getCurrentActivity());
 
 
-        intent.putExtra("content",name);
+        AlarmInfo alarmInfo = new AlarmInfo();
+        AlarmClock alarmClock = new AlarmClock(reactContext);
+        alarmInfo.setHour(hour);
+        alarmInfo.setMinute(minute);
+        alarmInfo.setDayOfWeek(day);
+        alarmInfo.setLazyLevel(0);
+        alarmInfo.setTag("闹钟");
+        alarmInfo.setRing("everybody");
+        alarmInfo.setRingResId("everybody.mp3");
+        alarmInfo.setContent(name);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(reactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        dao.addAlarmInfo(alarmInfo);
+        alarmClock.turnAlarm(alarmInfo, null, true);
 
-        AlarmManager alarmMgr = (AlarmManager) reactContext.getSystemService(reactContext.getCurrentActivity().ALARM_SERVICE);
-//        alarmMgr.set(AlarmManager.RTC_WAKEUP, d.getTime(), pendingIntent);
-        Log.e("timeStart", System.currentTimeMillis() + "");
-        Log.e("dTime", d.getTime() + "");
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, d.getTime(), 0, pendingIntent);
+//        Intent intent = new Intent(reactContext, AlarmReceiver.class);
+//        intent.setAction("NOTIFICATION");
+//        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//
+//
+//        intent.putExtra("content",name);
+//
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(reactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        AlarmManager alarmMgr = (AlarmManager) reactContext.getSystemService(reactContext.getCurrentActivity().ALARM_SERVICE);
+////        alarmMgr.set(AlarmManager.RTC_WAKEUP, d.getTime(), pendingIntent);
+//        Log.e("timeStart", System.currentTimeMillis() + "");
+//        Log.e("dTime", d.getTime() + "");
+//        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, d.getTime(), 0, pendingIntent);
     }
 
     @ReactMethod

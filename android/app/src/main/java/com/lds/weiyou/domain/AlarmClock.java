@@ -1,4 +1,4 @@
-package com.weiyou.domain;
+package com.lds.weiyou.domain;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,9 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.weiyou.dao.AlarmInfoDao;
-import com.weiyou.receiver.AlarmReceiver;
-import com.weiyou.server.AlarmSoundService;
+import com.lds.weiyou.dao.AlarmInfoDao;
+import com.lds.weiyou.receiver.AlarmReceiver;
 
 import java.util.Calendar;
 import java.util.Date;

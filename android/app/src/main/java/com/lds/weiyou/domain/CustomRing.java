@@ -1,4 +1,4 @@
-package com.weiyou.domain;
+package com.lds.weiyou.domain;
 
 public class CustomRing {
     private String RingName;

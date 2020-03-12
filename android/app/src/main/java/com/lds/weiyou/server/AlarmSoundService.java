@@ -1,4 +1,4 @@
-package com.weiyou.server;
+package com.lds.weiyou.server;
 
 import android.app.Service;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 

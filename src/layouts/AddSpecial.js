@@ -34,7 +34,7 @@ export default class AddSpecial extends Component {
         this.state = {
             selectDate: new Date(),
             addType: addType,
-            name: null,
+            name: '',
             id: id,
             icon: '',
             start_time: new Date().toISOString(),
@@ -203,8 +203,10 @@ export default class AddSpecial extends Component {
             if (this.state.addType == 'add') {
                 Toast.info('添加成功');
                 DeviceEventEmitter.emit('taskReload');
+                DeviceEventEmitter.emit('taskListReload');
             } else {
                 Toast.info('修改成功');
+                DeviceEventEmitter.emit('taskReload');
                 DeviceEventEmitter.emit('taskListReload');
             }
             this.props.navigation.goBack();

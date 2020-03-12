@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -47,7 +47,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSCameraUsageDescription</key>
 	<string>APP需要获取拍照权限进行上传图片</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -68,5 +68,10 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>antfill.ttf</string>
+		<string>antoutline.ttf</string>
+	</array>
 </dict>
 </plist>

@@ -42,6 +42,7 @@ import {
 } from '../requests';
 import {Toast} from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
+import * as WeChat from 'react-native-wechat'
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -97,6 +98,9 @@ class HomeScreen extends Component {
       checkAll();
     }
 
+    const wxAppId = 'wxea535c9d15180464'
+    WeChat.registerApp(wxAppId);
+
     this.loadWeekConfig();
     this.loadUnReadCount();
     this.loadContractList();
@@ -105,6 +109,10 @@ class HomeScreen extends Component {
   componentWillUnmount() {
     this.listener = null;
     this.timer = null;
+    JPush.removeListener(this.connectListener);
+    JPush.removeListener(this.notificationListener);
+    JPush.removeListener(this.localNotificationListener);
+    JPush.removeListener(this.tagAliasListener);
     this.connectListener = null;
     this.notificationListener = null;
     this.localNotificationListener = null;
@@ -344,7 +352,7 @@ class HomeScreen extends Component {
 
   loadSpecialClockCallback(res) {
     console.log('special', res);
-    const {success, data} = res;
+    const {success, data, error} = res;
     if (success) {
       this.setState({
         specialList: data,
@@ -425,7 +433,7 @@ class HomeScreen extends Component {
       this.setState({
         contactList: res.data,
       });
-    } else if (error == '未登录') {
+    } else if (res.error == '未登录') {
       this.setState({
         contactList: [],
       })

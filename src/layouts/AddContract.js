@@ -1,18 +1,27 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView,FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView,FlatList, TouchableOpacity, Image } from 'react-native'
 import { Header, SearchItem, PredictContract, NoneData, SearchApplyItem, LineItem } from '../components';
-import { searchUser } from '../requests';
+import { searchUser, getLoginInfo } from '../requests';
 import { Toast } from '@ant-design/react-native';
 import { px } from '../utils';
 import * as WeChat from 'react-native-wechat'
+import { ASSET_IMAGES } from '../config';
 
 export default class AddContract extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search: null,
-            searchList: null
+            searchList: null,
+            nickname: ''
         }
+    }
+
+    componentDidMount() {
+        // getLoginInfo
+        getLoginInfo({
+            callback: this.getLoginInfoCallback.bind(this)
+        })
     }
 
     render() {
@@ -21,7 +30,8 @@ export default class AddContract extends Component {
                 <Header navigation={this.props.navigation} title="添加" />
                 <SearchItem searchAction={this.search.bind(this)} value={this.state.search} changeText={this.onChangeText.bind(this)} placeholder="输入关键字" />
                 <TouchableOpacity onPress={this.shareToFriend.bind(this)} style={styles.shareToWxButton}>
-                    <Text>分享到微信</Text>
+                    <Image style={styles.iconWx} source={ASSET_IMAGES.ICON_WX_ICON} />
+                    <Text>添加微信好友</Text>
                 </TouchableOpacity>
                 {
                     this.state.searchList == null? null :<FlatList
@@ -75,17 +85,29 @@ export default class AddContract extends Component {
                 // 是否安装
                 WeChat.shareToSession({
                     type: 'text',
-                    description: '测试分享'
+                    description: `${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake`
                 })
             }
         })
+    }
+
+    getLoginInfoCallback(res) {
+        console.log('loginInfo ', res);
+        const { success, data } = res;
+        if (success) {
+            const { nickname } = data;
+            this.setState({
+                nickname: nickname
+            })
+        }
     }
 }
 
 const styles = StyleSheet.create({
     shareToWxButton: {
         height: px(120),
-        backgroundColor: 'red'
+        marginLeft: px(30),
+        marginTop: px(30)
     },
     flatList: {
         marginTop: px(30)
@@ -93,5 +115,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         backgroundColor: '#fff'
+    },
+    iconWx: {
+        width: px(120),
+        height: px(120)
     }
 })

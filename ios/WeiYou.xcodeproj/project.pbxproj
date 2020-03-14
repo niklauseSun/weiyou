@@ -17,6 +17,8 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DB1034D3C3539DB90106A81 /* libPods-WeiYou-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFC161405CC85EFF47535A0 /* libPods-WeiYou-tvOS.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* WeiYouTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WeiYouTests.m */; };
+		3DECD999FEF046AB825F9C9A /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88F07BBEB5974C7A81062CF2 /* antfill.ttf */; };
+		4F2EA5D7F31848738E2365FE /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */; };
 		9C18CAD6E13EEB4E4670EAB8 /* libPods-WeiYouTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A17DEFBDAAD8DF10C17D594E /* libPods-WeiYouTests.a */; };
 		CE66EC680C1B1821BA4CA82A /* libPods-WeiYou-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B61FD4DC529C39A49264AD /* libPods-WeiYou-tvOSTests.a */; };
 		E0766A94753BE9D878F7A3E5 /* libPods-WeiYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E32C29E426735DBC9D212267 /* libPods-WeiYou.a */; };
@@ -28,8 +30,11 @@
 		F40B409C2410107300EBEEAF /* lightM_04.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40962410107300EBEEAF /* lightM_04.caf */; };
 		F44A5A572401680C00F92B64 /* UNNotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A562401680C00F92B64 /* UNNotificationsManager.m */; };
 		F44A5A5A24016F0B00F92B64 /* AlarmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A5924016F0B00F92B64 /* AlarmManager.m */; };
-		3DECD999FEF046AB825F9C9A /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88F07BBEB5974C7A81062CF2 /* antfill.ttf */; };
-		4F2EA5D7F31848738E2365FE /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */; };
+		F4D236E7241A7CAB00F7487F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236E6241A7CAB00F7487F /* SystemConfiguration.framework */; };
+		F4D236E9241A7CB600F7487F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236E8241A7CB600F7487F /* CoreTelephony.framework */; };
+		F4D236EB241A7CDB00F7487F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */; };
+		F4D236ED241A7CE800F7487F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EC241A7CE800F7487F /* libc++.tbd */; };
+		F4D236EF241A7CF100F7487F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EE241A7CF100F7487F /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +75,10 @@
 		5CFC161405CC85EFF47535A0 /* libPods-WeiYou-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYou-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		807BBD59BB331ED3C4ED6D92 /* Pods-WeiYouTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYouTests.debug.xcconfig"; path = "Target Support Files/Pods-WeiYouTests/Pods-WeiYouTests.debug.xcconfig"; sourceTree = "<group>"; };
 		855A430486199E08AF1AF8A4 /* Pods-WeiYou-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-WeiYou-tvOS/Pods-WeiYou-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		88F07BBEB5974C7A81062CF2 /* antfill.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antfill.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; };
 		A17DEFBDAAD8DF10C17D594E /* libPods-WeiYouTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYouTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1B61FD4DC529C39A49264AD /* libPods-WeiYou-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYou-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antoutline.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; };
 		D711684F7FC008BF184D0CD2 /* Pods-WeiYouTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYouTests.release.xcconfig"; path = "Target Support Files/Pods-WeiYouTests/Pods-WeiYouTests.release.xcconfig"; sourceTree = "<group>"; };
 		E32C29E426735DBC9D212267 /* libPods-WeiYou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAE614615852190A35467C9E /* Pods-WeiYou-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-WeiYou-tvOSTests/Pods-WeiYou-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -87,10 +94,11 @@
 		F44A5A562401680C00F92B64 /* UNNotificationsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UNNotificationsManager.m; sourceTree = "<group>"; };
 		F44A5A5824016F0B00F92B64 /* AlarmManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmManager.h; sourceTree = "<group>"; };
 		F44A5A5924016F0B00F92B64 /* AlarmManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmManager.m; sourceTree = "<group>"; };
-		F4B367752418C9AA0075BB33 /* WeiYouDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = WeiYouDebug.entitlements; path = WeiYou/WeiYouDebug.entitlements; sourceTree = "<group>"; };
-		F4DB198C23FFFD7D00DD1496 /* WeiYou.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = WeiYou.entitlements; path = WeiYou/WeiYou.entitlements; sourceTree = "<group>"; };
-		88F07BBEB5974C7A81062CF2 /* antfill.ttf */ = {isa = PBXFileReference; name = "antfill.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */ = {isa = PBXFileReference; name = "antoutline.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F4D236E6241A7CAB00F7487F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F4D236E8241A7CB600F7487F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		F4D236EC241A7CE800F7487F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		F4D236EE241A7CF100F7487F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +114,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D236EF241A7CF100F7487F /* libz.tbd in Frameworks */,
+				F4D236ED241A7CE800F7487F /* libc++.tbd in Frameworks */,
+				F4D236EB241A7CDB00F7487F /* libsqlite3.0.tbd in Frameworks */,
+				F4D236E9241A7CB600F7487F /* CoreTelephony.framework in Frameworks */,
+				F4D236E7241A7CAB00F7487F /* SystemConfiguration.framework in Frameworks */,
 				E0766A94753BE9D878F7A3E5 /* libPods-WeiYou.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,11 +159,18 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		01FD4A0DCCC649AC8F38D976 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				88F07BBEB5974C7A81062CF2 /* antfill.ttf */,
+				CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* WeiYou */ = {
 			isa = PBXGroup;
 			children = (
-				F4B367752418C9AA0075BB33 /* WeiYouDebug.entitlements */,
-				F4DB198C23FFFD7D00DD1496 /* WeiYou.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				F44A5A5D24020E7E00F92B64 /* resource */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -170,6 +190,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4D236EE241A7CF100F7487F /* libz.tbd */,
+				F4D236EC241A7CE800F7487F /* libc++.tbd */,
+				F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */,
+				F4D236E8241A7CB600F7487F /* CoreTelephony.framework */,
+				F4D236E6241A7CAB00F7487F /* SystemConfiguration.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				E32C29E426735DBC9D212267 /* libPods-WeiYou.a */,
@@ -242,16 +267,6 @@
 			name = resource;
 			path = "../../../../Downloads/Alarm_Clock_UserNotifications-master/Alarm_Clock_UserNotifications/resource";
 			sourceTree = "<group>";
-		};
-		01FD4A0DCCC649AC8F38D976 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				88F07BBEB5974C7A81062CF2 /* antfill.ttf */,
-				CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

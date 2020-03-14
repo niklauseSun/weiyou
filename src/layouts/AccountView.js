@@ -44,6 +44,7 @@ export default class AccountView extends Component {
                     <FlatList
                         data={this.state.scoreList}
                         renderItem={({item}) => <ScoreListItem data={item} />}
+                        keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
             </SafeAreaView>

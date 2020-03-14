@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, Keyboard, DeviceEventEmitter } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, Keyboard, DeviceEventEmitter, Image } from 'react-native'
 import { Header, InputItem, LoginButton } from '../components'
 import { px } from '../utils';
 import { loginWithPasswordAction, getWxLogin, postWxLoginAuth } from '../requests';
 import * as WeChat from 'react-native-wechat';
-import { E } from '../config';
+import { E, ASSET_IMAGES } from '../config';
 import { Toast } from '@ant-design/react-native';
 
 export default class LoginView extends Component {
@@ -34,9 +34,11 @@ export default class LoginView extends Component {
                             <Text style={styles.forgetText}>忘记密码？</Text>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={this.wxLogin.bind(this)}>
-                        <Text>微信登录</Text>
-                    </TouchableOpacity>
+                    <View style={styles.wxView}>
+                        <TouchableOpacity onPress={this.wxLogin.bind(this)}>
+                        <Image style={styles.wxIcon} source={ASSET_IMAGES.ICON_WX_ICON} />
+                        </TouchableOpacity>
+                    </View>
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -90,6 +92,7 @@ export default class LoginView extends Component {
 
     wxLogin() {
         WeChat.isWXAppInstalled().then((res) => {
+            console.log('isLogin');
             if (res) {
                 WeChat.sendAuthRequest("snsapi_userinfo").then((response) => {
                     console.log('login', response);
@@ -195,5 +198,14 @@ const styles = StyleSheet.create({
     forgetText: {
         color: '#999',
         fontSize: px(30)
+    },
+    wxView: {
+        height: px(160),
+        width: '100%',
+        alignItems: 'center'
+    },
+    wxIcon: {
+        height: px(120),
+        width: px(120)
     }
 })

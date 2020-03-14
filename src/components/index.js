@@ -63,6 +63,9 @@ import ScoreListItem from './ScoreListItem'
 import UserHeader from './UserHeader'
 import RuleItem from './RuleItem'
 
+import PriceView from './PriceView'
+import PayViews from './PayViews'
+
 export {
     Header,
     SignItem,
@@ -125,5 +128,7 @@ export {
     ContactListItem,
     ScoreListItem,
     UserHeader,
-    RuleItem
+    RuleItem,
+    PriceView,
+    PayViews
 }

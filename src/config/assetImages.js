@@ -57,6 +57,7 @@ const ASSET_IMAGES = {
     ICON_VIP_USER: require('../assets/icon_vip_user.png'),
     ICON_VIP_PHONE: require('../assets/icon_vip_phone.png'),
     ICON_VPI_RATE: require('../assets/icon_vip_rate.png'),
+    ICON_WX_ICON: require('../assets/icon_weixin.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

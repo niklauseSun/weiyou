@@ -7,6 +7,8 @@
 //
 
 #import "UNNotificationsManager.h"
+#import <React/RCTEventEmitter.h>
+#import "EventEmitterManager.h"
 
 NSString * const UNDidReciveRemoteNotifationKey = @"UNDidReciveRemateNotifationKey";
 NSString * const UNDidReciveLocalNotifationKey = @"UNDidReciveLocalNotifationKey";
@@ -348,11 +350,13 @@ NSString * const UNNotifationInfoIdentiferKey = @"UNNotifationInfoIdentiferKey";
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler  API_AVAILABLE(ios(10.0)){
-    
+  NSLog(@"dddd");
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         
         NSDictionary * userInfo = response.notification.request.content.userInfo;
         [[NSNotificationCenter defaultCenter] postNotificationName:UNDidReciveRemoteNotifationKey object:nil userInfo:userInfo];
+      NSLog(@"fff %@", userInfo);
+      [self handleRemot: userInfo];
     }else {
         [self handCommnet:response];
     }
@@ -363,6 +367,12 @@ NSString * const UNNotifationInfoIdentiferKey = @"UNNotifationInfoIdentiferKey";
 
 -(void)handCommnet:(UNNotificationResponse *)response API_AVAILABLE(ios(10.0)) {
     NSString *actionIdef = response.actionIdentifier;
+  
+    NSLog(@"test === %@", response.notification.request.content.userInfo);
+    NSLog(@"action ide %@", actionIdef);
+    NSLog(@"identifier %@", response.notification.request.identifier);
+    [self handleSendNotification:response.notification.request.identifier];
+  
     NSDate *date;
     if ([actionIdef isEqualToString:actionStop]) {
         return;
@@ -387,6 +397,27 @@ NSString * const UNNotifationInfoIdentiferKey = @"UNNotifationInfoIdentiferKey";
     }else {
         [[NSNotificationCenter defaultCenter] postNotificationName:UNDidReciveLocalNotifationKey object:nil userInfo:@{UNNotifationInfoIdentiferKey : response.notification.request.identifier}];
     }
+}
+
+- (void)handleSendNotification:(NSString *)idStr {
+  EventEmitterManager *notification = [EventEmitterManager allocWithZone: nil];
+  [notification sendNotifictionToRN: @{
+    @"type": @"notification",
+    @"idStr": idStr
+  }];
+}
+
+- (void)handleRemot:(NSDictionary *)userInfo {
+  NSString *type = userInfo[@"type"];
+  NSString *idStr = userInfo[@"id"];
+  
+  if ([type isEqualToString:@"clock"]) {
+    NSString *format = [NSString stringWithFormat:@"normal-%@",idStr];
+    [self handleSendNotification:format];
+  } else {
+    NSString *specialStr = [NSString stringWithFormat:@"special-%@", idStr];
+    [self handleSendNotification:specialStr];
+  }
 }
 
 #pragma mark -- getter

@@ -35,6 +35,11 @@
 		F4D236EB241A7CDB00F7487F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */; };
 		F4D236ED241A7CE800F7487F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EC241A7CE800F7487F /* libc++.tbd */; };
 		F4D236EF241A7CF100F7487F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EE241A7CF100F7487F /* libz.tbd */; };
+		F4F9F596241DD8B100A80567 /* EventEmitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F9F595241DD8B100A80567 /* EventEmitterManager.m */; };
+		F4F9F598241E162100A80567 /* libJPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9F597241E162100A80567 /* libJPush.a */; };
+		F4F9F59A241E163300A80567 /* libJCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9F599241E163300A80567 /* libJCore.a */; };
+		F4F9F59C241E164600A80567 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9F59B241E164600A80567 /* UserNotifications.framework */; };
+		F4F9F59E241E165300A80567 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9F59D241E165300A80567 /* libresolv.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +104,12 @@
 		F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		F4D236EC241A7CE800F7487F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		F4D236EE241A7CF100F7487F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		F4F9F594241DD8B100A80567 /* EventEmitterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventEmitterManager.h; path = WeiYou/EventEmitterManager.h; sourceTree = "<group>"; };
+		F4F9F595241DD8B100A80567 /* EventEmitterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = EventEmitterManager.m; path = WeiYou/EventEmitterManager.m; sourceTree = "<group>"; };
+		F4F9F597241E162100A80567 /* libJPush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJPush.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F9F599241E163300A80567 /* libJCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F9F59B241E164600A80567 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		F4F9F59D241E165300A80567 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +125,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F9F59E241E165300A80567 /* libresolv.tbd in Frameworks */,
+				F4F9F59C241E164600A80567 /* UserNotifications.framework in Frameworks */,
+				F4F9F59A241E163300A80567 /* libJCore.a in Frameworks */,
+				F4F9F598241E162100A80567 /* libJPush.a in Frameworks */,
 				F4D236EF241A7CF100F7487F /* libz.tbd in Frameworks */,
 				F4D236ED241A7CE800F7487F /* libc++.tbd in Frameworks */,
 				F4D236EB241A7CDB00F7487F /* libsqlite3.0.tbd in Frameworks */,
@@ -183,6 +198,8 @@
 				F44A5A562401680C00F92B64 /* UNNotificationsManager.m */,
 				F44A5A5824016F0B00F92B64 /* AlarmManager.h */,
 				F44A5A5924016F0B00F92B64 /* AlarmManager.m */,
+				F4F9F594241DD8B100A80567 /* EventEmitterManager.h */,
+				F4F9F595241DD8B100A80567 /* EventEmitterManager.m */,
 			);
 			name = WeiYou;
 			sourceTree = "<group>";
@@ -190,6 +207,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4F9F59D241E165300A80567 /* libresolv.tbd */,
+				F4F9F59B241E164600A80567 /* UserNotifications.framework */,
+				F4F9F599241E163300A80567 /* libJCore.a */,
+				F4F9F597241E162100A80567 /* libJPush.a */,
 				F4D236EE241A7CF100F7487F /* libz.tbd */,
 				F4D236EC241A7CE800F7487F /* libc++.tbd */,
 				F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */,
@@ -639,6 +660,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				F44A5A5A24016F0B00F92B64 /* AlarmManager.m in Sources */,
+				F4F9F596241DD8B100A80567 /* EventEmitterManager.m in Sources */,
 				F44A5A572401680C00F92B64 /* UNNotificationsManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);

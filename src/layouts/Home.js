@@ -12,7 +12,8 @@ import {
   ScrollView,
   DeviceEventEmitter,
   NativeModules,
-  Platform,
+  NativeEventEmitter,
+  Platform
 } from 'react-native';
 import {
   Header,
@@ -104,19 +105,22 @@ class HomeScreen extends Component {
     this.loadWeekConfig();
     this.loadUnReadCount();
     this.loadContractList();
+
+    this.handleLocalNotification();
   }
 
   componentWillUnmount() {
     this.listener = null;
     this.timer = null;
-    JPush.removeListener(this.connectListener);
-    JPush.removeListener(this.notificationListener);
-    JPush.removeListener(this.localNotificationListener);
-    JPush.removeListener(this.tagAliasListener);
-    this.connectListener = null;
-    this.notificationListener = null;
-    this.localNotificationListener = null;
-    this.tagAliasListener = null;
+    // JPush.removeListener(this.connectListener);
+    // JPush.removeListener(this.notificationListener);
+    // JPush.removeListener(this.localNotificationListener);
+    // JPush.removeListener(this.tagAliasListener);
+    // this.connectListener = null;
+    // this.notificationListener = null;
+    // this.localNotificationListener = null;
+    // this.tagAliasListener = null;
+    this.nativeEmitter.remove();
   }
 
   render() {
@@ -438,6 +442,28 @@ class HomeScreen extends Component {
         contactList: [],
       })
     }
+  }
+
+  handleLocalNotification() {
+    const {EventEmitterManager} = NativeModules;
+    const nativeEmitterManager = new NativeEventEmitter(EventEmitterManager);
+    this.nativeEmitter = nativeEmitterManager.addListener(
+    'NativeResult',
+    (data) => {
+      console.log('native result', data);
+      const { type, idStr } = data;
+      if (type === 'notification') {
+        if (idStr.split('-')[0] === 'normal') {
+          this.props.navigation.navigate('NormalSign', {
+              id:idStr.split('-')[1]
+          });
+        } else {
+          this.props.navigation.navigate('SignSpecial', {
+            id:idStr.split('-')[1]
+        });
+        }
+      }
+    })
   }
 }
 

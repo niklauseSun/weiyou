@@ -211,6 +211,7 @@ export default class AddHabitDetail extends Component {
         tips_delay: this.state.tips_delay,
         tips_end: this.state.tips_end,
         interval_min: this.state.interval_min,
+        // interval_min: 2,
         interval_cnt: this.state.interval_cnt,
         contacts: this.state.contacts
       },
@@ -252,7 +253,7 @@ export default class AddHabitDetail extends Component {
       let aString = this.switchToArray(this.state.repeats);
       let weeks = this.showItem(aString);
       console.log(weeks);
-      alarmManager.addNormalAlarm('normal'+ id, this.state.name, timeString, weeks, 'add');
+      alarmManager.addNormalAlarm('normal-'+ id, this.state.name, timeString, weeks, 'add');
   }
 
   switchToArray(repeats) {

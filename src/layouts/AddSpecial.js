@@ -270,7 +270,7 @@ export default class AddSpecial extends Component {
             let date = this.state.start_time == null ? new Date(): new Date(this.state.start_time);
             let timeString = formatDateToString(date);
             var alarmManager = NativeModules.AlarmManager;
-            alarmManager.addSpecialAlarm('special' + id, this.state.name, timeString);
+            alarmManager.addSpecialAlarm('special-' + id, this.state.name, timeString);
         // }
     }
 };

@@ -52,24 +52,16 @@
   
   [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
   [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
-  
-//  JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-//  entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound|JPAuthorizationOptionProvidesAppNotificationSettings;
-//  if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-//    // 可以添加自定义 categories
-//    // NSSet<UNNotificationCategory *> *categories for iOS10 or later
-//    // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
-//  }
-//  [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-//
-//  [JPUSHService setupWithOption:launchOptions appKey:@"b89ecfe4b6dac36ebbf8bd65"
-//                         channel:@"appstore"
-//                apsForProduction:false
-//           advertisingIdentifier:@""];
+
   [UNNotificationsManager registerLocalNotification];
 
+  NSLog(@"我从你跟着李");
   
   return YES;
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+  NSLog(@"will present %@", notification);
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -78,6 +70,7 @@
 
 // iOS 12 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification{
+  NSLog(@"iOS 12 Support");
   if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
     //从通知界面直接进入应用
   }else{
@@ -101,6 +94,24 @@
 
 - (void)jpushNotificationAuthorization:(JPAuthorizationStatus)status withInfo:(NSDictionary *)info {
   
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+  NSDictionary * userInfo = response.notification.request.content.userInfo;
+  NSLog(@"recive local %@", userInfo);
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)(void))completionHandler {
+  NSLog(@"111");
+
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)(void))completionHandler {
+  NSLog(@"222");
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+  NSLog(@"fuck");
 }
 
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
@@ -136,6 +147,7 @@
      // 本地通知 todo
      NSLog(@"iOS 10 本地通知 前台收到消息");
      [[NSNotificationCenter defaultCenter] postNotificationName:J_LOCAL_NOTIFICATION_ARRIVED_EVENT object:userInfo];
+     NSLog(@"userInof %@", userInfo);
    }
    //需要执行这个方法，选择是否提醒用户，有 Badge、Sound、Alert 三种类型可以选择设置
    completionHandler(UNNotificationPresentationOptionAlert);

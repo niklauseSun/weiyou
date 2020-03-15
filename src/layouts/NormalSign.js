@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, DeviceEventEmitter } from 'react-native'
 import { Header } from '../components';
 import { commonStyles } from '../commonStyles';
 import { getClockDetailById, reportCustomerClock } from '../requests';
@@ -31,7 +31,7 @@ export default class NormalSign extends Component {
     render() {
         return (
             <SafeAreaView style={commonStyles.content}>
-                <Header title="普通打卡" />
+                <Header navigation={this.props.navigation} title="普通打卡" />
                 <View style={commonStyles.body}>
                     <View style={styles.headView}>
                         {
@@ -115,8 +115,10 @@ export default class NormalSign extends Component {
     }
 
     reportDataCallback(res) {
+        console.log('report', res);
         const { success, error } = res;
         if (success) {
+            Toast.info('打卡成功')
             DeviceEventEmitter.emit('taskReload');
         } else {
             Toast.fail(error);

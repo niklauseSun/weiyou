@@ -103,6 +103,9 @@ class SettingScreen extends Component {
 
     loadPersonalInfo() {
         // getLoginInfo
+        if (!global.isLogin) {
+            return;
+        }
         const callback = this.loadPersonalInfoCallback.bind(this)
         getLoginInfo({ callback });
     }

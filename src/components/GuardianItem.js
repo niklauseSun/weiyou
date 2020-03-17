@@ -49,6 +49,9 @@ export default class GuardianItem extends Component {
     }
 
     loadList() {
+        if (!global.isLogin) {
+            return;
+        }
         // getGuardianList
         const data = {
             pageNum: 0,

@@ -91,6 +91,9 @@ export default class NewApplyItem extends Component {
     }
 
     loadNewApplyRequestList() {
+        if (!global.isLogin) {
+            return;
+        }
         const data = {
             pageNum: 0,
             pageSize: 10

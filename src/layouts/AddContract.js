@@ -13,7 +13,8 @@ export default class AddContract extends Component {
         this.state = {
             search: null,
             searchList: null,
-            nickname: ''
+            nickname: '',
+            id: ''
         }
     }
 
@@ -85,7 +86,7 @@ export default class AddContract extends Component {
                 // 是否安装
                 WeChat.shareToSession({
                     type: 'text',
-                    description: `${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake`
+                    description: `${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake?customer_id=${this.state.id}`
                 })
             }
         })
@@ -95,9 +96,10 @@ export default class AddContract extends Component {
         console.log('loginInfo ', res);
         const { success, data } = res;
         if (success) {
-            const { nickname } = data;
+            const { nickname, id } = data;
             this.setState({
-                nickname: nickname
+                nickname: nickname,
+                id: id
             })
         }
     }

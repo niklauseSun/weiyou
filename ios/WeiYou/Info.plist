@@ -36,7 +36,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>
@@ -67,7 +67,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>APP需要获取拍照权限进行上传图片</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>APP需要图片权限进行上传图片</string>
 	<key>UIAppFonts</key>

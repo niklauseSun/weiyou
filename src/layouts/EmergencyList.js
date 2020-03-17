@@ -50,12 +50,19 @@ export default class EmergencyList extends Component {
     }
 
     navigateAdd() {
+        if (!global.isLogin) {
+            this.props.navigation.navigate("LoginView");
+            return;
+        }
         this.props.navigation.navigate('AddEmergency');
     }
 
     // request
 
     loadEmergencyList() {
+        if (!global.isLogin) {
+            return;
+        }
         // getPersonEmergencyList
         getPersonEmergencyList({
             pageNum: 0,

@@ -66,6 +66,9 @@ export default class SpecialContractItem extends Component {
     }
 
     loadContactList() {
+        if (!global.isLogin) {
+            return;
+        }
         getContractList({
             pageNum: 0,
             pageSize: 10,

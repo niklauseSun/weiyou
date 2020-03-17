@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/react-native": "^3.2.2",
     "@react-native-community/masked-view": "^0.1.6",
+    "aliyun-oss-react-native": "^1.0.0-alpha.7",
     "babel-plugin-import": "^1.13.0",
     "jcore-react-native": "^1.7.5",
     "jpush-react-native": "^2.7.5",
@@ -27,7 +28,8 @@
     "react-native-wechat": "^1.9.12",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^2.0.15",
-    "react-navigation-tabs": "^2.6.2"
+    "react-navigation-tabs": "^2.6.2",
+    "react-tmap": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

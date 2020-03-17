@@ -13,7 +13,8 @@ import {
   DeviceEventEmitter,
   NativeModules,
   NativeEventEmitter,
-  Platform
+  Platform,
+  Linking
 } from 'react-native';
 import {
   Header,
@@ -32,18 +33,20 @@ import {
   HomeContactHeader
 } from '../components';
 import {commonStyles} from '../commonStyles';
-import {px, getCurrentDays, formatDateToString, checkAll} from '../utils';
-import {ASSET_IMAGES} from '../config';
+import {px, getCurrentDays, formatDateToString, checkAll, getPosition} from '../utils';
+import {ASSET_IMAGES, E} from '../config';
 import {
   getPersonalClockByDay,
   getSpecialClockByDay,
   unReadCount,
   signAction,
-  getGuardianList
+  getGuardianList,
+  contractApplyByOther
 } from '../requests';
 import {Toast} from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
 import * as WeChat from 'react-native-wechat'
+import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -58,7 +61,11 @@ class HomeScreen extends Component {
       messageCnt: 0,
       showSignSuccess: false,
       isShow: false,
-      contactList: []
+      contactList: [],
+      position: null,
+      longitude: null,
+      latitude: null,
+      city: null
     };
   }
 
@@ -71,6 +78,19 @@ class HomeScreen extends Component {
     //通知回调
     this.notificationListener = result => {
         console.log("notificationListener:" + JSON.stringify(result))
+        if (Platform.OS == 'android') {
+          const { extras } = result;
+          const { id, type } = extras;
+          if (type == 'clock') {
+            this.props.navigation.navigate('NormalSign', {
+              id:id
+          });
+          } else {
+            this.props.navigation.navigate('SignSpecial', {
+              id:id
+            })
+          }
+        }
     };
     JPush.addNotificationListener(this.notificationListener);
     //本地通知回调
@@ -88,6 +108,7 @@ class HomeScreen extends Component {
       //收到监听后想做的事情
       this.loadTasks();
       this.loadContractList();
+      this.loadUnReadCount()
     });
 
     this.timer = setTimeout(() => {
@@ -107,6 +128,72 @@ class HomeScreen extends Component {
     this.loadContractList();
 
     this.handleLocalNotification();
+    Linking.getInitialURL().then((url) => {
+      if (url && Platform.OS == 'android') {
+        console.log('Initial url is: ' + url);
+        if (url.split('=').length == 2) {
+          const query = decodeURIComponent(url.split('=')[1]);
+          console.log('query', this.getQuery(query));
+          const { from_customer_id = null } = this.getQuery(query);
+          if (from_customer_id != null && from_customer_id != '') {
+            contractApplyByOther({
+              callback: this.beApplyByOther.bind(this),
+              customer_id: from_customer_id
+            })
+          }
+        }
+      }
+    }).catch(err => console.error('An error occurred', err));
+    this.getLocation();
+  }
+
+  getLocation() {
+    setLocatingWithReGeocode(false);
+        Geolocation.getCurrentPosition(({ coords, location }) => {
+            const { latitude, longitude } = coords;
+            console.log('lat', coords, location)
+
+            const url = `https://restapi.amap.com/v3/geocode/regeo?location=${longitude},${latitude}&key=${E.WEB_KEY}&radius=1000&extensions=all&poitype=`
+            let opts = {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": 'application/json;charset=utf-8',
+                    "Connection": "keep-alive"
+                },
+                timeout: 60 * 1000,
+            }
+
+            fetch(url, opts).then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            }).then((res) => {
+                console.log('res', res);
+                const { regeocode } = res;
+                const { pois, formatted_address, addressComponent } = regeocode;
+                const { adcode } = addressComponent;
+                const { location } = pois[0];
+                // const retAddress = `${province}${district}${township}${address}${name}`;
+                const retCityCode = `${adcode}`;
+                const retLatitude = location.split(',')[1];
+                const retLongitude = location.split(',')[0]
+                this.setState({
+                    position: formatted_address,
+                    longitude: retLongitude,
+                    latitude: retLatitude,
+                    city: retCityCode
+                })
+                // return {
+                //     position: formatted_address,
+                //     longitude: retLongitude,
+                //     latitude: retLatitude,
+                //     city: retCityCode
+                // }
+            }).catch(err => {
+                console.log('err', err);
+            })
+        });
   }
 
   componentWillUnmount() {
@@ -223,7 +310,14 @@ class HomeScreen extends Component {
         />
         <FlatList
           data={this.state.normalList.filter((item) => item.deleted == false)}
-          renderItem={({item, index}) => <NormalItem navigation={this.props.navigation} data={item} key={index} />}
+          renderItem={({item, index}) => <NormalItem
+            navigation={this.props.navigation}
+            data={item}
+            position={this.state.position}
+            longitude={this.state.longitude}
+            latitude={this.state.latitude}
+            city={this.state.city}
+            key={index} />}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={() => {
             return (
@@ -295,6 +389,9 @@ class HomeScreen extends Component {
         selectIndex: index,
       },
       () => {
+        if (!global.isLogin) {
+          return;
+        }
         this.loadTasks();
       },
     );
@@ -320,7 +417,9 @@ class HomeScreen extends Component {
         requestWeeks: requestWeeks,
       },
       () => {
-        this.loadTasks();
+        if (global.isLogin) {
+          this.loadTasks();
+        }
       },
     );
   }
@@ -379,9 +478,11 @@ class HomeScreen extends Component {
   }
 
   loadUnReadCount() {
-    unReadCount({
-      callback: this.loadUnReadCountCallback.bind(this),
-    });
+    if (global.isLogin) {
+      unReadCount({
+        callback: this.loadUnReadCountCallback.bind(this),
+      });
+    }
   }
 
   loadUnReadCountCallback(res) {
@@ -423,6 +524,9 @@ class HomeScreen extends Component {
 
   loadContractList() {
     // getContractList
+    if (!global.isLogin) {
+      return;
+    }
     const data = {
       pageNum: 0,
       pageSize: 10,
@@ -463,8 +567,45 @@ class HomeScreen extends Component {
         });
         }
       }
+
+      if (type === 'awake') {
+        const { string } = data;
+        if (string.split('=')[0] === 'customer_id') {
+          console.log('be Apply');
+          // contractApplyByOther
+          contractApplyByOther({
+            callback: this.beApplyByOther.bind(this),
+            customer_id: string.split('=')[1]
+          })
+        }
+      }
     })
   }
+
+  beApplyByOther(res) {
+    const { success, error } = res;
+    if (success) {
+      Toast.info('添加成功');
+    } else {
+      Toast.info(error);
+    }
+  }
+
+  getQuery(url) {
+    let obj = {};
+    let reg = /[?&][^?&]+=[^?&]+/g;
+    let arr = url.match(reg);
+    // ['?id=12345', '&a=b']
+    if (arr) {
+    arr.forEach((item) => {
+    let tempArr = item.substring(1).split('=');
+    let key = decodeURIComponent(tempArr[0]);
+    let val = decodeURIComponent(tempArr[1]);
+    obj[key] = val;
+      });
+    }
+  return obj;
+}
 }
 
 export default HomeScreen;

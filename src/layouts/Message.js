@@ -105,6 +105,9 @@ class MessageScreen extends Component {
     // request
     loadContractList() {
         // getContractList
+        if (!global.isLogin) {
+            return;
+        }
         const data = {
             pageNum: 0,
             pageSize: 10,
@@ -119,7 +122,7 @@ class MessageScreen extends Component {
             this.setState({
                 contractList: res.data
             })
-        } else if (error == '未登录') {
+        } else if (res.error == '未登录') {
             this.setState({
                 contractList: [],
             })

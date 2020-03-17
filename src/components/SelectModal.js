@@ -46,7 +46,6 @@ export default class SelectModal extends Component {
                 selectIndex={this.state.selectIndex}
                 onChangeTabIndex={this.changeIndex.bind(this)}
               />
-              {this.state.clockList.length == 0 ? null : (
                 <FlatList
                   data={this.state.clockList.filter(item => {
                     return (
@@ -64,7 +63,6 @@ export default class SelectModal extends Component {
                   )}
                   ListEmptyComponent={() => <NoneData title="暂无模板" />}
                 />
-              )}
             </View>
           </View>
         </Modal>
@@ -97,6 +95,9 @@ export default class SelectModal extends Component {
 
   loadAllCategory() {
     // getAllCategory
+    if (!global.isLogin) {
+      return;
+    }
     getAllCategory({
       callback: this.loadAllCategoryCallback.bind(this),
     });

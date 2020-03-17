@@ -40,7 +40,7 @@ export default class AddSpecial extends Component {
             start_time: new Date().toISOString(),
             interval_min: 5,
             error_cnt: 3,
-            position: '上海市',
+            position: null,
             question_id: null,
             longitude: '121,48',
             latitude: '31.23',
@@ -59,6 +59,20 @@ export default class AddSpecial extends Component {
                 question: question
             })
         })
+        this.locationEmitter = DeviceEventEmitter.addListener('selectAddress', (dict) => {
+            const {
+                position,
+                city,
+                latitude,
+                longitude
+            } = dict;
+            this.setState({
+                position: position,
+                city: city,
+                latitude: latitude,
+                longitude: longitude
+            })
+        });
         if (this.state.addType == 'edit') {
             this.loadSpecialDetail()
         }
@@ -66,6 +80,7 @@ export default class AddSpecial extends Component {
 
     componentWillUnmount() {
         this.emitter = null;
+        this.locationEmitter = null;
     }
 
     render() {
@@ -82,7 +97,7 @@ export default class AddSpecial extends Component {
                             <Text style={styles.nameLabel}>特殊</Text>
                             <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" value={this.state.name} onChangeText={this.changeName.bind(this)} />
                         </View>
-                        <SpecialLocationItem showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} title={this.state.position} />
+                        <SpecialLocationItem navigation={this.props.navigation} showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} title={this.state.position} />
                         <SpecialSelectItem onChangeTime={this.onChangeTime.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.state.start_time} />
                         <SpecialQuestionItem onChangeQuestion={this.onChangeQuestion.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} question={this.state.question}/>
                         <SpecialRepeatItem cnt={this.state.interval_min} repeat={this.state.error_cnt} changeCnt={this.onChangeCnt.bind(this)} changeRepeat={this.onChangeRepeat.bind(this)} />
@@ -146,6 +161,10 @@ export default class AddSpecial extends Component {
 
     addSpecialTask() {
 
+        if (!global.isLogin) {
+            this.props.navigation.navigate('LoginView');
+            return;
+        }
         if (this.state.question_id == null) {
             Toast.info('请选择问题');
             return;

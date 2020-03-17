@@ -143,33 +143,6 @@ export default class PersonDetail extends Component {
             email: this.state.email,
             sex: this.state.sex,
             phonenumber: this.state.phonenumber
-//             avatar: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erKay7VOFxBXRpRxyZfrBIwRMZXlMqQjTIRqdQg19FKj4ksclE3C5LPzmo9WYFWcKpuiaz70YA6NeA/132"
-// password: true
-// id: 121
-// username: "18301709959"
-// nickname: "孙玉建🍁"
-// email: ""
-// phonenumber: "18301709959"
-// unionid: "o0F120o1TuVsX5Ew_gS1yozvWk3w"
-// mini_openid: "oYtzM4rNzkMJngEt2cGBgFRCPumU"
-// app_openid: ""
-// id_card: ""
-// sex: "male"
-// status: "normal"
-// position: "上海市嘉定区爱特路68弄"
-// longitude: "121.32179260253906"
-// latitude: "31.234739303588867"
-// city: "310114"
-// balance: "0.0000"
-// amount: "0.0000"
-// message_cnt: 0
-// score: 42
-// vip_id: -1
-// vip_expire: null
-// login_date: null
-// remark: null
-// create_time: "2020-02-15T12:19:39.000Z"
-// update_time: "2020-02-29T04:29:25.000Z"
         }
         changePersonInfo({
             callback: this.editCallback.bind(this),

@@ -70,6 +70,10 @@ export default class TaskList extends Component {
     }
 
     goToAdd() {
+        if (!global.isLogin) {
+            this.props.navigation.navigate('LoginView');
+            return;
+        }
         if (this.state.type == 'normal') {
             this.props.navigation.navigate('AddHabitDetail');
         } else {
@@ -78,6 +82,9 @@ export default class TaskList extends Component {
     }
 
     loadTaskList() {
+        if (!global.isLogin) {
+            return;
+        }
         if (this.state.type == 'normal') {
             this.loadNormalTaskList();
         } else {

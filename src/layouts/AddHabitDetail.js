@@ -170,6 +170,10 @@ export default class AddHabitDetail extends Component {
   }
 
   addNewNormalClock() {
+    if (!global.isLogin) {
+      this.props.navigation.navigate('LoginView');
+      return;
+    }
     if (this.state.name == null) {
       Toast.info('请输入姓名！');
       return;
@@ -210,8 +214,8 @@ export default class AddHabitDetail extends Component {
         tips_start: this.state.tips_start,
         tips_delay: this.state.tips_delay,
         tips_end: this.state.tips_end,
-        interval_min: this.state.interval_min,
-        // interval_min: 2,
+        // interval_min: this.state.interval_min,
+        interval_min: 2,
         interval_cnt: this.state.interval_cnt,
         contacts: this.state.contacts
       },

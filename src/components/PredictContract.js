@@ -91,6 +91,9 @@ export default class PredictContract extends Component {
 
     loadPredictList() {
         // recommendContractList
+        if (!global.isLogin) {
+            return;
+        }
         const data = {
             pageNum: 0,
             pageSize: 10,

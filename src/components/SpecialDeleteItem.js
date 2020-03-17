@@ -15,24 +15,6 @@ export default class SpecialDeleteItem extends Component {
         }
     }
 
-//     icon: ""
-// id: 4
-// name: "房东"
-// customer_id: 100
-// question_id: 5
-// start_time: "2020-02-16T07:39:00.000Z"
-// start_day: "2020-02-15T16:00:00.000Z"
-// interval_min: 5
-// error_cnt: 3
-// position: "上海市上海市嘉定区爱特路68弄"
-// longitude: "121.32188226231072"
-// latitude: "31.23488077527308"
-// city: "310114"
-// status: "created"
-// deleted: false
-// create_time: "2020-02-16T07:40:11.000Z"
-// update_time: "2020-02-16T07:40:11.000Z"
-
     render() {
         const { icon, name, error_cnt, interval_min } = this.props.data;
         return (

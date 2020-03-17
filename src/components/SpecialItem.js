@@ -151,22 +151,6 @@ export default class SpecialItem extends Component {
         return date.getFullYear() + '-' + date.getHours() + '-' + date.getMinutes();
     }
 
-//     id  			任务id
-// icon		图标	
-// name	任务名称
-// start_time	开始日期
-// interval_min	间隔时间（分钟）
-// error_cnt	错误次数
-// position	地理位置（汉化）
-// question_id	问题ID
-// longitude	经度
-// latitude	纬度
-// city		城市编码
-// status		状态（"created", "runing", "finish", "fail"）已创建 提醒中 已结束 已失败
-// status	状态("runing","success", "fail", "delay", "notYet") 已开始 成功 失败 延迟  未到打卡时间(获取某天的任务时才有此字段)
-// contacts		设置时为联系人结构体ID数组；获取时为联系人结构体数组
-// question	问题详情(获取任务详情时)
-// deleted
     report() {
         const { data } = this.props;
 

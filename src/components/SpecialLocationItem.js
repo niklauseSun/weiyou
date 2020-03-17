@@ -23,14 +23,16 @@ export default class SpecialLocationItem extends Component {
         return (
             <View style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />
-                <View style={styles.middleView}>
-                    {type == 'input' ? <TextInput placeholderTextColor="#C9C7C7" value={title} style={styles.inputItem} placeholder={placeholder} /> : <Text>{title}</Text>}
-                </View>
-                {showMoreButton? <TouchableOpacity style={styles.moreButton}>
-                    <Image source={ASSET_IMAGES.ICON_MORE} />
-                </TouchableOpacity>: null }
+                <TouchableOpacity onPress={this.selectLocation.bind(this)} style={styles.middleView}>
+                    <Text numberOfLines={1} style={styles.title}>{this.props.title == null ? '选择地点': this.props.title}</Text>
+                    <Image style={styles.moreButton} source={ASSET_IMAGES.ICON_MORE} />
+                </TouchableOpacity>
             </View>
         )
+    }
+
+    selectLocation() {
+        this.props.navigation.navigate('LocationMap');
     }
 }
 
@@ -51,7 +53,10 @@ const styles = StyleSheet.create({
         marginRight: px(30)
     },
     middleView: {
-        flex: 1
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     },
     inputItem: {
         flex: 1,
@@ -59,9 +64,9 @@ const styles = StyleSheet.create({
         textAlign: 'right'
     },
     moreButton: {
-        width: px(90),
-        height: px(90),
-        alignItems: 'flex-end',
-        justifyContent: 'center'
+        marginLeft: px(10)
+    },
+    title: {
+
     }
 })

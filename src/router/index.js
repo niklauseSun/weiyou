@@ -34,7 +34,8 @@ import {
     NormalUser,
     BuyVipView,
     VipUser,
-    NormalSign
+    NormalSign,
+    LocationMap
 }
 from '../layouts'
 import React from "react";
@@ -98,6 +99,10 @@ const HomeStack = createStackNavigator({
     NormalSign: {
         screen: NormalSign,
         navigationOptions: defaultNavigationOptions
+    },
+    LocationMap: {
+        screen: LocationMap,
+        navigationOptions: defaultNavigationOptions
     }
 })
 
@@ -130,6 +135,10 @@ const TaskStack = createStackNavigator({
     },
     AddQuestion: {
         screen: AddQuestion,
+        navigationOptions: defaultNavigationOptions
+    },
+    LocationMap: {
+        screen: LocationMap,
         navigationOptions: defaultNavigationOptions
     }
 })

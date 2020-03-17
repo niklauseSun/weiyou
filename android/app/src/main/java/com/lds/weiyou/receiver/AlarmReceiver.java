@@ -38,6 +38,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private void sendNotification(Intent mIntent) {
         Intent intent = new Intent(context, MainActivity.class);
+        String idStr = mIntent.getStringExtra("clockid");
+        intent.putExtra("clockid", idStr);
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Notification notification = null;

@@ -53,6 +53,9 @@ export default class AccountView extends Component {
 
     loadScoreList() {
         // getPersonScoreList
+        if (!global.isLogin) {
+            return;
+        }
         getPersonScoreList({
             pageNum: 0,
             pageSize: 20,

@@ -85,22 +85,6 @@ export default class ContactDetail extends Component {
         })
     }
 
-//     id: 24
-// friend_id: 121
-// remark_name: null
-// username: "18301709959"
-// nickname: "孙玉建🍁"
-// avatar: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erKay7VOFxBXRpRxyZfrBIwRMZXlMqQjTIRqdQg19FKj4ksclE3C5LPzmo9WYFWcKpuiaz70YA6NeA/132"
-// email: ""
-// phonenumber: "18301709959"
-// sex: "male"
-// status: "normal"
-// position: "上海市嘉定区爱特路68弄"
-// longitude: "121.32179260253906"
-// latitude: "31.234739303588867"
-// city: "310114"
-// login_date: null
-
     loadDetailCallback(res) {
         console.log('res detail', res)
         const { success, data } = res;

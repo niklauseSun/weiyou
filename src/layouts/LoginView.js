@@ -6,6 +6,7 @@ import { loginWithPasswordAction, getWxLogin, postWxLoginAuth } from '../request
 import * as WeChat from 'react-native-wechat';
 import { E, ASSET_IMAGES } from '../config';
 import { Toast } from '@ant-design/react-native';
+import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
 
 export default class LoginView extends Component {
     constructor(props) {
@@ -13,8 +14,55 @@ export default class LoginView extends Component {
         this.state = {
             phone: null,
             password: null,
-            showBind: false
+            showBind: false,
+            position: null,
+            longitude: null,
+            latitude: null,
+            city: null
         }
+    }
+
+    componentDidMount() {
+        setLocatingWithReGeocode(false);
+        Geolocation.getCurrentPosition(({ coords, location }) => {
+            const { latitude, longitude } = coords;
+            console.log('lat', coords, location)
+
+            const url = `https://restapi.amap.com/v3/geocode/regeo?location=${longitude},${latitude}&key=${E.WEB_KEY}&radius=1000&extensions=all&poitype=`
+            let opts = {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": 'application/json;charset=utf-8',
+                    "Connection": "keep-alive"
+                },
+                timeout: 60 * 1000,
+            }
+
+            fetch(url, opts).then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            }).then((res) => {
+                console.log('res', res);
+                const { regeocode } = res;
+                const { pois, formatted_address, addressComponent } = regeocode;
+                const { adcode } = addressComponent;
+                const { location } = pois[0];
+                // const retAddress = `${province}${district}${township}${address}${name}`;
+                const retCityCode = `${adcode}`;
+                const retLatitude = location.split(',')[1];
+                const retLongitude = location.split(',')[0]
+                this.setState({
+                    position: formatted_address,
+                    longitude: retLongitude,
+                    latitude: retLatitude,
+                    city: retCityCode
+                })
+            }).catch(err => {
+                console.log('err', err);
+            })
+        });
     }
 
     render() {
@@ -132,10 +180,10 @@ export default class LoginView extends Component {
                 postWxLoginAuth({
                     callback: this.postWxAuthCallback.bind(this),
                     params: {
-                        position: '上海',
-                        city: '310114',
-                        longitude: '121.48',
-                        latitude: '31.22',
+                        position: this.state.position,
+                        city: this.state.city,
+                        longitude: this.state.longitude,
+                        latitude: this.state.latitude,
                     }
                 });
             }

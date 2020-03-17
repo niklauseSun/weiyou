@@ -1,5 +1,6 @@
 import px from './px';
 import getCurrentDays from './GetCurrentDay';
+import getPosition from './GetPosition';
 
 import {
   formatDate,
@@ -35,5 +36,6 @@ export {
   formatDateToString,
   checkPhone,
   formateDateHourWithString,
-  checkAll
+  checkAll,
+  getPosition
 };

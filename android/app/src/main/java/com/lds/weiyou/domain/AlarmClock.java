@@ -40,6 +40,7 @@ public class AlarmClock {
         intent.setAction("NOTIFICATION");
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtra("alarmid", id);
+        intent.putExtra("clockid", alarmInfo.getClockId());
         intent.putExtra("cancel",false);
         intent.putExtra("getid",alarmInfo.getId());
         Log.e("content", alarmInfo.getContent());

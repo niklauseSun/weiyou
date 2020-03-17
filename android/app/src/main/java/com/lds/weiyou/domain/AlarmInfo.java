@@ -13,6 +13,15 @@ public class AlarmInfo implements Serializable {
     private int[] dayOfWeek;
     private String ringResId;
     private String content;
+    private String clockId;
+
+    public String getClockId() {
+        return clockId;
+    }
+
+    public void setClockId(String clockId) {
+        this.clockId = clockId;
+    }
 
     public String getContent() {
         return content;

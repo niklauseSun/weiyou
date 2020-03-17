@@ -61,7 +61,7 @@ public class AlarmSoundService extends Service {
                 public void run() {
                     stopTheAlarm();
                 }
-            }, 30*1000);
+            }, 10*1000);
         } catch (IOException e) {
             e.printStackTrace();
         }

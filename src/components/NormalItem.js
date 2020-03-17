@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { px } from '../utils'
-import { ASSET_IMAGES } from '../config';
+import { ASSET_IMAGES, E } from '../config';
 import { Toast, ActionSheet } from '@ant-design/react-native'
 import { reportCustomerClock } from '../requests';
+import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
 
 export default class NormalItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            latitude: null,
+            longitude: null,
+            city: null,
+            position: null
         }
+    }
+
+    componentDidMount() {
+        
     }
 
     render() {
@@ -132,10 +140,10 @@ export default class NormalItem extends Component {
                     id: '',
                     clock_id: data.id,
                     status: status,
-                    position: '上海市',
-                    city: '310114',
-                    longitude: '121.48',
-                    latitude: '31.22',
+                    position: this.props.position,
+                    city: this.props.city,
+                    longitude: this.props.longitude,
+                    latitude: this.props.latitude,
                 };
                 const requestData = {
                     params:reportData,

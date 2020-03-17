@@ -66,6 +66,7 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
         alarmInfo.setRing("everybody");
         alarmInfo.setRingResId("everybody.mp3");
         alarmInfo.setContent(name);
+        alarmInfo.setClockId(ids);
 
         dao.addAlarmInfo(alarmInfo);
         alarmClock.turnAlarm(alarmInfo, null, true);
@@ -125,6 +126,7 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
         alarmInfo.setRing("everybody");
         alarmInfo.setRingResId("everybody.mp3");
         alarmInfo.setContent(name);
+        alarmInfo.setClockId(ids);
 
 
         if (type.equals("update")) {

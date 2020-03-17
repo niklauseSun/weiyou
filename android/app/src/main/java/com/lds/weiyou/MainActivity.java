@@ -3,8 +3,15 @@ package com.lds.weiyou;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class MainActivity extends ReactActivity {
 
@@ -20,27 +27,21 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        handleIntent(getIntent());
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
-    }
+        String clockid = appLinkIntent.getStringExtra("clockid");
 
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        handleIntent(getIntent());
-    }
-
-    private void handleIntent(Intent intent) {
-        String appLinkAction = intent.getAction();
-        Uri appLinkData = intent.getData();
-        if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
-            String recipeId = appLinkData.getLastPathSegment();
-            Uri appData = Uri.parse("content://com.recipe_app/recipe/").buildUpon()
-                    .appendPath(recipeId).build();
-//            showRecipe(appData);
+        if (clockid != null) {
+            WritableMap params = Arguments.createMap();
+            params.putString("type", "notification");
+            params.putString("idStr", clockid);
+            sendNotificationToRN(getReactNativeHost().getReactInstanceManager().getCurrentReactContext(), "NativeResult",params);
         }
+    }
+
+    private void sendNotificationToRN(ReactContext reactContext,
+                                      String eventName,
+                                      @Nullable WritableMap params) {
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, params);
     }
 }

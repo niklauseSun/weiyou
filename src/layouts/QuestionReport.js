@@ -128,6 +128,10 @@ export default class QuestionReport extends Component {
   }
 
   reportQuestion() {
+    if (!global.isLogin) {
+      this.props.navigation.navigate('LoginView');
+      return;
+    }
     // addUserOpinion
 //     contact_info	联系方式
 // reason		原因

@@ -4,9 +4,10 @@ import { Header } from '../components';
 import { commonStyles } from '../commonStyles';
 import { getClockDetailById, reportCustomerClock } from '../requests';
 import { Toast } from '@ant-design/react-native';
-import { ASSET_IMAGES } from '../config';
+import { ASSET_IMAGES, E } from '../config';
 import { px, formatHourWithString } from '../utils';
 import { Modal } from '@ant-design/react-native'
+import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
 
 const alert = Modal.alert
 
@@ -59,7 +60,7 @@ export default class NormalSign extends Component {
     signAction() {
         alert('确认', '确定打卡么？', [
             { text: '确认', onPress: () => {
-                this.signRequest()
+                this.signRequest('success')
             } },
             { text: '取消', onPress: () => {
 
@@ -70,7 +71,7 @@ export default class NormalSign extends Component {
     delayAction() {
         alert('确认', '确定延迟么？', [
             { text: '确认', onPress: () => {
-                this.delayRequest()
+                this.delayRequest('delay')
             } },
             { text: '取消', onPress: () => {
 
@@ -78,22 +79,56 @@ export default class NormalSign extends Component {
         ]);
     }
 
-    signRequest() {
-        let status = "success";
-        let reportData = {
-            id: '',
-            clock_id: this.state.id,
-            status: status,
-            position: '上海市',
-            city: '310114',
-            longitude: '121.48',
-            latitude: '31.22',
-        };
-        const requestData = {
-            params:reportData,
-            callback: this.reportDataCallback.bind(this)
-        }
-        reportCustomerClock(requestData);
+    signRequest(status) {
+        // let status = "success";
+        setLocatingWithReGeocode(false);
+        Geolocation.getCurrentPosition(({ coords, location }) => {
+            const { latitude, longitude } = coords;
+            console.log('lat', coords, location)
+
+            const url = `https://restapi.amap.com/v3/geocode/regeo?location=${longitude},${latitude}&key=${E.WEB_KEY}&radius=1000&extensions=all&poitype=`
+            let opts = {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": 'application/json;charset=utf-8',
+                    "Connection": "keep-alive"
+                },
+                timeout: 60 * 1000,
+            }
+
+            fetch(url, opts).then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            }).then((res) => {
+                console.log('res', res);
+                const { regeocode } = res;
+                const { pois, formatted_address, addressComponent } = regeocode;
+                const { adcode } = addressComponent;
+                const { location } = pois[0];
+                // const retAddress = `${province}${district}${township}${address}${name}`;
+                const retCityCode = `${adcode}`;
+                const retLatitude = location.split(',')[1];
+                const retLongitude = location.split(',')[0]
+                let reportData = {
+                    id: '',
+                    clock_id: this.state.id,
+                    status: status,
+                    position: formatted_address,
+                    city: retCityCode,
+                    longitude: retLongitude,
+                    latitude: retLatitude,
+                };
+                const requestData = {
+                    params:reportData,
+                    callback: this.reportDataCallback.bind(this)
+                }
+                reportCustomerClock(requestData);
+            }).catch(err => {
+                console.log('err', err);
+            })
+        });
     }
 
     delayRequest() {

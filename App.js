@@ -28,16 +28,14 @@ import ShowApp from './src/router';
 
 import { Modal, Provider } from '@ant-design/react-native';
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <View>
-//         <ShowApp />
-//       </View>
-      
-//     );
-//   }
-// }
+import { init, Geolocation } from "react-native-amap-geolocation";
+
+init({
+  ios: "72c3690b9f09600a36079998938feb09",
+  android: "99148092b0f7f193047c897a43915297"
+})
+
+global.isLogin = false;
 
 const App: () => React$Node = () => {
   return (

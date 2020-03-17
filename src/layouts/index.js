@@ -30,6 +30,7 @@ import NormalUser from './NormalUser'
 import VipUser from './VipUser'
 import BuyVipView from './BuyVipView'
 import NormalSign from './NormalSign'
+import LocationMap from './LocationMap'
 
 export {
     Home,
@@ -63,5 +64,6 @@ export {
     NormalUser,
     BuyVipView,
     VipUser,
-    NormalSign
+    NormalSign,
+    LocationMap
 }

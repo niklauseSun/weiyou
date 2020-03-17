@@ -11,7 +11,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTLinkingManager.h>
-
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import "EventEmitterManager.h"
 // 引入 JPush 功能所需头文件
 //#import "JPUSHService.h"
 #import <RCTJPushModule.h>
@@ -55,13 +56,37 @@
 
   [UNNotificationsManager registerLocalNotification];
 
-  NSLog(@"我从你跟着李");
+  [AMapServices sharedServices].apiKey = @"72c3690b9f09600a36079998938feb09";
   
   return YES;
 }
 
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+  if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+      NSURL *url = userActivity.webpageURL;
+      NSLog(@"url %@", url.query);
+    if ([url.host isEqualToString:@"wy.99rongle.com"]) {
+      EventEmitterManager *manager = [EventEmitterManager allocWithZone:nil];
+      [manager sendNotifictionToRN:@{
+        @"type": @"awake",
+        @"string": url.query
+      }];
+    }
+//      if ()
+//      {
+//          //进行我们的处理
+//      }
+//      else
+//      {
+//          [[UIApplication sharedApplication] openURL:url];
+//      }
+  }
+   
+  return YES;
+}
+
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-  NSLog(@"will present %@", notification);
+
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -98,20 +123,6 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
   NSDictionary * userInfo = response.notification.request.content.userInfo;
-  NSLog(@"recive local %@", userInfo);
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)(void))completionHandler {
-  NSLog(@"111");
-
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)(void))completionHandler {
-  NSLog(@"222");
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-  NSLog(@"fuck");
 }
 
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {

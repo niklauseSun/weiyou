@@ -143,6 +143,10 @@ export default class AddQuestion extends Component {
   }
 
   showAddView() {
+    if (!global.isLogin) {
+      this.props.navigation.navigate('LoginView');
+      return;
+    }
     this.setState({
       id: null,
       question: null,
@@ -208,6 +212,9 @@ export default class AddQuestion extends Component {
   }
 
   loadQuestions() {
+    if (!global.isLogin) {
+      return;
+    }
     const data = {
       pageNum: 0,
       pageSize: 10,

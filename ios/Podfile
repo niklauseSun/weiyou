@@ -35,7 +35,7 @@ target 'WeiYou' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'IQKeyboardManager'
   pod 'react-native-amap3d', :path => '../node_modules/react-native-amap3d/lib/ios'
-  pod 'aliyun-oss-react-native', :path => '../node_modules/aliyun-oss-react-native'
+  
 
   target 'WeiYouTests' do
     inherit! :search_paths

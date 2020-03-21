@@ -1,19 +1,31 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { Header, PriceView, RuleItem, PayViews } from '../components';
 import { commonStyles } from '../commonStyles';
 import { ASSET_IMAGES, E } from '../config';
 import { px } from '../utils';
 import * as WeChat from 'react-native-wechat';
 import { previewVipOrder, createVipOrder, payVipOrder } from '../requests';
+import { Toast } from '@ant-design/react-native';
 
 export default class Test extends Component {
     constructor(props) {
         super(props);
+        const { score } = props.navigation.state.params || {};
         this.state = {
             selectIndex: 0,
-            isAgree: false
+            isAgree: false,
+            price: 0.01,
+            rateNum: 0,
+            score: score,
+            contact_limit: 10,
+            rate_score_rmb: 30,
+            message_cnt: 90
         }
+    }
+
+    componentDidMount() {
+        this.calculatePrice();
     }
 
     render() {
@@ -21,13 +33,22 @@ export default class Test extends Component {
             <SafeAreaView style={commonStyles.content}>
                 <Header title="购买会员" navigation={this.props.navigation} />
                 <ScrollView style={commonStyles.body}>
-                    <PriceView />
+                    <PriceView
+                        selectIndex={this.state.selectIndex}
+                        price={this.state.price}
+                        rateNum={this.state.rateNum}
+                        score={this.state.score}
+                        changeSelect={this.changeSelectIndex.bind(this)}
+                        changePrice={this.changePrice.bind(this)}
+                        changeRateNum={this.changeRateNum.bind(this)}
+                        calculatePrice={this.calculatePrice.bind(this)}
+                    />
                     <View style={styles.rulesView}>
-                        <RuleItem title="增加联系人数量" subTitle="开通vip会员可支持300位联系人数量" imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
-                        <RuleItem title="异常状态短信" subTitle="储值扣费  签到累计送次数" imageUrl={ASSET_IMAGES.ICON_VIP_PHONE} />
-                        <RuleItem title="积分抵扣现金服务" subTitle="签到累计的积分可进行抵扣现金" imageUrl={ASSET_IMAGES.ICON_VIP_PHONE} />
+                        <RuleItem title="增加监护人数量" subTitle={`支持${this.state.contact_limit}位监护人数量`} imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
+                        <RuleItem title="异常状态短信" subTitle={`含${this.state.message_cnt}次`} imageUrl={ASSET_IMAGES.ICON_VIP_PHONE} />
+                        <RuleItem title="积分抵扣现金服务" subTitle={`${this.state.rate_score_rmb}积分可抵扣1元现金`} imageUrl={ASSET_IMAGES.ICON_VPI_RATE} />
                     </View>
-                    <PayViews selectIndex={this.state.selectIndex} />
+                    <PayViews selectIndex={0} />
                     <View style={styles.agreeView}>
                         <TouchableOpacity onPress={this.selectAgree.bind(this)}>
                             {this.state.isAgree ?<Image style={styles.agreeIcon} source={ASSET_IMAGES.ICON_AGREE_SELECT} />: <Image style={styles.agreeIcon} source={ASSET_IMAGES.ICON_AGREE_UN_SELECT} />}
@@ -48,7 +69,63 @@ export default class Test extends Component {
         )
     }
 
+    changeSelectIndex(index) {
+        this.setState({
+            selectIndex: index
+        }, () => {
+            this.calculatePrice();
+        })
+    }
+
+    changePrice(price) {
+        this.setState({
+            price: price
+        })
+    }
+
+    calculatePrice() {
+        // previewVipOrder
+        let timeText = 'quarter';
+        if (this.state.selectIndex == 1) {
+            timeText = 'halfYear';
+        } else if (this.state.selectIndex == 2) {
+            timeText = 'year';
+        }
+        previewVipOrder({
+            callback: this.previewCallback.bind(this),
+            use_score: 0,
+            time: timeText
+        })
+    }
+    previewCallback(res) {
+        console.log('preview', res);
+//         total_amount: "2.0000"
+// message_cnt: 180
+// contact_limit: 10
+// rate_score_rmb: 30
+        const { success, data } = res;
+        if (success) {
+            const { total_amount, message_cnt, contact_limit, rate_score_rmb } = data;
+            this.setState({
+                price: parseFloat(total_amount).toFixed(2),
+                message_cnt: message_cnt,
+                contact_limit: contact_limit,
+                rate_score_rmb: rate_score_rmb
+            })
+        }
+    }
+
+    changeRateNum(num) {
+        this.setState({
+            rateNum: num
+        })
+    }
+
     wxPay() {
+        if (!this.state.isAgree) {
+            Toast.info('请确认vip规则');
+            return;
+        }
         createVipOrder({
             callback: this.getPayIdCallback.bind(this),
             use_score: 0,
@@ -84,6 +161,9 @@ export default class Test extends Component {
             }
             WeChat.pay(params).then(res => {
                 console.log('res', res);
+                Toast.info('付款成功');
+                this.props.navigation.popToTop();
+                DeviceEventEmitter.emit('reloadLogin');
             }).catch(err => {
                 console.log('error', err)
             });

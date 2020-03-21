@@ -204,8 +204,6 @@ dependencies {
     implementation project(':react-native-amap-geolocation')
     implementation project(':react-native-amap3d')
     implementation 'com.android.support:multidex:1.0.3'
-    implementation project(':aliyun-oss-react-native')
-
 
 //    implementation project(':RCTWeChat')
 

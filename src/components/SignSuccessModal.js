@@ -7,7 +7,8 @@ import { ASSET_IMAGES } from '../config';
 export default class SignSuccessModal extends Component {
     render() {
         const {
-            isShow = true
+            isShow = true,
+            sign_total
         } = this.props;
         return (
             <Fragment>
@@ -15,18 +16,18 @@ export default class SignSuccessModal extends Component {
                     visible={isShow}
                     transparent={true}
                 >
-                    <TouchableOpacity onPress={this.hideModal.bind(this)} style={styles.showTouchableOpacity}>
+                    <TouchableOpacity onPress={this.hideModal.bind(this)} style={styles.showView}>
                         <ImageBackground style={styles.showImageBg} source={ASSET_IMAGES.IMAGE_SHOW_BG}>
                             <View style={styles.modalContent}>
                                 <Image style={styles.modalSuccessIcon} source={ASSET_IMAGES.ICON_SIGN_SUCCESS} />
                                 <Text style={styles.modalSuccess}>签到成功！</Text>
                                 <View style={styles.modalSuccessDay}>
                                     <Text style={styles.signText}>您已经连续签到</Text>
-                                    <Text style={styles.signTextDay}>1</Text>
+                                    <Text style={styles.signTextDay}>{sign_total}</Text>
                                     <Text style={styles.signText}>天</Text>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.modalButton}>
+                            <TouchableOpacity onPress={this.hideModal.bind(this)} style={styles.modalButton}>
                                 <Text style={styles.modalButtonTitle}>知道了</Text>
                             </TouchableOpacity>
                         </ImageBackground>

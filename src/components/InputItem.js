@@ -16,13 +16,15 @@ export default class InputItem extends Component {
         } = this.state;
         const {
             placeholder,
+            editable,
             value,
             keyboardType = null,
-            secureTextEntry
+            secureTextEntry = false
         } = this.props;
         return (
             <View style={styles.content}>
                 <TextInput
+                    editable={editable}
                     style={[styles.textInput,onFocus ? styles.focusStyle : styles.unFocusStyle]}
                     placeholder={placeholder}
                     value={value}

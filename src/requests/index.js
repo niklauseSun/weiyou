@@ -413,6 +413,10 @@ const addUserPushInfo = ({ callback = null, id }) => {
     postAction(`/api/customer/app`, callback, params);
 }
 
+const getOssToken = ({ callback = null }) => {
+    getAction('/api/customer/oss', callback);
+}
+
 
 postAction = (url, callback = null, params = null) => {
     console.log('postAction')
@@ -592,6 +596,7 @@ export {
     getGuardianList,
     addUserPushInfo,
     getWxLogin,
-    postWxLoginAuth
+    postWxLoginAuth,
+    getOssToken
 }
 

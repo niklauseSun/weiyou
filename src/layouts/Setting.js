@@ -18,7 +18,10 @@ class SettingScreen extends Component {
             sex: null,
             status: null,
             isLogin: false,
-            score: 0
+            score: 0,
+            vip_id: 0,
+            vip_expire: null,
+            message_cnt: 0
         }
     }
 
@@ -43,8 +46,11 @@ class SettingScreen extends Component {
                     nickname={this.state.nickname}
                     status={this.state.status}
                     isLogin={this.state.isLogin}
-                    isVip={this.state.status !== 'normal'}
+                    isVip={this.state.vip_id > 0}
+                    score={this.state.score}
                     id={this.state.id}
+                    message_cnt={this.state.message_cnt}
+                    vip_expire={this.state.vip_expire}
                     loginAction={this.loginAction.bind(this)} />
                 <AccountView enterAccount={this._enterAccount.bind(this)} score={this.state.score} />
                 {/* <SetInfoItem setItemAction={this.navigateSettingDetail.bind(this)} imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} /> */}
@@ -111,9 +117,10 @@ class SettingScreen extends Component {
     }
 
     loadPersonalInfoCallback(res) {
-        const { success, data } = res;
+        const { success, data, vip_id } = res;
+        console.log('person Info', res);
         if (success) {
-            const { avatar, id, nickname, sex, status, score } = data;
+            const { avatar, id, nickname, sex, status, score, vip_expire, vip_id, message_cnt, username } = data;
             this.setState({
                 avatar: avatar,
                 id: id,
@@ -121,17 +128,23 @@ class SettingScreen extends Component {
                 sex: sex,
                 status: status,
                 isLogin: true,
-                score: score
+                score: score,
+                vip_id: vip_id,
+                vip_expire: vip_expire,
+                message_cnt: message_cnt
             })
             this.updateAlias(id);
 
             if (!data.password) {
-                this.props.navigation.navigate('EditPassword');
+                this.props.navigation.navigate('EditPassword', {
+                    phone: username
+                });
             }
         }
     }
 
     updateAlias(id) {
+        console.log('update', id);
         const params = 'user' + id;
         const alias = {"sequence":1,"alias":params}
         // addUserPushInfo
@@ -149,7 +162,7 @@ class SettingScreen extends Component {
     }
 
     addPushCallback(res) {
-        console.log('re', res);
+
     }
 }
 

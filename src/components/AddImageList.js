@@ -50,6 +50,7 @@ export default class AddImageList extends Component {
             for(let index in images) {
                 console.log(index);
                 imgs.push(images[index].path);
+                // uploadOssFile(images[index].path);
             }
             if (changeImageList) {
                 changeImageList(imgs);

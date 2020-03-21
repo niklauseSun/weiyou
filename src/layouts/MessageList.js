@@ -36,6 +36,7 @@ export default class MessageList extends Component {
         const data = {
             pageNum: 0,
             pageSize: 10,
+            isAsc: false,
             callback: this.loadMessageListCallback.bind(this)
         }
         getMessageList(data);

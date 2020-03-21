@@ -14,7 +14,7 @@ class MessageScreen extends Component {
             contractList: [],
             tabItems:[
                 {
-                    name: '我监护的人',
+                    name: '监护我的人',
                 },
                 {
                     name: '推荐联系人',
@@ -28,7 +28,7 @@ class MessageScreen extends Component {
     }
 
     componentDidMount() {
-        this.listener = DeviceEventEmitter.addListener('taskReload', message => {
+        this.listener = DeviceEventEmitter.addListener('contactReload', message => {
             //收到监听后想做的事情
             this.loadContractList();
           });

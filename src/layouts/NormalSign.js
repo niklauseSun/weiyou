@@ -151,10 +151,16 @@ export default class NormalSign extends Component {
 
     reportDataCallback(res) {
         console.log('report', res);
-        const { success, error } = res;
+        const { success, error, data } = res;
         if (success) {
-            Toast.info('打卡成功')
+           
             DeviceEventEmitter.emit('taskReload');
+            const { status } = data;
+            if (status == 'delay') {
+                Toast.info('延迟成功')
+            } else {
+                Toast.info('打卡成功')
+            }
         } else {
             Toast.fail(error);
             DeviceEventEmitter.emit('taskReload');

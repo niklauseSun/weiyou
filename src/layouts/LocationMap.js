@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, PermissionsAndroid, Platform, Modal, TouchableOpacity, FlatList, Image, DeviceEventEmitter, TextInput } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, PermissionsAndroid, Platform, TouchableOpacity, FlatList, Image, DeviceEventEmitter, TextInput } from 'react-native'
 import { MapView } from "react-native-amap3d";
 import { commonStyles } from '../commonStyles';
 import { Header } from '../components';
 import { px } from '../utils';
 import { E, ASSET_IMAGES } from '../config'
 import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
+import { Modal } from '@ant-design/react-native'
 
 // import { QMap, HeatMap, Marker, MarkerList, Info } from 'react-tmap'
 
@@ -45,7 +46,7 @@ export default class LocationMap extends Component {
         console.log('locations', this.state.locations)
         return (
             <SafeAreaView style={commonStyles.content}>
-                <Header rightComponent={this.rightComponent()} navigation={this.props.navigation} title="地图选择" />
+                <Header rightComponent={this.rightComponent()} titleStyle={styles.titleStyle} navigation={this.props.navigation} title={this.state.name} />
                 <MapView style={{
                     flex: 1
                 }}
@@ -83,7 +84,46 @@ export default class LocationMap extends Component {
                                 longitude: this.state.longitude
                             }}
                         />
-                        <Modal style={styles.modal} transparent={true} visible={this.state.isShow}>
+                        <Modal
+                            popup
+                            animationType="slide-up"
+                            maskClosable={true}
+                            // transparent={true}
+                            onClose={() => {
+                                this.setState({
+                                    isShow: false
+                                })
+                            }}
+                            // closable={true}
+                            visible={this.state.isShow}>
+                            <View style={styles.modalContent}>
+                            <SafeAreaView style={styles.contractView}>
+                                    <View style={styles.searchView}>
+                                        <TextInput value={this.state.keyword} onChangeText={(text) => {
+                                            this.setState({
+                                                keyword: text
+                                            })
+                                        }} style={styles.searchInput} placeholder="请输入名称" />
+                                        <TouchableOpacity onPress={this.searchLocation.bind(this)} style={styles.searchButton}>
+                                            <Text style={styles.searchButtonText}>搜索</Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    <FlatList
+                                        data={this.state.locations}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({item, index}) => {
+                                            return <TouchableOpacity style={styles.nameItem} onPress={this.selectLocation.bind(this, item, index)}>
+                                                <Text style={styles.name}>{item.name}</Text>
+                                                {this.state.selectIndex == index ? <Image style={styles.selectIcon} source={ASSET_IMAGES.ICON_SELECT_CORRECT} />: null}
+                                            </TouchableOpacity>
+                                        }}
+                                        // ListEmptyComponent={() => <NoneData title="暂无数据" />}
+                                    />
+                                    </SafeAreaView>
+                            </View>
+                        </Modal>
+                        {/* <Modal animationType="slide" style={styles.modal} visible={this.state.isShow}>
                             <View style={styles.showView}>
                                 <View style={styles.modalContent}>
                                     <View style={styles.closeBgView}>
@@ -117,7 +157,7 @@ export default class LocationMap extends Component {
                                     </SafeAreaView>
                                 </View>
                             </View>
-                        </Modal>
+                        </Modal> */}
                     </MapView>
             </SafeAreaView>
         )
@@ -251,24 +291,29 @@ export default class LocationMap extends Component {
 // #ED7539
 
 const styles = StyleSheet.create({
+    titleStyle:{
+        fontSize: px(24)
+    },
     modal: {
-        // alignItems: 'flex-end',
         // height: '90%',
-        // backgroundColor: 'red'
+        backgroundColor: 'red',
+        height: px(500)
     },
     showView: {
         // justifyContent: 'center',
         justifyContent: 'flex-end',
-        flex: 1,
+        marginBottom: px(0),
         // marginTop: px(200),
         // backgroundColor: 'rgba(0,0,0,1)',
-        // backgroundColor: 'red',
+        // height: px(400),
+        backgroundColor: 'red',
         width: '100%',
+        alignItems: 'center'
     },
     modalContent: {
         height: px(500),
         width: '100%',
-        backgroundColor: '#fff',
+        marginBottom: px(0)
     },
     closeBgView: {
         height: px(60),
@@ -307,7 +352,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         // backgroundColor: 'red',
-        paddingHorizontal: px(30)
+        paddingHorizontal: px(30),
+        paddingVertical: px(10)
     },
     searchInput: {
         flex: 1

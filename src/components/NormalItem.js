@@ -155,9 +155,17 @@ export default class NormalItem extends Component {
     }
 
     reportDataCallback(res) {
-        const { success, error } = res;
+        const { success, error, data } = res;
+        console.log('delay', res);
         if (success) {
             DeviceEventEmitter.emit('taskReload');
+            const { status } = data;
+
+            if (status == 'delay') {
+                Toast.info('延迟成功！');
+            } else {
+                Toast.info('打卡成功！');
+            }
         } else {
             Toast.fail(error);
             DeviceEventEmitter.emit('taskReload');

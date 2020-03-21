@@ -11,35 +11,49 @@ export default class PriceView extends Component {
     }
 
     render() {
-        const { selectIndex = 0, value = 0, count = 44 } = this.props;
+        const { selectIndex = 0, rateNum = 0, score = 44, price } = this.props;
         return (
             <View style={styles.content}>
                 <View style={styles.priceItem}>
                     <Text style={styles.priceTitle}>价格</Text>
-                    <Text style={styles.priceValue}>￥0.01</Text>
+                    <Text style={styles.priceValue}>￥{price}</Text>
                 </View>
                 <View style={styles.priceItem}>
                     <Text style={styles.vipLabel}>会员时限</Text>
-                    <TouchableOpacity style={selectIndex === 0 ?styles.timeSelectButton: styles.timeButton}>
+                    <TouchableOpacity onPress={this.changePriceAction.bind(this, 0)} style={selectIndex === 0 ?styles.timeSelectButton: styles.timeButton}>
                         <Text style={selectIndex === 0 ?styles.timeSelectButtonText: styles.timeButtonText}>一季度</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={selectIndex === 1 ?styles.timeSelectButton: styles.timeButton}>
+                    <TouchableOpacity onPress={this.changePriceAction.bind(this, 1)} style={selectIndex === 1 ?styles.timeSelectButton: styles.timeButton}>
                         <Text style={selectIndex === 1 ?styles.timeSelectButtonText: styles.timeButtonText}>半年</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={selectIndex === 2 ?styles.timeSelectButton: styles.timeButton}>
+                    <TouchableOpacity onPress={this.changePriceAction.bind(this, 2)} style={selectIndex === 2 ?styles.timeSelectButton: styles.timeButton}>
                         <Text style={selectIndex === 2 ?styles.timeSelectButtonText: styles.timeButtonText}>一年</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.priceItem}>
                     <Text style={styles.priceLabel}>当前积分</Text>
-                    <Text style={styles.priceNum}>{count}</Text>
+                    <Text style={styles.priceNum}>{score}</Text>
                     <TextInput
+                        keyboardType='numeric'
                         style={styles.textInput}
-                        value={value + ''}
+                        onBlur={() => {
+                            const { calculatePrice } = this.props;
+                            calculatePrice();
+                        }}
+                        onChangeText={(text) => {
+                            const { changeRateNum } = this.props;
+                            changeRateNum(text);
+                        }}
+                        value={rateNum + ''}
                     />
                 </View>
             </View>
         )
+    }
+
+    changePriceAction(index) {
+        const { changeSelect } = this.props;
+        changeSelect(index);
     }
 }
 

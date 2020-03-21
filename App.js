@@ -35,7 +35,7 @@ init({
   android: "99148092b0f7f193047c897a43915297"
 })
 
-global.isLogin = false;
+global.isLogin = true;
 
 const App: () => React$Node = () => {
   return (

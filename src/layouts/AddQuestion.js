@@ -90,7 +90,7 @@ export default class AddQuestion extends Component {
                             this.setState({
                               answer: aArray
                             })
-                          }} value={this.state.answer[0]} placeholder={"请输入一个问题"} style={styles.answerInput} />
+                          }} value={this.state.answer[0]} placeholder={"请输入一个答案"} style={styles.answerInput} />
                           <TouchableOpacity onPress={this.correctSelect.bind(this, 0)} style={styles.answerButton}>
                               {this.state.correct == 0 ? <Text style={styles.answerText}>选择</Text>: null}
                           </TouchableOpacity>
@@ -102,7 +102,7 @@ export default class AddQuestion extends Component {
                             this.setState({
                               answer: aArray
                             })
-                          }} value={this.state.answer[1]} placeholder={"请输入一个问题"} style={styles.answerInput} />
+                          }} value={this.state.answer[1]} placeholder={"请输入一个答案"} style={styles.answerInput} />
                           <TouchableOpacity onPress={this.correctSelect.bind(this, 1)} style={styles.answerButton}>
                             {this.state.correct == 1 ? <Text style={styles.answerText}>选择</Text>: null}
                           </TouchableOpacity>

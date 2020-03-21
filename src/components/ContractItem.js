@@ -12,12 +12,20 @@ export default class ContractItem extends Component {
     }
 
     render() {
-        const { nickname = 'Alone', detail = '“阅读”在02.10 09:30 完成打卡', avatar } = this.props.data;
+        console.log('contractItem', this.props.data);
+        const { nickname = 'Alone', detail = '“阅读”在02.10 09:30 完成打卡', avatar, message = {} } = this.props.data;
+        const { task, content = '' } = message;
+        const { status = 'success' } = task;
         return (
             <TouchableOpacity onPress={this.navigate.bind(this)} style={styles.content}>
                 {avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: avatar }} />}
-                <Text style={styles.nameLabel}>{nickname}</Text>
-                <Text style={styles.detailLabel}>正常</Text>
+                <View style={styles.messageContent}>
+                    <View style={styles.detail}>
+                        <Text style={styles.nameLabel}>{nickname}</Text>
+                        <Text style={styles.contentLabel}>{content}</Text>
+                    </View>
+                    <Text style={status === 'success' ? styles.detailLabel: styles.detailYellow}>{status === 'success' ? '正常': '异常'}</Text>
+                </View>
             </TouchableOpacity>
         )
     }
@@ -47,13 +55,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#999'
     },
     nameLabel: {
-        marginLeft: px(20),
         fontSize: px(34),
-        flex: 1
     },
     detailLabel: {
         // color: '#999',
         fontSize: px(24),
-        color: 'green'
+        width: px(120),
+        color: 'green',
+        marginRight: px(30)
+    },
+    detailYellow: {
+        fontSize: px(24),
+        width: px(120),
+        color: '#ED7539',
+        marginRight: px(30)
+    },
+    messageContent: {
+        flexDirection: 'row'
+    },
+    detail: {
+        flex: 1,
+        marginLeft: px(30)
+    },
+    contentLabel: {
+        marginTop: px(10),
+        fontSize: px(24),
+        color: '#999'
     }
 })

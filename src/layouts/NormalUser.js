@@ -18,8 +18,8 @@ export default class NormalUser extends Component {
                 <Header title="用户" navigation={this.props.navigation} />
                 <View style={commonStyles.body}>
                     <UserHeader />
-                    <RuleItem title="增加联系人数量" subTitle="开通vip会员可支持300位联系人数量" imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
-                    <RuleItem title="异常状态短信" subTitle="储值扣费  签到累计送次数" imageUrl={ASSET_IMAGES.ICON_VIP_PHONE} />
+                    <RuleItem title="增加监护人数量" subTitle="支持3位监护人数量" imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
+                    <RuleItem title="积分抵扣现金服务" subTitle="10积分可抵扣1元现金" imageUrl={ASSET_IMAGES.ICON_VIP_PHONE} />
                 </View>
             </SafeAreaView>
         )

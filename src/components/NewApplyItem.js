@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { getContractApplyList, agreeApply } from '../requests';
 import { NoneData } from '.';
 import { px } from '../utils';
@@ -85,6 +85,7 @@ export default class NewApplyItem extends Component {
         if (success) {
             Toast.info('已同意');
             this.loadNewApplyRequestList();
+            DeviceEventEmitter.emit('taskReload');
         } else {
             Toast.info(error);
         }

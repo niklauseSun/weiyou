@@ -41,7 +41,9 @@ import {
   unReadCount,
   signAction,
   getGuardianList,
-  contractApplyByOther
+  contractApplyByOther,
+  getOssToken,
+  agreeApply
 } from '../requests';
 import {Toast} from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
@@ -65,7 +67,8 @@ class HomeScreen extends Component {
       position: null,
       longitude: null,
       latitude: null,
-      city: null
+      city: null,
+      sign_total: 0
     };
   }
 
@@ -102,13 +105,13 @@ class HomeScreen extends Component {
         console.log("tagAliasListener:" + JSON.stringify(result))
     };
     JPush.addTagAliasListener(this.tagAliasListener);
-    // this.addSign();
 
     this.listener = DeviceEventEmitter.addListener('taskReload', message => {
       //收到监听后想做的事情
       this.loadTasks();
       this.loadContractList();
-      this.loadUnReadCount()
+      this.loadUnReadCount();
+      this.addSign();
     });
 
     this.timer = setTimeout(() => {
@@ -126,6 +129,7 @@ class HomeScreen extends Component {
     this.loadWeekConfig();
     this.loadUnReadCount();
     this.loadContractList();
+    this.addSign();
 
     this.handleLocalNotification();
     Linking.getInitialURL().then((url) => {
@@ -137,7 +141,7 @@ class HomeScreen extends Component {
           const { from_customer_id = null } = this.getQuery(query);
           if (from_customer_id != null && from_customer_id != '') {
             contractApplyByOther({
-              callback: this.beApplyByOther.bind(this),
+              callback: this.beApplyByOther.bind(this, from_customer_id),
               customer_id: from_customer_id
             })
           }
@@ -239,7 +243,7 @@ class HomeScreen extends Component {
               this.navigateToSpecial.bind(this)
           }
         /> */}
-        {/* <SignSuccessModal dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  /> */}
+        <SignSuccessModal sign_total={this.state.sign_total} dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  />
         <BeginModal isShow={this.state.isShow} />
       </SafeAreaView>
     );
@@ -447,6 +451,7 @@ class HomeScreen extends Component {
         normalList: data,
       });
     } else if (error == '未登录') {
+      global.isLogin = false;
       this.setState({
         normalList: [],
       })
@@ -502,21 +507,21 @@ class HomeScreen extends Component {
   }
 
   addSignCallback(res) {
-    const {success} = res;
+    console.log('sign', res);
+    const {success, data } = res;
     if (success) {
+      const { sign_total } = data;
       this.setState(
         {
           showSignSuccess: true,
+          sign_total: sign_total
         },
         () => {
           setTimeout(() => {
-            this.setState(
-              {
+            this.setState({
                 showSignSuccess: false,
-              },
-              3000,
-            );
-          });
+              });
+          }, 3000);
         },
       );
     }
@@ -530,6 +535,7 @@ class HomeScreen extends Component {
     const data = {
       pageNum: 0,
       pageSize: 10,
+      isAsc: false,
       callback: this.loadContractListCallback.bind(this),
     };
     getGuardianList(data);
@@ -571,10 +577,10 @@ class HomeScreen extends Component {
       if (type === 'awake') {
         const { string } = data;
         if (string.split('=')[0] === 'customer_id') {
-          console.log('be Apply');
+          console.log('be Apply', string.split('=')[1]);
           // contractApplyByOther
           contractApplyByOther({
-            callback: this.beApplyByOther.bind(this),
+            callback: this.beApplyByOther.bind(this, string.split("=")[1]),
             customer_id: string.split('=')[1]
           })
         }
@@ -582,10 +588,27 @@ class HomeScreen extends Component {
     })
   }
 
-  beApplyByOther(res) {
+  beApplyByOther(customerid, res) {
+    console.log('ddd', customerid, res);
+    const { success, error, data } = res;
+    if (success) {
+      // agreeApply
+      agreeApply({
+        callback: this.agreeApplyCallback.bind(this),
+        id: data
+      })
+    } else {
+      Toast.info(error);
+    }
+  }
+
+  agreeApplyCallback(res) {
+    console.log('res apply', res);
     const { success, error } = res;
     if (success) {
       Toast.info('添加成功');
+      DeviceEventEmitter.emit('taskReload')
+      DeviceEventEmitter.emit('contactReload');
     } else {
       Toast.info(error);
     }
@@ -604,8 +627,8 @@ class HomeScreen extends Component {
     obj[key] = val;
       });
     }
-  return obj;
-}
+    return obj;
+  }
 }
 
 export default HomeScreen;

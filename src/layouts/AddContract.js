@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView,FlatList, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView,FlatList, TouchableOpacity, Image, Linking, Platform } from 'react-native'
 import { Header, SearchItem, PredictContract, NoneData, SearchApplyItem, LineItem } from '../components';
 import { searchUser, getLoginInfo } from '../requests';
 import { Toast } from '@ant-design/react-native';
@@ -32,7 +32,10 @@ export default class AddContract extends Component {
                 <SearchItem searchAction={this.search.bind(this)} value={this.state.search} changeText={this.onChangeText.bind(this)} placeholder="输入关键字" />
                 <TouchableOpacity onPress={this.shareToFriend.bind(this)} style={styles.shareToWxButton}>
                     <Image style={styles.iconWx} source={ASSET_IMAGES.ICON_WX_ICON} />
-                    <Text>添加微信好友</Text>
+                    <Text>通过微信</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.messageShare.bind(this)} style={styles.messageShare}>
+                    <Text>通过短信</Text>
                 </TouchableOpacity>
                 {
                     this.state.searchList == null? null :<FlatList
@@ -103,6 +106,15 @@ export default class AddContract extends Component {
             })
         }
     }
+
+    messageShare() {
+        // Linking
+        if (Platform.OS == 'ios') {
+            Linking.openURL(`sms:&body=${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake?customer_id=${this.state.id}`)
+        } else {
+            Linking.openURL(`sms:?body=${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake?customer_id=${this.state.id}`)
+        }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -121,5 +133,10 @@ const styles = StyleSheet.create({
     iconWx: {
         width: px(120),
         height: px(120)
+    },
+    messageShare: {
+        height: px(80),
+        marginTop: px(60),
+        marginLeft: px(30)
     }
 })

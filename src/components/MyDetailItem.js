@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, ImageBackground, Image } from 'react-native'
 import { ASSET_IMAGES } from '../config';
-import { px } from '../utils';
+import { px, formatHourWithString, formatDate, formateDateWithString } from '../utils';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { getVipOrderDetail, getVipSet } from '../requests';
 
 export default class MyDetailItem extends Component {
     constructor(props) {
         super(props);
     }
 
+    componentDidMount() {
+            getVipSet({
+                callback: this.getVipSetDetail.bind(this)
+            })
+    }
+
     render() {
+        console.log('dd', this.props);
         const {
             isLogin = false,
             isVip = false,
@@ -49,14 +57,19 @@ export default class MyDetailItem extends Component {
                                 <Text style={styles.rateText}>{isVip ? "VIP会员": "普通用户"}</Text>
                                 <Text style={styles.rateSubText}>等级</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={0.7} style={styles.updateVip} onPress={this.updateVip.bind(this)}>
+                            {
+                                isVip ? <TouchableOpacity onPress={this.goVipView.bind(this)} style={styles.rateView}>
+                                <Text style={styles.rateText}>{formateDateWithString(this.props.vip_expire)}</Text>
+                                <Text style={styles.rateSubText}>过期</Text>
+                            </TouchableOpacity>: <TouchableOpacity activeOpacity={0.7} style={styles.updateVip} onPress={this.updateVip.bind(this)}>
                                 <ImageBackground style={styles.vipImageBg} source={ASSET_IMAGES.IMAGE_VIP_BG}>
                                     <Text style={styles.vipText}>
-                                        {isVip ? "延长时限" : "vip"}
+                                        vip
                                     </Text>
                                 </ImageBackground>
                             </TouchableOpacity>
-                        </View> : null
+                            }
+                            </View>:null
                     }
                 </View>
             </ImageBackground>
@@ -85,11 +98,27 @@ export default class MyDetailItem extends Component {
     }
 
     goVipView() {
-        this.props.navigation.navigate('VipUser');
+        this.props.navigation.navigate('VipUser', {
+            message_cnt: this.props.message_cnt,
+            isVip: this.props.isVip,
+            score: this.props.score
+        });
     }
 
     goNormalView() {
         this.props.navigation.navigate('NormalUser');
+    }
+
+    getVipDetail(res) {
+        console.log('vip detail', res)
+    }
+
+    getVipSetDetail(res) {
+        console.log('vip set detail', res);
+        const { id } = res;
+        this.setState({
+
+        })
     }
 
     updateVip() {
@@ -100,7 +129,9 @@ export default class MyDetailItem extends Component {
             console.log('延长时限');
         } else {
             console.log('升级为vip');
-            this.props.navigation.navigate('BuyVipView')
+            this.props.navigation.navigate('BuyVipView', {
+                score: this.props.score
+            })
         }
     }
 

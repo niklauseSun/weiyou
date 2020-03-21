@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, Keyboard, DeviceEventEmitter, Image } from 'react-native'
 import { Header, InputItem, LoginButton } from '../components'
 import { px } from '../utils';
-import { loginWithPasswordAction, getWxLogin, postWxLoginAuth } from '../requests';
+import { loginWithPasswordAction, getWxLogin, postWxLoginAuth, getOssToken } from '../requests';
 import * as WeChat from 'react-native-wechat';
 import { E, ASSET_IMAGES } from '../config';
 import { Toast } from '@ant-design/react-native';
 import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
+// import AliyunOSS from 'aliyun-oss-react-native'
 
 export default class LoginView extends Component {
     constructor(props) {
@@ -75,7 +76,7 @@ export default class LoginView extends Component {
                     <Text style={styles.loginAccountText}>账号密码登录</Text>
                     <Text style={styles.loginText}>{this.state.showBind ?'请输入注册手机和密码同微信绑定': '请您输入您的注册手机号码和登录密码'}</Text>
                     <InputItem value={this.state.phone} changeText={this.changePhone.bind(this)} placeholder={"请输入手机号码"} />
-                    <InputItem value={this.state.password} changeText={this.changePassword.bind(this)} placeholder={"请输入密码"} />
+                    <InputItem secureTextEntry={true} value={this.state.password} changeText={this.changePassword.bind(this)} placeholder={"请输入密码"} />
                     <LoginButton buttonAction={this.loginAction.bind(this)} title="登录" />
                     <View style={styles.forgetView}>
                         <TouchableOpacity style={styles.forgetButton} onPress={this.forgetPasswordAction.bind(this)}>
@@ -104,7 +105,9 @@ export default class LoginView extends Component {
     }
 
     forgetPasswordAction() {
-        this.props.navigation.navigate('EditPassword');
+        this.props.navigation.navigate('EditPassword', {
+            phone: this.state.phone
+        });
     }
 
     changePhone(text) {
@@ -132,9 +135,14 @@ export default class LoginView extends Component {
         console.log('res', res);
         if (res.success) {
             global.isLogin = true
+            getOssToken({
+                callback: this.getOssTokenCallback.bind(this)
+            })
             this.props.navigation.goBack();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
+        } else {
+            Toast.info(res.error);
         }
     }
 
@@ -196,12 +204,54 @@ export default class LoginView extends Component {
         console.log('auth', res);
         const { success } = res;
         if (success) {
+            getOssToken({
+                callback: this.getOssTokenCallback.bind(this)
+            })
             Toast.info('登录成功！');
             global.isLogin = true
             this.props.navigation.goBack();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
         }
+    }
+
+    getOssTokenCallback(res) {
+        console.log('ossToken', res);
+
+        const { success, data } = res;
+        if (success) {
+            const { host, dir, signature, accessid } = data;
+            // AliyunOSS.enableDevMode();
+            const configuration = {
+                maxRetryCount: 3,
+                timeoutIntervalForRequest: 30,
+                timeoutIntervalForResource: 24 * 60 * 60
+            };
+            global.dir = dir + '/';
+            // AliyunOSS.initWithSigner(signature, accessid, endhostPoint, configuration);
+            // AliyunOSS.initWithPlainTextAccessKey(accessid, 'xkbwUB1guhREPwWDFKcTDjdlINeXp4', host, configuration);
+            // AliyunOSS.initWithImplementedSigner
+            // AliyunOSS.initWithImplementedSigner(signature, accessid, host, configuration);
+            // AliyunOSS.initWithServerSTS('https://devimage.99rongle.com/', host, configuration);
+            // console.log('bucket', AliyunOSS.asyncListBuckets());
+            // AliyunOSS.asyncCreateBucket('rongle').then(res => {
+            //     console.log('rongle', res);
+            // })
+            // AliyunOSS.asyncListBuckets().then(res => {
+            //     console.log('bucket list', res);
+            // }).catch(e => {
+            //     console.log('error', e);
+            // })
+            // initWithPlainTextAccessKey()
+            // AliyunOSS.initWithServerSTS('http://47.99.56.231:98/', 'oss-cn-hangzhou.aliyuncs.com', configuration);
+        }
+//         accessid: "LTAIrVKh2YT7m743"
+// host: "rongledev.oss-cn-hangzhou.aliyuncs.com"
+// policy: "eyJleHBpcmF0aW9uIjoiMjAyMC0wMy0xN1QxNTo0Mzo1MVoiLCJjb25kaXRpb25zIjpbWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJjdXN0b21lci8xMjEvMjAyMDMiXV19"
+// signature: "YKGtfzhkXiLAPjLPx21whvBuMzs="
+// expire: 1584459831
+// callback: "eyJjYWxsYmFja1VybCI6Imh0dHBzOi8vd3kuOTlyb25nbGUuY29tL2FwaS91c2VyL29zcy9jYiIsImNhbGxiYWNrQm9keSI6ImZpbGVuYW1lPSR7b2JqZWN0fSZzaXplPSR7c2l6ZX0mbWltZVR5cGU9JHttaW1lVHlwZX0maGVpZ2h0PSR7aW1hZ2VJbmZvLmhlaWdodH0md2lkdGg9JHtpbWFnZUluZm8ud2lkdGh9JmNhdGVnb3J5X2lkPSR7eDpjYXRlZ29yeV9pZH0mY29tcGFueV9pZD0ke3g6Y29tcGFueV9pZH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb24veC13d3ctZm9ybS11cmxlbmNvZGVkIn0="
+// dir: "customer/121/20203"
     }
 }
 

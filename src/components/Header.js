@@ -5,7 +5,7 @@ import { ASSET_IMAGES } from '../config';
 
 export default class Header extends Component {
     render() {
-        const { title = "Header", leftIsBack = true, leftComponent = null, rightComponent = null } = this.props;
+        const { title = "Header", leftIsBack = true, leftComponent = null, rightComponent = null, titleStyle } = this.props;
         return (
             <View style={styles.content}>
                 <View style={styles.left}>
@@ -13,7 +13,7 @@ export default class Header extends Component {
                         <Image source={ASSET_IMAGES.ICON_BACK} />
                     </TouchableOpacity>: leftComponent }
                 </View>
-                <View style={styles.title}><Text style={styles.titleText}>{title}</Text></View>
+                <View style={styles.title}><Text numberOfLines={1} style={[styles.titleText, titleStyle]}>{title}</Text></View>
                 <View style={styles.right}>
                     {rightComponent}
                 </View>
@@ -48,11 +48,15 @@ const styles = StyleSheet.create({
         fontSize: px(34)
     },
     back: {
-        width: px(80),
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
         marginLeft: px(30)
     },
     left: {
         width: px(160),
+        height: px(80),
+        justifyContent: 'center'
     },
     right: {
         width: px(160),

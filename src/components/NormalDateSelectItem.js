@@ -27,6 +27,11 @@ export default class NormalDateSelectItem extends Component {
           <Text style={styles.title}>结束时间</Text>
           <TouchableOpacity onPress={this.showEndSelect.bind(this)} style={styles.selectButton}>
             <Text style={styles.selectButtonText}>{endTime == null ? '无限期目标': formateDateType(endTime)}</Text>
+            {
+              this.props.endTime == null ? null :  <TouchableOpacity style={styles.endLessButton} onPress={this.resetTime.bind(this)}>
+                <Text style={styles.endLessButtonText}>x</Text>
+              </TouchableOpacity>
+            }
           </TouchableOpacity>
         </View>
         <DatePicker
@@ -83,6 +88,11 @@ export default class NormalDateSelectItem extends Component {
       endTimeShow: false,
     });
   }
+
+  resetTime() {
+    const { changeTime } = this.props;
+    changeTime(this.props.startTime, null);
+  }
 }
 
 const styles = StyleSheet.create({
@@ -110,9 +120,19 @@ const styles = StyleSheet.create({
   },
   selectButton: {
     paddingVertical: px(6),
+    flexDirection: 'row'
   },
   selectButtonText: {
     fontSize: px(36),
     color: '#ED7539',
   },
+  endLessButton: {
+    // marginTop: px(30),
+    marginLeft: px(60),
+    width: '100%',
+    height: '100%'
+  },
+  endLessButtonText: {
+    color: '#999'
+  }
 });

@@ -6,8 +6,9 @@ import { px, formatHourWithString } from '../utils'
 
 export default class MessageItem extends Component {
     render() {
+        console.log('MessageItem', this.props.data)
         const { data } = this.props;
-        const { content, create_time, nickname, avatar = '' } = data;
+        const { content, create_time, nickname, avatar = '', readed } = data;
         return (
             <View style={styles.messageItem}>
                 <View style={styles.timeLine}>
@@ -18,8 +19,11 @@ export default class MessageItem extends Component {
                 <View style={styles.content}>
                     <View style={styles.contentView}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', height: px(120)}}>
-                            { avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} /> :<Image style={styles.headImage} source={{uri: avatar}} /> }
+                            { avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} /> :<Image style={styles.headImage} source={{uri: avatar}} /> }
                             <Text style={styles.contentTitle}>好友{nickname}的消息</Text>
+                            {readed == 0 ? <View style={styles.unReadView}>
+                                <Text style={styles.unReadText}>未读</Text>
+                            </View>: null }
                         </View>
                         <Text style={styles.contentLabel}>{content}</Text>
                     </View>
@@ -99,5 +103,15 @@ const styles = StyleSheet.create({
     },
     detailIcon: {
         marginRight: px(27)
+    },
+    unReadView: {
+        backgroundColor: '#26BB7A',
+        paddingHorizontal: px(6),
+        paddingVertical: px(3),
+        borderRadius: px(6)
+    },
+    unReadText: {
+        fontSize: px(22),
+        color: '#fff'
     }
 })

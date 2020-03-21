@@ -24,6 +24,7 @@ import {
 } from './CheckPermissions'
 
 import { checkPhone } from './IdentifyPhone'
+// import uploadOssFile from './UploadImage'
 
 export {
   px,
@@ -37,5 +38,6 @@ export {
   checkPhone,
   formateDateHourWithString,
   checkAll,
-  getPosition
+  getPosition,
+  // uploadOssFile
 };

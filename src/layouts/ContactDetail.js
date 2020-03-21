@@ -51,9 +51,9 @@ export default class ContactDetail extends Component {
 
     rightComponent() {
         if (this.state.type != 'add') {
-            return <TouchableOpacity onPress={this.rightAction.bind(this)} style={styles.editButton}>
-                <Text style={styles.editButtonText}>{this.state.isEditable? '保存': '修改'}</Text>
-            </TouchableOpacity>
+            // return <TouchableOpacity onPress={this.rightAction.bind(this)} style={styles.editButton}>
+            //     <Text style={styles.editButtonText}>{this.state.isEditable? '保存': '修改'}</Text>
+            // </TouchableOpacity>
         }
     }
 

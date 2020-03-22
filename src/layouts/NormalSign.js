@@ -153,7 +153,6 @@ export default class NormalSign extends Component {
         console.log('report', res);
         const { success, error, data } = res;
         if (success) {
-           
             DeviceEventEmitter.emit('taskReload');
             const { status } = data;
             if (status == 'delay') {

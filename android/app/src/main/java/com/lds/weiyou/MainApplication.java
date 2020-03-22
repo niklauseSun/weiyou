@@ -1,6 +1,7 @@
 package com.lds.weiyou;
 
 import android.app.Application;
+import android.app.ApplicationErrorReport;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
@@ -8,6 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.gyf.cactus.Cactus;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.theweflex.react.WeChatPackage;
 import com.lds.weiyou.NativeModule.AlarmModule;
 
@@ -50,6 +52,8 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
       super.onCreate();
+//      CrashReport.initCrashReport(getApplicationContext(), "注册时申请的APPID", false);
+      CrashReport.initCrashReport(getApplicationContext(), "dd53594e5a",false);
       SoLoader.init(this, /* native exopackage */ false);
 //      JPushInterface.init(this);
       JPushModule.registerActivityLifecycle(this);

@@ -9,6 +9,7 @@
 #import "AlarmManager.h"
 #import <React/RCTLog.h>
 #import "UNNotificationsManager.h"
+#import "Toast.h"
 
 @implementation AlarmManager
 
@@ -47,6 +48,7 @@ RCT_EXPORT_METHOD(addNormalAlarm:(NSString *)idStr name:(NSString *)name time:(N
     }
     [UNNotificationsManager addNotificationWithContent:[UNNotificationsManager contentWithTitle:@"唯友" subTitle:name body:@"请进入应用签到" sound:[UNNotificationSound soundNamed:@"lightM_01.caf"]] weekDay:week date:date identifer:idStr isRepeat:YES completionHanler:^(NSError *error) {
         NSLog(@"add error %@", error);
+//      [[UIApplication sharedApplication].keyWindow.rootViewController.view makeToast:@"添加闹钟成功"];
     }];
   }];
 }

@@ -65,6 +65,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentIntent(pi)
                 .setContentTitle("唯友")
                 .setContentText(content)
+                .setChannelId(id)
                 .setOngoing(false)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen((System.currentTimeMillis()));

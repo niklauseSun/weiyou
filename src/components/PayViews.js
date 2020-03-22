@@ -18,7 +18,8 @@ export default class PayViews extends Component {
                 <Text style={styles.title}>支付方式</Text>
                 <TouchableOpacity style={styles.payItem}>
                     {/* <Image /> */}
-                    <View style={styles.headImage} />
+                    {/* <View style={styles.headImage} /> */}
+                    <Image source={ASSET_IMAGES.ICON_WX_ICON} style={styles.headImage} />
                     <View style={styles.nameView}>
                         <Text style={styles.nameLabel}>微信支付</Text>
                         <Text style={styles.subTitle}>推荐已安装微信钱包的用户使用</Text>
@@ -51,7 +52,6 @@ const styles = StyleSheet.create({
     headImage: {
         width: px(90),
         height: px(90),
-        backgroundColor: '#999',
         borderRadius: px(45),
         marginRight: px(20)
     },

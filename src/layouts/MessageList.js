@@ -25,7 +25,7 @@ export default class MessageList extends Component {
                 <View style={commonStyles.body}>
                 <FlatList
                     data={this.state.messageList.filter((item) => item.username != null )}
-                    renderItem={({item}) => <MessageItem data={item} />}
+                    renderItem={({item}) => <MessageItem navigation={this.props.navigation} data={item} />}
                 />
                 </View>
             </SafeAreaView>

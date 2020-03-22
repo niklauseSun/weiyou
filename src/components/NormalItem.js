@@ -101,10 +101,10 @@ export default class NormalItem extends Component {
             // return;
         }
 
-        if (status == 'notYet') {
-            Toast.info('暂未开始');
-            // return;
-        }
+        // if (status == 'notYet') {
+        //     Toast.info('暂未开始');
+        //     // return;
+        // }
 
         if (status == 'success') {
             // buzuorenhechuli
@@ -112,10 +112,10 @@ export default class NormalItem extends Component {
             return;
         }
 
-        // this.props.navigation.navigate('NormalSign', {
-        //     id:id
-        // });
-        // return;
+        this.props.navigation.navigate('NormalSign', {
+            id:id
+        });
+        return;
 
         // return;
         if (status == 'start' || status == 'delay') {

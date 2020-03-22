@@ -32,9 +32,9 @@ export default class Test extends Component {
                 <Header title="会员" navigation={this.props.navigation} />
                 <ScrollView style={commonStyles.body}>
                     <UserHeader title="唯有会员规则" />
-                    <RuleItem title="增加监护人数量" subTitle="开通vip会员可支持10位监护人数量" imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
+                    <RuleItem title="增加会员监护人数量" subTitle="开通vip会员可支持10位监护人数量" imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
                     <RuleItem title="异常状态短信" subTitle="送90~360次数" imageUrl={ASSET_IMAGES.ICON_VIP_PHONE} />
-                    <RuleItem title="积分抵扣现金服务" subTitle="30之分可抵扣1元现金" imageUrl={ASSET_IMAGES.ICON_VPI_RATE} />
+                    <RuleItem title="会员积分抵扣现金服务" subTitle="30积分可抵扣1元现金" imageUrl={ASSET_IMAGES.ICON_VPI_RATE} />
                     <UserHeader title="会员规则" />
                     <View style={styles.vipRuleView}>
                         {

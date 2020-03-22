@@ -18,13 +18,14 @@ export default class GuardianMessageList extends Component {
         console.log('message', this.state);
         return (
             <SafeAreaView style={commonStyles.content}>
-                <Header title="消息" />
+                <Header navigation={this.props.navigation} title="消息" />
                 <View style={commonStyles.body}>
                     <FlatList
                         data={this.state.messageList}
                         renderItem={({ item }) => {
                             return <MessageItem navigation={this.props.navigation} data={{id: item.id, avatar: this.state.avatar, content: item.content, create_time: item.create_time, nickname: this.state.nickname}} />
                         }}
+                        keyExtractor={(item, index) => index.toString()}
                         ListEmptyComponent={() => <NoneData title="暂无消息" />}
                     />
                 </View>

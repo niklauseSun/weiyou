@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.lds.weiyou.dao.AlarmInfoDao;
 import com.lds.weiyou.receiver.AlarmReceiver;
@@ -50,6 +51,7 @@ public class AlarmClock {
         PendingIntent pi= PendingIntent.getBroadcast(context,id, intent,PendingIntent.FLAG_UPDATE_CURRENT);
         if(isOn){
             startAlarm(mAlamManager,pi);
+            Toast.makeText(context, "打开闹钟成功", Toast.LENGTH_SHORT).show();
         }else{
             cancelAlarm(intent);
         }

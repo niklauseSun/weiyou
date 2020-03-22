@@ -14,7 +14,8 @@ import {
   NativeModules,
   NativeEventEmitter,
   Platform,
-  Linking
+  Linking,
+  RefreshControl
 } from 'react-native';
 import {
   Header,
@@ -68,7 +69,8 @@ class HomeScreen extends Component {
       longitude: null,
       latitude: null,
       city: null,
-      sign_total: 0
+      sign_total: 0,
+      isContactLoading: false
     };
   }
 
@@ -87,7 +89,10 @@ class HomeScreen extends Component {
           if (type == 'clock') {
             this.props.navigation.navigate('NormalSign', {
               id:id
-          });
+            });
+          } else if (type == 'punchNotice') {
+            this.loadContractList();
+            this.loadUnReadCount();
           } else {
             this.props.navigation.navigate('SignSpecial', {
               id:id
@@ -286,6 +291,14 @@ class HomeScreen extends Component {
         />
       </View>
     );
+  }
+
+  _onRefresh() {
+    this.loadUnReadCount();
+    this.loadContractList();
+    this.setState({
+      isContactLoading: true
+    })
   }
 
   renderUnReadComponent(messageCnt) {
@@ -563,6 +576,10 @@ class HomeScreen extends Component {
       console.log('native result', data);
       const { type, idStr } = data;
       if (type === 'notification') {
+        if (idStr.split('-')[1] === '(null)') {
+          console.log('ddd');
+          return;
+        }
         if (idStr.split('-')[0] === 'normal') {
           this.props.navigation.navigate('NormalSign', {
               id:idStr.split('-')[1]

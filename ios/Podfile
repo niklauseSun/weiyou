@@ -35,12 +35,8 @@ target 'WeiYou' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'IQKeyboardManager'
   pod 'react-native-amap3d', :path => '../node_modules/react-native-amap3d/lib/ios'
-  
-
-  target 'WeiYouTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  pod 'Toast', '~> 4.0.0'
+  pod 'Bugly'
 
   use_native_modules!
 end

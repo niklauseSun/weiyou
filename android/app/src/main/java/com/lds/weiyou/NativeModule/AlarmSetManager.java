@@ -1,6 +1,7 @@
 package com.lds.weiyou.NativeModule;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -70,6 +71,7 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
 
         dao.addAlarmInfo(alarmInfo);
         alarmClock.turnAlarm(alarmInfo, null, true);
+        Toast.makeText(reactContext, "添加成功", Toast.LENGTH_SHORT).show();
 
 //        Intent intent = new Intent(reactContext, AlarmReceiver.class);
 //        intent.setAction("NOTIFICATION");
@@ -136,6 +138,8 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
             dao.addAlarmInfo(alarmInfo);
             alarmClock.turnAlarm(alarmInfo, null, true);
         }
+
+        Toast.makeText(reactContext, "添加成功", Toast.LENGTH_SHORT).show();
     }
 
 //    private AlarmInfo getAddAlarmInfo() {

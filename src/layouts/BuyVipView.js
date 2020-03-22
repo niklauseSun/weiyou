@@ -44,9 +44,9 @@ export default class Test extends Component {
                         calculatePrice={this.calculatePrice.bind(this)}
                     />
                     <View style={styles.rulesView}>
-                        <RuleItem title="增加监护人数量" subTitle={`支持${this.state.contact_limit}位监护人数量`} imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
+                        <RuleItem title="增加会员监护人数量" subTitle={`支持${this.state.contact_limit}位监护人数量`} imageUrl={ASSET_IMAGES.ICON_VIP_USER} />
                         <RuleItem title="异常状态短信" subTitle={`含${this.state.message_cnt}次`} imageUrl={ASSET_IMAGES.ICON_VIP_PHONE} />
-                        <RuleItem title="积分抵扣现金服务" subTitle={`${this.state.rate_score_rmb}积分可抵扣1元现金`} imageUrl={ASSET_IMAGES.ICON_VPI_RATE} />
+                        <RuleItem title="会员积分抵扣现金服务" subTitle={`${this.state.rate_score_rmb}积分可抵扣1元现金`} imageUrl={ASSET_IMAGES.ICON_VPI_RATE} />
                     </View>
                     <PayViews selectIndex={0} />
                     <View style={styles.agreeView}>

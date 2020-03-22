@@ -16,10 +16,10 @@ export default class LoginView extends Component {
             phone: null,
             password: null,
             showBind: false,
-            position: null,
-            longitude: null,
-            latitude: null,
-            city: null
+            position: '',
+            longitude: '',
+            latitude: '',
+            city: ''
         }
     }
 
@@ -135,9 +135,9 @@ export default class LoginView extends Component {
         console.log('res', res);
         if (res.success) {
             global.isLogin = true
-            getOssToken({
-                callback: this.getOssTokenCallback.bind(this)
-            })
+            // getOssToken({
+            //     callback: this.getOssTokenCallback.bind(this)
+            // })
             this.props.navigation.goBack();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
@@ -188,10 +188,10 @@ export default class LoginView extends Component {
                 postWxLoginAuth({
                     callback: this.postWxAuthCallback.bind(this),
                     params: {
-                        position: this.state.position,
-                        city: this.state.city,
-                        longitude: this.state.longitude,
-                        latitude: this.state.latitude,
+                        position: this.state.position || '上海市',
+                        city: this.state.city || '上海',
+                        longitude: this.state.longitude || '',
+                        latitude: this.state.latitude || '',
                     }
                 });
             }
@@ -204,9 +204,9 @@ export default class LoginView extends Component {
         console.log('auth', res);
         const { success } = res;
         if (success) {
-            getOssToken({
-                callback: this.getOssTokenCallback.bind(this)
-            })
+            // getOssToken({
+            //     callback: this.getOssTokenCallback.bind(this)
+            // })
             Toast.info('登录成功！');
             global.isLogin = true
             this.props.navigation.goBack();
@@ -215,19 +215,19 @@ export default class LoginView extends Component {
         }
     }
 
-    getOssTokenCallback(res) {
-        console.log('ossToken', res);
+    // getOssTokenCallback(res) {
+    //     console.log('ossToken', res);
 
-        const { success, data } = res;
-        if (success) {
-            const { host, dir, signature, accessid } = data;
-            // AliyunOSS.enableDevMode();
-            const configuration = {
-                maxRetryCount: 3,
-                timeoutIntervalForRequest: 30,
-                timeoutIntervalForResource: 24 * 60 * 60
-            };
-            global.dir = dir + '/';
+    //     const { success, data } = res;
+    //     if (success) {
+    //         const { host, dir, signature, accessid } = data;
+    //         // AliyunOSS.enableDevMode();
+    //         const configuration = {
+    //             maxRetryCount: 3,
+    //             timeoutIntervalForRequest: 30,
+    //             timeoutIntervalForResource: 24 * 60 * 60
+    //         };
+    //         global.dir = dir + '/';
             // AliyunOSS.initWithSigner(signature, accessid, endhostPoint, configuration);
             // AliyunOSS.initWithPlainTextAccessKey(accessid, 'xkbwUB1guhREPwWDFKcTDjdlINeXp4', host, configuration);
             // AliyunOSS.initWithImplementedSigner
@@ -244,7 +244,7 @@ export default class LoginView extends Component {
             // })
             // initWithPlainTextAccessKey()
             // AliyunOSS.initWithServerSTS('http://47.99.56.231:98/', 'oss-cn-hangzhou.aliyuncs.com', configuration);
-        }
+        // }
 //         accessid: "LTAIrVKh2YT7m743"
 // host: "rongledev.oss-cn-hangzhou.aliyuncs.com"
 // policy: "eyJleHBpcmF0aW9uIjoiMjAyMC0wMy0xN1QxNTo0Mzo1MVoiLCJjb25kaXRpb25zIjpbWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJjdXN0b21lci8xMjEvMjAyMDMiXV19"
@@ -252,7 +252,7 @@ export default class LoginView extends Component {
 // expire: 1584459831
 // callback: "eyJjYWxsYmFja1VybCI6Imh0dHBzOi8vd3kuOTlyb25nbGUuY29tL2FwaS91c2VyL29zcy9jYiIsImNhbGxiYWNrQm9keSI6ImZpbGVuYW1lPSR7b2JqZWN0fSZzaXplPSR7c2l6ZX0mbWltZVR5cGU9JHttaW1lVHlwZX0maGVpZ2h0PSR7aW1hZ2VJbmZvLmhlaWdodH0md2lkdGg9JHtpbWFnZUluZm8ud2lkdGh9JmNhdGVnb3J5X2lkPSR7eDpjYXRlZ29yeV9pZH0mY29tcGFueV9pZD0ke3g6Y29tcGFueV9pZH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb24veC13d3ctZm9ybS11cmxlbmNvZGVkIn0="
 // dir: "customer/121/20203"
-    }
+    // }
 }
 
 

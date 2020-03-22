@@ -455,6 +455,8 @@ NSString * const UNNotifationInfoIdentiferKey = @"UNNotifationInfoIdentiferKey";
   if ([type isEqualToString:@"clock"]) {
     NSString *format = [NSString stringWithFormat:@"normal-%@",idStr];
     [self handleSendNotification:format];
+  } else if ([type isEqualToString:@"punchNotice"]) {
+    [self handleSendNotification:@"punchNotice"];
   } else {
     NSString *specialStr = [NSString stringWithFormat:@"special-%@", idStr];
     [self handleSendNotification:specialStr];

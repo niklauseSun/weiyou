@@ -576,8 +576,10 @@ class HomeScreen extends Component {
       console.log('native result', data);
       const { type, idStr } = data;
       if (type === 'notification') {
-        if (idStr.split('-')[1] === '(null)') {
-          console.log('ddd');
+        if (idStr === 'punchNotice') {
+          //
+          this.loadContractList();
+          this.loadUnReadCount();
           return;
         }
         if (idStr.split('-')[0] === 'normal') {

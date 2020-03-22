@@ -190,8 +190,8 @@ export default class AddSpecial extends Component {
             icon: this.state.icon,
             name: this.state.name,
             start_time: this.state.start_time == null ? new Date().toISOString(): this.state.start_time,
-            // interval_min: this.state.interval_min,
-            interval_min: 2,
+            interval_min: this.state.interval_min,
+            // interval_min: 2,
 
             error_cnt: this.state.error_cnt,
             position: '上海市',

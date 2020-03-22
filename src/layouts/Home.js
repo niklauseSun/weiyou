@@ -93,7 +93,10 @@ class HomeScreen extends Component {
           } else if (type == 'punchNotice') {
             this.loadContractList();
             this.loadUnReadCount();
-          } else {
+            this.props.navigation.navigate('MessageDetail', {
+              id: id
+            })
+          } else if (type == 'spClock') {
             this.props.navigation.navigate('SignSpecial', {
               id:id
             })
@@ -117,6 +120,11 @@ class HomeScreen extends Component {
       this.loadContractList();
       this.loadUnReadCount();
       this.addSign();
+    });
+
+    this.unReloadCountListener = DeviceEventEmitter.addListener('unReadCountReload', message => {
+      //收到监听后想做的事情
+      this.loadUnReadCount();
     });
 
     this.timer = setTimeout(() => {
@@ -576,17 +584,20 @@ class HomeScreen extends Component {
       console.log('native result', data);
       const { type, idStr } = data;
       if (type === 'notification') {
-        if (idStr === 'punchNotice') {
+        if (idStr.split('-')[0] === 'punchNotice') {
           //
           this.loadContractList();
           this.loadUnReadCount();
+          this.props.navigation.navigate('MessageDetail', {
+              id: idStr.split('-')[1]
+          });
           return;
         }
         if (idStr.split('-')[0] === 'normal') {
           this.props.navigation.navigate('NormalSign', {
               id:idStr.split('-')[1]
           });
-        } else {
+        } else if (idStr.split('-')[0] === 'special') {
           this.props.navigation.navigate('SignSpecial', {
             id:idStr.split('-')[1]
         });

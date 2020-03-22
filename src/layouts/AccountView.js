@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, ImageBackground, Image, FlatList } from 'react-native'
-import { getPersonScoreList } from '../requests';
+import { getPersonScoreList, getLoginInfo } from '../requests';
 import { Header, ScoreListItem } from '../components';
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
@@ -12,7 +12,7 @@ export default class AccountView extends Component {
         const { id, score } = props.navigation.state.params || {}
         this.state = {
             id: id,
-            score: score,
+            score: 0,
             scoreList: []
         }
     }
@@ -20,6 +20,7 @@ export default class AccountView extends Component {
     componentDidMount() {
         console.log('id', this.state.id);
         this.loadScoreList();
+        this.loadScore();
     }
 
     render() {
@@ -62,6 +63,22 @@ export default class AccountView extends Component {
             callback: this.loadScoreCallback.bind(this),
             isAsc: false
         })
+    }
+
+    loadScore() {
+        const callback = this.loadPersonalInfoCallback.bind(this)
+        getLoginInfo({ callback });
+    }
+
+    loadPersonalInfoCallback(res) {
+        const { success, data } = res;
+        console.log('person Info', res);
+        if (success) {
+            const {  score } = data;
+            this.setState({
+                score: score,
+            })
+        }
     }
 
     loadScoreCallback(res) {

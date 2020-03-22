@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, Image } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, Image, DeviceEventEmitter } from 'react-native'
 import { getMessageDetail, setMessageRead } from '../requests';
 import { ASSET_IMAGES } from '../config';
 import { commonStyles } from '../commonStyles';
@@ -15,7 +15,8 @@ export default class MessageDetail extends Component {
             content: '',
             nickname: '',
             avatar: '',
-            create_time: ''
+            create_time: '',
+            data: {}
         }
     }
 
@@ -72,28 +73,33 @@ export default class MessageDetail extends Component {
                 content: content,
                 nickname: nickname,
                 avatar: avatar,
-                create_time: create_time
+                create_time: create_time,
+                data: data
             });
 
             if (readed == 0) {
-                this.setRead();
+                this.messageRead();
             }
         }
     }
 
-    setRead() {
-// setMessageRead
+    messageRead() {
+        // setMessageRead
+        const param = this.state.data;
+        param['readed'] = 1
         setMessageRead({
-            callback: this.setReadCallback.bind(this),
-            params: {
-                id: this.state.id,
-                readed: 1
-            }
+            params: param,
+            callback: this.setMessageReaded.bind(this)
         })
     }
 
-    setReadCallback(res) {
-        console.log('res', res);
+    setMessageReaded(res) {
+        console.log('res');
+        const { success } = res;
+        if (success) {
+            DeviceEventEmitter.emit('reloadMessageList');
+            DeviceEventEmitter.emit('unReadCountReload');
+        }
     }
 }
 

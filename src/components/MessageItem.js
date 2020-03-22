@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, DeviceEventEmitter } from 'react-native'
 import { ASSET_IMAGES } from '../config'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { px, formatHourWithString } from '../utils'
+import { setMessageRead } from '../requests'
 
 export default class MessageItem extends Component {
     render() {

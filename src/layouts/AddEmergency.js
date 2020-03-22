@@ -19,7 +19,7 @@ export default class AddEmergency extends Component {
             id: id,
             content: null,
             phone: null,
-            contacts: null,
+            contact: [],
             selectTypeIndex: 0
         }
     }
@@ -40,14 +40,20 @@ export default class AddEmergency extends Component {
                     </View>
                     <EmergencyInputItem content={this.state.content} selectIndex={this.state.selectTypeIndex} changeText={this.changeContent.bind(this)} changeSelectIndex={this.changeTypeIndex.bind(this)}/>
                     <AddImageList imageList={this.state.pics} changeImageList={this.onChangeImageList.bind(this)} />
-                    <TextInput style={styles.textInput} placeholder="请留下您的手机号码（选填）"  onChangeText={this.changePhone.bind(this)} />
-                    <SpecialContractItem />
+                    <TextInput style={styles.textInput} value={this.state.phone} placeholder="请留下您的手机号码（选填）"  onChangeText={this.changePhone.bind(this)} />
+                    <SpecialContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.contact} />
                     <TouchableOpacity onPress={this.addAction.bind(this)} style={styles.addButton}>
                         <Text style={styles.addButtonText}>添加</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
         )
+    }
+
+    changeContact(contact) {
+        this.setState({
+            contact: contact
+        })
     }
 
     onChangeImageList(imgs = []) {

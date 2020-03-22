@@ -39,7 +39,10 @@ export default class Test extends Component {
                     <View style={styles.vipRuleView}>
                         {
                             this.state.rules == null ? null: <WebView
-                                source={{ html: this.state.rules[1].body }}
+                                style={{
+                                    height: px(100)
+                                }}
+                                source={{ html: `<div style="font-size: 50">${this.state.rules[1].body}</div>` }}
                             />
                         }
                     </View>
@@ -75,7 +78,7 @@ export default class Test extends Component {
 const styles = StyleSheet.create({
     vipRuleView: {
         marginHorizontal: px(30),
-        height: px(100),
+        height: px(200),
         backgroundColor: '#fff',
         borderRadius: px(30),
         paddingHorizontal: px(30),

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, FlatList } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, FlatList, DeviceEventEmitter } from 'react-native'
 import { Header, MessageItem } from '../components';
 import { commonStyles } from '../commonStyles';
 import { getMessageList } from '../requests';
@@ -13,7 +13,15 @@ export default class MessageList extends Component {
     }
 
     componentDidMount() {
+        this.emitter = DeviceEventEmitter.addListener('reloadMessageList', message => {
+            //收到监听后想做的事情
+            this.loadMessageList();
+          });
         this.loadMessageList();
+    }
+
+    componentWillUnmount() {
+        this.emitter = null;
     }
 
     render() {

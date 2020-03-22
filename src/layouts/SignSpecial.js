@@ -142,9 +142,19 @@ export default class SignSpecial extends Component {
                 return '已创建'
             case 'answerError':
                 return '问题回答错误'
-            default:
+            case 'runing':
                 return '进行中'
+            case 'delay':
+                return ''
+            case 'timeout':
+                return '已过期'
+            case 'notYet':
+                return '未开始'
+            default:
+                return '错误'
         }
+
+        // ("created","runing","success", "fail", "delay",'answerError', 'timeout'， "notYet") 
     }
 
     loadRecordList() {

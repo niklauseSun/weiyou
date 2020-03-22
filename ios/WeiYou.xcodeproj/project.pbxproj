@@ -20,7 +20,6 @@
 		4F2EA5D7F31848738E2365FE /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */; };
 		5608D47BACC4818AB2A52237 /* libPods-WeiYou-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFACD13E1B60EB57F184981F /* libPods-WeiYou-tvOS.a */; };
 		A9D0C0D34C87BB8CA72E89DE /* libPods-WeiYou-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A47939AFE3C712A9718AE870 /* libPods-WeiYou-tvOSTests.a */; };
-		E02CFAD176D5348D5E245518 /* libPods-WeiYouTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6ACD42905E94E625D52C75D /* libPods-WeiYouTests.a */; };
 		F15982003F376D5FB0E46088 /* libPods-WeiYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6E633A5A6CB934A163FC07 /* libPods-WeiYou.a */; };
 		F40B40972410107300EBEEAF /* lightM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40912410107300EBEEAF /* lightM_01.caf */; };
 		F40B40982410107300EBEEAF /* hotM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40922410107300EBEEAF /* hotM_02.caf */; };
@@ -78,14 +77,11 @@
 		69ED9959F40AB1B01BCA52F0 /* Pods-WeiYou-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-WeiYou-tvOS/Pods-WeiYou-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7C8D0C4DB96B5AE551984573 /* Pods-WeiYou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou.release.xcconfig"; path = "Target Support Files/Pods-WeiYou/Pods-WeiYou.release.xcconfig"; sourceTree = "<group>"; };
 		88F07BBEB5974C7A81062CF2 /* antfill.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antfill.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; };
-		9061579EA483DE6EDAE0A835 /* Pods-WeiYouTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYouTests.debug.xcconfig"; path = "Target Support Files/Pods-WeiYouTests/Pods-WeiYouTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B6E633A5A6CB934A163FC07 /* libPods-WeiYou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3AC2539CA13E7E0F03B58F7 /* Pods-WeiYouTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYouTests.release.xcconfig"; path = "Target Support Files/Pods-WeiYouTests/Pods-WeiYouTests.release.xcconfig"; sourceTree = "<group>"; };
 		A47939AFE3C712A9718AE870 /* libPods-WeiYou-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYou-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A52E1D4A03CD41415D5887A3 /* Pods-WeiYou-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-WeiYou-tvOSTests/Pods-WeiYou-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BFACD13E1B60EB57F184981F /* libPods-WeiYou-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYou-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antoutline.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; };
-		D6ACD42905E94E625D52C75D /* libPods-WeiYouTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeiYouTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41A581808A6A638CA23A3C5 /* Pods-WeiYou-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou-tvOS.release.xcconfig"; path = "Target Support Files/Pods-WeiYou-tvOS/Pods-WeiYou-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -119,7 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E02CFAD176D5348D5E245518 /* libPods-WeiYouTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +220,6 @@
 				9B6E633A5A6CB934A163FC07 /* libPods-WeiYou.a */,
 				BFACD13E1B60EB57F184981F /* libPods-WeiYou-tvOS.a */,
 				A47939AFE3C712A9718AE870 /* libPods-WeiYou-tvOSTests.a */,
-				D6ACD42905E94E625D52C75D /* libPods-WeiYouTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -273,8 +267,6 @@
 				E41A581808A6A638CA23A3C5 /* Pods-WeiYou-tvOS.release.xcconfig */,
 				A52E1D4A03CD41415D5887A3 /* Pods-WeiYou-tvOSTests.debug.xcconfig */,
 				243CF9A06858E97BEE7283F9 /* Pods-WeiYou-tvOSTests.release.xcconfig */,
-				9061579EA483DE6EDAE0A835 /* Pods-WeiYouTests.debug.xcconfig */,
-				A3AC2539CA13E7E0F03B58F7 /* Pods-WeiYouTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -300,7 +292,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "WeiYouTests" */;
 			buildPhases = (
-				1845B9846B34B319BD1E63D2 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -484,28 +475,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		1845B9846B34B319BD1E63D2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WeiYouTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		26E496B2E3B53A0F583815C3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -717,7 +686,6 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9061579EA483DE6EDAE0A835 /* Pods-WeiYouTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 3SWR22SFDH;
@@ -741,7 +709,6 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3AC2539CA13E7E0F03B58F7 /* Pods-WeiYouTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

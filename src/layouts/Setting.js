@@ -109,9 +109,6 @@ class SettingScreen extends Component {
 
     loadPersonalInfo() {
         // getLoginInfo
-        if (!global.isLogin) {
-            return;
-        }
         const callback = this.loadPersonalInfoCallback.bind(this)
         getLoginInfo({ callback });
     }
@@ -133,7 +130,7 @@ class SettingScreen extends Component {
                 vip_expire: vip_expire,
                 message_cnt: message_cnt
             })
-            this.updateAlias(id);
+            // this.updateAlias(id);
 
             if (!data.password) {
                 this.props.navigation.navigate('EditPassword', {
@@ -143,22 +140,10 @@ class SettingScreen extends Component {
         }
     }
 
-    updateAlias(id) {
-        console.log('update', id);
-        const params = 'user' + id;
-        const alias = {"sequence":1,"alias":params}
-        // addUserPushInfo
-        addUserPushInfo({
-            id: params,
-            callback: this.addPushCallback.bind(this)
-        })
-        JPush.setAlias(alias)
-    }
-
     deleteAlias(id) {
+        JPush.deleteAlias(alias);
         const params = 'user' + id;
         const alias = {"sequence":1,"alias":params}
-        JPush.deleteAlias(alias);
     }
 
     addPushCallback(res) {

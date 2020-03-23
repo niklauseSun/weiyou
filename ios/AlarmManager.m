@@ -20,7 +20,7 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
   RCTLogInfo(@"Pretending to create an event %@ at %@", name, location);
 }
 
-RCT_EXPORT_METHOD(addNormalAlarm:(NSString *)idStr name:(NSString *)name time:(NSString *)timeString repeats:(NSArray *) repeats addType:(NSString *)type) {
+RCT_EXPORT_METHOD(addNormalAlarm:(NSString *)idStr name:(NSString *)name time:(NSString *)timeString repeats:(NSArray *)repeats addType:(NSString *)type) {
   
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
   [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
@@ -43,10 +43,13 @@ RCT_EXPORT_METHOD(addNormalAlarm:(NSString *)idStr name:(NSString *)name time:(N
         week = 5;
     }else if([obj containsString:@"周五"]){
         week = 6;
-    }else if([obj containsString:@"周六"]){
+    } else if([obj containsString:@"周六"]){
         week = 7;
     }
-    [UNNotificationsManager addNotificationWithContent:[UNNotificationsManager contentWithTitle:@"唯友" subTitle:name body:@"请进入应用签到" sound:[UNNotificationSound soundNamed:@"lightM_01.caf"]] weekDay:week date:date identifer:idStr isRepeat:YES completionHanler:^(NSError *error) {
+    
+    NSString *identifer = [NSString stringWithFormat:@"%@---%ld",idStr, (long)week];
+    
+    [UNNotificationsManager addNotificationWithContent:[UNNotificationsManager contentWithTitle:@"唯友" subTitle:name body:@"请进入应用签到" sound:[UNNotificationSound soundNamed:@"lightM_01.caf"]] weekDay:week date:date identifer:identifer isRepeat:YES completionHanler:^(NSError *error) {
         NSLog(@"add error %@", error);
 //      [[UIApplication sharedApplication].keyWindow.rootViewController.view makeToast:@"添加闹钟成功"];
     }];

@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, Keyboard, DeviceEventEmitter, Image } from 'react-native'
 import { Header, InputItem, LoginButton } from '../components'
 import { px } from '../utils';
-import { loginWithPasswordAction, getWxLogin, postWxLoginAuth, getOssToken } from '../requests';
+import { loginWithPasswordAction, getWxLogin, postWxLoginAuth, getOssToken, addUserPushInfo } from '../requests';
 import * as WeChat from 'react-native-wechat';
 import { E, ASSET_IMAGES } from '../config';
 import { Toast } from '@ant-design/react-native';
 import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
+import JPush from 'jpush-react-native';
 // import AliyunOSS from 'aliyun-oss-react-native'
 
 export default class LoginView extends Component {
@@ -132,18 +133,33 @@ export default class LoginView extends Component {
     }
 
     loginActionCallback(res) {
-        console.log('res', res);
+        console.log('res login', res);
         if (res.success) {
             global.isLogin = true
-            // getOssToken({
-            //     callback: this.getOssTokenCallback.bind(this)
-            // })
+            const { data } = res;
+            const { id } = data;
+            this.updateAlias(id);
             this.props.navigation.goBack();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
         } else {
             Toast.info(res.error);
         }
+    }
+
+    updateAlias(id) {
+        console.log('update', id);
+        const params = 'user' + id;
+        const alias = {"sequence":1,"alias":params}
+        addUserPushInfo({
+            id: params,
+            callback: this.addPushCallback.bind(this)
+        })
+        JPush.setAlias(alias)
+    }
+
+    addPushCallback(res) {
+
     }
 
     wxLogin() {
@@ -157,13 +173,6 @@ export default class LoginView extends Component {
                         id: code,
                         callback: this.getWxLoginCallback.bind(this)
                     })
-                    // const path = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${E.WECHAT_APP_ID}&secret=${E.WECHAT_APP_SECRET}&code=${code}&grant_type=authorization_code`
-                    // fetch(path).then(response => {
-                    //     return response.json();
-                    // }).then(res => {
-                    //     console.log('res', res);
-
-                    // })
                 }).catch((err) => {
                     console.log('error', err);
                 });
@@ -204,55 +213,16 @@ export default class LoginView extends Component {
         console.log('auth', res);
         const { success } = res;
         if (success) {
-            // getOssToken({
-            //     callback: this.getOssTokenCallback.bind(this)
-            // })
             Toast.info('登录成功！');
+            const { data } = res;
+            const { id } = data;
+            this.updateAlias(id);
             global.isLogin = true
-            this.props.navigation.goBack();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
+            this.props.navigation.goBack();
         }
     }
-
-    // getOssTokenCallback(res) {
-    //     console.log('ossToken', res);
-
-    //     const { success, data } = res;
-    //     if (success) {
-    //         const { host, dir, signature, accessid } = data;
-    //         // AliyunOSS.enableDevMode();
-    //         const configuration = {
-    //             maxRetryCount: 3,
-    //             timeoutIntervalForRequest: 30,
-    //             timeoutIntervalForResource: 24 * 60 * 60
-    //         };
-    //         global.dir = dir + '/';
-            // AliyunOSS.initWithSigner(signature, accessid, endhostPoint, configuration);
-            // AliyunOSS.initWithPlainTextAccessKey(accessid, 'xkbwUB1guhREPwWDFKcTDjdlINeXp4', host, configuration);
-            // AliyunOSS.initWithImplementedSigner
-            // AliyunOSS.initWithImplementedSigner(signature, accessid, host, configuration);
-            // AliyunOSS.initWithServerSTS('https://devimage.99rongle.com/', host, configuration);
-            // console.log('bucket', AliyunOSS.asyncListBuckets());
-            // AliyunOSS.asyncCreateBucket('rongle').then(res => {
-            //     console.log('rongle', res);
-            // })
-            // AliyunOSS.asyncListBuckets().then(res => {
-            //     console.log('bucket list', res);
-            // }).catch(e => {
-            //     console.log('error', e);
-            // })
-            // initWithPlainTextAccessKey()
-            // AliyunOSS.initWithServerSTS('http://47.99.56.231:98/', 'oss-cn-hangzhou.aliyuncs.com', configuration);
-        // }
-//         accessid: "LTAIrVKh2YT7m743"
-// host: "rongledev.oss-cn-hangzhou.aliyuncs.com"
-// policy: "eyJleHBpcmF0aW9uIjoiMjAyMC0wMy0xN1QxNTo0Mzo1MVoiLCJjb25kaXRpb25zIjpbWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJjdXN0b21lci8xMjEvMjAyMDMiXV19"
-// signature: "YKGtfzhkXiLAPjLPx21whvBuMzs="
-// expire: 1584459831
-// callback: "eyJjYWxsYmFja1VybCI6Imh0dHBzOi8vd3kuOTlyb25nbGUuY29tL2FwaS91c2VyL29zcy9jYiIsImNhbGxiYWNrQm9keSI6ImZpbGVuYW1lPSR7b2JqZWN0fSZzaXplPSR7c2l6ZX0mbWltZVR5cGU9JHttaW1lVHlwZX0maGVpZ2h0PSR7aW1hZ2VJbmZvLmhlaWdodH0md2lkdGg9JHtpbWFnZUluZm8ud2lkdGh9JmNhdGVnb3J5X2lkPSR7eDpjYXRlZ29yeV9pZH0mY29tcGFueV9pZD0ke3g6Y29tcGFueV9pZH0iLCJjYWxsYmFja0JvZHlUeXBlIjoiYXBwbGljYXRpb24veC13d3ctZm9ybS11cmxlbmNvZGVkIn0="
-// dir: "customer/121/20203"
-    // }
 }
 
 

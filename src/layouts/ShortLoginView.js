@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { InputItem, InputButtonItem, Header, AgreeProtocolItem, LoginButton } from '../components';
 import { px } from '../utils';
-import { unReadCount, loginWithCode } from '../requests';
+import { unReadCount, loginWithCode, addUserPushInfo } from '../requests';
 import { Toast } from '@ant-design/react-native';
 import { E } from '../config';
 import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
+import JPush from 'jpush-react-native';
 
 export default class ShortLoginView extends Component {
     constructor(props) {
@@ -138,13 +139,30 @@ export default class ShortLoginView extends Component {
         const { success, error } = res;
         if (success) {
             Toast.info('登录成功');
+            const { data } = res;
+            const { id } = data;
             global.isLogin = true
-            this.props.navigation.popToTop();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
+            this.props.navigation.popToTop();
         } else {
             Toast.info(error);
         }
+    }
+
+    updateAlias(id) {
+        console.log('update', id);
+        const params = 'user' + id;
+        const alias = {"sequence":1,"alias":params}
+
+        addUserPushInfo({
+            id: params,
+            callback: this.addPushCallback.bind(this)
+        })
+        JPush.setAlias(alias)
+    }
+
+    addPushCallback(res) {
 
     }
 }

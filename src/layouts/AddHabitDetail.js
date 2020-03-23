@@ -256,6 +256,7 @@ export default class AddHabitDetail extends Component {
       var alarmManager = NativeModules.AlarmManager;
       let aString = this.switchToArray(this.state.repeats);
       let weeks = this.showItem(aString);
+      console.log('all weeks', weeks);
       console.log(weeks);
       alarmManager.addNormalAlarm('normal-'+ id, this.state.name, timeString, weeks, 'add');
   }
@@ -268,6 +269,7 @@ export default class AddHabitDetail extends Component {
             value = "0" + value;     //不够的就在前面补0
         }
     }
+    console.log('switchToArray', value)
     return value;
   }
 

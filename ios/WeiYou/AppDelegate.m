@@ -61,6 +61,7 @@
   [AMapServices sharedServices].apiKey = @"72c3690b9f09600a36079998938feb09";
   
   [Bugly startWithAppId:@"cfc5823cdd"];
+  [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];  
   
   return YES;
 }

@@ -113,7 +113,7 @@ export default class ShortLoginView extends Component {
             return;
         }
         if (this.state.smsCode == null) {
-            Toast.info('请输入雅正吗');
+            Toast.info('请输入验证码');
             return;
         }
         if (!this.state.isAgreeSelect) {
@@ -144,6 +144,7 @@ export default class ShortLoginView extends Component {
             global.isLogin = true
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
+            this.updateAlias(id)
             this.props.navigation.popToTop();
         } else {
             Toast.info(error);

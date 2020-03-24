@@ -22,9 +22,10 @@ import {
   SelectModal,
   NormalRemindTextItem,
 } from '../components';
-import { px, formatDateToString } from '../utils';
+import { px, formatDateToString, uploadOssFile } from '../utils';
 import { Toast } from '@ant-design/react-native';
 import { addCustomerClock, getClockDetailById, editCustomerClock } from '../requests';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default class AddHabitDetail extends Component {
   constructor(props) {

@@ -24,7 +24,7 @@ import {
 } from './CheckPermissions'
 
 import { checkPhone } from './IdentifyPhone'
-// import uploadOssFile from './UploadImage'
+import { initAliyunOSS, uploadOssFile } from './UploadImage'
 
 export {
   px,
@@ -39,5 +39,7 @@ export {
   formateDateHourWithString,
   checkAll,
   getPosition,
+  initAliyunOSS,
+  uploadOssFile
   // uploadOssFile
 };

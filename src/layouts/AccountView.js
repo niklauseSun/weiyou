@@ -13,7 +13,8 @@ export default class AccountView extends Component {
         this.state = {
             id: id,
             score: 0,
-            scoreList: []
+            scoreList: [],
+            pageIndex: 0
         }
     }
 
@@ -58,11 +59,45 @@ export default class AccountView extends Component {
             return;
         }
         getPersonScoreList({
-            pageNum: 0,
+            pageNum: this.state.pageIndex,
             pageSize: 20,
             callback: this.loadScoreCallback.bind(this),
             isAsc: false
         })
+    }
+
+    loadScoreCallback(res) {
+        console.log('score', res);
+        const { success, data } = res;
+        if (success) {
+            this.setState({
+                scoreList: data,
+                pageIndex: this.state.pageIndex + 1
+            })
+        }
+    }
+
+    loadMoreScoreList() {
+        if (!global.isLogin) {
+            return;
+        }
+        getPersonScoreList({
+            pageNum: this.state.pageIndex,
+            pageSize: 20,
+            callback: this.loadScoreCallback.bind(this),
+            isAsc: false
+        })
+    }
+
+    loadMoreScoreListCallback(res) {
+        console.log('score', res);
+        const { success, data } = res;
+        if (success) {
+            this.setState({
+                scoreList: [...this.state.scoreList, ...data],
+                pageIndex: this.state.pageIndex + 1
+            })
+        }
     }
 
     loadScore() {
@@ -77,16 +112,6 @@ export default class AccountView extends Component {
             const {  score } = data;
             this.setState({
                 score: score,
-            })
-        }
-    }
-
-    loadScoreCallback(res) {
-        console.log('score', res);
-        const { success, data } = res;
-        if (success) {
-            this.setState({
-                scoreList: data,
             })
         }
     }

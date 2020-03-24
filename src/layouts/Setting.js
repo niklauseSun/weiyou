@@ -4,7 +4,7 @@ import { Header, MyDetailItem, AccountView } from '../components'
 import SetInfoItem from '../components/SetInfoItem'
 import { ASSET_IMAGES } from '../config';
 import { getLoginInfo, logoutAction, addUserPushInfo } from '../requests';
-import { px } from '../utils';
+import { px, initAliyunOSS } from '../utils';
 import { Toast } from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
 
@@ -61,6 +61,10 @@ class SettingScreen extends Component {
                 {this.state.isLogin ? <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logoutButton}>
                     <Text style={styles.logoutButtonText}>退出登录</Text>
                 </TouchableOpacity>: null }
+
+                {/* <TouchableOpacity onPress={this.testOss.bind(this)}>
+                    <Text>测试OSS</Text>
+                </TouchableOpacity> */}
             </SafeAreaView>
         );
     }
@@ -115,7 +119,6 @@ class SettingScreen extends Component {
 
     loadPersonalInfoCallback(res) {
         const { success, data, vip_id } = res;
-        console.log('person Info', res);
         if (success) {
             const { avatar, id, nickname, sex, status, score, vip_expire, vip_id, message_cnt, username } = data;
             this.setState({
@@ -130,7 +133,6 @@ class SettingScreen extends Component {
                 vip_expire: vip_expire,
                 message_cnt: message_cnt
             })
-            // this.updateAlias(id);
 
             if (!data.password) {
                 this.props.navigation.navigate('EditPassword', {
@@ -148,6 +150,10 @@ class SettingScreen extends Component {
 
     addPushCallback(res) {
 
+    }
+
+    testOss() {
+        initAliyunOSS();
     }
 }
 

@@ -30,6 +30,10 @@ import { Modal, Provider } from '@ant-design/react-native';
 
 import { init, Geolocation } from "react-native-amap-geolocation";
 
+import AliyunOSS from 'aliyun-oss-react-native'
+import { initAliyunOSS } from './src/utils';
+AliyunOSS.enableDevMode();
+
 init({
   ios: "72c3690b9f09600a36079998938feb09",
   android: "99148092b0f7f193047c897a43915297"
@@ -37,51 +41,12 @@ init({
 
 global.isLogin = true;
 
+initAliyunOSS();
+
 const App: () => React$Node = () => {
   return (
     <Provider>
       <ShowApp />
-      {/* <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView> */}
     </Provider>
   );
 };

@@ -27,9 +27,10 @@ export default class QuestionReport extends Component {
     this.state = {
       questionList: ['闪退', '卡顿', '黑屏/白屏', '死机', '界面异常', '其他'],
       selectIndex: 0,
-      uploadImageList: [],
+      uploadImageList: [], // 远程pic
       question: null,
       contract: null,
+      pics: [], // 本地pic
     };
   }
 
@@ -57,7 +58,8 @@ export default class QuestionReport extends Component {
           />
           <QuestionDescribe
             changeImageList={this.changeImageList.bind(this)}
-            imageList={this.state.uploadImageList}
+            uploadImages={this.state.uploadImageList}
+            pics={this.state.pics}
             question={this.state.question}
             onChangeQuestion={this.changeQuestion.bind(this)}
           />
@@ -101,42 +103,25 @@ export default class QuestionReport extends Component {
       })
   }
 
-  changeImageList(imgs) {
-    this.setState({
-      uploadImageList: imgs,
-    });
-  }
-
-  removeImage(index) {
-    if (this.state.uploadImageList.length > index) {
+  changeImageList(type, localPic, remotePic) {
+    if (type === 'add') {
       this.setState({
-        uploadImageList: this.state.uploadImageList.filter(
-          (value, idx) => idx == index,
-        ),
+        uploadImageList: [...this.state.uploadImageList , ...remotePic],
+        pics: [...this.state.pics, ...localPic],
       });
+    } else {
+      this.setState({
+        uploadImageList: remotePic,
+        pics: localPic
+      })
     }
   }
-
-  onOpenImagePick() {
-    // maxFiles
-    ImagePicker.openPicker({
-      multiple: true,
-      maxFiles: 4,
-    }).then(images => {
-      console.log('images', images);
-    });
-  }
-
   reportQuestion() {
     if (!global.isLogin) {
       this.props.navigation.navigate('LoginView');
       return;
     }
-    // addUserOpinion
-//     contact_info	联系方式
-// reason		原因
-// pictures		图片地址数组
-// content		内容
+
     if (this.state.question == null || this.state.question.length == 0) {
         Toast.info('请填写问题描述');
         return;

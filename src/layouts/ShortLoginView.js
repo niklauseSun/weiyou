@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { InputItem, InputButtonItem, Header, AgreeProtocolItem, LoginButton } from '../components';
-import { px } from '../utils';
+import { px, initAliyunOSS } from '../utils';
 import { unReadCount, loginWithCode, addUserPushInfo } from '../requests';
 import { Toast } from '@ant-design/react-native';
 import { E } from '../config';
@@ -142,6 +142,7 @@ export default class ShortLoginView extends Component {
             const { data } = res;
             const { id } = data;
             global.isLogin = true
+            initAliyunOSS();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
             this.updateAlias(id)

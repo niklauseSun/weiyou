@@ -20,7 +20,8 @@ export default class AddEmergency extends Component {
             content: null,
             phone: null,
             contact: [],
-            selectTypeIndex: 0
+            selectTypeIndex: 0,
+            upImages: []
         }
     }
 
@@ -39,7 +40,7 @@ export default class AddEmergency extends Component {
                         <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_EMERGENCY_BG} />
                     </View>
                     <EmergencyInputItem content={this.state.content} selectIndex={this.state.selectTypeIndex} changeText={this.changeContent.bind(this)} changeSelectIndex={this.changeTypeIndex.bind(this)}/>
-                    <AddImageList imageList={this.state.pics} changeImageList={this.onChangeImageList.bind(this)} />
+                    <AddImageList pics={this.state.pics} changeImageList={this.onChangeImageList.bind(this)} uploadImages={this.state.upImages} />
                     <TextInput style={styles.textInput} value={this.state.phone} placeholder="请留下您的手机号码（选填）"  onChangeText={this.changePhone.bind(this)} />
                     <SpecialContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.contact} />
                     <TouchableOpacity onPress={this.addAction.bind(this)} style={styles.addButton}>
@@ -56,10 +57,19 @@ export default class AddEmergency extends Component {
         })
     }
 
-    onChangeImageList(imgs = []) {
-        this.setState({
-            pics: imgs
-        })
+    onChangeImageList(type, localImages = [], remoteImages) {
+        console.log('chnage')
+        if (type == 'add') {
+            this.setState({
+                pics: [...this.state.pics ,...localImages],
+                upImages: [...this.state.upImages, ...remoteImages]
+            })
+        } else {
+            this.setState({
+                pics: localImages,
+                upImages: remoteImages
+            })
+        }
     }
 
     changePhone(text) {
@@ -108,7 +118,7 @@ export default class AddEmergency extends Component {
             content: this.state.content,
             type: type,
             phonenumber: this.state.phone,
-            pictures: this.state.pics,
+            pictures: this.state.upImages,
             contacts: this.state.contacts
         }
 
@@ -151,14 +161,6 @@ export default class AddEmergency extends Component {
         console.log('res', res)
         const { success } = res;
         if (success) {
-//             pictures: []
-// id: 5
-// customer_id: 100
-// content: "test2"
-// type: "wish"
-// phonenumber: null
-// create_time: "2020-02-26T12:42:36.000Z"
-// update_time: "2020-02-26T12:42:36.000Z"
             let index = 0;
             if (type == 'will') {
                 index = 0
@@ -168,13 +170,15 @@ export default class AddEmergency extends Component {
                 index = 2
             }
 
-            const { id, content, type, phonenumber } = res.data;
+            const { id, content, type, phonenumber, pictures } = res.data;
             console.log('data', id, content, index)
             this.setState({
                 id: id,
                 content: content,
                 selectTypeIndex: index,
-                phone: phonenumber
+                phone: phonenumber,
+                upImages: pictures,
+                pics: pictures
             })
         }
     }

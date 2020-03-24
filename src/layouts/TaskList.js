@@ -11,7 +11,9 @@ export default class TaskList extends Component {
         this.state = {
             type: type,
             normalList: [],
-            specialList: []
+            specialList: [],
+            pageIndex: 0,
+            isLoading: false
         }
     }
 
@@ -65,6 +67,11 @@ export default class TaskList extends Component {
                 }}
                 ListEmptyComponent={() => <NoneData />}
                 ListFooterComponent={() => <EndComponent />}
+                onEndReached={() => {
+                    if (!this.state.isLoading) {
+                        this.loadMoreTaskList();
+                    }
+                }}
             />
         )
     }
@@ -85,16 +92,35 @@ export default class TaskList extends Component {
         if (!global.isLogin) {
             return;
         }
-        if (this.state.type == 'normal') {
-            this.loadNormalTaskList();
-        } else {
-            this.loadSpecialTaskList();
-        }
+        this.setState({
+            isLoading: true
+        }, () => {
+            if (this.state.type == 'normal') {
+                this.loadNormalTaskList();
+            } else {
+                this.loadSpecialTaskList();
+            }
+        })
+    }
+
+    loadMoreTaskList() {
+        this.setState({
+            isLoading: true
+        }, () => {
+            if (!global.isLogin) {
+                return;
+            }
+            if (this.state.type == 'normal') {
+                this.loadMoreNormalTaskList();
+            } else {
+                this.loadMoreSpecialTaskList();
+            }
+        })
     }
 
     loadNormalTaskList() {
         const data = {
-            pageNum: 0,
+            pageNum: this.state.pageIndex,
             pageSize: 10,
             callback: this.loadTaskListCallback.bind(this)
         }
@@ -102,11 +128,31 @@ export default class TaskList extends Component {
         getPersonalClockList(data);
     }
 
+    loadMoreNormalTaskList() {
+        const data = {
+            pageNum: this.state.pageIndex,
+            pageSize: 10,
+            callback: this.loadMoreTaskListCallback.bind(this)
+        }
+        // getPersonalClockList
+        getPersonalClockList(data);
+    }
+
     loadSpecialTaskList() {
         const data = {
-            pageNum: 0,
+            pageNum: this.state.pageIndex,
             pageSize: 10,
             callback: this.loadTaskListCallback.bind(this)
+        }
+        // getPersonalClockList
+        getSpecialClockList(data);
+    }
+
+    loadMoreSpecialTaskList() {
+        const data = {
+            pageNum: this.state.pageIndex,
+            pageSize: 10,
+            callback: this.loadMoreTaskListCallback.bind(this)
         }
         // getPersonalClockList
         getSpecialClockList(data);
@@ -118,11 +164,33 @@ export default class TaskList extends Component {
         if (success) {
             if (this.state.type == 'normal') {
                 this.setState({
-                    normalList: data
+                    normalList: data,
+                    pageIndex: this.state.pageIndex + 1,
+                    isLoading: false
                 })
             } else {
                 this.setState({
-                    specialList: data
+                    specialList: data,
+                    pageIndex: this.state.pageIndex + 1,
+                    isLoading: false
+                })
+            }
+        }
+    }
+
+    loadMoreTaskListCallback(res) {
+        console.log('loadMoreTask', res);
+        const { success, data } = res;
+        if (success) {
+            if (this.state.type == 'normal') {
+                this.setState({
+                    normalList: [...this.state.normalList, ...data],
+                    pageIndex: this.state.pageIndex + 1
+                })
+            } else {
+                this.setState({
+                    specialList: [...this.state.specialList, ...data],
+                    pageIndex: this.state.pageIndex + 1
                 })
             }
         }

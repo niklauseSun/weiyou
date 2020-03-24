@@ -17,7 +17,6 @@ export default class MyDetailItem extends Component {
     }
 
     render() {
-        console.log('dd', this.props);
         const {
             isLogin = false,
             isVip = false,
@@ -110,11 +109,11 @@ export default class MyDetailItem extends Component {
     }
 
     getVipDetail(res) {
-        console.log('vip detail', res)
+
     }
 
     getVipSetDetail(res) {
-        console.log('vip set detail', res);
+
         const { id } = res;
         this.setState({
 
@@ -126,9 +125,8 @@ export default class MyDetailItem extends Component {
             isVip = true
         } = this.props;
         if (isVip) {
-            console.log('延长时限');
+
         } else {
-            console.log('升级为vip');
             this.props.navigation.navigate('BuyVipView', {
                 score: this.props.score
             })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, Keyboard, DeviceEventEmitter, Image } from 'react-native'
 import { Header, InputItem, LoginButton } from '../components'
-import { px } from '../utils';
+import { px, initAliyunOSS } from '../utils';
 import { loginWithPasswordAction, getWxLogin, postWxLoginAuth, getOssToken, addUserPushInfo } from '../requests';
 import * as WeChat from 'react-native-wechat';
 import { E, ASSET_IMAGES } from '../config';
@@ -140,6 +140,7 @@ export default class LoginView extends Component {
             const { id } = data;
             this.updateAlias(id);
             this.props.navigation.goBack();
+            initAliyunOSS();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
         } else {
@@ -217,6 +218,7 @@ export default class LoginView extends Component {
             const { data } = res;
             const { id } = data;
             this.updateAlias(id);
+            initAliyunOSS();
             global.isLogin = true
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');

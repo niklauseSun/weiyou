@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     content: {
         height: px(160),
         width: px(160),
-        backgroundColor: 'blue',
         justifyContent: 'flex-end',
         marginRight: px(10),
         borderRadius: px(10)
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     headImage: {
         height: '100%',
         width: '100%',
-        backgroundColor: 'red',
         justifyContent: 'flex-end'
     }
 })

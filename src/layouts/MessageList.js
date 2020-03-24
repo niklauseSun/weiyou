@@ -8,7 +8,9 @@ export default class MessageList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messageList: []
+            messageList: [],
+            pageIndex: 0,
+            isLoading: true
         }
     }
 
@@ -34,6 +36,10 @@ export default class MessageList extends Component {
                 <FlatList
                     data={this.state.messageList.filter((item) => item.username != null )}
                     renderItem={({item}) => <MessageItem navigation={this.props.navigation} data={item} />}
+                    keyExtractor={(item, index) => index.toString()}
+                    onEndReached={() => {
+                        this.loadMoreList();
+                    }}
                 />
                 </View>
             </SafeAreaView>
@@ -42,7 +48,7 @@ export default class MessageList extends Component {
 
     loadMessageList() {
         const data = {
-            pageNum: 0,
+            pageNum: this.state.pageIndex,
             pageSize: 10,
             isAsc: false,
             callback: this.loadMessageListCallback.bind(this)
@@ -55,7 +61,28 @@ export default class MessageList extends Component {
         const { success, data } = res;
         if (success) {
             this.setState({
-                messageList: data
+                messageList: data,
+                pageIndex: this.state.pageIndex + 1
+            })
+        }
+    }
+
+    loadMoreList() {
+        const data = {
+            pageNum: this.state.pageIndex,
+            pageSize: 10,
+            isAsc: false,
+            callback: this.loadMoreCallback.bind(this)
+        }
+        getMessageList(data);
+    }
+
+    loadMoreCallback(res) {
+        const { success, data } = res;
+        if (success) {
+            this.setState({
+                messageList: [...this.state.messageList, ...data],
+                pageIndex: this.state.pageIndex + 1
             })
         }
     }

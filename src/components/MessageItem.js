@@ -7,7 +7,6 @@ import { setMessageRead } from '../requests'
 
 export default class MessageItem extends Component {
     render() {
-        console.log('MessageItem', this.props.data)
         const { data } = this.props;
         const { content, create_time, nickname, avatar = '', readed } = data;
         return (

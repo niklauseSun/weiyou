@@ -14,7 +14,7 @@ export default class QuestionDescribe extends Component {
     }
 
     render() {
-        const { question = '', imageList } = this.props;
+        const { question = '', pics } = this.props;
         return (
             <View style={styles.content}>
                 <View style={styles.headerView}>
@@ -23,15 +23,15 @@ export default class QuestionDescribe extends Component {
                 </View>
                 <TextInput value={question} onChangeText={this._changeText.bind(this)} multiline={true} placeholder="请填写10字以上的问题描述，以便我们更好的为您解决问题" style={styles.input} />
                 <Text style={styles.uploadText}>上传问题截图，最多4张（选填）</Text>
-                <AddImageList style={styles.imageList} imageList={imageList} changeImageList={this.onChangeImageList.bind(this)} />
+                <AddImageList style={styles.imageList} pics={pics} uploadImages={this.props.uploadImages} changeImageList={this.onChangeImageList.bind(this)} />
             </View>
         )
     }
 
-    onChangeImageList(pics) {
+    onChangeImageList(type, pics, uploadImages) {
         const { changeImageList } = this.props;
         if (changeImageList) {
-            changeImageList(pics)
+            changeImageList(type, pics , uploadImages)
         }
     }
 

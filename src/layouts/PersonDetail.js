@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, DeviceEventEmitter } from 'react-native'
 import { Toast, Picker } from '@ant-design/react-native';
 import { changePersonInfo, getLoginInfo } from '../requests';
 import { Header, SetDetailItem, EditItem } from '../components';
 import { commonStyles } from '../commonStyles';
 import { ASSET_IMAGES } from '../config';
-import { px } from '../utils';
+import { px, uploadOssFile, initAliyunOSS } from '../utils';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default class PersonDetail extends Component {
     constructor(props) {
@@ -20,7 +21,9 @@ export default class PersonDetail extends Component {
             oldData: {},
             phonenumber: '',
             isShow: false,
-            isEditable: false
+            isEditable: false,
+            filePath: null,
+            uploadUrl: null
         }
     }
 
@@ -30,15 +33,17 @@ export default class PersonDetail extends Component {
     }
 
     render() {
-        const { avatar, nickname, email, sex, phonenumber } = this.state;
+        const { avatar, nickname, email, sex, phonenumber, filePath } = this.state;
+        console.log('filePath', filePath);
         return (
             <SafeAreaView style={commonStyles.content}>
                 <Header navigation={this.props.navigation} title="个人资料" rightComponent={this.rightComponent()} />
                 <ScrollView style={commonStyles.body}>
-                    <View style={styles.headView}>
-                        { avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: avatar }} />}
+                    <TouchableOpacity disabled={!this.state.isEditable} onPress={this.uploadHeadImage.bind(this)} style={styles.headView}>
+                        { avatar == '' ? (filePath == null ?
+                         <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: filePath }} />): <Image style={styles.headImage} source={{ uri: avatar }} />}
                         <Text>{phonenumber}</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={commonStyles.content}>
                         <EditItem changeText={this.changeNickname.bind(this)} editable={this.state.isEditable} title="昵称" subTitle={this.state.nickname}/>
                         <View style={styles.sexView}>
@@ -136,7 +141,7 @@ export default class PersonDetail extends Component {
     editPersonDetail() {
         const { oldData } = this.state;
         const data = {
-            avatar: oldData.avatar,
+            avatar: this.state.uploadUrl == null ? oldData.avatar: this.state.uploadUrl,
             id: oldData.id,
             username: oldData.username,
             nickname: this.state.nickname,
@@ -154,7 +159,39 @@ export default class PersonDetail extends Component {
         const { success } = res;
         if (success) {
             Toast.info('修改成功');
+            this.setState({
+                isEditable: !this.state.isEditable
+            }, ()=> {
+                DeviceEventEmitter.emit('reloadLogin');
+            })
         }
+    }
+
+    uploadHeadImage() {
+        if (global.dir == null) {
+            initAliyunOSS();
+        }
+        ImagePicker.openPicker({
+            multiple: false
+        }).then(img => {
+            console.log('image 111', img);
+            let imageName = this.acquireImageName(img.path);
+            console.log('upload', imageName, img.path);
+            uploadOssFile(imageName, img.path);
+            let url = 'https://' + global.imageHost + '/' + imageName;
+            this.setState({
+                filePath: img.path,
+                uploadUrl: url
+            })
+        })
+    }
+
+    acquireImageName(path) {
+        const filetype = path.substring(path.lastIndexOf('.')).toLowerCase();
+        const currm = new Date().getTime() + '';
+        console.log('dir', global.dir);
+        const objectKey = `${global.dir}/${currm}${filetype}`;
+        return objectKey
     }
 }
 

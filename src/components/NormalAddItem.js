@@ -28,8 +28,8 @@ export default class NormalAddItem extends Component {
         if (type == 'special') {
             this.props.navigation.navigate('AddSpecial');
         } else if (type == 'addContact') {
-            this.props.navigation.navigate('Message')
-        } else {
+            this.props.navigation.navigate('AddContract')
+        } else if (type == 'normal') {
             this.props.navigation.navigate('AddHabitDetail');
         }
     }

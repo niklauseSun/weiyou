@@ -67,7 +67,7 @@ export default class AddHabitDetail extends Component {
         }}>
           <ScrollView>
               <SelectModal onSelectData={this.SelectData.bind(this)} />
-              <NormalNameItem changeText={this.changeName.bind(this)} name={this.state.name} icon={this.state.icon} />
+              <NormalNameItem changeText={this.changeName.bind(this)} name={this.state.name} icon={this.state.icon} changeIcon={this.changeIcon.bind(this)} />
               <NormalRepeatItem
                 repeats={this.state.repeats}
                 changeRepeatsNum={this.changeRepeatNumAction.bind(this)} />
@@ -101,6 +101,12 @@ export default class AddHabitDetail extends Component {
   changeContact(contact) {
     this.setState({
       contacts: contact
+    })
+  }
+
+  changeIcon(icon) {
+    this.setState({
+      icon: icon
     })
   }
 

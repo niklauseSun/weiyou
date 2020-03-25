@@ -58,6 +58,9 @@ const ASSET_IMAGES = {
     ICON_VIP_PHONE: require('../assets/icon_vip_phone.png'),
     ICON_VPI_RATE: require('../assets/icon_vip_rate.png'),
     ICON_WX_ICON: require('../assets/icon_weixin.png'),
+    ICON_SMS: require('../assets/icon_sms.png'),
+    ICON_WX_ADD: require('../assets/icon_wx_add.png'),
+    ICON_SMS_ADD: require('../assets/icon_sms_add.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

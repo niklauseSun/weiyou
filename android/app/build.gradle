@@ -82,6 +82,13 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+apply plugin: 'bugly'
+
+bugly {
+    appId = "dd53594e5a"
+    appKey = "d913847b-c747-4732-9a68-76ea0282cc5a"
+}
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -207,7 +214,6 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation project(':aliyun-oss-react-native')
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-
 
 //    implementation project(':RCTWeChat')
 

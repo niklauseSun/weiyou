@@ -6,6 +6,7 @@ import { Toast } from '@ant-design/react-native';
 import { px } from '../utils';
 import * as WeChat from 'react-native-wechat'
 import { ASSET_IMAGES } from '../config';
+import { commonStyles } from '../commonStyles';
 
 export default class AddContract extends Component {
     constructor(props) {
@@ -29,25 +30,32 @@ export default class AddContract extends Component {
         return (
             <SafeAreaView style={styles.content}>
                 <Header navigation={this.props.navigation} title="添加" />
-                <SearchItem searchAction={this.search.bind(this)} value={this.state.search} changeText={this.onChangeText.bind(this)} placeholder="输入关键字" />
-                <TouchableOpacity onPress={this.shareToFriend.bind(this)} style={styles.shareToWxButton}>
-                    <Image style={styles.iconWx} source={ASSET_IMAGES.ICON_WX_ICON} />
-                    <Text>通过微信</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.messageShare.bind(this)} style={styles.messageShare}>
-                    <Text>通过短信</Text>
-                </TouchableOpacity>
-                {
-                    this.state.searchList == null? null :<FlatList
-                    contentContainerStyle={styles.flatList}
-                    data={this.state.searchList}
-                    renderItem={({item}) => {
-                        return <SearchApplyItem data={item} />
-                    }}
-                    ItemSeparatorComponent={() => <LineItem />}
-                    ListEmptyComponent={() => <NoneData title="暂无搜索结果" />}
-                />
-                }
+                <View style={commonStyles.body}>
+                    <View style={styles.searchBgView}>
+                        <SearchItem searchAction={this.search.bind(this)} value={this.state.search} changeText={this.onChangeText.bind(this)} placeholder="输入关键字" />
+                    </View>
+                    <View style={styles.addBgView}>
+                        <TouchableOpacity onPress={this.shareToFriend.bind(this)} style={styles.shareToWxButton}>
+                            <Image style={styles.iconWx} source={ASSET_IMAGES.ICON_WX_ADD} />
+                            <Text style={styles.addText}>添加微信好友</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.messageShare.bind(this)} style={styles.messageShare}>
+                            <Image style={styles.iconSms} source={ASSET_IMAGES.ICON_SMS_ADD} />
+                            <Text style={styles.addText}>添加通讯录好友</Text>
+                        </TouchableOpacity>
+                    </View>
+                    {
+                        this.state.searchList == null? null :<FlatList
+                        contentContainerStyle={styles.flatList}
+                        data={this.state.searchList}
+                        renderItem={({item}) => {
+                            return <SearchApplyItem data={item} />
+                        }}
+                        ItemSeparatorComponent={() => <LineItem />}
+                        ListEmptyComponent={() => <NoneData title="暂无搜索结果" />}
+                    />
+                    }
+                </View>
             </SafeAreaView>
         )
     }
@@ -121,22 +129,45 @@ const styles = StyleSheet.create({
     shareToWxButton: {
         height: px(120),
         marginLeft: px(30),
-        marginTop: px(30)
+        alignItems: 'center'
     },
     flatList: {
-        marginTop: px(30)
+        flex: 1,
+        backgroundColor: '#fff'
     },
     content: {
         flex: 1,
         backgroundColor: '#fff'
     },
+    searchBgView: {
+        height: px(120),
+        backgroundColor: '#fff'
+    },
+    addBgView: {
+        flexDirection: 'row',
+        height: px(240),
+        backgroundColor: '#fff',
+        marginTop: px(20),
+        marginBottom: px(20),
+        paddingTop: px(20)
+    },
     iconWx: {
         width: px(120),
-        height: px(120)
+        height: px(120),
+        marginBottom: px(30)
+    },
+    iconSms: {
+        width: px(120),
+        height: px(120),
+        marginBottom: px(30)
     },
     messageShare: {
-        height: px(80),
-        marginTop: px(60),
-        marginLeft: px(30)
+        height: px(120),
+        marginLeft: px(30),
+        alignItems: 'center'
+    },
+    addText: {
+        fontSize: px(24),
+        color: '#999'
     }
 })

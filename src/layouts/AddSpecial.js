@@ -22,9 +22,10 @@ import {
     SpecialQuestionItem
 } from '../components';
 import { ASSET_IMAGES } from '../config';
-import { px, formatDateToString } from '../utils';
+import { px, formatDateToString, uploadOssFile } from '../utils';
 import SpecialContractItem from '../components/SpecialContractItem';
 import { addSpecialClock, getSpecialClockDetail, editSpecialClock } from '../requests';
+import ImagePicker from 'react-native-image-crop-picker';
 import { Toast } from '@ant-design/react-native';
 
 export default class AddSpecial extends Component {
@@ -93,7 +94,9 @@ export default class AddSpecial extends Component {
                 }} style={styles.contentView}> */}
                     <ScrollView style={styles.contentView}>
                         <View style={styles.nameView}>
-                            <Image style={styles.nameHeadImage} source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} />
+                            <TouchableOpacity onPress={this.uploadImage.bind(this)}>
+                                { this.state.icon == '' ? <Image style={styles.nameHeadImage} source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} /> : <Image style={styles.nameHeadImage} source={{ uri: this.state.icon }} />}
+                            </TouchableOpacity>
                             <Text style={styles.nameLabel}>特殊</Text>
                             <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" value={this.state.name} onChangeText={this.changeName.bind(this)} />
                         </View>
@@ -294,6 +297,32 @@ export default class AddSpecial extends Component {
             alarmManager.addSpecialAlarm('special-' + id, this.state.name, timeString);
         // }
     }
+
+    uploadImage() {
+        // uploadOssFile()
+        ImagePicker.openPicker({
+            multiple: false,
+            mediaType: 'photo'
+        }).then(img => {
+            let imageName = this.acquireImageName(img.path);
+            uploadOssFile(imageName, img.path).then((e) => {
+                let url = 'https://' + global.imageHost + '/' + imageName;
+                Toast.info('上传图片成功');
+                this.setState({
+                    icon: url
+                });
+                // const { changeIcon } = this.props;
+                // changeIcon(url);
+            });
+        })
+    }
+    acquireImageName(path) {
+        const filetype = path.substring(path.lastIndexOf('.')).toLowerCase();
+        const currm = new Date().getTime() + '';
+        console.log('dir', global.dir);
+        const objectKey = `${global.dir}/${currm}${filetype}`;
+        return objectKey
+    }
 };
 
 const styles = StyleSheet.create({
@@ -317,7 +346,8 @@ const styles = StyleSheet.create({
     },
     nameHeadImage: {
         width: px(90),
-        height: px(90)
+        height: px(90),
+        borderRadius: px(45)
     },
     nameLabel: {
         marginLeft: px(20),

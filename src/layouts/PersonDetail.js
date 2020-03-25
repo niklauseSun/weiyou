@@ -40,8 +40,7 @@ export default class PersonDetail extends Component {
                 <Header navigation={this.props.navigation} title="个人资料" rightComponent={this.rightComponent()} />
                 <ScrollView style={commonStyles.body}>
                     <TouchableOpacity disabled={!this.state.isEditable} onPress={this.uploadHeadImage.bind(this)} style={styles.headView}>
-                        { avatar == '' ? (filePath == null ?
-                         <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: filePath }} />): <Image style={styles.headImage} source={{ uri: avatar }} />}
+                       { filePath == null ? (avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: avatar }} />) : <Image style={styles.headImage} source={{ uri: filePath }} />}
                         <Text>{phonenumber}</Text>
                     </TouchableOpacity>
                     <View style={commonStyles.content}>
@@ -172,17 +171,21 @@ export default class PersonDetail extends Component {
             initAliyunOSS();
         }
         ImagePicker.openPicker({
-            multiple: false
+            multiple: false,
+            mediaType: 'photo'
         }).then(img => {
             console.log('image 111', img);
             let imageName = this.acquireImageName(img.path);
             console.log('upload', imageName, img.path);
-            uploadOssFile(imageName, img.path);
-            let url = 'https://' + global.imageHost + '/' + imageName;
-            this.setState({
-                filePath: img.path,
-                uploadUrl: url
-            })
+            uploadOssFile(imageName, img.path).then((e) => {
+                console.log('bbb', e);
+                let url = 'https://' + global.imageHost + '/' + imageName;
+                Toast.info('上传图片成功');
+                this.setState({
+                    filePath: img.path,
+                    uploadUrl: url
+                })
+            });
         })
     }
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image, TextInput } from 'react-native'
-import { px } from '../utils';
+import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
+import { px, uploadOssFile } from '../utils';
 import { ASSET_IMAGES } from '../config';
+import ImagePicker from 'react-native-image-crop-picker';
+import { Toast } from '@ant-design/react-native';
 
 export default class NormalNameItem extends Component {
     constructor(props) {
@@ -15,7 +17,9 @@ export default class NormalNameItem extends Component {
         const { icon = null, name = "" } = this.props;
         return (
             <View style={styles.content}>
-                {icon == null ? <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />: <Image style={styles.headImage} source={{ uri: icon }} />}
+                <TouchableOpacity onPress={this.uploadImage.bind(this)}>
+                    {icon == null ? <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />: <Image style={styles.headImage} source={{ uri: icon }} />}
+                </TouchableOpacity>
                 {/* <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} /> */}
                 <TextInput style={styles.inputItem} placeholder="请输入任务名称" onChangeText={this.changeText.bind(this)} value={name} />
             </View>
@@ -27,6 +31,29 @@ export default class NormalNameItem extends Component {
         if (changeText) {
             changeText(text);
         }
+    }
+
+    uploadImage() {
+        // uploadOssFile()
+        ImagePicker.openPicker({
+            multiple: false,
+            mediaType: 'photo'
+        }).then(img => {
+            let imageName = this.acquireImageName(img.path);
+            uploadOssFile(imageName, img.path).then((e) => {
+                let url = 'https://' + global.imageHost + '/' + imageName;
+                Toast.info('上传图片成功');
+                const { changeIcon } = this.props;
+                changeIcon(url);
+            });
+        })
+    }
+    acquireImageName(path) {
+        const filetype = path.substring(path.lastIndexOf('.')).toLowerCase();
+        const currm = new Date().getTime() + '';
+        console.log('dir', global.dir);
+        const objectKey = `${global.dir}/${currm}${filetype}`;
+        return objectKey
     }
 }
 

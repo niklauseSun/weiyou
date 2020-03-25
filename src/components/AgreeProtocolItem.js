@@ -40,17 +40,20 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     agreeButton: {
-        width: px(28),
-        height: px(28),
-        backgroundColor: 'red',
+        width: px(60),
+        height: px(60),
+        // alignItems: 'center',
+        justifyContent: 'center',
         marginLeft: px(48)
     },
     agreeImage: {
         width: px(28),
-        height: px(28)
+        height: px(28),
+        borderWidth: px(4),
+        borderColor: '#ED7539'
     },
     agreeText: {
-        marginLeft: px(10)
+
     },
     detailText: {
         color: '#ED7539'

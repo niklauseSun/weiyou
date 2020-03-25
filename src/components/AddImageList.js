@@ -58,16 +58,16 @@ export default class AddImageList extends Component {
                     initAliyunOSS();
                 } else {
                     let imageName = this.acquireImageName(images[index].path);
-                    uploadOssFile(imageName, images[index].path);
-                    let url = 'https://' + global.imageHost + '/' + imageName;
-                    imgs.push(url)
-                    showImages.push(images[index].path);
+                    uploadOssFile(imageName, images[index].path).then((e) => {
+                        let url = 'https://' + global.imageHost + '/' + imageName;
+                        imgs.push(url)
+                        showImages.push(images[index].path);
+                        if (changeImageList) {
+                            console.log('fff')
+                            changeImageList('add', [images[index].path], [url]);
+                        }
+                    });
                 }
-                // uploadOssFile(images[index].path);
-            }
-            if (changeImageList) {
-                console.log('fff')
-                changeImageList('add', showImages, imgs);
             }
         })
     }

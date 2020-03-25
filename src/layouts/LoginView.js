@@ -83,6 +83,10 @@ export default class LoginView extends Component {
                         <TouchableOpacity style={styles.forgetButton} onPress={this.forgetPasswordAction.bind(this)}>
                             <Text style={styles.forgetText}>忘记密码？</Text>
                         </TouchableOpacity>
+                        <View style={{ flex: 1 }} />
+                        <TouchableOpacity style={styles.forgetButton} onPress={this.registerAction.bind(this)}>
+                            <Text style={styles.forgetText}>新用户注册</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.wxView}>
                         <TouchableOpacity onPress={this.wxLogin.bind(this)}>
@@ -97,7 +101,7 @@ export default class LoginView extends Component {
     rightComponent() {
         console.log('test', this)
         return <TouchableOpacity onPress={this.navigateToShortLoginView.bind(this)} style={styles.quickLoginButton}>
-            <Text style={styles.quickLoginText}>快捷登录</Text>
+            <Text style={styles.quickLoginText}>验证码登录</Text>
         </TouchableOpacity>
     }
 
@@ -109,6 +113,10 @@ export default class LoginView extends Component {
         this.props.navigation.navigate('EditPassword', {
             phone: this.state.phone
         });
+    }
+
+    registerAction() {
+        this.props.navigation.navigate('ShortLoginView');
     }
 
     changePhone(text) {
@@ -240,7 +248,7 @@ const styles = StyleSheet.create({
     },
     quickLoginText: {
         color: '#ED7539',
-        fontSize: px(26)
+        fontSize: px(22)
     },
     loginAccountText: {
         marginTop: px(90),
@@ -258,7 +266,7 @@ const styles = StyleSheet.create({
     forgetView: {
         width: '100%',
         paddingHorizontal: px(40),
-        alignItems: 'flex-end',
+        flexDirection: 'row',
         marginTop: px(30)
     },
     forgetButton: {
@@ -267,7 +275,7 @@ const styles = StyleSheet.create({
     },
     forgetText: {
         color: '#999',
-        fontSize: px(30)
+        fontSize: px(24)
     },
     wxView: {
         height: px(160),

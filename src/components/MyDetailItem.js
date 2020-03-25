@@ -78,17 +78,17 @@ export default class MyDetailItem extends Component {
     renderHeadImage() {
         const { isLogin, avatar } = this.props;
         if (!isLogin) {
-            return <Image style={styles.headImage} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />
+            return <Image style={styles.headImage} resizeMode={'cover'} source={ASSET_IMAGES.IMAGE_DEFAULT_UN_LOGIN} />
         }
 
         if (avatar == '') {
             return <TouchableOpacity onPress={this.loginAction.bind(this)}>
-                <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />
+                <Image style={styles.headImage} resizeMode={'cover'} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />
             </TouchableOpacity>
         }
 
         return <TouchableOpacity onPress={this.loginAction.bind(this)}>
-            <Image style={styles.headImage} source={{ uri: avatar }} />
+            <Image style={styles.headImage} resizeMode={'cover'} source={{ uri: avatar }} />
         </TouchableOpacity>
     }
 

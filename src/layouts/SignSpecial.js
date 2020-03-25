@@ -363,9 +363,9 @@ export default class SignSpecial extends Component {
             const { status } = data;
             if (status == 'success') {
                 this.props.navigation.goBack();
-                DeviceEventEmitter.emit('taskReload');
                 return;
             }
+            DeviceEventEmitter.emit('taskReload');
             this.loadSpecialDetail()
             this.loadRecordList()
         } else {

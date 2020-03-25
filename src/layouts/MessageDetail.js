@@ -30,7 +30,8 @@ export default class MessageDetail extends Component {
                 <Header title="消息详情" navigation={this.props.navigation} />
                 <View>
                     <View style={styles.headView}>
-                        {this.state.avatar == ''? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: this.state.avatar}}/>}
+                        {this.state.avatar == ''? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} resizeMode={'cover'} source={{ uri: this.state.avatar}}/>}
+                        {/* <Image style={styles.headImage}  source={{ uri: this.state.avatar}}/> */}
                         <Text style={styles.name}>{this.state.nickname}</Text>
                     </View>
                     <Text style={styles.contentText}>{this.state.content}</Text>

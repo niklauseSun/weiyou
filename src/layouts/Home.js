@@ -75,6 +75,9 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      isShow: true
+    })
     JPush.init();
     this.connectListener = result => {
         console.log("connectListener:" + JSON.stringify(result))
@@ -545,6 +548,7 @@ class HomeScreen extends Component {
           }, 3000);
         },
       );
+      DeviceEventEmitter.emit('reloadLogin');
     }
   }
 

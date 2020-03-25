@@ -22,7 +22,8 @@ export default class LocationMap extends Component {
             selectIndex: 0,
             name:'',
             addressComponent: null,
-            keyword: ''
+            keyword: '',
+            showSelect: false
         }
     }
 
@@ -164,9 +165,12 @@ export default class LocationMap extends Component {
     }
 
     rightComponent() {
-        return <TouchableOpacity style={styles.selectButton} onPress={this.selectAddress.bind(this)}>
-            <Text style={styles.selectButtonText}>选择</Text>
-        </TouchableOpacity>
+        if (this.state.showSelect) {
+            return <TouchableOpacity style={styles.selectButton} onPress={this.selectAddress.bind(this)}>
+                <Text style={styles.selectButtonText}>选择</Text>
+            </TouchableOpacity>
+        }
+        return null;
     }
 
     selectAddress() {
@@ -280,7 +284,8 @@ export default class LocationMap extends Component {
             this.setState({
                 locations: pois,
                 name: formatted_address,
-                addressComponent: addressComponent
+                addressComponent: addressComponent,
+                showSelect: true
             })
         }).catch(err => {
             console.log('err', err);

@@ -20,7 +20,11 @@ export default class TaskList extends Component {
     componentDidMount() {
         this.loadTaskList();
         this.emitter = DeviceEventEmitter.addListener('taskListReload',(dict) => {
-            this.loadTaskList();
+            this.setState({
+                pageIndex: 0
+            }, () => {
+                this.loadTaskList();
+            })
         })
     }
 
@@ -93,7 +97,8 @@ export default class TaskList extends Component {
             return;
         }
         this.setState({
-            isLoading: true
+            isLoading: true,
+            pageIndex: 0
         }, () => {
             if (this.state.type == 'normal') {
                 this.loadNormalTaskList();
@@ -104,6 +109,7 @@ export default class TaskList extends Component {
     }
 
     loadMoreTaskList() {
+        console.log('load more')
         this.setState({
             isLoading: true
         }, () => {
@@ -120,7 +126,7 @@ export default class TaskList extends Component {
 
     loadNormalTaskList() {
         const data = {
-            pageNum: this.state.pageIndex,
+            pageNum: 0,
             pageSize: 10,
             callback: this.loadTaskListCallback.bind(this)
         }
@@ -140,7 +146,7 @@ export default class TaskList extends Component {
 
     loadSpecialTaskList() {
         const data = {
-            pageNum: this.state.pageIndex,
+            pageNum: 0,
             pageSize: 10,
             callback: this.loadTaskListCallback.bind(this)
         }
@@ -159,7 +165,7 @@ export default class TaskList extends Component {
     }
 
     loadTaskListCallback(res) {
-        console.log('res', res);
+        console.log('res 111', res);
         const { success, data } = res;
         if (success) {
             if (this.state.type == 'normal') {

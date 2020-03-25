@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { View, Text, SafeAreaView, FlatList, StyleSheet, Image, DeviceEventEmitter } from 'react-native'
-import { HeaderItem, SearchItem, ContractItem, LineItem, TabHeader, PredictContract, NewApplyItem, GuardianItem, ContactListItem } from '../components'
+import { HeaderItem, SearchItem, ContractItem, LineItem, TabHeader, PredictContract, NewApplyItem, GuardianItem, ContactListItem, NormalAddItem } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
@@ -63,20 +63,27 @@ class MessageScreen extends Component {
     }
 
     renderContractList() {
-        return <Fragment>
-            {this.state.contractList.length == 0 ? 
-                <View style={styles.noneContent}>
-                   <Image source={ASSET_IMAGES.IMAGE_NONE_CONTRACT} />
-                </View>:<FlatList
+        return  <Fragment>
+                    <FlatList
                         style={styles.contractList}
                         data={this.state.contractList.filter((item) => item.username != null)}
                         renderItem={({ item }) => {
                             return <ContactListItem navigation={this.props.navigation} data={item} />
                         }}
                         ItemSeparatorComponent={() => <LineItem />}
+                        ListEmptyComponent={() => {
+                            return (
+                            <NormalAddItem
+                                type="addContact"
+                                title="添加您的监护人"
+                                subTitle="关注您的健康生活状态"
+                                imageUrl={ASSET_IMAGES.ICON_HOME_SPECIAL_ADD}
+                                navigation={this.props.navigation}
+                            />
+                            );
+                        }}
                     />
-                }
-        </Fragment>
+                </Fragment>
     }
 
     renderPredictContract() {
@@ -93,6 +100,10 @@ class MessageScreen extends Component {
     }
 
     navigateAddContract() {
+        if (!global.isLogin) {
+            this.props.navigation.navigate('LoginView');
+            return;
+        }
         this.props.navigation.navigate('AddContract')
     }
 

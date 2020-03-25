@@ -12,7 +12,7 @@ export default class EditPassword extends Component {
         const { phone = '' } = props.navigation.state.params || {}
         this.state = {
             phone: phone,
-            isEdit: phone.length > 0,
+            isEdit: phone == null ? false: phone.length > 0,
             code: null,
             password: null,
             repeatPWD: null
@@ -21,14 +21,14 @@ export default class EditPassword extends Component {
 
     render() {
         return (
-            <SafeAreaView style={commonStyles.body}>
+            <SafeAreaView style={commonStyles.content}>
                 <Header title="" />
                 <Text style={styles.loginAccountText}>更改或添加密码</Text>
                 <Text style={styles.loginText}></Text>
                 <InputItem editable={this.state.isEdit}  keyboardType="number-pad" changeText={this.changePhone.bind(this)} value={this.state.phone} placeholder="请输入手机号" />
                 <InputButtonItem type={"reset"} phone={this.state.phone} changeText={this.changeSmsCode.bind(this)} value={this.state.smsCode} placeholder="请输入验证码" />
-                <InputItem secureTextEntry={true} keyboardType="number-pad" changeText={this.changePWD.bind(this)} value={this.state.password} placeholder="请输入密码" />
-                <InputItem secureTextEntry={true} keyboardType="number-pad" changeText={this.changeRepeatPWD.bind(this)} value={this.state.repeatPWD} placeholder="请再次输入密码" />
+                <InputItem secureTextEntry={true} changeText={this.changePWD.bind(this)} value={this.state.password} placeholder="请输入密码" />
+                <InputItem secureTextEntry={true} changeText={this.changeRepeatPWD.bind(this)} value={this.state.repeatPWD} placeholder="请再次输入密码" />
                 <TouchableOpacity style={styles.confirmButton} onPress={this.savePassword.bind(this)}>
                     <Text style={styles.confirmButtonText}>确认</Text>
                 </TouchableOpacity>

@@ -47,13 +47,17 @@ export default class MessageList extends Component {
     }
 
     loadMessageList() {
-        const data = {
-            pageNum: this.state.pageIndex,
-            pageSize: 10,
-            isAsc: false,
-            callback: this.loadMessageListCallback.bind(this)
-        }
-        getMessageList(data);
+        this.setState({
+            pageIndex: 0
+        }, () => {
+            const data = {
+                pageNum: this.state.pageIndex,
+                pageSize: 10,
+                isAsc: false,
+                callback: this.loadMessageListCallback.bind(this)
+            }
+            getMessageList(data);
+        })
     }
 
     loadMessageListCallback(res) {

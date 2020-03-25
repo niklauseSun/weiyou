@@ -6,6 +6,7 @@ function uploadOssFile(fileName, filepath){
     return AliyunOSS.asyncUpload(bucketname, fileName, filepath)
     .then((e) => {
         console.log('e', e);
+        return e;
     }).catch(error => {
       console.log('=== error', error);
     });

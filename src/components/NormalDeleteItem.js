@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image,TouchableOpacity, DeviceEventEmitter } from 'react-native'
+import { StyleSheet, View, Text, Image,TouchableOpacity, DeviceEventEmitter, NativeModules } from 'react-native'
 import { px, formateDateWithString, formatHourWithString } from '../utils';
 import { Modal } from '@ant-design/react-native';
 import { deleteCustomerClock } from '../requests';
+import { ASSET_IMAGES } from '../config';
 const alert = Modal.alert;
 
 export default class NormalDeleteItem extends Component {
@@ -32,11 +33,12 @@ export default class NormalDeleteItem extends Component {
 // update_time: "2020-02-21T07:56:37.000Z"
 
     render() {
+        console.log('normalDeleteItem', this.props.data);
         const { icon, name, clock_time, start_time, end_time } = this.props.data;
         const endText = end_time === null ? '无限期': formateDateWithString(end_time);
         return (
             <TouchableOpacity onPress={this.goToNormal.bind(this)} style={styles.content}>
-                <Image style={styles.headImage} source={{ uri: icon }} />
+                <Image defaultSource={ASSET_IMAGES.ICON_TASK_DEFAULT} style={styles.headImage} source={{ uri: icon }} />
                 <View style={{flex: 1}}>
                     <View style={styles.nameView}>
                         <Text style={styles.nameTitle}>{name}</Text>
@@ -54,7 +56,7 @@ export default class NormalDeleteItem extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.deleteView}>
-                        <Text style={styles.clockTitle}>{formatHourWithString(clock_time)}</Text>
+                        <Text style={styles.clockTitle}>{clock_time}</Text>
                         <Text style={styles.timeLabel}>{formateDateWithString(start_time)}-{endText}</Text>
                     </View>
                 </View>
@@ -71,12 +73,14 @@ export default class NormalDeleteItem extends Component {
 
     removeTask() {
         // deleteCustomerClock
-        const { id } = this.props.data;
+        const { id, repeats } = this.props.data;
+
         const ret = {
             id: id,
             callback: this.removeTaskCallback.bind(this)
         }
         deleteCustomerClock(ret)
+        this.removeNativeClock(id, repeats);
     }
 
     removeTaskCallback(res) {
@@ -89,6 +93,57 @@ export default class NormalDeleteItem extends Component {
                 DeviceEventEmitter.emit('taskReload');
             }
         }
+    }
+
+    removeNativeClock(id, repeats) {
+        let aString = this.switchToArray(repeats);
+        let weeks = this.showItem(aString);
+        var alarmManager = NativeModules.AlarmManager;
+        alarmManager.removeNormalAlarmWithId('normal-' + id, weeks);
+    }
+
+    switchToArray(repeats) {
+        let value = parseInt(repeats + '').toString(2);
+        let l = value.length;    //获取要格式化数字的长度，如二进制1的话长度为1
+        if(l < 7){     //补全位数 0000，这里我要显示4位
+            for(var i = 0; i < 7-l; i++) {
+                value = "0" + value;     //不够的就在前面补0
+            }
+        }
+        return value;
+    }
+    showItem(aString) {
+        let data = []
+        for (let i = 0;i < aString.length; i++) {
+            if (aString[i] == '1') {
+                switch(i) {
+                    case 0:
+                    data.push('周一');
+                    break;
+                    case 1:
+                    data.push('周二')
+                    break;
+                    case 2:
+                    data.push('周三');
+                    break;
+                    case 3:
+                    data.push('周四')
+                    break;
+                    case 4:
+                    data.push('周五');
+                    break;
+                    case 5:
+                    data.push('周六')
+                    break;
+                    case 6:
+                    data.push('周日')
+                    break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return data;
     }
 }
 

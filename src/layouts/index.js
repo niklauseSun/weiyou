@@ -31,6 +31,7 @@ import VipUser from './VipUser'
 import BuyVipView from './BuyVipView'
 import NormalSign from './NormalSign'
 import LocationMap from './LocationMap'
+import GuardMyList from './GuardMyList'
 
 export {
     Home,
@@ -65,5 +66,6 @@ export {
     BuyVipView,
     VipUser,
     NormalSign,
-    LocationMap
+    LocationMap,
+    GuardMyList
 }

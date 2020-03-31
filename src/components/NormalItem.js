@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, DeviceEventEmitter } f
 import { px } from '../utils'
 import { ASSET_IMAGES, E } from '../config';
 import { Toast, ActionSheet } from '@ant-design/react-native'
-import { reportCustomerClock } from '../requests';
+import { reportCustomerClock, getClockDetailById } from '../requests';
 import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
 
 export default class NormalItem extends Component {
@@ -23,8 +23,9 @@ export default class NormalItem extends Component {
 
     render() {
         const { data } = this.props;
+        console.log('normal', data);
         const { name, clock_time, status, icon = null } = data;
-        const time = this.parseDate(clock_time);
+
         return (
             <TouchableOpacity onPress={this.action.bind(this)} style={styles.content}>
                 <View style={styles.head}>
@@ -34,7 +35,7 @@ export default class NormalItem extends Component {
                 <View style={styles.titleView}>
                     <Text style={styles.titleLabel}>{name}</Text>
                     <View style={styles.statusView}>
-                        <Text style={styles.subTitleLabel}>{time}</Text>
+                        <Text style={styles.subTitleLabel}>{clock_time}</Text>
                         <Text style={styles.statusLabel}>{this.statusText(status)}</Text>
                     </View>
                 </View>
@@ -78,6 +79,8 @@ export default class NormalItem extends Component {
     statusText(status) {
         // "start","success", "fail", "delay", "notYet") 已开始 成功 失败 延迟  未到时间(获取某天的任务时才有此字段)
 
+        // 'start'（已开始）,'success'（已成功）,'fail'（已过期）,'delay'（已延迟），‘notYet（未开始）’
+
         switch(status) {
             case 'success':
                 return '成功'
@@ -86,36 +89,39 @@ export default class NormalItem extends Component {
             case 'start':
                 return '已开始'
             case 'delay':
-                return '延迟'
+                return '已延迟'
             case 'notYet':
                 return '未开始'
         }
     }
 
     action() {
+
         console.log('action', this.props.data);
         const { data = {} } = this.props;
         const { status, id } = data
-        if (status == 'fail') {
-            Toast.info('已过期');
-            // return;
-        }
 
-        // if (status == 'notYet') {
-        //     Toast.info('暂未开始');
-        //     // return;
+
+        getClockDetailById({
+            id: id,
+            callback: this.getClockDetailCallback.bind(this)
+        })
+        return;
+        // if (status == 'fail') {
+        //     Toast.info('已过期');
+        //     return;
         // }
 
-        if (status == 'success') {
-            // buzuorenhechuli
-            Toast.info('已完成');
-            return;
-        }
+        // if (status == 'success') {
+        //     // buzuorenhechuli
+        //     Toast.info('已完成');
+        //     return;
+        // }
 
-        this.props.navigation.navigate('NormalSign', {
-            id:id
-        });
-        return;
+        // this.props.navigation.navigate('NormalSign', {
+        //     id:id
+        // });
+        // return;
 
         // return;
         if (status == 'start' || status == 'delay') {
@@ -151,6 +157,35 @@ export default class NormalItem extends Component {
                 }
                 reportCustomerClock(requestData);
             });
+        }
+    }
+
+    getClockDetailCallback(res) {
+        console.log('detail', res);
+        const {
+            success,
+            data,
+            error
+        } = res;
+        if (success) {
+            const { status, id} = data;
+            if (status == 'start' || status == 'delay') {
+                this.props.navigation.navigate('NormalSign', {
+                    id:id
+                });
+            } else {
+                //// 'start'（已开始）,'success'（已成功）,'fail'（已过期）,'delay'（已延迟），‘notYet（未开始）’
+                if (status == 'fail') {
+                    Toast.info('已过期');
+                    return;
+                } else if (status == 'notYet') {
+                    Toast.info('暂未开始');
+                } else if (status == 'success') {
+                    Toast.info('已成功');
+                }
+            }
+        } else {
+            Toast.info(error);
         }
     }
 

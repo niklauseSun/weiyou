@@ -31,7 +31,9 @@ import {
   BeginModal,
   NormalAddItem,
   ContractItem,
-  HomeContactHeader
+  HomeContactHeader,
+  ContactListItem,
+  LineItem
 } from '../components';
 import {commonStyles} from '../commonStyles';
 import {px, getCurrentDays, formatDateToString, checkAll, getPosition} from '../utils';
@@ -44,7 +46,8 @@ import {
   getGuardianList,
   contractApplyByOther,
   getOssToken,
-  agreeApply
+  agreeApply,
+  getContractList
 } from '../requests';
 import {Toast} from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
@@ -65,6 +68,7 @@ class HomeScreen extends Component {
       showSignSuccess: false,
       isShow: false,
       contactList: [],
+      guardList: [],
       position: null,
       longitude: null,
       latitude: null,
@@ -75,9 +79,9 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isShow: true
-    })
+    // this.setState({
+    //   isShow: true
+    // })
     JPush.init();
     this.connectListener = result => {
         console.log("connectListener:" + JSON.stringify(result))
@@ -123,7 +127,12 @@ class HomeScreen extends Component {
       this.loadContractList();
       this.loadUnReadCount();
       this.addSign();
+      this.loadGradList();
     });
+
+    this.listLoad = DeviceEventEmitter.addListener('listReload', message => {
+      this.loadTasks();
+    })
 
     this.unReloadCountListener = DeviceEventEmitter.addListener('unReadCountReload', message => {
       //收到监听后想做的事情
@@ -139,13 +148,14 @@ class HomeScreen extends Component {
       checkAll();
     }
 
-    const wxAppId = 'wxea535c9d15180464'
+    const wxAppId = 'wxd766440bddf6a75d'
     WeChat.registerApp(wxAppId);
 
     this.loadWeekConfig();
     this.loadUnReadCount();
     this.loadContractList();
     this.addSign();
+    this.loadGradList();
 
     this.handleLocalNotification();
     Linking.getInitialURL().then((url) => {
@@ -249,6 +259,7 @@ class HomeScreen extends Component {
         />
         <ScrollView style={commonStyles.content}>
           {this.renderContactList()}
+          {this.renderGuardList()}
           {this.renderListItem()}
         </ScrollView>
         {/* <AddItem
@@ -292,7 +303,7 @@ class HomeScreen extends Component {
             return (
               <NormalAddItem
                 type="addContact"
-                title="添加您的监护人"
+                title="添加我监护的人"
                 subTitle="关注您的健康生活状态"
                 imageUrl={ASSET_IMAGES.ICON_HOME_SPECIAL_ADD}
                 navigation={this.props.navigation}
@@ -302,6 +313,33 @@ class HomeScreen extends Component {
         />
       </View>
     );
+  }
+
+  renderGuardList() {
+    return (
+      <View style={styles.moduleContent}>
+        <HomeContactHeader type="guard" navigation={this.props.navigation} />
+        <FlatList
+          style={styles.contractList}
+          data={this.state.guardList.filter((item) => item.username != null).slice(0,3)}
+          renderItem={({ item }) => {
+              return <ContactListItem navigation={this.props.navigation} data={item} />
+          }}
+          ItemSeparatorComponent={() => <LineItem />}
+          ListEmptyComponent={() => {
+              return (
+              <NormalAddItem
+                  type="addContact"
+                  title="添加监护我的人"
+                  subTitle="关注您的健康生活状态"
+                  imageUrl={ASSET_IMAGES.ICON_HOME_SPECIAL_ADD}
+                  navigation={this.props.navigation}
+              />
+              );
+          }}
+        />
+      </View>
+    )
   }
 
   _onRefresh() {
@@ -454,7 +492,7 @@ class HomeScreen extends Component {
 
   // request
   loadTasks() {
-    Toast.info('加载中', 0.5);
+    // Toast.info('加载中', 0.2);
     const {selectIndex, requestWeeks} = this.state;
     const data = {
       callback: this.loadClockCallback.bind(this),
@@ -491,20 +529,47 @@ class HomeScreen extends Component {
       });
 
       let runArray = data.filter(item => item.status == 'runing');
-      if (runArray.length >= 1) {
-        // 跳转到 特殊打卡页面
-        console.log('jump sign special');
-        this.props.navigation.navigate('SignSpecial', {
-          id: runArray[0].id,
-          question_id: runArray[0].question_id,
-        });
-      }
+      // if (runArray.length >= 1) {
+      //   // 跳转到 特殊打卡页面
+      //   console.log('jump sign special');
+      //   this.props.navigation.navigate('SignSpecial', {
+      //     id: runArray[0].id,
+      //     question_id: runArray[0].question_id,
+      //   });
+      // }
     } else if (error == '未登录') {
       this.setState({
         specialList: [],
       })
     }
   }
+
+  // request
+  loadGradList() {
+    // getContractList
+    if (!global.isLogin) {
+        return;
+    }
+    const data = {
+        pageNum: 0,
+        pageSize: 10,
+        callback: this.loadGuardListCallback.bind(this)
+    }
+    getContractList(data);
+}
+
+loadGuardListCallback(res) {
+    console.log('res contract', res);
+    if (res.success) {
+        this.setState({
+            guardList: res.data
+        })
+    } else if (res.error == '未登录') {
+        this.setState({
+          guardList: [],
+        })
+    }
+}
 
   loadUnReadCount() {
     if (global.isLogin) {

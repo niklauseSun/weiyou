@@ -221,7 +221,7 @@ export default class AddSpecial extends Component {
 
     addSpecialTaskCallback(res) {
         console.log('res', res);
-        const { success } = res;
+        const { success, error } = res;
         if (success) {
             const { data } = res;
             if (this.state.addType == 'add') {
@@ -235,6 +235,8 @@ export default class AddSpecial extends Component {
             }
             this.props.navigation.goBack();
             this.addNativeClock(data)
+        } else {
+            Toast.info(error);
         }
     }
 

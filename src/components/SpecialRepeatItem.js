@@ -17,6 +17,7 @@ export default class SpecialRepeatItem extends Component {
             cnt = 5
         } = this.props;
         console.log('cnt', cnt)
+        let str = cnt + ''
         return (
             <View style={styles.content}>
                 <View style={styles.itemContent}>
@@ -31,7 +32,7 @@ export default class SpecialRepeatItem extends Component {
                     <Image style={styles.itemHeadImage} source={ASSET_IMAGES.ICON_SPECIAL_SIGN} />
                     <Text style={styles.itemHeadLabel}>间隔（分钟）</Text>
                     <TouchableOpacity style={styles.moreButton}>
-                        <TextInput onChangeText={this.changeText.bind(this)} keyboardType="number-pad" placeholder="分钟" style={styles.inputItem} value={cnt} />
+                        <TextInput onChangeText={this.changeText.bind(this)} keyboardType="number-pad" placeholder="分钟" style={styles.inputItem} value={str} />
                         <Image style={styles.iconStyle} source={ASSET_IMAGES.ICON_MORE} />
                     </TouchableOpacity>
                 </View>

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, Modal } from 'react-native'
 import { px } from '../utils'
 import { ASSET_IMAGES } from '../config';
-import { getPersonQuestionDetail, postSpecialClockStatus } from '../requests';
+import { getPersonQuestionDetail, postSpecialClockStatus, getSpecialClockDetail } from '../requests';
 import { Toast } from '@ant-design/react-native';
 
 export default class SpecialItem extends Component {
@@ -18,7 +18,7 @@ export default class SpecialItem extends Component {
     }
 
     componentDidMount() {
-        this.loadAnswerById();
+        // this.loadAnswerById();
     }
 
     render() {
@@ -94,21 +94,59 @@ export default class SpecialItem extends Component {
     }
 
     specialItemAction() {
-        const { status } = this.props.data;
-        if (status == 'fail') {
-            Toast.info('已过期')
-            return;
-        }
+        console.log('goto special');
+        const { status, id } = this.props.data;
 
-        if (status == 'success') {
-            Toast.info('已成功')
-            return;
+        getSpecialClockDetail({
+            id: id,
+            callback: this.getSpDetailCallback.bind(this)
+        })
+
+        // if (status == 'fail') {
+        //     Toast.info('已过期')
+        //     return;
+        // }
+
+        // if (status == 'success') {
+        //     Toast.info('已成功')
+        //     return;
+        // }
+        // // this.showModal()
+        // this.props.navigation.navigate('SignSpecial', {
+        //     id: this.props.data.id,
+        //     question_id: this.props.data.question_id
+        // });
+    }
+
+    getSpDetailCallback(res) {
+        console.log('special detail', res);
+        const { success, data, error } = res;
+        if (success) {
+            const { status, question, id, question_id } = data;
+//             状态：'created'（已创建）,'runing'（已开始）,'success'（已完成）,'fail'（已完成）,'delay'（已开始）,'answerError'（已开始）,'timeout'（已开始），‘notYet（未开始）’
+// 可打卡状态："created","runing","delay",'answerError', 'timeout'
+// 拥有下次打卡时间状态："runing""delay",'answerError', 'timeout'
+
+            if (status == 'created' || status == 'runing' || status == 'delay' || status == 'answerError' || status == 'timeout') {
+                this.props.navigation.navigate('SignSpecial', {
+                    id: id,
+                    question_id: question_id
+                });
+            } else {
+                if (status == 'fail') {
+                    Toast.info('已过期');
+                    return;
+                } else if (status == 'notYet') {
+                    Toast.info('暂未开始');
+                    return;
+                } else if (status == 'success') {
+                    Toast.info('已成功');
+                    return;
+                }
+            }
+        } else {
+            Toast.info(error);
         }
-        // this.showModal()
-        this.props.navigation.navigate('SignSpecial', {
-            id: this.props.data.id,
-            question_id: this.props.data.question_id
-        });
     }
 
     loadAnswerById() {

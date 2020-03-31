@@ -47,18 +47,15 @@ RCT_EXPORT_METHOD(addNormalAlarm:(NSString *)idStr name:(NSString *)name time:(N
         week = 7;
     }
     
-    NSString *identifer = [NSString stringWithFormat:@"%@---%ld",idStr, (long)week];
+    NSString *identifer = [NSString stringWithFormat:@"%@-%d",idStr, (int)week];
+    
+    NSLog(@"idStr %@", identifer);
     
     [UNNotificationsManager addNotificationWithContent:[UNNotificationsManager contentWithTitle:@"唯友" subTitle:name body:@"请进入应用签到" sound:[UNNotificationSound soundNamed:@"lightM_01.caf"]] weekDay:week date:date identifer:identifer isRepeat:YES completionHanler:^(NSError *error) {
         NSLog(@"add error %@", error);
-//      [[UIApplication sharedApplication].keyWindow.rootViewController.view makeToast:@"添加闹钟成功"];
     }];
   }];
 }
-
-//[UNNotificationsManager addNotificationWithContent:[UNNotificationsManager contentWithTitle:@"时钟" subTitle:nil body:nil sound:[UNNotificationSound soundNamed:self.music]] dateComponents:[UNNotificationsManager componentsWithDate:self.date] identifer:self.identifer isRepeat:self.repeats completionHanler:^(NSError *error) {
-//    NSLog(@"add error %@", error);
-//}];
 
 RCT_EXPORT_METHOD(addSpecialAlarm:(NSString *)idStr name:(NSString *)name time:(NSString *)timeString) {
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
@@ -71,6 +68,39 @@ RCT_EXPORT_METHOD(addSpecialAlarm:(NSString *)idStr name:(NSString *)name time:(
   [UNNotificationsManager addNotificationWithContent:[UNNotificationsManager contentWithTitle:@"唯友" subTitle:name body:@"请进入应用签到" sound:[UNNotificationSound soundNamed:@"lightM_01.caf"]] dateComponents:[UNNotificationsManager componentsWithDate:date] identifer:idStr isRepeat:NO completionHanler:^(NSError *error) {
       NSLog(@"add error %@", error);
   }];
+}
+
+RCT_EXPORT_METHOD(removeNormalAlarmWithId:(NSString *)idStr andRepeats:(NSArray *)repeats) {
+  
+//  [UNNotificationsManager removeNotificationWithIdentifers:(nonnull NSArray<NSString *> *)]
+  [repeats enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSInteger week = 0;
+    if ([obj containsString:@"周日"]) {
+        week = 1;
+    }else if([obj containsString:@"周一"]){
+        week = 2;
+    }else if([obj containsString:@"周二"]){
+        week = 3;
+    }else if([obj containsString:@"周三"]){
+        week = 4;
+    }else if([obj containsString:@"周四"]){
+        week = 5;
+    }else if([obj containsString:@"周五"]){
+        week = 6;
+    } else if([obj containsString:@"周六"]){
+        week = 7;
+    }
+    
+    NSString *identifer = [NSString stringWithFormat:@"%@-%d",idStr, (int)week];
+    
+    NSLog(@"idStr %@", identifer);
+    [UNNotificationsManager removeNotificationWithIdentifer:identifer];
+  }];
+}
+
+RCT_EXPORT_METHOD(removeSpecialAlarmWithId:(NSString *)idStr) {
+  
+    [UNNotificationsManager removeNotificationWithIdentifer:idStr];
 }
 
 @end

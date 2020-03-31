@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity, DeviceEventEmitter } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, DeviceEventEmitter, NativeModules } from 'react-native'
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
 import { Modal } from '@ant-design/react-native';
@@ -58,6 +58,7 @@ export default class SpecialDeleteItem extends Component {
             callback: this.removeTaskCallback.bind(this)
         }
         deleteSpecialClock(ret)
+        this.removeSpecialAlarm(id);
     }
 
     removeTaskCallback(res) {
@@ -69,6 +70,12 @@ export default class SpecialDeleteItem extends Component {
                 DeviceEventEmitter.emit('taskReload');
             }
         }
+    }
+
+    removeSpecialAlarm(id) {
+        // removeSpecialAlarmWithId
+        var alarmManager = NativeModules.AlarmManager;
+        alarmManager.removeSpecialAlarmWithId('special-' + id);
     }
 }
 

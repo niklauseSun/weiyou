@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     content: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: px(30)
+        paddingHorizontal: px(30),
+        paddingVertical: px(30)
     },
     headImage: {
         width: px(90),

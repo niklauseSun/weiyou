@@ -33,7 +33,7 @@ export default class GuardianItem extends Component {
                     }}
                     ItemSeparatorComponent={() => <LineItem />}
                     keyExtractor={(item, index) => index.toString()}
-                    ListEmptyComponent={() => <NoneData title="暂无监护人" />}
+                    ListEmptyComponent={() => <NoneData title="暂无我监护的人" />}
                 />
             </View>
         )

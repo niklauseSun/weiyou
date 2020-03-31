@@ -35,7 +35,8 @@ import {
     BuyVipView,
     VipUser,
     NormalSign,
-    LocationMap
+    LocationMap,
+    GuardMyList
 }
 from '../layouts'
 import React from "react";
@@ -102,6 +103,10 @@ const HomeStack = createStackNavigator({
     },
     LocationMap: {
         screen: LocationMap,
+        navigationOptions: defaultNavigationOptions
+    },
+    GuardMyList: {
+        screen: GuardMyList,
         navigationOptions: defaultNavigationOptions
     }
 })

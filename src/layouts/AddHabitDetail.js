@@ -78,9 +78,9 @@ export default class AddHabitDetail extends Component {
               <NormalRemindItem
                 clockTime={this.state.clock_time == null? this.state.clock_time: new Date(this.state.clock_time)}
                 changeTime={this.changeClockTime.bind(this)} />
-              <NormalRemindTextItem title="开始提示音" type='start' value={this.state.tips_start} placeholder="请输入开始提示音" onChangeText={this.changeText.bind(this)} />
-              <NormalRemindTextItem title="延迟提示音" type='delay' value={this.state.tips_delay} placeholder="请输入延迟提示音" onChangeText={this.changeText.bind(this)} />
-              <NormalRemindTextItem title="结束提示音" type='end'   value={this.state.tips_end}   placeholder="请输入结束提示音" onChangeText={this.changeText.bind(this)} />
+              <NormalRemindTextItem title="开始提示语" type='start' value={this.state.tips_start} placeholder="请输入开始提示语" onChangeText={this.changeText.bind(this)} />
+              <NormalRemindTextItem title="延迟提示语" type='delay' value={this.state.tips_delay} placeholder="请输入延迟提示语" onChangeText={this.changeText.bind(this)} />
+              <NormalRemindTextItem title="结束提示语" type='end'   value={this.state.tips_end}   placeholder="请输入结束提示语" onChangeText={this.changeText.bind(this)} />
               <NormalContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.contacts} />
               <TouchableOpacity onPress={this.addNewNormalClock.bind(this)} style={styles.saveButton}>
                 <Text style={styles.saveText}>保存</Text>
@@ -324,12 +324,23 @@ export default class AddHabitDetail extends Component {
   loadHabitDetailCallback(res) {
     console.log('habit detail', res);
     const { success, data } = res;
+    const { clock_time } = data;
+
+    let date = new Date();
+    let dateString = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + clock_time;
+
+    console.log('string', dateString);
+
+    newDate = (new Date(Date.parse(dateString))).toJSON();
+
+    console.log('new Date', newDate);
+
     if (success) {
       this.setState({
         id: data.id,
         tmpl_id: data.tmpl_id,
         name: data.name,
-        clock_time: data.clock_time,
+        clock_time: newDate,
         start_time: data.start_time,
         end_time: data.end_time,
         repeats: data.repeats,

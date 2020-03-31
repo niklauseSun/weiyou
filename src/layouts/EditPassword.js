@@ -10,9 +10,10 @@ export default class EditPassword extends Component {
     constructor(props) {
         super(props);
         const { phone = '' } = props.navigation.state.params || {}
+        console.log('editPassword', phone)
         this.state = {
             phone: phone,
-            isEdit: phone == null ? false: phone.length > 0,
+            isEdit: phone == null ? true: phone.length < 0,
             code: null,
             password: null,
             repeatPWD: null
@@ -22,7 +23,7 @@ export default class EditPassword extends Component {
     render() {
         return (
             <SafeAreaView style={commonStyles.content}>
-                <Header title="" />
+                <Header navigation={this.props.navigation} title="" />
                 <Text style={styles.loginAccountText}>更改或添加密码</Text>
                 <Text style={styles.loginText}></Text>
                 <InputItem editable={this.state.isEdit}  keyboardType="number-pad" changeText={this.changePhone.bind(this)} value={this.state.phone} placeholder="请输入手机号" />

@@ -23,6 +23,7 @@ export default class NormalRemindItem extends Component {
   render() {
     const { isShow } = this.state;
     const { clockTime } = this.props;
+    // console.log('clockTIme', clockTime);
     return (
       <View style={styles.content}>
         <Image style={styles.headImage} source={ASSET_IMAGES.ICON_SPECIAL_TIME}  />

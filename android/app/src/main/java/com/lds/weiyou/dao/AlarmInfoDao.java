@@ -33,6 +33,7 @@ public class AlarmInfoDao {
         values.put(ConsUtils.ALARM_REPEAT_DAY, getDataDayofWeek(alarmInfo.getDayOfWeek()));
         values.put(ConsUtils.ALARM_ID,alarmInfo.getId());
         values.put(ConsUtils.ALARM_RING_ID,alarmInfo.getRingResId());
+        values.put(ConsUtils.CLOCK_ID, alarmInfo.getClockId());
         db.insert(ConsUtils.ALARM_TABLE, null, values);
         Toast.makeText(mContext, "闹钟设置成功", Toast.LENGTH_SHORT).show();
         if(db!=null){
@@ -56,6 +57,36 @@ public class AlarmInfoDao {
                 alarmInfo.setRing(cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_RING)));
                 alarmInfo.setTag(cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_TAG)));
                 alarmInfo.setRingResId(cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_RING_ID)));
+                String dayOfWeek=cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_REPEAT_DAY));
+
+                Log.d("alarm",dayOfWeek);
+                int[] day=getAlarmDayofWeek(dayOfWeek);
+                if(day!=null){
+                    // Log.d("alarm","数据库中重复天数不为空");
+                }else {
+                    // Log.d("alarm","数据库中重复天数为空");
+                }
+                alarmInfo.setDayOfWeek(day);
+            }
+        }
+        return alarmInfo;
+    }
+
+    public AlarmInfo findByClockId(String clockId) {
+        SQLiteDatabase db=mHelper.getWritableDatabase();
+        Cursor cursor=db.query(ConsUtils.ALARM_TABLE, null, ConsUtils.CLOCK_ID+"=?", new String[]{clockId}, null, null, null);
+        AlarmInfo alarmInfo=new AlarmInfo();
+        if(cursor!=null){
+            //Log.d("alarm","cusor不为空");
+            if (cursor.moveToNext()){
+
+                alarmInfo.setHour(cursor.getInt(cursor.getColumnIndex(ConsUtils.ALARM_HOUR))) ;
+                alarmInfo.setMinute(cursor.getInt(cursor.getColumnIndex(ConsUtils.ALARM_MINUTE)));
+                alarmInfo.setLazyLevel(cursor.getInt(cursor.getColumnIndex(ConsUtils.ALARM_LAZY_LEVEL)));
+                alarmInfo.setRing(cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_RING)));
+                alarmInfo.setTag(cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_TAG)));
+                alarmInfo.setRingResId(cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_RING_ID)));
+                alarmInfo.setClockId(cursor.getString(cursor.getColumnIndex(ConsUtils.CLOCK_ID)));
                 String dayOfWeek=cursor.getString(cursor.getColumnIndex(ConsUtils.ALARM_REPEAT_DAY));
 
                 Log.d("alarm",dayOfWeek);
@@ -168,6 +199,9 @@ public class AlarmInfoDao {
         return id;
     }
     public static int[] getAlarmDayofWeek(String dayOfWeek) {
+        if (dayOfWeek.length() == 0) {
+            return new int []{};
+        }
         String[] change= dayOfWeek.split(",");
         int[] Day=new int[change.length];
         for (int i=0;i<change.length;i++){

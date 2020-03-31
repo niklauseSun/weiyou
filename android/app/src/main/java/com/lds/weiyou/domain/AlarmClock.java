@@ -44,17 +44,19 @@ public class AlarmClock {
         intent.putExtra("clockid", alarmInfo.getClockId());
         intent.putExtra("cancel",false);
         intent.putExtra("getid",alarmInfo.getId());
-        Log.e("content", alarmInfo.getContent());
+//        Log.e("content", alarmInfo.getContent());
         intent.putExtra("content", alarmInfo.getContent() + "");
-        Log.d("alarm", "id" + id);
+//        Log.d("alarm", "id" + id);
         //每个闹钟不同的pi
         PendingIntent pi= PendingIntent.getBroadcast(context,id, intent,PendingIntent.FLAG_UPDATE_CURRENT);
         if(isOn){
             startAlarm(mAlamManager,pi);
             Toast.makeText(context, "打开闹钟成功", Toast.LENGTH_SHORT).show();
         }else{
-            cancelAlarm(intent);
+//            cancelAlarm(intent);
+            turnOff(mAlamManager, pi);
         }
+
 
     }
 
@@ -62,6 +64,10 @@ public class AlarmClock {
         Log.d("alarm","取消闹钟");
         intent.putExtra("cancel",true);
         context.sendBroadcast(intent);
+    }
+
+    private void turnOff(AlarmManager mAlarmManager, PendingIntent pi) {
+        mAlarmManager.cancel(pi);
     }
 
     public void startAlarm(AlarmManager mAlamManager, PendingIntent pi){

@@ -82,8 +82,9 @@ export default class SignSpecial extends Component {
                         </View>
                     </View>
                     <View style={styles.signContent}>
+                    {/* status == 'created' || status == 'runing' || status == 'delay' || status == 'answerError' || status == 'timeout' */}
                         {
-                            status == 'delay' || status == 'runing' || status == 'created' || status == 'answerError' ?
+                            status == 'delay' || status == 'runing' || status == 'created' || status == 'answerError' || status == 'timeout' ?
                             <Fragment>
                                 <TouchableOpacity style={styles.signButton} onPress={this.signAction.bind(this)}>
                                     <Text style={styles.signText}>签到</Text>
@@ -373,6 +374,11 @@ export default class SignSpecial extends Component {
         }
 
         this.showModal();
+    }
+
+    componentWillUnmount() {
+        console.log('unmount');
+        DeviceEventEmitter.emit('listReload')
     }
 }
 

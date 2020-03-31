@@ -60,7 +60,11 @@ function formatHourWithString(dateString) {
     const t = Date.parse(dateString);
     const date = new Date(t);
     console.log('dd', date.getHours());
-    return date.getHours() + ':' + date.getMinutes();
+    let minute = date.getMinutes();
+    minute = minute < 10 ? ('0' + minute) : minute;
+    let h = date.getHours();
+    h = h < 10 ? ('0' + h): h;
+    return h + ':' + minute;
 }
 
 function formateDateHourWithString(dateString) {

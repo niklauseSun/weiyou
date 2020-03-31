@@ -70,7 +70,7 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
         alarmInfo.setClockId(ids);
 
         dao.addAlarmInfo(alarmInfo);
-        alarmClock.turnAlarm(alarmInfo, null, true);
+        alarmClock.turnAlarm(alarmInfo, ids, true);
         Toast.makeText(reactContext, "添加成功", Toast.LENGTH_SHORT).show();
 
 //        Intent intent = new Intent(reactContext, AlarmReceiver.class);
@@ -106,9 +106,6 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(d);
         int[] day = getRepeatDay(repeatArray);
-//        AlarmInfo alarmInfo = new AlarmInfo();
-//        alarmInfo.setHour(calendar.get(Calendar.HOUR));
-//        alarmInfo.setMinute(calendar.get(Calendar.MINUTE));
 
         Log.e("time", calendar.get(Calendar.HOUR_OF_DAY) + "");
         Log.e("ddd", calendar.get(Calendar.MINUTE) + "");
@@ -184,4 +181,22 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
         return AlarmInfoDao.getAlarmDayofWeek(dayRepeat);
     }
 
+    @ReactMethod
+    public void removeNormalAlarmWithId(String idStr, ReadableArray repeatArray) {
+        AlarmInfoDao dao = new AlarmInfoDao(reactContext.getCurrentActivity());
+        AlarmInfo info = dao.findByClockId(idStr);
+        AlarmClock clock = new AlarmClock(reactContext);
+        clock.turnAlarm(info, null, false);
+
+        dao.deleteAlarm(info);
+    }
+
+    @ReactMethod
+    public void removeSpecialAlarmWithId(String idStr) {
+        AlarmInfoDao dao = new AlarmInfoDao(reactContext.getCurrentActivity());
+        AlarmInfo info = dao.findByClockId(idStr);
+        AlarmClock clock = new AlarmClock(reactContext);
+        clock.turnAlarm(info, null, false);
+        dao.deleteAlarm(info);
+    }
 }

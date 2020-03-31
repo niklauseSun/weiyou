@@ -32,6 +32,9 @@ public class AlarmReceiver extends BroadcastReceiver {
             Log.e("notification message", content);
             sendNotification(intent);
             wakePhoneAndUnlock();
+            if (intent.getBooleanExtra("cancel", false)) {
+                return;
+            }
             showAlarmDialog();
         }
     }
@@ -39,9 +42,17 @@ public class AlarmReceiver extends BroadcastReceiver {
     private void sendNotification(Intent mIntent) {
         Intent intent = new Intent(context, MainActivity.class);
         String idStr = mIntent.getStringExtra("clockid");
+
+        int idValue = Integer.parseInt(idStr.split("-")[1]);
+
         intent.putExtra("clockid", idStr);
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        if(mIntent.getBooleanExtra("cancel", false)) {
+            manager.cancel(idValue);
+            Log.e("cancel","取消");
+            return;
+        }
         Notification notification = null;
         PendingIntent pi = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -70,7 +81,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen((System.currentTimeMillis()));
         notification = builder.build();
-        manager.notify(123, notification);
+        manager.notify(idValue, notification);
     }
 
     private void wakePhoneAndUnlock() {

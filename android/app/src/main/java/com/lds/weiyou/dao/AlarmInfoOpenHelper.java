@@ -17,7 +17,8 @@ public class AlarmInfoOpenHelper extends SQLiteOpenHelper {
             ConsUtils.ALARM_TAG+" text,"+
             ConsUtils.ALARM_REPEAT_DAY+" text,"+
             ConsUtils.ALARM_RING_ID+" text,"+
-            ConsUtils.ALARM_ID+" text"+
+            ConsUtils.ALARM_ID+" text,"+
+            ConsUtils.CLOCK_ID+" text"+
             ")";
     public AlarmInfoOpenHelper(Context context) {
         super(context, ConsUtils.SQLDB_NAME, null, 1);

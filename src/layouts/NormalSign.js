@@ -42,7 +42,7 @@ export default class NormalSign extends Component {
                         <Text>{this.state.name}</Text>
                     </View>
 
-                    <Text style={styles.clockTime}>闹钟时间：{formatHourWithString(this.state.clock_time)}</Text>
+                    <Text style={styles.clockTime}>闹钟时间：{this.state.clock_time}</Text>
 
                     <View style={styles.signView}>
                         <TouchableOpacity onPress={this.signAction.bind(this)} activeOpacity={0.8} style={styles.signButton}>

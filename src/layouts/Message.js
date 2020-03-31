@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { View, Text, SafeAreaView, FlatList, StyleSheet, Image, DeviceEventEmitter } from 'react-native'
-import { HeaderItem, SearchItem, ContractItem, LineItem, TabHeader, PredictContract, NewApplyItem, GuardianItem, ContactListItem, NormalAddItem } from '../components'
+import { HeaderItem, SearchItem, ContractItem, LineItem, TabHeader, PredictContract, NewApplyItem, GuardianItem, ContactListItem, NormalAddItem, NoneData } from '../components'
 import { commonStyles } from '../commonStyles'
 import { px } from '../utils';
 import { ASSET_IMAGES } from '../config';
@@ -71,17 +71,7 @@ class MessageScreen extends Component {
                             return <ContactListItem navigation={this.props.navigation} data={item} />
                         }}
                         ItemSeparatorComponent={() => <LineItem />}
-                        ListEmptyComponent={() => {
-                            return (
-                            <NormalAddItem
-                                type="addContact"
-                                title="添加您的监护人"
-                                subTitle="关注您的健康生活状态"
-                                imageUrl={ASSET_IMAGES.ICON_HOME_SPECIAL_ADD}
-                                navigation={this.props.navigation}
-                            />
-                            );
-                        }}
+                        ListEmptyComponent={() => <NoneData title="暂无监护我的人" />}
                     />
                 </Fragment>
     }

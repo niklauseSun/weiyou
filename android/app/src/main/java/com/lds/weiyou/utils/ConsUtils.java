@@ -25,6 +25,7 @@ public class ConsUtils {
     public static final String ALARM_REPEAT_DAY="DayOfWeek";//一周重复的天
     public static final String ALARM_ID="AlarmID";//一周重复的天
     public static final String ALARM_RING_ID="RingId";//一周重复的天
+    public static final String CLOCK_ID="clockid";
 
     //Pref
     public static final String SHOULD_WETHER_CLOSE="shouldwetherclose";//是否不显示天气

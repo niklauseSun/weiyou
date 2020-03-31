@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { px } from '../utils';
 
@@ -14,12 +14,23 @@ export default class Test extends Component {
         return (
             <View style={styles.content}>
                 <View style={styles.headerTextView}>
-                    <Text>我</Text>
-                    <View style={styles.guardView}>
-                        <Text style={styles.guardText}>监护</Text>
-                    </View>
-                    <Text>的人</Text>
+                    {
+                        this.props.type == 'guard' ? <Fragment>
+                            <View style={styles.guardView}>
+                                <Text style={styles.guardText}>监护</Text>
+                            </View>
+                            <Text>我</Text>
+                            <Text>的人</Text>
+                        </Fragment>: <Fragment>
+                            <Text>我</Text>
+                            <View style={styles.guardView}>
+                                <Text style={styles.guardText}>监护</Text>
+                            </View>
+                            <Text>的人</Text>
+                        </Fragment>
+                    }
                 </View>
+                {}
                 <TouchableOpacity onPress={this.navigate.bind(this)} style={styles.moreButton}>
                     <Text style={styles.moreButtonText}>更多</Text>
                 </TouchableOpacity>
@@ -28,7 +39,11 @@ export default class Test extends Component {
     }
 
     navigate() {
-        this.props.navigation.navigate('GuardianList');
+        if (this.props.type == 'guard') {
+            this.props.navigation.navigate('GuardMyList');
+        } else {
+            this.props.navigation.navigate('GuardianList');
+        }
     }
 }
 

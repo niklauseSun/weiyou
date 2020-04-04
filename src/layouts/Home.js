@@ -36,7 +36,7 @@ import {
   LineItem
 } from '../components';
 import {commonStyles} from '../commonStyles';
-import {px, getCurrentDays, formatDateToString, checkAll, getPosition} from '../utils';
+import {px, getCurrentDays, formatDateToString, checkAll, getPosition, initAliyunOSS} from '../utils';
 import {ASSET_IMAGES, E} from '../config';
 import {
   getPersonalClockByDay,
@@ -79,6 +79,8 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
+    // initAliyunOSS();
+    initAliyunOSS();
     // this.setState({
     //   isShow: true
     // })

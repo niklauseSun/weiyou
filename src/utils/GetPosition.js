@@ -1,6 +1,6 @@
 import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
 import { E } from "../config";
-async function getPosition() {
+function getPosition({callback}) {
     setLocatingWithReGeocode(false);
     Geolocation.getCurrentPosition(({ coords, location }) => {
         const { latitude, longitude } = coords;
@@ -22,7 +22,6 @@ async function getPosition() {
                 return response.json();
             }
         }).then((res) => {
-            console.log('res', res);
             const { regeocode } = res;
             const { pois, formatted_address, addressComponent } = regeocode;
             const { adcode } = addressComponent;
@@ -32,13 +31,17 @@ async function getPosition() {
             const retLatitude = location.split(',')[1];
             const retLongitude = location.split(',')[0]
 
-            return {
+            let data = {
                 position: formatted_address,
                 longitude: retLongitude,
                 latitude: retLatitude,
                 city: retCityCode
             }
+            callback({
+                success: true,
+                data: data });
         }).catch(err => {
+            callback(err)
             console.log('err', err);
         })
     });

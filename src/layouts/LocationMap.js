@@ -14,12 +14,16 @@ import { Modal } from '@ant-design/react-native'
 export default class LocationMap extends Component {
     constructor(props) {
         super(props);
+        const { addType = 'add', city, longitude = null, latitude = null, position} = props.navigation.state.params || {}
         this.state = {
-            latitude: 39,
-            longitude: 116,
+            addType: addType,
+            latitude: latitude,
+            longitude: longitude,
             locations: [],
             isShow: false,
             selectIndex: 0,
+            position: position,
+            city: city,
             name:'',
             addressComponent: null,
             keyword: '',
@@ -28,19 +32,25 @@ export default class LocationMap extends Component {
     }
 
     componentDidMount() {
+        console.log('ddd', this.state.addType);
         setLocatingWithReGeocode(true);
         if (Platform.OS == 'android') {
             PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
         }
-        Geolocation.getCurrentPosition(({ coords, location }) => {
-            const { latitude, longitude } = coords;
-            this.setState({
-                latitude: latitude,
-                longitude: longitude
-            }, () => {
-                this.requestLocation();
-            })
-        });
+
+        if (this.state.addType == 'add') {
+            Geolocation.getCurrentPosition(({ coords, location }) => {
+                const { latitude, longitude } = coords;
+                this.setState({
+                    latitude: latitude,
+                    longitude: longitude
+                }, () => {
+                    this.requestLocation();
+                })
+            });
+        } else {
+            this.requestLocation();
+        }
     }
 
     render() {

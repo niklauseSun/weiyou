@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, Modal, DeviceEventEmitter } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, Modal, DeviceEventEmitter, ImageBackground } from 'react-native'
 import { getSpecialClockDetail, getSpecialClockRecordList, postSpecialClockStatus, getPersonQuestionDetail } from '../requests';
 import { Header, SignEnd } from '../components';
 import { commonStyles } from '../commonStyles';
 import { px, formateDateHourWithString } from '../utils';
 import { Toast } from '@ant-design/react-native';
 import { Geolocation, setLocatingWithReGeocode } from "react-native-amap-geolocation";
-import { E } from "../config";
+import { E, ASSET_IMAGES } from "../config";
 
 export default class SignSpecial extends Component {
     constructor(props) {
@@ -72,9 +72,10 @@ export default class SignSpecial extends Component {
         return (
             <SafeAreaView style={commonStyles.content}>
                 <Header title="特殊签到" navigation={this.props.navigation}/>
+                <Text style={styles.specialTitle}>特殊签到</Text>
                 <View style={commonStyles.content}>
                     <View style={styles.info}>
-                        {icon == '' ? <View style={styles.headImage} />: <Image style={styles.headImage} source={{ uri: icon }} />}
+                        {icon == '' ? <Image source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} style={styles.headImage} />: <Image style={styles.headImage} source={{ uri: icon }} />}
                         <View>
                             <Text style={styles.titleLabel}>{name}</Text>
                             <Text style={styles.timeLabel}>上次更新时间：{recordList.length == 0 ? formateDateHourWithString(start_time): formateDateHourWithString(recordList[0].create_time)}</Text>
@@ -87,7 +88,9 @@ export default class SignSpecial extends Component {
                             status == 'delay' || status == 'runing' || status == 'created' || status == 'answerError' || status == 'timeout' ?
                             <Fragment>
                                 <TouchableOpacity style={styles.signButton} onPress={this.signAction.bind(this)}>
-                                    <Text style={styles.signText}>签到</Text>
+                                    <ImageBackground style={styles.signBg} source={ASSET_IMAGES.ICON_SPECIAL_SIGN_VIEW}>
+                                        <Text style={styles.signText}>签到</Text>
+                                    </ImageBackground>
                                 </TouchableOpacity>
                                 <SignEnd singEndAction={this.signEndAction.bind(this)} />
                             </Fragment>
@@ -385,29 +388,38 @@ export default class SignSpecial extends Component {
 // #ED7539
 
 const styles = StyleSheet.create({
+    specialTitle: {
+        fontSize: px(28),
+        color: '#777',
+        marginTop: px(30),
+        marginLeft: px(30),
+        marginBottom: px(30)
+    },
     info: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: px(30),
         paddingVertical: px(20),
         borderBottomColor: '#eaeaea',
-        borderBottomWidth: px(1)
+        borderBottomWidth: px(1),
+        marginHorizontal: px(30),
+        backgroundColor: '#eaeaea',
+        borderRadius: px(10)
     },
     headImage: {
         width: px(90),
         height: px(90),
         borderRadius: px(45),
-        backgroundColor: '#999'
     },
     titleLabel: {
-        fontSize: px(30),
+        fontSize: px(28),
         color: '#ED7539',
         marginLeft: px(30)
     },
     timeLabel: {
         marginLeft: px(30),
         marginTop: px(10),
-        fontSize: px(26),
+        fontSize: px(24),
         color: '#999'
     },
     signContent: {
@@ -416,15 +428,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     signButton: {
-        width: px(400),
-        height: px(400),
-        backgroundColor: '#ED7539',
-        borderRadius: px(200),
+        width: px(300),
+        height: px(300),
+        borderRadius: px(150),
         justifyContent: 'center',
         alignItems: 'center'
     },
     signText: {
-        fontSize: px(60),
+        fontSize: px(30),
+        marginTop: px(-20),
         color: '#fff'
     },
     showView: {
@@ -487,5 +499,11 @@ const styles = StyleSheet.create({
     confirmButton: {
         paddingHorizontal: px(50),
         paddingVertical: px(10),
+    },
+    signBg: {
+        width: px(250),
+        height: px(250),
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })

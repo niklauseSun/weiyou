@@ -22,9 +22,9 @@ import {
     SpecialQuestionItem
 } from '../components';
 import { ASSET_IMAGES } from '../config';
-import { px, formatDateToString, uploadOssFile } from '../utils';
+import { px, formatDateToString, uploadOssFile, getPosition } from '../utils';
 import SpecialContractItem from '../components/SpecialContractItem';
-import { addSpecialClock, getSpecialClockDetail, editSpecialClock } from '../requests';
+import { addSpecialClock, getSpecialClockDetail, editSpecialClock, getContractList, deleteSpecialClock } from '../requests';
 import ImagePicker from 'react-native-image-crop-picker';
 import { Toast } from '@ant-design/react-native';
 
@@ -39,14 +39,15 @@ export default class AddSpecial extends Component {
             id: id,
             icon: '',
             start_time: new Date().toISOString(),
-            interval_min: 5,
+            interval_min: 10,
             error_cnt: 3,
             position: null,
             question_id: null,
-            longitude: '121,48',
-            latitude: '31.23',
+            longitude: 121.48,
+            latitude: 31.23,
             city: '310114',
             contact: [],
+            selectContactList: [],
             question: null
         }
     }
@@ -76,6 +77,8 @@ export default class AddSpecial extends Component {
         });
         if (this.state.addType == 'edit') {
             this.loadSpecialDetail()
+        } else {
+            this.loadContactList();
         }
     }
 
@@ -85,7 +88,7 @@ export default class AddSpecial extends Component {
     }
 
     render() {
-        console.log('special', this.state)
+        console.log('special', this.state.selectContactList)
         return (
             <SafeAreaView style={styles.content}>
                 <Header title="特殊" navigation={this.props.navigation} />
@@ -100,11 +103,22 @@ export default class AddSpecial extends Component {
                             <Text style={styles.nameLabel}>特殊</Text>
                             <TextInput style={styles.nameInput} placeholder="请输入事件名称" placeholderTextColor="#C9C7C7" value={this.state.name} onChangeText={this.changeName.bind(this)} />
                         </View>
-                        <SpecialLocationItem navigation={this.props.navigation} showMoreButton={false} placeholder="请填写事件地址" type="input" imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION} title={this.state.position} />
+                        <SpecialLocationItem
+                            navigation={this.props.navigation}
+                            showMoreButton={false}
+                            placeholder="请填写事件地址"
+                            addType={this.state.addType}
+                            city={this.state.city}
+                            longitude={this.state.longitude}
+                            latitude={this.state.latitude}
+                            position={this.state.position}
+                            type="input"
+                            imageUrl={ASSET_IMAGES.ICON_SPECIAL_LOCATION}
+                            title={this.state.position} />
                         <SpecialSelectItem onChangeTime={this.onChangeTime.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_TIME} title={this.state.start_time} />
                         <SpecialQuestionItem onChangeQuestion={this.onChangeQuestion.bind(this)} imageUrl={ASSET_IMAGES.ICON_SPECIAL_QUESTION} question={this.state.question}/>
                         <SpecialRepeatItem cnt={this.state.interval_min} repeat={this.state.error_cnt} changeCnt={this.onChangeCnt.bind(this)} changeRepeat={this.onChangeRepeat.bind(this)} />
-                        <SpecialContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.contact} />
+                        <SpecialContractItem onChangeContact={this.changeContact.bind(this)} selectContactList={this.state.selectContactList} />
                         <TouchableOpacity onPress={this.addSpecialTask.bind(this)} style={styles.addButton}>
                             <Text style={styles.addButtonText}>添加</Text>
                         </TouchableOpacity>
@@ -130,7 +144,7 @@ export default class AddSpecial extends Component {
 
     changeContact(contact) {
         this.setState({
-            contact: contact
+            selectContactList: contact
         })
     }
 
@@ -172,37 +186,29 @@ export default class AddSpecial extends Component {
             Toast.info('请选择问题');
             return;
         }
-//         id  			任务id
-// icon		图
-// name	任务名称
-// start_time	开始日期
-// interval_min	间隔时间（分钟）
-// error_cnt	错误次数
-// position	地理位置（汉化）
-// question_id	问题ID
-// longitude	经度
-// latitude	纬度
-// city		城市编码
-// status		状态（"created", "runing", "finish", "fail"）已创建 提醒中 已结束 已失败
-// status	状态("runing","success", "fail", "delay", "notYet") 已开始 成功 失败 延迟  未到打卡时间(获取某天的任务时才有此字段)
-// contacts		设置时为联系人结构体ID数组；获取时为联系人结构体数组
-// question	问题详情(获取任务详情时)
-// deleted
+
+        if (!/^[0-9]*$/.test(this.state.interval_min)) {
+            Toast.info('间隔必须请输入数字！');
+            return;
+        }
+
+        if (parseInt(this.state.interval_min) < 10) {
+            Toast.info('间隔不能小于10分钟');
+            return;
+        }
         const params = {
             id: this.state.id,
             icon: this.state.icon,
             name: this.state.name,
             start_time: this.state.start_time == null ? new Date().toISOString(): this.state.start_time,
             interval_min: this.state.interval_min,
-            // interval_min: 2,
-
             error_cnt: this.state.error_cnt,
-            position: '上海市',
+            position: this.state.position,
             question_id: this.state.question_id,
-            longitude: '121,48',
-            latitude: '31.23',
-            city: '310114',
-            contacts: this.state.contact,
+            longitude: this.state.longitude,
+            latitude: this.state.latitude,
+            city: this.state.city,
+            contacts: this.state.selectContactList,
             question: this.state.question
         }
         const data = {
@@ -232,9 +238,10 @@ export default class AddSpecial extends Component {
                 Toast.info('修改成功');
                 DeviceEventEmitter.emit('taskReload');
                 DeviceEventEmitter.emit('taskListReload');
+                this.removeSpecialAlarm(this.state.id);
             }
-            this.props.navigation.goBack();
             this.addNativeClock(data)
+            this.props.navigation.goBack();
         } else {
             Toast.info(error);
         }
@@ -248,30 +255,14 @@ export default class AddSpecial extends Component {
         })
     }
 
-    // icon: ""
-// id: 7
-// name: "Shanghai "
-// customer_id: 100
-// question_id: 5
-// start_time: "2020-02-22T13:40:56.000Z"
-// start_day: "2020-02-21T16:00:00.000Z"
-// interval_min: 3
-// error_cnt: 3
-// position: "上海市"
-// longitude: "121,48"
-// latitude: "31.23"
-// city: "310114"
-// status: "created"
-// deleted: false
-// create_time: "2020-02-22T13:40:56.000Z"
-// update_time: "2020-02-22T13:40:56.000Z"
-// contacts: []
-// question: {answer: Array(2), id: 5, customer_
-
     loadSpecialDetailCallback(res) {
         const { success, data } = res;
         console.log('special detail', res);
-        const { question } = data;
+        const { question, contacts } = data;
+        let aArray = [];
+        for (let i = 0;i < contacts.length; i++) {
+            aArray.push(contacts[i].contact_id)
+        }
         if (success) {
             this.setState({
                 icon: data.icon,
@@ -285,19 +276,23 @@ export default class AddSpecial extends Component {
                 latitude: data.latitude,
                 city: data.city,
                 question: question.question,
-                contact: data.contacts
+                selectContactList: aArray
             })
         }
     }
 
     addNativeClock(data) {
-        // if (Platform.OS == 'ios') {
-            const { id } = data;
-            let date = this.state.start_time == null ? new Date(): new Date(this.state.start_time);
-            let timeString = formatDateToString(date);
-            var alarmManager = NativeModules.AlarmManager;
-            alarmManager.addSpecialAlarm('special-' + id, this.state.name, timeString);
-        // }
+        const { id } = data;
+        let date = this.state.start_time == null ? new Date(): new Date(this.state.start_time);
+        let timeString = formatDateToString(date);
+        var alarmManager = NativeModules.AlarmManager;
+        alarmManager.addSpecialAlarm('special-' + id, this.state.name, timeString);
+    }
+
+    removeSpecialAlarm(id) {
+        // removeSpecialAlarmWithId
+        var alarmManager = NativeModules.AlarmManager;
+        alarmManager.removeSpecialAlarmWithId('special-' + id);
     }
 
     uploadImage() {
@@ -324,6 +319,45 @@ export default class AddSpecial extends Component {
         console.log('dir', global.dir);
         const objectKey = `${global.dir}/${currm}${filetype}`;
         return objectKey
+    }
+
+    loadContactList() {
+        if (!global.isLogin) {
+            return;
+        }
+        getContractList({
+            pageNum: 0,
+            pageSize: 10,
+            callback: this.loadContactListCallback.bind(this)
+        });
+    }
+
+    loadContactListCallback(res) {
+        console.log('contact list', res);
+        const { success, data } = res;
+        if (success) {
+            let aArray = [];
+            for (let i = 0;i<data.length;i++) {
+                aArray.push(data[i].id);
+            }
+
+            this.setState({
+                selectContactList: aArray
+            })
+        }
+    }
+
+    getPositionCallback(res) {
+        const { success, data } = res;
+        if (success) {
+            const { longitude, latitude, city } = data;
+            this.setState({
+                longitude: longitude,
+                latitude: latitude,
+                city: city
+            })
+        }
+        console.log('res', res);
     }
 };
 

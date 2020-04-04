@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { StyleSheet, View, Text, Image, DeviceEventEmitter } from 'react-native'
+import { StyleSheet, View, Text, Image, DeviceEventEmitter, ImageBackground } from 'react-native'
 import { ASSET_IMAGES } from '../config'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { px, formatHourWithString } from '../utils'
@@ -8,7 +8,7 @@ import { setMessageRead } from '../requests'
 export default class MessageItem extends Component {
     render() {
         const { data } = this.props;
-        const { content, create_time, nickname, avatar = '', readed } = data;
+        const { content, create_time, nickname, avatar = '', readed, urgent } = data;
         return (
             <View style={styles.messageItem}>
                 <View style={styles.timeLine}>
@@ -24,6 +24,11 @@ export default class MessageItem extends Component {
                             {readed == 0 ? <View style={styles.unReadView}>
                                 <Text style={styles.unReadText}>未读</Text>
                             </View>: null }
+                            {
+                                urgent == 1 ? null : <ImageBackground style={styles.importTip} source={ASSET_IMAGES.ICON_IMPORT_TIP}>
+                                <Text style={styles.tipText}>重要</Text>
+                            </ImageBackground>
+                            }
                         </View>
                         <Text style={styles.contentLabel}>{content}</Text>
                     </View>
@@ -86,7 +91,7 @@ const styles = StyleSheet.create({
     contentTitle: {
         marginLeft: px(27),
         marginRight: px(27),
-        fontSize: px(34),
+        fontSize: px(30),
         color: '#383C3D'
     },
     contentLabel: {
@@ -112,6 +117,16 @@ const styles = StyleSheet.create({
     },
     unReadText: {
         fontSize: px(22),
+        color: '#fff'
+    },
+    importTip: {
+        width: px(76),
+        height: px(34),
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    tipText: {
+        fontSize: px(20),
         color: '#fff'
     }
 })

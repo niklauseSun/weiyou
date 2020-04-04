@@ -87,10 +87,10 @@ export default class NormalContractItem extends Component {
             for (let i = 0;i < data.length;i++) {
                 aArray.push(data[i].id);
             }
-            const { onChangeContact } = this.props;
-            if (onChangeContact) {
-                onChangeContact(aArray);
-            }
+            // const { onChangeContact } = this.props;
+            // if (onChangeContact) {
+            //     onChangeContact(aArray);
+            // }
             this.setState({
                 contactList: res.data
             })

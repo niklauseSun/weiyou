@@ -6,6 +6,7 @@
 
     <application
         android:name="com.lds.weiyou.MainApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"

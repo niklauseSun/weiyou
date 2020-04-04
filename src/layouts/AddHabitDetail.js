@@ -24,7 +24,7 @@ import {
 } from '../components';
 import { px, formatDateToString, uploadOssFile } from '../utils';
 import { Toast } from '@ant-design/react-native';
-import { addCustomerClock, getClockDetailById, editCustomerClock } from '../requests';
+import { addCustomerClock, getClockDetailById, editCustomerClock, getContractList } from '../requests';
 import ImagePicker from 'react-native-image-crop-picker';
 
 export default class AddHabitDetail extends Component {
@@ -48,17 +48,21 @@ export default class AddHabitDetail extends Component {
       interval_min: 5, //	再响间隔（分钟）
       interval_cnt: 2, //	再响次数
       contacts: [], //		设置时为联系人结构体ID数组；获取时为联系人结构体数组
-      status: null
+      status: null,
+      selectContacts:[]
     };
   }
 
   componentDidMount() {
     if (this.state.addType == 'edit') {
-      this.loadHabitDetail()
+      this.loadHabitDetail();
+    } else {
+      this.loadContactList();
     }
   }
 
   render() {
+    console.log('selectContacts', this.state.selectContacts)
     return (
       <SafeAreaView style={styles.content}>
         <Header title="新建打卡任务" navigation={this.props.navigation} />
@@ -81,7 +85,7 @@ export default class AddHabitDetail extends Component {
               <NormalRemindTextItem title="开始提示语" type='start' value={this.state.tips_start} placeholder="请输入开始提示语" onChangeText={this.changeText.bind(this)} />
               <NormalRemindTextItem title="延迟提示语" type='delay' value={this.state.tips_delay} placeholder="请输入延迟提示语" onChangeText={this.changeText.bind(this)} />
               <NormalRemindTextItem title="结束提示语" type='end'   value={this.state.tips_end}   placeholder="请输入结束提示语" onChangeText={this.changeText.bind(this)} />
-              <NormalContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.contacts} />
+              <NormalContractItem onChangeContact={this.changeContact.bind(this)} contactList={this.state.selectContacts} />
               <TouchableOpacity onPress={this.addNewNormalClock.bind(this)} style={styles.saveButton}>
                 <Text style={styles.saveText}>保存</Text>
               </TouchableOpacity>
@@ -100,7 +104,7 @@ export default class AddHabitDetail extends Component {
   };
   changeContact(contact) {
     this.setState({
-      contacts: contact
+      selectContacts: contact
     })
   }
 
@@ -206,7 +210,6 @@ export default class AddHabitDetail extends Component {
       return;
     }
 
-
     const data = {
       params: {
         id: this.state.id,
@@ -224,7 +227,7 @@ export default class AddHabitDetail extends Component {
         // interval_min: this.state.interval_min,
         interval_min: 2,
         interval_cnt: this.state.interval_cnt,
-        contacts: this.state.contacts
+        contacts: this.state.selectContacts
       },
       callback: this.addClockCallback.bind(this)
     }
@@ -249,7 +252,9 @@ export default class AddHabitDetail extends Component {
         DeviceEventEmitter.emit('taskListReload');
       } else {
         Toast.info('修改成功');
+        DeviceEventEmitter.emit('taskReload');
         DeviceEventEmitter.emit('taskListReload');
+        this.removeNativeClock(this.state.id, this.state.repeats);
       }
       this.addNativeClock(data)
       this.props.navigation.goBack();
@@ -335,6 +340,11 @@ export default class AddHabitDetail extends Component {
 
     console.log('new Date', newDate);
 
+    let aArray = [];
+    for (let i = 0; i < data.contacts.length;i++) {
+      aArray.push(data.contacts[i].contact_id);
+    }
+
     if (success) {
       this.setState({
         id: data.id,
@@ -350,27 +360,47 @@ export default class AddHabitDetail extends Component {
         tips_end: data.tips_end,
         interval_min: data.interval_min,
         interval_cnt: data.interval_cnt,
+        selectContacts: aArray
       })
     }
-//     icon: ""
-// id: 93
-// tmpl_id: 0
-// customer_id: 100
-// name: "test"
-// clock_time: "2020-02-26T13:59:16.000Z"
-// start_time: "2020-02-25T16:00:00.000Z"
-// end_time: null
-// repeats: 127
-// ring: ""
-// tips_start: "我"
-// tips_delay: "我"
-// tips_end: "我"
-// interval_min: 5
-// interval_cnt: 2
-// deleted: false
-// create_time: "2020-02-26T13:56:30.000Z"
-// update_time: "2020-02-26T13:56:30.000Z"
-    
+  }
+
+  loadContactList() {
+    if (!global.isLogin) {
+        return;
+    }
+    getContractList({
+        pageNum: 0,
+        pageSize: 10,
+        callback: this.loadContactListCallback.bind(this)
+    });
+  }
+
+  // onChangeContact()
+
+  loadContactListCallback(res) {
+    console.log('contact list', res);
+    const { success } = res;
+    if (success) {
+      const { data } = res;
+      let aArray = []
+      for (let i = 0;i < data.length;i++) {
+        aArray.push(data[i].id);
+      }
+
+      if (this.state.addType == 'add') {
+        this.setState({
+          selectContacts: aArray
+        })
+      }
+    }
+  }
+
+  removeNativeClock(id, repeats) {
+    let aString = this.switchToArray(repeats);
+    let weeks = this.showItem(aString);
+    var alarmManager = NativeModules.AlarmManager;
+    alarmManager.removeNormalAlarmWithId('normal-' + id, weeks);
   }
 }
 

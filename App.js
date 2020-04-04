@@ -32,7 +32,7 @@ import { init, Geolocation } from "react-native-amap-geolocation";
 
 import AliyunOSS from 'aliyun-oss-react-native'
 import { initAliyunOSS } from './src/utils';
-AliyunOSS.enableDevMode();
+// AliyunOSS.enableDevMode();
 
 init({
   ios: "72c3690b9f09600a36079998938feb09",
@@ -40,8 +40,6 @@ init({
 })
 
 global.isLogin = true;
-
-initAliyunOSS();
 
 const App: () => React$Node = () => {
   return (

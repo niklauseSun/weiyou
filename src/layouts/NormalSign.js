@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, DeviceEventEmitter } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, DeviceEventEmitter, ImageBackground } from 'react-native'
 import { Header } from '../components';
 import { commonStyles } from '../commonStyles';
 import { getClockDetailById, reportCustomerClock } from '../requests';
@@ -33,23 +33,28 @@ export default class NormalSign extends Component {
         return (
             <SafeAreaView style={commonStyles.content}>
                 <Header navigation={this.props.navigation} title="普通打卡" />
-                <View style={commonStyles.body}>
+                <View style={commonStyles.content}>
+                    <Text style={styles.normalTitle}>普通打卡</Text>
                     <View style={styles.headView}>
                         {
-                            this.state.icon == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />:
+                            this.state.icon == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_TASK_DEFAULT} />:
                             <Image style={styles.headImage} source={{ uri: this.state.icon }} />
                         }
-                        <Text>{this.state.name}</Text>
+                        <View>
+                            <Text style={styles.name}>{this.state.name}</Text>
+                            <Text style={styles.clockTime}>{this.state.clock_time}</Text>
+                        </View>
                     </View>
-
-                    <Text style={styles.clockTime}>闹钟时间：{this.state.clock_time}</Text>
-
                     <View style={styles.signView}>
                         <TouchableOpacity onPress={this.signAction.bind(this)} activeOpacity={0.8} style={styles.signButton}>
-                            <Text style={styles.signButtonText}>打卡</Text>
+                            <ImageBackground source={ASSET_IMAGES.ICON_NORMAL_SIGN} style={styles.signBg}>
+                                <Text style={styles.signButtonText}>打卡</Text>
+                            </ImageBackground>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.delayAction.bind(this)} activeOpacity={0.8} style={styles.delayButton}>
-                            <Text style={styles.delayButtonText}>延迟</Text>
+                            <ImageBackground style={styles.delayBg} source={ASSET_IMAGES.ICON_SIGN_END}>
+                                <Text style={styles.delayButtonText}>延迟</Text>
+                            </ImageBackground>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -201,13 +206,23 @@ export default class NormalSign extends Component {
 const styles = StyleSheet.create({
     signView: {
         flex: 1,
-        flexDirection: 'row',
+        // flexDirection: 'row',
         justifyContent:'center',
-        marginTop: px(30)
-        // alignItems: 'center'
+        marginTop: px(30),
+        alignItems: 'center'
+    },
+    normalTitle: {
+        marginLeft: px(30),
+        marginTop: px(30),
+        fontSize: px(28),
+        color: '#777777'
     },
     headView: {
+        backgroundColor: '#eaeaea',
         height: px(160),
+        marginHorizontal: px(30),
+        marginTop: px(30),
+        borderRadius: px(10),
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: px(30)
@@ -215,33 +230,47 @@ const styles = StyleSheet.create({
     headImage: {
         width: px(120),
         height: px(120),
+        borderRadius: px(60),
         marginRight: px(30)
     },
+    name: {
+        fontSize: px(26),
+        color: '#000'
+    },
     clockTime: {
-        marginHorizontal: px(30),
-        marginVertical: px(30),
-        fontSize: px(28),
-        color: '#ED7539'
+        fontSize: px(22),
+        marginTop: px(10),
+        color: '#999'
     },
     signButton: {
-        width: px(200),
-        height: px(200),
+        width: px(300),
+        height: px(300),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ED7539',
         borderRadius: px(100)
     },
     signButtonText: {
         color: '#fff',
-        fontSize: px(34)
+        fontSize: px(34),
+        marginTop: px(-20)
     },
     delayButton: {
         width: px(200),
         height: px(200),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#999',
-        borderRadius: px(100),
-        marginLeft: px(30)
+        borderRadius: px(100)
+    },
+    signBg: {
+        width: px(250),
+        height: px(250),
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    delayBg: {
+        width: px(180),
+        height: px(180),
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })

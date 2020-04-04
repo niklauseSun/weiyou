@@ -70,18 +70,22 @@ export default class AddQuestion extends Component {
                 </TouchableOpacity>
               </View>
               <SafeAreaView style={styles.contractView}>
-                <View style={styles.questionView}>
+                {/* <View style={styles.questionView}> */}
                   <Text style={styles.questionTitle}>问题</Text>
                   <TextInput onChangeText={(e) => {
                     this.setState({
                       question: e
                     })
-                  }} value={this.state.question} placeholder={'请输入问题'} style={styles.questionInput} />
-                </View>
+                  }}
+                    value={this.state.question}
+                    multiline
+                    placeholder={'请输入问题'}
+                    style={styles.questionInput} />
+                {/* </View> */}
                 <View style={styles.answerView}>
-                  <View style={styles.answerTitleView}>
-                    <Text style={styles.answerTitle}>答案</Text>
-                  </View>
+                  {/* <View style={styles.answerTitleView}> */}
+                  <Text style={styles.answerTitle}>答案</Text>
+                  {/* </View> */}
                   <View style={styles.answerInputView}>
                       <View style={styles.answerInputItem}>
                           <TextInput onChangeText={(e) => {
@@ -90,10 +94,11 @@ export default class AddQuestion extends Component {
                             this.setState({
                               answer: aArray
                             })
-                          }} value={this.state.answer[0]} placeholder={"请输入一个答案"} style={styles.answerInput} />
+                          }} value={this.state.answer[0]} placeholder={"请输入一个答案"} style={styles.answerInput} >
+                          </TextInput>
                           <TouchableOpacity onPress={this.correctSelect.bind(this, 0)} style={styles.answerButton}>
-                              {this.state.correct == 0 ? <Text style={styles.answerText}>选择</Text>: null}
-                          </TouchableOpacity>
+                              {this.state.correct == 0 ? <Text style={styles.answerText}>正确答案</Text>: null}
+                            </TouchableOpacity>
                       </View>
                       <View style={styles.answerInputItem}>
                           <TextInput onChangeText={(e) => {
@@ -104,7 +109,7 @@ export default class AddQuestion extends Component {
                             })
                           }} value={this.state.answer[1]} placeholder={"请输入一个答案"} style={styles.answerInput} />
                           <TouchableOpacity onPress={this.correctSelect.bind(this, 1)} style={styles.answerButton}>
-                            {this.state.correct == 1 ? <Text style={styles.answerText}>选择</Text>: null}
+                            {this.state.correct == 1 ? <Text style={styles.answerText}>正确答案</Text>: null}
                           </TouchableOpacity>
                       </View>
                   </View>
@@ -264,7 +269,8 @@ const styles = StyleSheet.create({
   },
   contractView: {
       flex: 1,
-      paddingHorizontal: px(30)
+      paddingHorizontal: px(30),
+      backgroundColor: '#f2f7fb'
   },
   questionView: {
     flexDirection: 'row',
@@ -272,30 +278,35 @@ const styles = StyleSheet.create({
   },
   questionTitle: {
       fontSize: px(32),
+      marginTop: px(30),
       color: '#333',
       marginLeft: px(20),
-      marginRight: px(20)
+      marginBottom: px(30)
   },
   questionInput: {
-      flex: 1,
       paddingHorizontal: px(10),
+      height: px(160),
+      marginHorizontal: px(20),
+      backgroundColor: '#fff',
       color: '#999'
   },
   answerView: {
-      flexDirection: 'row',
-      marginTop: px(30),
+      // flexDirection: 'row',
+
+      marginTop: px(15),
   },
   answerTitleView: {
-      marginLeft: px(20),
-      marginRight: px(20)
+      marginLeft: px(30)
   },
   answerTitle: {
       fontSize: px(32),
-      marginTop: px(15)
+      marginTop: px(15),
+      marginLeft: px(15),
+      marginBottom: px(15)
   },
   answerInputView: {
-    flex: 1,
-    height: px(160)
+    height: px(160),
+    
   },
   answerInputItem: {
     flex: 1,
@@ -304,16 +315,23 @@ const styles = StyleSheet.create({
   },
   answerInput: {
       flex: 1,
-      color: '#999'
+      color: '#999',
+      backgroundColor: '#fff',
+      height: px(70),
+      marginHorizontal: px(20),
+      borderRadius: px(5)
   },
   answerButton: {
-    width: px(80),
+    position: 'absolute',
+    width: px(140),
     height: px(60),
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    right: px(30)
   },
   answerText: {
-      fontSize: px(26)
+      fontSize: px(26),
+      color: '#ed7539'
   },
   saveButton: {
     height: px(110),

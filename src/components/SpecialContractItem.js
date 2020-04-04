@@ -40,7 +40,7 @@ export default class SpecialContractItem extends Component {
                                 <FlatList
                                     data={this.state.contactList.filter((item) => item.username != null)}
                                     renderItem={({item, index}) => {
-                                        return <SelectContactItem onChangeSelect={this._changeContacts.bind(this)} selectIndexArray={this.props.contactList} data={item} />
+                                        return <SelectContactItem onChangeSelect={this._changeContacts.bind(this)} selectIndexArray={this.props.selectContactList} data={item} />
                                     }}
                                     ListEmptyComponent={() => <NoneData title="暂无数据" />}
                                 />
@@ -76,20 +76,10 @@ export default class SpecialContractItem extends Component {
         });
     }
 
-    // onChangeContact()
-
     loadContactListCallback(res) {
         console.log('contact list', res);
         const { success, data } = res;
         if (success) {
-            let aArray = [];
-            for (let i = 0;i<data.length;i++) {
-                aArray.push(data[i].id);
-            }
-            const { onChangeContact } = this.props;
-            if (onChangeContact) {
-                onChangeContact(aArray);
-            }
 
             this.setState({
                 contactList: res.data

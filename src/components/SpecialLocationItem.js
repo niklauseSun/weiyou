@@ -32,7 +32,13 @@ export default class SpecialLocationItem extends Component {
     }
 
     selectLocation() {
-        this.props.navigation.navigate('LocationMap');
+        this.props.navigation.navigate('LocationMap', {
+            addType: this.props.addType,
+            city: this.props.city,
+            longitude: this.props.longitude,
+            latitude: this.props.latitude,
+            position: this.props.position
+        });
     }
 }
 

@@ -61,6 +61,10 @@ const ASSET_IMAGES = {
     ICON_SMS: require('../assets/icon_sms.png'),
     ICON_WX_ADD: require('../assets/icon_wx_add.png'),
     ICON_SMS_ADD: require('../assets/icon_sms_add.png'),
+    ICON_NORMAL_SIGN: require('../assets/icon_normal_sign.png'),
+    ICON_SIGN_END: require('../assets/icon_sign_end.png'),
+    ICON_SPECIAL_SIGN_VIEW: require('../assets/icon_special_sign_view.png'),
+    ICON_IMPORT_TIP: require('../assets/icon_import_tip.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),

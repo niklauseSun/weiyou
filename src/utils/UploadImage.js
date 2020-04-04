@@ -1,15 +1,14 @@
 import AliyunOSS from 'aliyun-oss-react-native';
 import { getOssToken } from '../requests';
 
-const bucketname = 'rongledev';
 function uploadOssFile(fileName, filepath){
-    return AliyunOSS.asyncUpload(bucketname, fileName, filepath)
-    .then((e) => {
-        console.log('e', e);
-        return e;
-    }).catch(error => {
-      console.log('=== error', error);
-    });
+  return AliyunOSS.asyncUpload(global.bucketname, fileName, filepath)
+  .then((e) => {
+    console.log('e', e);
+    return e;
+  }).catch(error => {
+    console.log('=== error', error);
+  });
 }
 
 function initAliyunOSS() {
@@ -19,7 +18,7 @@ function initAliyunOSS() {
 }
 
 function ossCallback(res) {
-  console.log('res', res);
+  console.log('res aliyunoss', res);
   const { success, data } = res;
   if (success) {
     const {
@@ -27,16 +26,22 @@ function ossCallback(res) {
       host,
       signature,
       dir,
-      apphost
+      apphost,
+      accessKeySecret
     } = data;
     global.dir = dir;
     global.imageHost = host
+    global.bucketname = host.split('.')[0]
+    console.log('buckete', global.bucketname);
     const configuration = {
       maxRetryCount: 3,
       timeoutIntervalForRequest: 30,
       timeoutIntervalForResource: 24 * 60 * 60
     };
-    AliyunOSS.initWithPlainTextAccessKey(accessid, 'xkbwUB1guhREPwWDFKcTDjdlINeXp4', apphost, configuration);
+    // aliyunOssReactNative.initWithImplementedSigner()
+
+      // AliyunOSS.initWithImplementedSigner(signature, accessid, apphost, configuration);
+    AliyunOSS.initWithPlainTextAccessKey(accessid, accessKeySecret, apphost, configuration);
   }
 }
 

@@ -184,19 +184,28 @@ public class AlarmSetManager extends ReactContextBaseJavaModule {
     @ReactMethod
     public void removeNormalAlarmWithId(String idStr, ReadableArray repeatArray) {
         AlarmInfoDao dao = new AlarmInfoDao(reactContext.getCurrentActivity());
-        AlarmInfo info = dao.findByClockId(idStr);
-        AlarmClock clock = new AlarmClock(reactContext);
-        clock.turnAlarm(info, null, false);
+        try {
+            AlarmInfo info = dao.findByClockId(idStr);
+            AlarmClock clock = new AlarmClock(reactContext);
+            clock.turnAlarm(info, null, false);
+            dao.deleteAlarm(info);
+        }catch (Exception e) {
 
-        dao.deleteAlarm(info);
+        }
+
     }
 
     @ReactMethod
     public void removeSpecialAlarmWithId(String idStr) {
         AlarmInfoDao dao = new AlarmInfoDao(reactContext.getCurrentActivity());
-        AlarmInfo info = dao.findByClockId(idStr);
-        AlarmClock clock = new AlarmClock(reactContext);
-        clock.turnAlarm(info, null, false);
-        dao.deleteAlarm(info);
+        try {
+            AlarmInfo info = dao.findByClockId(idStr);
+            AlarmClock clock = new AlarmClock(reactContext);
+            clock.turnAlarm(info, null, false);
+            dao.deleteAlarm(info);
+        }catch (Exception e) {
+
+        }
+
     }
 }

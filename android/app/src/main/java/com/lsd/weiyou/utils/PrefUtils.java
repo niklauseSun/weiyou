@@ -1,4 +1,4 @@
-package com.lds.weiyou.utils;
+package com.lsd.weiyou.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

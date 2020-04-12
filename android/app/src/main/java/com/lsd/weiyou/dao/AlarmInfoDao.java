@@ -1,4 +1,4 @@
-package com.lds.weiyou.dao;
+package com.lsd.weiyou.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lds.weiyou.domain.AlarmInfo;
-import com.lds.weiyou.utils.ConsUtils;
+import com.lsd.weiyou.domain.AlarmInfo;
+import com.lsd.weiyou.utils.ConsUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.lds.weiyou.NativeModule;
+package com.lsd.weiyou.NativeModule;
 
 import androidx.annotation.NonNull;
 

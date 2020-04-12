@@ -91,7 +91,7 @@ export default class AddSpecial extends Component {
         console.log('special', this.state.selectContactList)
         return (
             <SafeAreaView style={styles.content}>
-                <Header title="特殊" navigation={this.props.navigation} />
+                <Header title={this.state.addType == 'add'? '新建特殊打卡': '修改特殊打卡'} navigation={this.props.navigation} />
                 {/* <TouchableOpacity activeOpacity={1} onPress={() => {
                     Keyboard.dismiss()
                 }} style={styles.contentView}> */}

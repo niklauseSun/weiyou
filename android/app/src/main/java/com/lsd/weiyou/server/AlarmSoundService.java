@@ -1,4 +1,4 @@
-package com.lds.weiyou.server;
+package com.lsd.weiyou.server;
 
 import android.app.Service;
 import android.content.Intent;

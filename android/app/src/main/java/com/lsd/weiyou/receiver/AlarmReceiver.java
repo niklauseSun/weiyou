@@ -1,4 +1,4 @@
-package com.lds.weiyou.receiver;
+package com.lsd.weiyou.receiver;
 
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -13,9 +13,9 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lds.weiyou.MainActivity;
-import com.lds.weiyou.R;
-import com.lds.weiyou.server.AlarmSoundService;
+import com.lsd.weiyou.MainActivity;
+import com.lsd.weiyou.R;
+import com.lsd.weiyou.server.AlarmSoundService;
 
 public class AlarmReceiver extends BroadcastReceiver {
     Context context;

@@ -1,7 +1,6 @@
-package com.lds.weiyou;
+package com.lsd.weiyou;
 
 import android.app.Application;
-import android.app.ApplicationErrorReport;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
@@ -9,9 +8,9 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.gyf.cactus.Cactus;
+import com.lsd.weiyou.BuildConfig;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.theweflex.react.WeChatPackage;
-import com.lds.weiyou.NativeModule.AlarmModule;
+import com.lsd.weiyou.NativeModule.AlarmModule;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;

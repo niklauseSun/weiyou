@@ -65,7 +65,7 @@ export default class AddHabitDetail extends Component {
     console.log('selectContacts', this.state.selectContacts)
     return (
       <SafeAreaView style={styles.content}>
-        <Header title="新建打卡任务" navigation={this.props.navigation} />
+        <Header title={this.state.addType == 'add' ? '新建打卡任务': '修改打卡任务'} navigation={this.props.navigation} />
         <TouchableOpacity  style={styles.content} activeOpacity={1} onPress={() => {
           Keyboard.dismiss()
         }}>
@@ -242,7 +242,7 @@ export default class AddHabitDetail extends Component {
     }
   }
   addClockCallback(res) {
-    const { success } = res;
+    const { success, error } = res;
     console.log('ddd', res);
     if (success) {
       const { data } = res;
@@ -258,6 +258,8 @@ export default class AddHabitDetail extends Component {
       }
       this.addNativeClock(data)
       this.props.navigation.goBack();
+    } else {
+      Toast.info(error);
     }
   }
 

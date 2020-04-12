@@ -81,9 +81,9 @@ class HomeScreen extends Component {
   componentDidMount() {
     // initAliyunOSS();
     initAliyunOSS();
-    // this.setState({
-    //   isShow: true
-    // })
+    this.setState({
+      isShow: true
+    })
     JPush.init();
     this.connectListener = result => {
         console.log("connectListener:" + JSON.stringify(result))
@@ -150,8 +150,8 @@ class HomeScreen extends Component {
       checkAll();
     }
 
-    const wxAppId = 'wxd766440bddf6a75d'
-    WeChat.registerApp(wxAppId);
+    // const wxAppId = 'wxd766440bddf6a75d'
+    // WeChat.registerApp(wxAppId);
 
     this.loadWeekConfig();
     this.loadUnReadCount();
@@ -244,15 +244,14 @@ class HomeScreen extends Component {
 
   render() {
     const {messageCnt} = this.state;
+    console.log('requestDay', this.state.requestWeeks)
     return (
       <SafeAreaView style={commonStyles.content}>
-        {/* <Text>Home!</Text> */}
         <Header
           leftIsBack={false}
           title="唯友首页"
           rightComponent={this.rightComponent(messageCnt)}
         />
-        {/* <SignItem /> */}
         <WeekItem
           currentWeek={this.state.currentWeek}
           weeks={this.state.weeks}
@@ -264,14 +263,6 @@ class HomeScreen extends Component {
           {this.renderGuardList()}
           {this.renderListItem()}
         </ScrollView>
-        {/* <AddItem
-          addNormal = {
-              this.navigateToNormal.bind(this)
-          }
-          addSpecial = {
-              this.navigateToSpecial.bind(this)
-          }
-        /> */}
         <SignSuccessModal sign_total={this.state.sign_total} dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  />
         <BeginModal isShow={this.state.isShow} />
       </SafeAreaView>
@@ -380,6 +371,7 @@ class HomeScreen extends Component {
           data={this.state.normalList.filter((item) => item.deleted == false)}
           renderItem={({item, index}) => <NormalItem
             navigation={this.props.navigation}
+            requestDay={this.state.requestWeeks[this.state.selectIndex]}
             data={item}
             position={this.state.position}
             longitude={this.state.longitude}
@@ -407,6 +399,7 @@ class HomeScreen extends Component {
           renderItem={({item, index}) => (
             <SpecialItem
               navigation={this.props.navigation}
+              requestDay={this.state.requestWeeks[this.state.selectIndex]}
               data={item}
               key={index + this.state.normalList.length}
             />
@@ -423,9 +416,6 @@ class HomeScreen extends Component {
             );
           }}
         />
-        {/* {specialList.map((item, index) => {
-                    return <SpecialItem navigation={this.props.navigation} data={item} key={index + normalList.length}/>
-                })} */}
       </View>
     );
   }
@@ -437,18 +427,10 @@ class HomeScreen extends Component {
 
   navigateToNormal() {
     this.props.navigation.navigate('AddHabitDetail');
-    // let date = new Date('2020-02-23T13:53:36.669Z');
-    // let timeString = formatDateToString(date);
-    // var alarmManager = NativeModules.AlarmManager;
-    // alarmManager.addNormalAlarm('normal'+ 7, '测试11', timeString, ['周三'], 'add');
   }
 
   navigateToSpecial() {
     this.props.navigation.navigate('AddSpecial');
-    // let date = new Date('2020-03-05T07:38:50.669Z');
-    // let timeString = formatDateToString(date);
-    // var alarmManager = NativeModules.AlarmManager;
-    // alarmManager.addSpecialAlarm('special', '我是测试 特殊', timeString);
   }
 
   changeDaySelect(index) {

@@ -17,10 +17,6 @@ export default class NormalItem extends Component {
         }
     }
 
-    componentDidMount() {
-        
-    }
-
     render() {
         const { data } = this.props;
         console.log('normal', data);
@@ -104,6 +100,7 @@ export default class NormalItem extends Component {
 
         getClockDetailById({
             id: id,
+            day: this.props.requestDay,
             callback: this.getClockDetailCallback.bind(this)
         })
         return;

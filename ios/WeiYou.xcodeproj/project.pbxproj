@@ -21,12 +21,6 @@
 		5608D47BACC4818AB2A52237 /* libPods-WeiYou-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFACD13E1B60EB57F184981F /* libPods-WeiYou-tvOS.a */; };
 		A9D0C0D34C87BB8CA72E89DE /* libPods-WeiYou-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A47939AFE3C712A9718AE870 /* libPods-WeiYou-tvOSTests.a */; };
 		F15982003F376D5FB0E46088 /* libPods-WeiYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6E633A5A6CB934A163FC07 /* libPods-WeiYou.a */; };
-		F40B40972410107300EBEEAF /* lightM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40912410107300EBEEAF /* lightM_01.caf */; };
-		F40B40982410107300EBEEAF /* hotM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40922410107300EBEEAF /* hotM_02.caf */; };
-		F40B40992410107300EBEEAF /* lightM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40932410107300EBEEAF /* lightM_02.caf */; };
-		F40B409A2410107300EBEEAF /* lightM_03.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40942410107300EBEEAF /* lightM_03.caf */; };
-		F40B409B2410107300EBEEAF /* hotM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40952410107300EBEEAF /* hotM_01.caf */; };
-		F40B409C2410107300EBEEAF /* lightM_04.caf in Resources */ = {isa = PBXBuildFile; fileRef = F40B40962410107300EBEEAF /* lightM_04.caf */; };
 		F44A5A572401680C00F92B64 /* UNNotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A562401680C00F92B64 /* UNNotificationsManager.m */; };
 		F44A5A5A24016F0B00F92B64 /* AlarmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A5924016F0B00F92B64 /* AlarmManager.m */; };
 		F4D236E7241A7CAB00F7487F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236E6241A7CAB00F7487F /* SystemConfiguration.framework */; };
@@ -36,6 +30,12 @@
 		F4D236EF241A7CF100F7487F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EE241A7CF100F7487F /* libz.tbd */; };
 		F4EC0E7E24274AF1004F127A /* libJPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EC0E7D24274AF1004F127A /* libJPush.a */; };
 		F4EC0E8024274AF7004F127A /* libJCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EC0E7F24274AF7004F127A /* libJCore.a */; };
+		F4F9D8C4243978640006EB7B /* hotM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8BE243978640006EB7B /* hotM_02.caf */; };
+		F4F9D8C5243978640006EB7B /* lightM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8BF243978640006EB7B /* lightM_01.caf */; };
+		F4F9D8C6243978640006EB7B /* lightM_04.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8C0243978640006EB7B /* lightM_04.caf */; };
+		F4F9D8C7243978640006EB7B /* lightM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8C1243978640006EB7B /* lightM_02.caf */; };
+		F4F9D8C8243978640006EB7B /* hotM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8C2243978640006EB7B /* hotM_01.caf */; };
+		F4F9D8C9243978640006EB7B /* lightM_03.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8C3243978640006EB7B /* lightM_03.caf */; };
 		F4F9F596241DD8B100A80567 /* EventEmitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F9F595241DD8B100A80567 /* EventEmitterManager.m */; };
 		F4F9F59C241E164600A80567 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9F59B241E164600A80567 /* UserNotifications.framework */; };
 		F4F9F59E241E165300A80567 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F9F59D241E165300A80567 /* libresolv.tbd */; };
@@ -85,12 +85,6 @@
 		E41A581808A6A638CA23A3C5 /* Pods-WeiYou-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeiYou-tvOS.release.xcconfig"; path = "Target Support Files/Pods-WeiYou-tvOS/Pods-WeiYou-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F40B40912410107300EBEEAF /* lightM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_01.caf; sourceTree = "<group>"; };
-		F40B40922410107300EBEEAF /* hotM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hotM_02.caf; sourceTree = "<group>"; };
-		F40B40932410107300EBEEAF /* lightM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_02.caf; sourceTree = "<group>"; };
-		F40B40942410107300EBEEAF /* lightM_03.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_03.caf; sourceTree = "<group>"; };
-		F40B40952410107300EBEEAF /* hotM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hotM_01.caf; sourceTree = "<group>"; };
-		F40B40962410107300EBEEAF /* lightM_04.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightM_04.caf; sourceTree = "<group>"; };
 		F44A5A552401680C00F92B64 /* UNNotificationsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UNNotificationsManager.h; sourceTree = "<group>"; };
 		F44A5A562401680C00F92B64 /* UNNotificationsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UNNotificationsManager.m; sourceTree = "<group>"; };
 		F44A5A5824016F0B00F92B64 /* AlarmManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmManager.h; sourceTree = "<group>"; };
@@ -102,6 +96,12 @@
 		F4D236EE241A7CF100F7487F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F4EC0E7D24274AF1004F127A /* libJPush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJPush.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4EC0E7F24274AF7004F127A /* libJCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F9D8BE243978640006EB7B /* hotM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = hotM_02.caf; path = resource/hotM_02.caf; sourceTree = "<group>"; };
+		F4F9D8BF243978640006EB7B /* lightM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = lightM_01.caf; path = resource/lightM_01.caf; sourceTree = "<group>"; };
+		F4F9D8C0243978640006EB7B /* lightM_04.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = lightM_04.caf; path = resource/lightM_04.caf; sourceTree = "<group>"; };
+		F4F9D8C1243978640006EB7B /* lightM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = lightM_02.caf; path = resource/lightM_02.caf; sourceTree = "<group>"; };
+		F4F9D8C2243978640006EB7B /* hotM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = hotM_01.caf; path = resource/hotM_01.caf; sourceTree = "<group>"; };
+		F4F9D8C3243978640006EB7B /* lightM_03.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = lightM_03.caf; path = resource/lightM_03.caf; sourceTree = "<group>"; };
 		F4F9F594241DD8B100A80567 /* EventEmitterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventEmitterManager.h; path = WeiYou/EventEmitterManager.h; sourceTree = "<group>"; };
 		F4F9F595241DD8B100A80567 /* EventEmitterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = EventEmitterManager.m; path = WeiYou/EventEmitterManager.m; sourceTree = "<group>"; };
 		F4F9F597241E162100A80567 /* libJPush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJPush.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,8 +183,13 @@
 		13B07FAE1A68108700A75B9A /* WeiYou */ = {
 			isa = PBXGroup;
 			children = (
+				F4F9D8C2243978640006EB7B /* hotM_01.caf */,
+				F4F9D8BE243978640006EB7B /* hotM_02.caf */,
+				F4F9D8BF243978640006EB7B /* lightM_01.caf */,
+				F4F9D8C1243978640006EB7B /* lightM_02.caf */,
+				F4F9D8C3243978640006EB7B /* lightM_03.caf */,
+				F4F9D8C0243978640006EB7B /* lightM_04.caf */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				F44A5A5D24020E7E00F92B64 /* resource */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -269,20 +274,6 @@
 				243CF9A06858E97BEE7283F9 /* Pods-WeiYou-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		F44A5A5D24020E7E00F92B64 /* resource */ = {
-			isa = PBXGroup;
-			children = (
-				F40B40952410107300EBEEAF /* hotM_01.caf */,
-				F40B40922410107300EBEEAF /* hotM_02.caf */,
-				F40B40912410107300EBEEAF /* lightM_01.caf */,
-				F40B40932410107300EBEEAF /* lightM_02.caf */,
-				F40B40942410107300EBEEAF /* lightM_03.caf */,
-				F40B40962410107300EBEEAF /* lightM_04.caf */,
-			);
-			name = resource;
-			path = "../../../../Downloads/Alarm_Clock_UserNotifications-master/Alarm_Clock_UserNotifications/resource";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,15 +423,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F40B409B2410107300EBEEAF /* hotM_01.caf in Resources */,
-				F40B409A2410107300EBEEAF /* lightM_03.caf in Resources */,
-				F40B40982410107300EBEEAF /* hotM_02.caf in Resources */,
-				F40B40972410107300EBEEAF /* lightM_01.caf in Resources */,
+				F4F9D8C5243978640006EB7B /* lightM_01.caf in Resources */,
+				F4F9D8C8243978640006EB7B /* hotM_01.caf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				F40B409C2410107300EBEEAF /* lightM_04.caf in Resources */,
-				F40B40992410107300EBEEAF /* lightM_02.caf in Resources */,
+				F4F9D8C6243978640006EB7B /* lightM_04.caf in Resources */,
+				F4F9D8C7243978640006EB7B /* lightM_02.caf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				F4F9D8C9243978640006EB7B /* lightM_03.caf in Resources */,
 				3DECD999FEF046AB825F9C9A /* antfill.ttf in Resources */,
+				F4F9D8C4243978640006EB7B /* hotM_02.caf in Resources */,
 				4F2EA5D7F31848738E2365FE /* antoutline.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,4 +1,4 @@
-package com.lds.weiyou.wxapi;
+package com.lsd.weiyou.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;

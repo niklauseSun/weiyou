@@ -135,7 +135,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.lds.weiyou"
+        applicationId "com.lsd.weiyou"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -150,8 +150,8 @@ android {
         }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : "com.lds.weiyou",
-                JPUSH_APPKEY : "b89ecfe4b6dac36ebbf8bd65", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_PKGNAME : "com.lsd.weiyou",
+                JPUSH_APPKEY : "3270b9b8c0f242d9f1cd50ee", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
     }

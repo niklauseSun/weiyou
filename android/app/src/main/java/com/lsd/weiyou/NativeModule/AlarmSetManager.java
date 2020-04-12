@@ -1,4 +1,4 @@
-package com.lds.weiyou.NativeModule;
+package com.lsd.weiyou.NativeModule;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -9,9 +9,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
-import com.lds.weiyou.dao.AlarmInfoDao;
-import com.lds.weiyou.domain.AlarmClock;
-import com.lds.weiyou.domain.AlarmInfo;
+import com.lsd.weiyou.dao.AlarmInfoDao;
+import com.lsd.weiyou.domain.AlarmClock;
+import com.lsd.weiyou.domain.AlarmInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

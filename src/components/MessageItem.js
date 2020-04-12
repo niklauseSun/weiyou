@@ -25,7 +25,7 @@ export default class MessageItem extends Component {
                                 <Text style={styles.unReadText}>未读</Text>
                             </View>: null }
                             {
-                                urgent == 1 ? null : <ImageBackground style={styles.importTip} source={ASSET_IMAGES.ICON_IMPORT_TIP}>
+                                urgent == 0 ? null : <ImageBackground style={styles.importTip} source={ASSET_IMAGES.ICON_IMPORT_TIP}>
                                 <Text style={styles.tipText}>重要</Text>
                             </ImageBackground>
                             }

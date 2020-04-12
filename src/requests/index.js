@@ -140,8 +140,8 @@ const getPersonalClockByDay = ({ callback = null, day }) => {
 }
 
 // 获取个人普通任务详情
-const getClockDetailById = ({ callback = null, id }) => {
-    getAction(`/api/customer/clock/${id}`, callback);
+const getClockDetailById = ({ callback = null, id, day='' }) => {
+    getAction(`/api/customer/clock/${id}?day=${day}`, callback);
 }
 
 // 删除个人普通任务

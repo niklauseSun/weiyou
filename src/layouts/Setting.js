@@ -52,15 +52,15 @@ class SettingScreen extends Component {
                     message_cnt={this.state.message_cnt}
                     vip_expire={this.state.vip_expire}
                     loginAction={this.loginAction.bind(this)} />
-                <AccountView enterAccount={this._enterAccount.bind(this)} score={this.state.score} />
+                {/* <AccountView enterAccount={this._enterAccount.bind(this)} score={this.state.score} /> */}
                 {/* <SetInfoItem setItemAction={this.navigateSettingDetail.bind(this)} imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} /> */}
-                <SetInfoItem setItemAction={this.navigateQuestionReport.bind(this)} imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
-                <SetInfoItem setItemAction={this.navigateEmergencyList.bind(this)} imageUrl={ASSET_IMAGES.ICON_EMERGENCY} title={"紧急事件"} />
+                {/* <SetInfoItem setItemAction={this.navigateQuestionReport.bind(this)} imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} /> */}
+                {/* <SetInfoItem setItemAction={this.navigateEmergencyList.bind(this)} imageUrl={ASSET_IMAGES.ICON_EMERGENCY} title={"幸福寄语"} /> */}
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_EVALUATION} title={"评价鼓励"} /> */}
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_RECOMMEND} title={"推荐给好友"} /> */}
-                {this.state.isLogin ? <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logoutButton}>
+                {/* {this.state.isLogin ? <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logoutButton}>
                     <Text style={styles.logoutButtonText}>退出登录</Text>
-                </TouchableOpacity>: null }
+                </TouchableOpacity>: null } */}
 
                 {/* <TouchableOpacity onPress={this.testOss.bind(this)}>
                     <Text>测试OSS</Text>
@@ -139,6 +139,10 @@ class SettingScreen extends Component {
                     phone: username
                 });
             }
+        } else {
+            this.setState({
+                isLogin: false
+            })
         }
     }
 

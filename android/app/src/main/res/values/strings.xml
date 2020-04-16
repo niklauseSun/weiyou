@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">WeiYou</string>
-    <string name="asset_statements" translatable="false">[{ \"include\": \"https://wy.99rongle.com/.well-known/assetlinks.json\" }]</string>
+    <string name="asset_statements" translatable="false">[{ \"include\": \"https://wy.24hwu.com/.well-known/assetlinks.json\" }]</string>
 </resources>

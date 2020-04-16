@@ -12,7 +12,6 @@ export default class TabHeader extends Component {
 
     render() {
         const { data = [], selectIndex = 0 } = this.props;
-        console.log('headerTab', data);
         return (
             <View style={styles.content}>
                 <ScrollView
@@ -29,7 +28,6 @@ export default class TabHeader extends Component {
                 }
             </ScrollView>
             </View>
-            
         )
     }
 

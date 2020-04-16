@@ -32,7 +32,6 @@ export default class LocationMap extends Component {
     }
 
     componentDidMount() {
-        console.log('ddd', this.state.addType);
         setLocatingWithReGeocode(true);
         if (Platform.OS == 'android') {
             PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
@@ -54,7 +53,6 @@ export default class LocationMap extends Component {
     }
 
     render() {
-        console.log('locations', this.state.locations)
         return (
             <SafeAreaView style={commonStyles.content}>
                 <Header rightComponent={this.rightComponent()} titleStyle={styles.titleStyle} navigation={this.props.navigation} title={this.state.name} />
@@ -69,9 +67,7 @@ export default class LocationMap extends Component {
                     showsZoomControls={true}
                     zoomLevel={16}
                     onPress={({ nativeEvent }) => {
-                        console.log('native Event', nativeEvent);
                         this.setState({
-                            // console.log(`${nativeEvent.latitude}, ${nativeEvent.longitude}`)
                             latitude: nativeEvent.latitude,
                             longitude: nativeEvent.longitude,
                             isShow: true,
@@ -134,41 +130,6 @@ export default class LocationMap extends Component {
                                     </SafeAreaView>
                             </View>
                         </Modal>
-                        {/* <Modal animationType="slide" style={styles.modal} visible={this.state.isShow}>
-                            <View style={styles.showView}>
-                                <View style={styles.modalContent}>
-                                    <View style={styles.closeBgView}>
-                                        <TouchableOpacity onPress={this.showModal.bind(this)} style={styles.closeButton}>
-                                            <Text>关闭</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <SafeAreaView style={styles.contractView}>
-                                    <View style={styles.searchView}>
-                                        <TextInput value={this.state.keyword} onChangeText={(text) => {
-                                            this.setState({
-                                                keyword: text
-                                            })
-                                        }} style={styles.searchInput} placeholder="请输入名称" />
-                                        <TouchableOpacity onPress={this.searchLocation.bind(this)} style={styles.searchButton}>
-                                            <Text style={styles.searchButtonText}>搜索</Text>
-                                        </TouchableOpacity>
-                                    </View>
-
-                                    <FlatList
-                                        data={this.state.locations}
-                                        keyExtractor={(item, index) => index.toString()}
-                                        renderItem={({item, index}) => {
-                                            return <TouchableOpacity style={styles.nameItem} onPress={this.selectLocation.bind(this, item, index)}>
-                                                <Text style={styles.name}>{item.name}</Text>
-                                                {this.state.selectIndex == index ? <Image style={styles.selectIcon} source={ASSET_IMAGES.ICON_SELECT_CORRECT} />: null}
-                                            </TouchableOpacity>
-                                        }}
-                                        // ListEmptyComponent={() => <NoneData title="暂无数据" />}
-                                    />
-                                    </SafeAreaView>
-                                </View>
-                            </View>
-                        </Modal> */}
                     </MapView>
             </SafeAreaView>
         )
@@ -189,13 +150,7 @@ export default class LocationMap extends Component {
             locations,
             selectIndex
         } = this.state;
-
-        // position: "上海市上海市嘉定区爱特路68弄"
-// longitude: "121.32188226231072"
-// latitude: "31.23488077527308"
-// city: "310114"
         const { province, district, township, adcode } = addressComponent;
-        // const { address, name, location } = locations[selectIndex];
         const { cityname = null, address, location, name } = locations[selectIndex];
         let retAddress = ''
         if (cityname) {
@@ -223,7 +178,6 @@ export default class LocationMap extends Component {
     }
 
     selectLocation(item, index) {
-        console.log('item', item);
         const { location, name } = item;
 
         this.setState({
@@ -247,30 +201,21 @@ export default class LocationMap extends Component {
             timeout: 60 * 1000,
         }
 
-        console.log('rul', url);
         fetch(url, opts).then((response) => {
-            console.log('fff')
             if (response.ok) {
                 return response.json();
             }
         }).then((res) => {
-            console.log('res', res);
-            // const { regeocode } = res;
             const { pois, formatted_address, addressComponent } = res;
             this.setState({
                 locations: pois,
-                // name: formatted_address,
-                // addressComponent: addressComponent
             })
         }).catch(err => {
-            console.log('err', err);
         })
     }
 
     requestLocation() {
-        //restapi.amap.com/v3/geocode/regeo?key=您的key&location=116.481488,39.990464&poitype=&radius=1000&extensions=all&batch=false&roadlevel=0
         const url = `https://restapi.amap.com/v3/geocode/regeo?location=${this.state.longitude},${this.state.latitude}&key=${E.WEB_KEY}&radius=1000&extensions=all&poitype=`
-        // https://restapi.amap.com/v3/geocode/regeo?output=xml&location=116.310003,39.991957&key=<用户的key>&radius=1000&extensions=all
         let opts = {
             method: "GET",
             headers: {
@@ -281,14 +226,11 @@ export default class LocationMap extends Component {
             timeout: 60 * 1000,
         }
 
-        console.log('rul', url);
         fetch(url, opts).then((response) => {
-            console.log('fff')
             if (response.ok) {
                 return response.json();
             }
         }).then((res) => {
-            console.log('res', res);
             const { regeocode } = res;
             const { pois, formatted_address, addressComponent } = regeocode;
             this.setState({
@@ -298,12 +240,9 @@ export default class LocationMap extends Component {
                 showSelect: true
             })
         }).catch(err => {
-            console.log('err', err);
         })
     }
 }
-
-// #ED7539
 
 const styles = StyleSheet.create({
     titleStyle:{

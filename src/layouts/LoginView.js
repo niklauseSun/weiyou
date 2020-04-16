@@ -28,7 +28,6 @@ export default class LoginView extends Component {
         setLocatingWithReGeocode(false);
         Geolocation.getCurrentPosition(({ coords, location }) => {
             const { latitude, longitude } = coords;
-            console.log('lat', coords, location)
 
             const url = `https://restapi.amap.com/v3/geocode/regeo?location=${longitude},${latitude}&key=${E.WEB_KEY}&radius=1000&extensions=all&poitype=`
             let opts = {
@@ -46,7 +45,6 @@ export default class LoginView extends Component {
                     return response.json();
                 }
             }).then((res) => {
-                console.log('res', res);
                 const { regeocode } = res;
                 const { pois, formatted_address, addressComponent } = regeocode;
                 const { adcode } = addressComponent;
@@ -62,7 +60,6 @@ export default class LoginView extends Component {
                     city: retCityCode
                 })
             }).catch(err => {
-                console.log('err', err);
             })
         });
     }
@@ -99,7 +96,6 @@ export default class LoginView extends Component {
     }
 
     rightComponent() {
-        console.log('test', this)
         return <TouchableOpacity onPress={this.navigateToShortLoginView.bind(this)} style={styles.quickLoginButton}>
             <Text style={styles.quickLoginText}>验证码登录</Text>
         </TouchableOpacity>
@@ -141,7 +137,6 @@ export default class LoginView extends Component {
     }
 
     loginActionCallback(res) {
-        console.log('res login', res);
         if (res.success) {
             global.isLogin = true
             const { data } = res;
@@ -157,7 +152,6 @@ export default class LoginView extends Component {
     }
 
     updateAlias(id) {
-        console.log('update', id);
         const params = 'user' + id;
         const alias = {"sequence":1,"alias":params}
         addUserPushInfo({
@@ -173,24 +167,21 @@ export default class LoginView extends Component {
 
     wxLogin() {
         WeChat.isWXAppInstalled().then((res) => {
-            console.log('isLogin');
             if (res) {
                 WeChat.sendAuthRequest("snsapi_userinfo").then((response) => {
-                    console.log('login', response);
                     const { code } = response;
                     getWxLogin({
                         id: code,
                         callback: this.getWxLoginCallback.bind(this)
                     })
                 }).catch((err) => {
-                    console.log('error', err);
+
                 });
             }
         })
     }
 
     getWxLoginCallback(res) {
-        console.log('res wx', res);
         const { success, data, error } = res;
         if (success) {
             const {
@@ -219,7 +210,6 @@ export default class LoginView extends Component {
     }
 
     postWxAuthCallback(res) {
-        console.log('auth', res);
         const { success } = res;
         if (success) {
             Toast.info('登录成功！');

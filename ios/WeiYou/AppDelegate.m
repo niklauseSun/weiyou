@@ -45,7 +45,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [JPUSHService setupWithOption:launchOptions appKey:@"b89ecfe4b6dac36ebbf8bd65" channel:@"default" apsForProduction:YES];
+  [JPUSHService setupWithOption:launchOptions appKey:@"3270b9b8c0f242d9f1cd50ee" channel:@"default" apsForProduction:YES];
   
   // APNS
   JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
@@ -70,21 +70,13 @@
   if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
       NSURL *url = userActivity.webpageURL;
       NSLog(@"url %@", url.query);
-    if ([url.host isEqualToString:@"wy.99rongle.com"]) {
+    if ([url.host isEqualToString:@"wy.24hwu.com"]) {
       EventEmitterManager *manager = [EventEmitterManager allocWithZone:nil];
       [manager sendNotifictionToRN:@{
         @"type": @"awake",
         @"string": url.query
       }];
     }
-//      if ()
-//      {
-//          //进行我们的处理
-//      }
-//      else
-//      {
-//          [[UIApplication sharedApplication] openURL:url];
-//      }
   }
    
   return YES;

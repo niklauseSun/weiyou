@@ -98,11 +98,6 @@ export default class Test extends Component {
         })
     }
     previewCallback(res) {
-        console.log('preview', res);
-//         total_amount: "2.0000"
-// message_cnt: 180
-// contact_limit: 10
-// rate_score_rmb: 30
         const { success, data } = res;
         if (success) {
             const { total_amount, message_cnt, contact_limit, rate_score_rmb } = data;
@@ -135,7 +130,6 @@ export default class Test extends Component {
     }
 
     getPayIdCallback(res) {
-        console.log('payId', res);
         const { success, data } = res;
         if (success) {
             const { id } = data;
@@ -149,10 +143,9 @@ export default class Test extends Component {
 
     getPayParamCallback(res) {
         const { success, data } = res;
-        console.log('pay param', data);
         if (success) {
             const params = {
-                partnerId: E.BUSINESS_ID,  // 商家向财付通申请的商家id
+                partnerId: data.partnerid,  // 商家向财付通申请的商家id
                 prepayId:data.prepayid,   // 预支付订单
                 nonceStr:data.noncestr,   // 随机串，防重发
                 timeStamp:data.timestamp,  // 时间戳，防重发
@@ -160,12 +153,10 @@ export default class Test extends Component {
                 sign: data.paySign   // 商家根据微信开放平台文档对数据做的签名
             }
             WeChat.pay(params).then(res => {
-                console.log('res', res);
                 Toast.info('付款成功');
                 this.props.navigation.popToTop();
                 DeviceEventEmitter.emit('reloadLogin');
             }).catch(err => {
-                console.log('error', err)
             });
         }
     }

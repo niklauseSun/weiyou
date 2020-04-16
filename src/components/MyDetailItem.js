@@ -48,6 +48,10 @@ export default class MyDetailItem extends Component {
                 <View style={styles.vipView}>
                     {
                         isLogin ? <View style={styles.vipLoginView}>
+                            <TouchableOpacity onPress={this.enterAccount.bind(this)} style={styles.vipNumView}>
+                                <Text style={styles.rateNumText}>我的积分</Text>
+                                <Text style={styles.rateNumSubText}>{this.props.score.toFixed(2)}</Text>
+                            </TouchableOpacity>
                             <TouchableOpacity onPress={this.goNormalView.bind(this)} style={styles.vipNumView}>
                                 <Text style={styles.rateNumText}>{ isVip ? "3项": "无" }</Text>
                                 <Text style={styles.rateNumSubText}>特权</Text>
@@ -133,6 +137,13 @@ export default class MyDetailItem extends Component {
         }
     }
 
+    enterAccount() {
+        this.props.navigation.navigate('AccountView', {
+            id: this.props.id,
+            score: this.props.score
+        })
+    }
+
     loginAction() {
         if (this.props.isLogin) {
             // todo
@@ -180,7 +191,8 @@ const styles = StyleSheet.create({
         borderRadius: px(60)
     },
     vipView: {
-        height: px(76)
+        height: px(76),
+        marginTop: px(10)
     },
     detailText: {
         color: '#fff'
@@ -214,7 +226,7 @@ const styles = StyleSheet.create({
     updateVip: {
         height: px(50),
         width: px(120),
-        marginLeft: px(140)
+        marginLeft: px(30)
     },
     vipImageBg: {
         width: '100%',
@@ -231,11 +243,15 @@ const styles = StyleSheet.create({
         height: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
+        paddingHorizontal: px(30),
         marginTop: px(10)
     },
+    vipNumView: {
+        width: px(160)
+    },
     rateNumText: {
-        fontSize: px(30),
+        fontSize: px(24),
         color: '#FCF0A3'
     },
     rateNumSubText: {
@@ -244,10 +260,10 @@ const styles = StyleSheet.create({
         fontSize: px(24)
     },
     rateView: {
-        marginLeft: px(90)
+        width: px(160)
     },
     rateText: {
-        fontSize: px(30),
+        fontSize: px(24),
         color: '#FCF0A3'
     },
     rateSubText: {

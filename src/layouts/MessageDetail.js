@@ -51,16 +51,7 @@ export default class MessageDetail extends Component {
         })
     }
 
-//     id: 29
-// readed: 1
-// content: "吃早饭啦"
-// username: "13482673189"
-// nickname: "峰子"
-// avatar: "https://wx.qlogo.cn/mmopen/vi_32/GXGMvCxj0pw0E4ssY2dZnxibbGBGLNPXial2eAWaqsJ9DYrv8Ar1eWflkQkCXDxPt3TwBFDEnqs1vicG53FOvmsvA/132"
-// sex: "male"
-
     loadCallback(res) {
-        console.log('messageDetail', res);
         const { success, data } = res;
         if (success) {
             const {
@@ -95,7 +86,6 @@ export default class MessageDetail extends Component {
     }
 
     setMessageReaded(res) {
-        console.log('res');
         const { success } = res;
         if (success) {
             DeviceEventEmitter.emit('reloadMessageList');

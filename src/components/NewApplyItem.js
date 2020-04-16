@@ -80,7 +80,6 @@ export default class NewApplyItem extends Component {
     }
 
     agreeCallback(res) {
-        console.log('agree', res);
         const { success, error } = res;
         if (success) {
             Toast.info('已同意');
@@ -106,7 +105,6 @@ export default class NewApplyItem extends Component {
     }
 
     loadCallback(res) {
-        console.log('load', res)
         const { success, data } = res;
         if (success) {
             this.setState({

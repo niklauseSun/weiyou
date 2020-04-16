@@ -51,7 +51,6 @@ export default class NormalNameItem extends Component {
     acquireImageName(path) {
         const filetype = path.substring(path.lastIndexOf('.')).toLowerCase();
         const currm = new Date().getTime() + '';
-        console.log('dir', global.dir);
         const objectKey = `${global.dir}/${currm}${filetype}`;
         return objectKey
     }

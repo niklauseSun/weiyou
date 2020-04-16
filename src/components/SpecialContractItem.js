@@ -77,7 +77,6 @@ export default class SpecialContractItem extends Component {
     }
 
     loadContactListCallback(res) {
-        console.log('contact list', res);
         const { success, data } = res;
         if (success) {
 

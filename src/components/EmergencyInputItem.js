@@ -13,7 +13,6 @@ export default class EmergencyInputItem extends Component {
 
     render() {
         const { selectIndex = 0, content = null } = this.props;
-        console.log('selectIndex', selectIndex)
         return (
             <View style={styles.content}>
                 <TextInput onChangeText={this._changeText.bind(this)} style={styles.inputItem} value={content} placeholder="#请写下您的遗嘱 遗体捐赠 心愿描述..." multiline={true} />

@@ -76,10 +76,7 @@ export default class NormalContractItem extends Component {
         });
     }
 
-    // onChangeContact()
-
     loadContactListCallback(res) {
-        console.log('contact list', res);
         const { success } = res;
         if (success) {
             const { data } = res;
@@ -87,10 +84,6 @@ export default class NormalContractItem extends Component {
             for (let i = 0;i < data.length;i++) {
                 aArray.push(data[i].id);
             }
-            // const { onChangeContact } = this.props;
-            // if (onChangeContact) {
-            //     onChangeContact(aArray);
-            // }
             this.setState({
                 contactList: res.data
             })

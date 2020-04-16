@@ -16,7 +16,6 @@ export default class SpecialRepeatItem extends Component {
             repeat = 3,
             cnt = 5
         } = this.props;
-        console.log('cnt', cnt)
         let str = cnt + ''
         return (
             <View style={styles.content}>

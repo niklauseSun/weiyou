@@ -9,7 +9,6 @@ export default class ContactDetail extends Component {
     constructor(props) {
         super(props);
         const { id = 0, type = 'edit' } = props.navigation.state.params || {};
-        console.log('dd', props);
         this.state = {
             id: id,
             nickname: '',
@@ -27,7 +26,6 @@ export default class ContactDetail extends Component {
     }
 
     componentDidMount() {
-        console.log('id', this.state.id);
         this.loadContactDetail();
     }
 
@@ -86,7 +84,6 @@ export default class ContactDetail extends Component {
     }
 
     loadDetailCallback(res) {
-        console.log('res detail', res)
         const { success, data } = res;
         if (success) {
             const {

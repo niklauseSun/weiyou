@@ -54,7 +54,6 @@ export default class AddSpecial extends Component {
 
     componentDidMount() {
         this.emitter = DeviceEventEmitter.addListener('changeQuestion',(dict) => {
-            console.log('changeQuestion', dict);
             const { id, question } = dict;
             this.setState({
                 question_id: id,
@@ -88,7 +87,6 @@ export default class AddSpecial extends Component {
     }
 
     render() {
-        console.log('special', this.state.selectContactList)
         return (
             <SafeAreaView style={styles.content}>
                 <Header title={this.state.addType == 'add'? '新建特殊打卡': '修改特殊打卡'} navigation={this.props.navigation} />
@@ -221,12 +219,10 @@ export default class AddSpecial extends Component {
         } else {
             editSpecialClock(data);
         }
-        console.log('addRequest', data)
         // addSpecialClock
     }
 
     addSpecialTaskCallback(res) {
-        console.log('res', res);
         const { success, error } = res;
         if (success) {
             const { data } = res;
@@ -257,7 +253,6 @@ export default class AddSpecial extends Component {
 
     loadSpecialDetailCallback(res) {
         const { success, data } = res;
-        console.log('special detail', res);
         const { question, contacts } = data;
         let aArray = [];
         for (let i = 0;i < contacts.length; i++) {
@@ -316,7 +311,6 @@ export default class AddSpecial extends Component {
     acquireImageName(path) {
         const filetype = path.substring(path.lastIndexOf('.')).toLowerCase();
         const currm = new Date().getTime() + '';
-        console.log('dir', global.dir);
         const objectKey = `${global.dir}/${currm}${filetype}`;
         return objectKey
     }
@@ -333,7 +327,6 @@ export default class AddSpecial extends Component {
     }
 
     loadContactListCallback(res) {
-        console.log('contact list', res);
         const { success, data } = res;
         if (success) {
             let aArray = [];
@@ -357,7 +350,6 @@ export default class AddSpecial extends Component {
                 city: city
             })
         }
-        console.log('res', res);
     }
 };
 

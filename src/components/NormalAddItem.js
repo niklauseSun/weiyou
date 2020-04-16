@@ -11,7 +11,7 @@ export default class NormalAddItem extends Component {
     }
 
     render() {
-        const { imageUrl = null, title = '添加打卡任务', subTitle = '养成练好的生活习惯'} = this.props;
+        const { imageUrl = null, title = '添加日常打卡', subTitle = '养成好的生活习惯'} = this.props;
         return (
             <TouchableOpacity onPress={this.navigate.bind(this)} style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />

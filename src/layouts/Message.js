@@ -17,7 +17,7 @@ class MessageScreen extends Component {
                     name: '监护我的人',
                 },
                 {
-                    name: '推荐联系人',
+                    name: '推荐监护人',
                 },
                 {
                     name: '新的申请',
@@ -118,7 +118,6 @@ class MessageScreen extends Component {
     }
 
     loadContractListCallback(res) {
-        console.log('res contract', res);
         if (res.success) {
             this.setState({
                 contractList: res.data

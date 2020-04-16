@@ -12,7 +12,6 @@ export default class AddEmergency extends Component {
         super(props);
 
         const { addType = 'add', id = '' } = props.navigation.state.params || {}
-        console.log('props', props);
         this.state = {
             addType: addType,
             pics: [],
@@ -58,7 +57,6 @@ export default class AddEmergency extends Component {
     }
 
     onChangeImageList(type, localImages = [], remoteImages) {
-        console.log('chnage')
         if (type == 'add') {
             this.setState({
                 pics: [...this.state.pics ,...localImages],
@@ -158,7 +156,6 @@ export default class AddEmergency extends Component {
     }
 
     loadEmergencyCallback(res) {
-        console.log('res', res)
         const { success } = res;
         if (success) {
             let index = 0;
@@ -171,7 +168,6 @@ export default class AddEmergency extends Component {
             }
 
             const { id, content, type, phonenumber, pictures } = res.data;
-            console.log('data', id, content, index)
             this.setState({
                 id: id,
                 content: content,

@@ -103,7 +103,6 @@ export default class PredictContract extends Component {
     }
 
     loadPredictListCallback(res) {
-        console.log('ree', res);
         const { success, data } = res;
         if (success) {
             this.setState({

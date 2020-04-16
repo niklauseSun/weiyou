@@ -26,7 +26,6 @@ export default class Test extends Component {
     }
 
     render() {
-        console.log('this.', this.state.rules)
         return (
             <SafeAreaView style={commonStyles.content}>
                 <Header title="会员" navigation={this.props.navigation} />
@@ -62,7 +61,6 @@ export default class Test extends Component {
     }
 
     getVipSetDetail(res) {
-        console.log('res vip', res);
         const { success, data } = res;
         if (success) {
             const { rules } = data;

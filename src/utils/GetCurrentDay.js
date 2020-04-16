@@ -3,7 +3,7 @@ export default function getDates() {
     const dayOfToday = (new Date().getDay() + 7 - 1) % 7
     const daysOfThisWeek = Array.from(new Array(7))
         .map((_, i) => {
-            const date = new Date(dateOfToday + (i - dayOfToday) * 1000 * 60 * 60 * 24)
+            const date = new Date(dateOfToday + i * 1000 * 60 * 60 * 24)
             // return date.getFullYear() +
             //     '-' +
             //     String(date.getMonth() + 1).padStart(2, '0') +
@@ -13,7 +13,7 @@ export default function getDates() {
         });
     const daysOfWeekForRequest = Array.from(new Array(7))
         .map((_, i) => {
-            const date = new Date(dateOfToday + (i - dayOfToday) * 1000 * 60 * 60 * 24)
+            const date = new Date(dateOfToday + i * 1000 * 60 * 60 * 24)
             return date.getFullYear() +
                 '-' +
                 String(date.getMonth() + 1).padStart(2, '0') +
@@ -22,7 +22,7 @@ export default function getDates() {
         });
     const daysOfWeek = Array.from(new Array(7))
         .map((_, i) => {
-            const date = new Date(dateOfToday + (i - dayOfToday) * 1000 * 60 * 60 * 24)
+            const date = new Date(dateOfToday + i * 1000 * 60 * 60 * 24)
 
             return date.getDay();
         })

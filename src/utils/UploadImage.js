@@ -4,10 +4,8 @@ import { getOssToken } from '../requests';
 function uploadOssFile(fileName, filepath){
   return AliyunOSS.asyncUpload(global.bucketname, fileName, filepath)
   .then((e) => {
-    console.log('e', e);
     return e;
   }).catch(error => {
-    console.log('=== error', error);
   });
 }
 
@@ -18,7 +16,6 @@ function initAliyunOSS() {
 }
 
 function ossCallback(res) {
-  console.log('res aliyunoss', res);
   const { success, data } = res;
   if (success) {
     const {
@@ -32,7 +29,6 @@ function ossCallback(res) {
     global.dir = dir;
     global.imageHost = host
     global.bucketname = host.split('.')[0]
-    console.log('buckete', global.bucketname);
     const configuration = {
       maxRetryCount: 3,
       timeoutIntervalForRequest: 30,

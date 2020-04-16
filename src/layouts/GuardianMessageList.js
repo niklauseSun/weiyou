@@ -15,7 +15,6 @@ export default class GuardianMessageList extends Component {
     }
 
     render() {
-        console.log('message', this.state);
         return (
             <SafeAreaView style={commonStyles.content}>
                 <Header navigation={this.props.navigation} title="消息" />
@@ -33,8 +32,6 @@ export default class GuardianMessageList extends Component {
         )
     }
 }
-
-// #ED7539
 
 const styles = StyleSheet.create({
 

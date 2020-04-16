@@ -12,7 +12,7 @@ export default class TaskItem extends Component {
     }
 
     render() {
-        const { imageUrl = null, title = "紧急任务", type="normal" } = this.props;
+        const { imageUrl = null, title = "特殊任务", type="normal" } = this.props;
         return (
             <TouchableOpacity onPress={this.navigateList.bind(this)} activeOpacity={0.7} style={styles.content}>
                 <Image style={styles.headImage} source={imageUrl} />

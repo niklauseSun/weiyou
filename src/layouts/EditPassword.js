@@ -10,7 +10,6 @@ export default class EditPassword extends Component {
     constructor(props) {
         super(props);
         const { phone = '' } = props.navigation.state.params || {}
-        console.log('editPassword', phone)
         this.state = {
             phone: phone,
             isEdit: phone == null ? true: phone.length < 0,

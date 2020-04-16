@@ -35,7 +35,7 @@ export default class TaskList extends Component {
     render() {
         return (
             <SafeAreaView style={styles.body}>
-                <Header navigation={this.props.navigation} title={this.state.type == 'normal'? '普通任务': '紧急任务'} rightComponent={this.rightComponent()} />
+                <Header navigation={this.props.navigation} title={this.state.type == 'normal'? '日常任务': '特殊任务'} rightComponent={this.rightComponent()} />
                 {this.renderItemList()}
             </SafeAreaView>
         )
@@ -48,7 +48,6 @@ export default class TaskList extends Component {
     }
 
     renderItemList() {
-        console.log('renderitem', this.state.type, this.state.normalList)
         if (this.state.type == 'normal') {
             return (
                 <FlatList
@@ -109,7 +108,6 @@ export default class TaskList extends Component {
     }
 
     loadMoreTaskList() {
-        console.log('load more')
         this.setState({
             isLoading: true
         }, () => {
@@ -165,7 +163,6 @@ export default class TaskList extends Component {
     }
 
     loadTaskListCallback(res) {
-        console.log('res 111', res);
         const { success, data } = res;
         if (success) {
             if (this.state.type == 'normal') {
@@ -185,7 +182,6 @@ export default class TaskList extends Component {
     }
 
     loadMoreTaskListCallback(res) {
-        console.log('loadMoreTask', res);
         const { success, data } = res;
         if (success) {
             if (this.state.type == 'normal') {

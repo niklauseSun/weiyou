@@ -13,27 +13,8 @@ export default class NormalDeleteItem extends Component {
 
         }
     }
-//     icon: "https://devimage.99rongle.com/document%2Fjiyou_1573625179864.png"
-// id: 52
-// tmpl_id: 1
-// customer_id: 100
-// name: "早饭"
-// clock_time: "2020-02-21T02:30:00.000Z"
-// start_time: "2020-02-20T16:00:00.000Z"
-// end_time: null
-// repeats: 64
-// ring: ""
-// tips_start: "吃早饭啦"
-// tips_delay: "会饿的哦"
-// tips_end: "早饭要吃好"
-// interval_min: 5
-// interval_cnt: 2
-// deleted: false
-// create_time: "2020-02-21T07:56:37.000Z"
-// update_time: "2020-02-21T07:56:37.000Z"
 
     render() {
-        console.log('normalDeleteItem', this.props.data);
         const { icon, name, clock_time, start_time, end_time } = this.props.data;
         const endText = end_time === null ? '无限期': formateDateWithString(end_time);
         return (
@@ -84,7 +65,6 @@ export default class NormalDeleteItem extends Component {
     }
 
     removeTaskCallback(res) {
-        console.log('remove', res);
         const { success } = res;
         if (success) {
             const { reloadTask } = this.props;

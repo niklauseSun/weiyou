@@ -13,7 +13,6 @@ export default class SelectContactItem extends Component {
 
     render() {
         const { data, selectIndexArray =[] } = this.props;
-        console.log('error', selectIndexArray)
         const { id, nickname, avatar = '' } = data;
         let isSelect = selectIndexArray.indexOf(id) >= 0;
         return (

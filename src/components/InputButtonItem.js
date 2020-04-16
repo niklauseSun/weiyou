@@ -62,7 +62,6 @@ export default class InputButtonItem extends Component {
     // getIdentifyCode
     // getEditCode
     sendCode() {
-        console.log('snedCode', this.props.phone);
         if (this.props.phone == null || checkPhone(this.props.phone)) {
             Toast.info('请输入正确的手机号');
             return;

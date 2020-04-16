@@ -62,7 +62,6 @@ export default class GuardianItem extends Component {
     }
 
     loadListCallback(res) {
-        console.log('list', res);
         const { success, data } = res;
         if (success) {
             this.setState({

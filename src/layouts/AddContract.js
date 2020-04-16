@@ -29,19 +29,20 @@ export default class AddContract extends Component {
     render() {
         return (
             <SafeAreaView style={styles.content}>
-                <Header navigation={this.props.navigation} title="添加" />
+                <Header navigation={this.props.navigation} title="添加监护人" />
                 <View style={commonStyles.body}>
                     <View style={styles.searchBgView}>
-                        <SearchItem searchAction={this.search.bind(this)} value={this.state.search} changeText={this.onChangeText.bind(this)} placeholder="输入关键字" />
+                        <SearchItem searchAction={this.search.bind(this)} value={this.state.search} changeText={this.onChangeText.bind(this)} placeholder="输入手机号搜索" />
                     </View>
                     <View style={styles.addBgView}>
                         <TouchableOpacity onPress={this.shareToFriend.bind(this)} style={styles.shareToWxButton}>
                             <Image style={styles.iconWx} source={ASSET_IMAGES.ICON_WX_ADD} />
-                            <Text style={styles.addText}>添加微信好友</Text>
+                            <Text style={styles.addText}>{`通过微信添加\n您的监护人`}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.messageShare.bind(this)} style={styles.messageShare}>
                             <Image style={styles.iconSms} source={ASSET_IMAGES.ICON_SMS_ADD} />
-                            <Text style={styles.addText}>添加通讯录好友</Text>
+                            <Text style={styles.addText}>{
+                                `通过通讯录添加\n您的监护人`}</Text>
                         </TouchableOpacity>
                     </View>
                     {
@@ -82,7 +83,6 @@ export default class AddContract extends Component {
     }
 
     loadSearchResult(res) {
-        console.log('search', res);
         const { success, data } = res;
         if (success) {
             this.setState({
@@ -97,14 +97,13 @@ export default class AddContract extends Component {
                 // 是否安装
                 WeChat.shareToSession({
                     type: 'text',
-                    description: `${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake?customer_id=${this.state.id}`
+                    description: `${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.24hwu.com/appwake?customer_id=${this.state.id}`
                 })
             }
         })
     }
 
     getLoginInfoCallback(res) {
-        console.log('loginInfo ', res);
         const { success, data } = res;
         if (success) {
             const { nickname, id } = data;
@@ -118,9 +117,9 @@ export default class AddContract extends Component {
     messageShare() {
         // Linking
         if (Platform.OS == 'ios') {
-            Linking.openURL(`sms:&body=${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake?customer_id=${this.state.id}`)
+            Linking.openURL(`sms:&body=${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.24hwu.com/appwake?customer_id=${this.state.id}`)
         } else {
-            Linking.openURL(`sms:?body=${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.99rongle.com/appwake?customer_id=${this.state.id}`)
+            Linking.openURL(`sms:?body=${this.state.nickname}在唯友，邀请您成为监护人，关注${this.state.nickname}的日常生活点滴,点击链接：wy.24hwu.com/appwake?customer_id=${this.state.id}`)
         }
     }
 }

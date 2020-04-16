@@ -19,7 +19,6 @@ export default class AccountView extends Component {
     }
 
     componentDidMount() {
-        console.log('id', this.state.id);
         this.loadScoreList();
         this.loadScore();
     }
@@ -67,7 +66,6 @@ export default class AccountView extends Component {
     }
 
     loadScoreCallback(res) {
-        console.log('score', res);
         const { success, data } = res;
         if (success) {
             this.setState({
@@ -90,7 +88,6 @@ export default class AccountView extends Component {
     }
 
     loadMoreScoreListCallback(res) {
-        console.log('score', res);
         const { success, data } = res;
         if (success) {
             this.setState({
@@ -107,7 +104,6 @@ export default class AccountView extends Component {
 
     loadPersonalInfoCallback(res) {
         const { success, data } = res;
-        console.log('person Info', res);
         if (success) {
             const {  score } = data;
             this.setState({

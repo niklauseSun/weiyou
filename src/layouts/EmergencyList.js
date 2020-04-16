@@ -72,7 +72,6 @@ export default class EmergencyList extends Component {
     }
 
     loadCallback(res) {
-        console.log('emergencyList', res);
         const { success, error, data } = res;
         if (success) {
             this.setState({

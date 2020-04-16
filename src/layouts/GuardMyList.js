@@ -50,7 +50,6 @@ export default class GuardMyList extends Component {
     }
 
     loadContractListCallback(res) {
-        console.log('res contract', res);
         if (res.success) {
             this.setState({
                 contractList: res.data

@@ -19,7 +19,6 @@ export default class NormalItem extends Component {
 
     render() {
         const { data } = this.props;
-        console.log('normal', data);
         const { name, clock_time, status, icon = null } = data;
 
         return (
@@ -92,8 +91,6 @@ export default class NormalItem extends Component {
     }
 
     action() {
-
-        console.log('action', this.props.data);
         const { data = {} } = this.props;
         const { status, id } = data
 
@@ -130,7 +127,6 @@ export default class NormalItem extends Component {
                 message: '是否完成当前任务',
                 maskClosable: true,
             },(buttonIndex) => {
-                console.log('buttonIndex', buttonIndex);
                 let status = "";
                 if (buttonIndex == 0) {
                     status = "success";
@@ -158,7 +154,6 @@ export default class NormalItem extends Component {
     }
 
     getClockDetailCallback(res) {
-        console.log('detail', res);
         const {
             success,
             data,
@@ -188,7 +183,6 @@ export default class NormalItem extends Component {
 
     reportDataCallback(res) {
         const { success, error, data } = res;
-        console.log('delay', res);
         if (success) {
             DeviceEventEmitter.emit('taskReload');
             const { status } = data;

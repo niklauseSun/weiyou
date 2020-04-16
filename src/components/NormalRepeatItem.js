@@ -93,7 +93,6 @@ export default class NormalRepeatItem extends Component {
   }
 
     closeModal() {
-        console.log('close')
         this.setState({
             isShow: !this.state.isShow
         })
@@ -117,7 +116,6 @@ export default class NormalRepeatItem extends Component {
       let num = parseInt(array.join(''), 2);
       const { changeRepeatsNum } = this.props;
       if (changeRepeatsNum) {
-        console.log('num', num);
         changeRepeatsNum(num);
       }
     }

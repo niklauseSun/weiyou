@@ -11,7 +11,6 @@ import { E, ASSET_IMAGES } from "../config";
 export default class SignSpecial extends Component {
     constructor(props) {
         super(props);
-        console.log('special', props);
         const { id, question_id } = props.navigation.state.params || {}
         this.state = {
             id: id,
@@ -45,29 +44,9 @@ export default class SignSpecial extends Component {
     componentDidMount() {
         this.loadSpecialDetail();
         this.loadRecordList();
-        // this.loadAnswerById();
     }
 
-//     icon: ""
-// id: 24
-// name: "特殊测试1"
-// customer_id: 121
-// question_id: 8
-// start_time: "2020-02-24T11:18:35.000Z"
-// start_day: "2020-02-23T16:00:00.000Z"
-// interval_min: 3
-// error_cnt: 3
-// position: "上海市"
-// longitude: "121,48"
-// latitude: "31.23"
-// city: "310114"
-// status: "created"
-// deleted: false
-// create_time: "2020-02-24T11:18:23.000Z"
-// update_time: "2020-02-24T11:18:23.000Z"
-
     render() {
-        console.log('id', this.state.id);
         const { name, icon, start_time, status, recordList } = this.state;
         return (
             <SafeAreaView style={commonStyles.content}>
@@ -79,11 +58,9 @@ export default class SignSpecial extends Component {
                         <View>
                             <Text style={styles.titleLabel}>{name}</Text>
                             <Text style={styles.timeLabel}>上次更新时间：{recordList.length == 0 ? formateDateHourWithString(start_time): formateDateHourWithString(recordList[0].create_time)}</Text>
-                            {/* <Text style={styles.timeLabel}>上次更新时间：{formateDateHourWithString(start_time)}</Text> */}
                         </View>
                     </View>
                     <View style={styles.signContent}>
-                    {/* status == 'created' || status == 'runing' || status == 'delay' || status == 'answerError' || status == 'timeout' */}
                         {
                             status == 'delay' || status == 'runing' || status == 'created' || status == 'answerError' || status == 'timeout' ?
                             <Fragment>
@@ -172,7 +149,6 @@ export default class SignSpecial extends Component {
     }
 
     loadRecordListCallback(res) {
-        console.log('rettt', res);
         const { success, data } = res;
         if (success) {
             this.setState({
@@ -190,7 +166,6 @@ export default class SignSpecial extends Component {
     }
 
     loadSpecialCallback(res) {
-        console.log('loadSpecialCallback', res);
         if (res.success) {
             const { name, icon, start_time, question_id ,status } = res.data;
             this.setState({
@@ -240,7 +215,6 @@ export default class SignSpecial extends Component {
     }
 
     loadAnswerCallback(res) {
-        console.log('resss', res)
         const { success, data } = res;
         if (success) {
             const { answer, correct, question } = data;
@@ -270,8 +244,6 @@ export default class SignSpecial extends Component {
             status: 'success',
         }
 
-        console.log('report param', params);
-        // postSpecialClockStatus
         postSpecialClockStatus({
             params: params,
             callback:this.reportCallback.bind(this)
@@ -298,7 +270,6 @@ export default class SignSpecial extends Component {
                     return response.json();
                 }
             }).then((res) => {
-                console.log('res', res);
                 const { regeocode } = res;
                 const { pois, formatted_address, addressComponent } = regeocode;
                 const { adcode } = addressComponent;
@@ -308,9 +279,6 @@ export default class SignSpecial extends Component {
                 const retLatitude = location.split(',')[1];
                 const retLongitude = location.split(',')[0]
 
-                const { detail } = this.state;
-                console.log('isSign', this.state.isSign)
-                console.log('index', this.state.selectIndex)
                 let status = ''
                 if (this.state.isSign) {
                     status = 'delay'
@@ -328,13 +296,13 @@ export default class SignSpecial extends Component {
                     answer_id: this.state.selectIndex
                 }
 
-                console.log('signSpecial', params);
+
                 postSpecialClockStatus({
                     params: params,
                     callback:this.reportCallback.bind(this)
                 });
             }).catch(err => {
-                console.log('err', err);
+
             })
         });
     }
@@ -351,8 +319,6 @@ export default class SignSpecial extends Component {
             status: 'success',
         }
 
-        console.log('report param', params);
-        // postSpecialClockStatus
         postSpecialClockStatus({
             params: params,
             callback:this.reportCallback.bind(this)
@@ -361,7 +327,6 @@ export default class SignSpecial extends Component {
 
     reportCallback(res) {
         const { success, error, data } = res;
-        console.log('report', res);
         if (success) {
             Toast.info('签到成功！');
             const { status } = data;
@@ -380,12 +345,10 @@ export default class SignSpecial extends Component {
     }
 
     componentWillUnmount() {
-        console.log('unmount');
         DeviceEventEmitter.emit('listReload')
     }
 }
 
-// #ED7539
 
 const styles = StyleSheet.create({
     specialTitle: {

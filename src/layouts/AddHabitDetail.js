@@ -62,7 +62,6 @@ export default class AddHabitDetail extends Component {
   }
 
   render() {
-    console.log('selectContacts', this.state.selectContacts)
     return (
       <SafeAreaView style={styles.content}>
         <Header title={this.state.addType == 'add' ? '新建打卡任务': '修改打卡任务'} navigation={this.props.navigation} />
@@ -116,7 +115,6 @@ export default class AddHabitDetail extends Component {
 
   // 选择模板数据
   SelectData(data) {
-    console.log('selctData', data);
     this.setState({
       id: null, // 任务id
       icon: data.icon,		//图标
@@ -154,7 +152,6 @@ export default class AddHabitDetail extends Component {
   }
 
   changeClockTime(time) {
-    console.log('time', time)
     this.setState({
       clock_time: time == null ? time: time.toISOString()
     })
@@ -232,8 +229,6 @@ export default class AddHabitDetail extends Component {
       callback: this.addClockCallback.bind(this)
     }
 
-    console.log('addData', data);
-
     if (this.state.addType == 'add') {
        // addCustomerClock
       addCustomerClock(data);
@@ -243,7 +238,6 @@ export default class AddHabitDetail extends Component {
   }
   addClockCallback(res) {
     const { success, error } = res;
-    console.log('ddd', res);
     if (success) {
       const { data } = res;
       if (this.state.addType == 'add') {
@@ -270,8 +264,6 @@ export default class AddHabitDetail extends Component {
       var alarmManager = NativeModules.AlarmManager;
       let aString = this.switchToArray(this.state.repeats);
       let weeks = this.showItem(aString);
-      console.log('all weeks', weeks);
-      console.log(weeks);
       alarmManager.addNormalAlarm('normal-'+ id, this.state.name, timeString, weeks, 'add');
   }
 
@@ -283,7 +275,6 @@ export default class AddHabitDetail extends Component {
             value = "0" + value;     //不够的就在前面补0
         }
     }
-    console.log('switchToArray', value)
     return value;
   }
 
@@ -329,18 +320,13 @@ export default class AddHabitDetail extends Component {
   }
 
   loadHabitDetailCallback(res) {
-    console.log('habit detail', res);
     const { success, data } = res;
     const { clock_time } = data;
 
     let date = new Date();
     let dateString = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + clock_time;
 
-    console.log('string', dateString);
-
     newDate = (new Date(Date.parse(dateString))).toJSON();
-
-    console.log('new Date', newDate);
 
     let aArray = [];
     for (let i = 0; i < data.contacts.length;i++) {
@@ -381,7 +367,6 @@ export default class AddHabitDetail extends Component {
   // onChangeContact()
 
   loadContactListCallback(res) {
-    console.log('contact list', res);
     const { success } = res;
     if (success) {
       const { data } = res;

@@ -4,7 +4,6 @@ function getPosition({callback}) {
     setLocatingWithReGeocode(false);
     Geolocation.getCurrentPosition(({ coords, location }) => {
         const { latitude, longitude } = coords;
-        console.log('lat', coords, location)
 
         const url = `https://restapi.amap.com/v3/geocode/regeo?location=${longitude},${latitude}&key=${E.WEB_KEY}&radius=1000&extensions=all&poitype=`
         let opts = {
@@ -42,7 +41,6 @@ function getPosition({callback}) {
                 data: data });
         }).catch(err => {
             callback(err)
-            console.log('err', err);
         })
     });
 }

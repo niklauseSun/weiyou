@@ -14,9 +14,9 @@ async function requestCameraPermission() {
             },
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log('现在你获得摄像头权限了');
+
         } else {
-            console.log('用户并不屌你');
+
         }
     } catch (err) {
         console.warn(err);

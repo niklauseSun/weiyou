@@ -61,7 +61,6 @@ export default class MessageList extends Component {
     }
 
     loadMessageListCallback(res) {
-        console.log('res', res)
         const { success, data } = res;
         if (success) {
             this.setState({

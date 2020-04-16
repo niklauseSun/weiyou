@@ -18,14 +18,15 @@ export default class BeginModal extends Component {
     }
 
     render() {
-        const { isShow = true } = this.props;
+        console.log('begin Modal', this.props);
+        const { isShow = true, sign_total = null } = this.props;
         let date = new Date()
         return (
             <Modal visible={isShow}>
                 { this.state.pic == null? null:<ImageBackground imageStyle={styles.imageStyle} source={{ uri: this.state.pic }} style={styles.imageBg}>
                     <Text style={styles.day}>{date.getDate()}</Text>
                     <Text style={styles.month}>{date.getMonth() + 1}月 {date.getFullYear()}</Text>
-                    <Text style={styles.content}>{this.state.content}</Text>
+                    <Text style={styles.content}>{sign_total == null || sign_total == 0 ? this.state.content : `您已${sign_total}天被唯友关爱`}</Text>
                     <Text style={styles.content_en} style={styles.content_en}>{this.state.content_en}</Text>
                 </ImageBackground> }
             </Modal>
@@ -72,23 +73,25 @@ const styles = StyleSheet.create({
     content_en: {
         marginBottom: px(120),
         fontSize: px(34),
-        color: '#666',
+        color: '#fff',
         marginLeft: px(40)
     },
     content: {
         marginBottom: px(40),
         fontSize: px(34),
-        color: '#666',
+        color: '#fff',
         marginLeft: px(40)
     },
     month: {
         marginBottom: px(30),
         fontSize: px(40),
-        marginLeft: px(40)
+        marginLeft: px(40),
+        color: '#fff'
     },
     day: {
         marginBottom: px(30),
         fontSize: px(80),
-        marginLeft: px(40)
+        marginLeft: px(40),
+        color: '#fff'
     }
 })

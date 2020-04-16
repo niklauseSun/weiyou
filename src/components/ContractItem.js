@@ -12,14 +12,12 @@ export default class ContractItem extends Component {
     }
 
     render() {
-        console.log('contractItem', this.props.data);
         const { nickname = 'Alone', detail = '“阅读”在02.10 09:30 完成打卡', avatar, message = {} } = this.props.data;
         const { task, content = '' } = message || {};
         let status = 'success';
         if (task != null) {
             status = task.status;
         }
-        // const { status = 'success' } = task;
         return (
             <TouchableOpacity onPress={this.navigate.bind(this)} style={styles.content}>
                 {avatar == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: avatar }} />}
@@ -35,7 +33,6 @@ export default class ContractItem extends Component {
     }
 
     navigate() {
-        console.log('contact item', this.props.data);
         const { nickname, avatar, message } = this.props.data;
         this.props.navigation.navigate('GuardianMessageList', {
             nickname: nickname,

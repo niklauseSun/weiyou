@@ -309,7 +309,7 @@ const TabNavigator = createBottomTabNavigator({
         screen: MessageStack,
         navigationOptions: {
             header: null,
-            tabBarLabel: "邻里",
+            tabBarLabel: "挚友",
             tabBarIcon: ({ tintColor, focused }) => {
                 if (focused) {
                     return (

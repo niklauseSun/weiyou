@@ -52,8 +52,6 @@ export default class SearchApplyItem extends Component {
     }
 
     apply(reason) {
-        console.log('apply', reason);
-        // contractApply
         contractApply({
             customer_id: this.props.data.id,
             reason: reason,

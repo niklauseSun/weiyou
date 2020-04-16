@@ -1,5 +1,6 @@
 // const serverHome = 'http://47.99.56.231:98';
-const serverHome = 'https://wy.99rongle.com';
+// const serverHome = 'https://wy.99rongle.com';
+const serverHome = 'https://wy.24hwu.com';
 
 // 用户密码登录
 const loginWithPasswordAction = ({ callback = null, username, passwd }) => {

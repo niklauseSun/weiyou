@@ -28,13 +28,11 @@ export default class PersonDetail extends Component {
     }
 
     componentDidMount() {
-        console.log('personal', this.state.id);
         this.loadPersonInfo()
     }
 
     render() {
         const { avatar, nickname, email, sex, phonenumber, filePath } = this.state;
-        console.log('filePath', filePath);
         return (
             <SafeAreaView style={commonStyles.content}>
                 <Header navigation={this.props.navigation} title="个人资料" rightComponent={this.rightComponent()} />
@@ -56,7 +54,6 @@ export default class PersonDetail extends Component {
                             data={[{label: '男', value: '男'},{label: '女', value: '女'}]}
                             cols={1}
                             onOk={(e)=> {
-                                console.log('ok', e);
                                 if (e == '女') {
                                     this.setState({
                                         sex: 'female'
@@ -121,7 +118,6 @@ export default class PersonDetail extends Component {
     }
 
     loadCallback(res) {
-        console.log('personInfo' ,res);
         const { success, data } = res;
         if (success) {
             this.setState({
@@ -174,11 +170,8 @@ export default class PersonDetail extends Component {
             multiple: false,
             mediaType: 'photo'
         }).then(img => {
-            console.log('image 111', img);
             let imageName = this.acquireImageName(img.path);
-            console.log('upload', imageName, img.path);
             uploadOssFile(imageName, img.path).then((e) => {
-                console.log('bbb', e);
                 let url = 'https://' + global.imageHost + '/' + imageName;
                 Toast.info('上传图片成功');
                 this.setState({
@@ -192,13 +185,10 @@ export default class PersonDetail extends Component {
     acquireImageName(path) {
         const filetype = path.substring(path.lastIndexOf('.')).toLowerCase();
         const currm = new Date().getTime() + '';
-        console.log('dir', global.dir);
         const objectKey = `${global.dir}/${currm}${filetype}`;
         return objectKey
     }
 }
-
-// #ED7539
 
 const styles = StyleSheet.create({
     headView: {

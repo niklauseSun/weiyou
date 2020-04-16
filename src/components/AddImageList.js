@@ -15,7 +15,6 @@ export default class AddImageList extends Component {
 
     render() {
         const { pics = [], style } = this.props;
-        console.log('list', pics)
         return (
             <View style={[styles.content, style]}>
                 <ScrollView horizontal={true}>
@@ -31,11 +30,9 @@ export default class AddImageList extends Component {
     }
 
     _remove(index) {
-        console.log('remove')
         let localImages = this.props.pics.filter((value, idx) => idx != index);
         let remoteImages = this.props.uploadImages.filter((value, idx) => idx != index);
         const { changeImageList } = this.props;
-        console.log('imgs', localImages)
         if (changeImageList) {
             changeImageList('remove',localImages, remoteImages);
         }
@@ -47,12 +44,10 @@ export default class AddImageList extends Component {
             maxFiles: 4 - (this.props.uploadImages.length || 0),
             mediaType: 'photo'
         }).then(images => {
-            // console.log('images', images);
             const { changeImageList } = this.props;
             let imgs = [];
             let showImages = []
             for(let index in images) {
-                console.log(index);
                 // imgs.push(images[index].path);
                 if (global.dir == undefined) {
                     initAliyunOSS();
@@ -63,7 +58,6 @@ export default class AddImageList extends Component {
                         imgs.push(url)
                         showImages.push(images[index].path);
                         if (changeImageList) {
-                            console.log('fff')
                             changeImageList('add', [images[index].path], [url]);
                         }
                     });

@@ -23,7 +23,6 @@ export default class SpecialItem extends Component {
 
     render() {
         const { data } = this.props;
-        console.log('special', data);
         const { icon, interval_min, start_time, error_cnt, name, status } = data
         const startTime = this.parseDate(start_time)
         return (
@@ -94,39 +93,18 @@ export default class SpecialItem extends Component {
     }
 
     specialItemAction() {
-        console.log('goto special');
         const { status, id } = this.props.data;
 
         getSpecialClockDetail({
             id: id,
             callback: this.getSpDetailCallback.bind(this)
         })
-
-        // if (status == 'fail') {
-        //     Toast.info('已过期')
-        //     return;
-        // }
-
-        // if (status == 'success') {
-        //     Toast.info('已成功')
-        //     return;
-        // }
-        // // this.showModal()
-        // this.props.navigation.navigate('SignSpecial', {
-        //     id: this.props.data.id,
-        //     question_id: this.props.data.question_id
-        // });
     }
 
     getSpDetailCallback(res) {
-        console.log('special detail', res);
         const { success, data, error } = res;
         if (success) {
             const { status, question, id, question_id } = data;
-//             状态：'created'（已创建）,'runing'（已开始）,'success'（已完成）,'fail'（已完成）,'delay'（已开始）,'answerError'（已开始）,'timeout'（已开始），‘notYet（未开始）’
-// 可打卡状态："created","runing","delay",'answerError', 'timeout'
-// 拥有下次打卡时间状态："runing""delay",'answerError', 'timeout'
-
             if (status == 'created' || status == 'runing' || status == 'delay' || status == 'answerError' || status == 'timeout') {
                 this.props.navigation.navigate('SignSpecial', {
                     id: id,
@@ -165,7 +143,6 @@ export default class SpecialItem extends Component {
     }
 
     loadAnswerCallback(res) {
-        console.log('res', res)
         const { success, data } = res;
         if (success) {
             const { answer, correct, question } = data;
@@ -208,9 +185,6 @@ export default class SpecialItem extends Component {
             contacts: data.contacts,
             question: data.question
         }
-
-        console.log('report param', params);
-        // postSpecialClockStatus
         postSpecialClockStatus({
             params: params,
             callback:this.reportCallback.bind(this)
@@ -219,7 +193,6 @@ export default class SpecialItem extends Component {
 
     reportCallback(res) {
         const { success, error } = res;
-        console.log('report', res);
         if (success) {
             Toast.info('签到成功！');
         } else {

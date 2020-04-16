@@ -82,7 +82,7 @@ class HomeScreen extends Component {
     // initAliyunOSS();
     initAliyunOSS();
     this.setState({
-      isShow: true
+      isShow: false
     })
     JPush.init();
     this.connectListener = result => {
@@ -150,8 +150,8 @@ class HomeScreen extends Component {
       checkAll();
     }
 
-    // const wxAppId = 'wxd766440bddf6a75d'
-    // WeChat.registerApp(wxAppId);
+    const wxAppId = 'wxd766440bddf6a75d'
+    WeChat.registerApp(wxAppId);
 
     this.loadWeekConfig();
     this.loadUnReadCount();
@@ -162,10 +162,8 @@ class HomeScreen extends Component {
     this.handleLocalNotification();
     Linking.getInitialURL().then((url) => {
       if (url && Platform.OS == 'android') {
-        console.log('Initial url is: ' + url);
         if (url.split('=').length == 2) {
           const query = decodeURIComponent(url.split('=')[1]);
-          console.log('query', this.getQuery(query));
           const { from_customer_id = null } = this.getQuery(query);
           if (from_customer_id != null && from_customer_id != '') {
             contractApplyByOther({
@@ -183,8 +181,6 @@ class HomeScreen extends Component {
     setLocatingWithReGeocode(false);
         Geolocation.getCurrentPosition(({ coords, location }) => {
             const { latitude, longitude } = coords;
-            console.log('lat', coords, location)
-
             const url = `https://restapi.amap.com/v3/geocode/regeo?location=${longitude},${latitude}&key=${E.WEB_KEY}&radius=1000&extensions=all&poitype=`
             let opts = {
                 method: "GET",
@@ -201,7 +197,6 @@ class HomeScreen extends Component {
                     return response.json();
                 }
             }).then((res) => {
-                console.log('res', res);
                 const { regeocode } = res;
                 const { pois, formatted_address, addressComponent } = regeocode;
                 const { adcode } = addressComponent;
@@ -216,14 +211,7 @@ class HomeScreen extends Component {
                     latitude: retLatitude,
                     city: retCityCode
                 })
-                // return {
-                //     position: formatted_address,
-                //     longitude: retLongitude,
-                //     latitude: retLatitude,
-                //     city: retCityCode
-                // }
             }).catch(err => {
-                console.log('err', err);
             })
         });
   }
@@ -231,14 +219,6 @@ class HomeScreen extends Component {
   componentWillUnmount() {
     this.listener = null;
     this.timer = null;
-    // JPush.removeListener(this.connectListener);
-    // JPush.removeListener(this.notificationListener);
-    // JPush.removeListener(this.localNotificationListener);
-    // JPush.removeListener(this.tagAliasListener);
-    // this.connectListener = null;
-    // this.notificationListener = null;
-    // this.localNotificationListener = null;
-    // this.tagAliasListener = null;
     this.nativeEmitter.remove();
   }
 
@@ -249,7 +229,7 @@ class HomeScreen extends Component {
       <SafeAreaView style={commonStyles.content}>
         <Header
           leftIsBack={false}
-          title="唯友首页"
+          title=""
           rightComponent={this.rightComponent(messageCnt)}
         />
         <WeekItem
@@ -264,7 +244,7 @@ class HomeScreen extends Component {
           {this.renderListItem()}
         </ScrollView>
         <SignSuccessModal sign_total={this.state.sign_total} dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  />
-        <BeginModal isShow={this.state.isShow} />
+        <BeginModal isShow={this.state.isShow} sign_total={this.state.sign_total} />
       </SafeAreaView>
     );
   }
@@ -309,6 +289,9 @@ class HomeScreen extends Component {
   }
 
   renderGuardList() {
+    if (this.state.guardList.filter((item) => item.username != null).length > 1) {
+      return null
+    }
     return (
       <View style={styles.moduleContent}>
         <HomeContactHeader type="guard" navigation={this.props.navigation} />
@@ -408,7 +391,7 @@ class HomeScreen extends Component {
             return (
               <NormalAddItem
                 imageUrl={ASSET_IMAGES.ICON_SPECIAL_DEFAULT}
-                title="添加特殊打卡任务"
+                title="添加特殊打卡"
                 subTitle="发生紧急情况通知监护人"
                 type="special"
                 navigation={this.props.navigation}
@@ -511,16 +494,6 @@ class HomeScreen extends Component {
       this.setState({
         specialList: data,
       });
-
-      let runArray = data.filter(item => item.status == 'runing');
-      // if (runArray.length >= 1) {
-      //   // 跳转到 特殊打卡页面
-      //   console.log('jump sign special');
-      //   this.props.navigation.navigate('SignSpecial', {
-      //     id: runArray[0].id,
-      //     question_id: runArray[0].question_id,
-      //   });
-      // }
     } else if (error == '未登录') {
       this.setState({
         specialList: [],
@@ -543,7 +516,6 @@ class HomeScreen extends Component {
 }
 
 loadGuardListCallback(res) {
-    console.log('res contract', res);
     if (res.success) {
         this.setState({
             guardList: res.data
@@ -580,7 +552,6 @@ loadGuardListCallback(res) {
   }
 
   addSignCallback(res) {
-    console.log('sign', res);
     const {success, data } = res;
     if (success) {
       const { sign_total } = data;
@@ -616,7 +587,6 @@ loadGuardListCallback(res) {
   }
 
   loadContractListCallback(res) {
-    console.log('res contract', res);
     if (res.success) {
       this.setState({
         contactList: res.data,
@@ -660,7 +630,6 @@ loadGuardListCallback(res) {
       if (type === 'awake') {
         const { string } = data;
         if (string.split('=')[0] === 'customer_id') {
-          console.log('be Apply', string.split('=')[1]);
           // contractApplyByOther
           contractApplyByOther({
             callback: this.beApplyByOther.bind(this, string.split("=")[1]),
@@ -672,7 +641,6 @@ loadGuardListCallback(res) {
   }
 
   beApplyByOther(customerid, res) {
-    console.log('ddd', customerid, res);
     const { success, error, data } = res;
     if (success) {
       // agreeApply
@@ -686,7 +654,6 @@ loadGuardListCallback(res) {
   }
 
   agreeApplyCallback(res) {
-    console.log('res apply', res);
     const { success, error } = res;
     if (success) {
       Toast.info('添加成功');

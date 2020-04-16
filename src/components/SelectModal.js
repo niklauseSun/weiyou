@@ -104,8 +104,6 @@ export default class SelectModal extends Component {
   }
 
   loadAllCategoryCallback(res) {
-    console.log('category', res);
-
     const {success, data} = res;
     if (success) {
       this.setState(
@@ -127,7 +125,6 @@ export default class SelectModal extends Component {
   }
 
   loadAllNormalCallback(res) {
-    console.log('clock', res);
     const {success, data} = res;
     if (success) {
       this.setState({

@@ -205,7 +205,6 @@ export default class AddQuestion extends Component {
   }
 
   saveCallback(res) {
-    console.log('res', res);
     const { success } = res;
     if (success) {
       Toast.info('保存成功');
@@ -230,7 +229,6 @@ export default class AddQuestion extends Component {
   }
 
   loadQuestionCallback(res) {
-    console.log('res', res);
     const {success, data} = res;
     if (success) {
       this.setState({

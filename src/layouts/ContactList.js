@@ -39,7 +39,6 @@ export default class ContactList extends Component {
     }
 
     loadContractListCallback(res) {
-        console.log('res contract', res);
         if (res.success) {
             this.setState({
                 contactList: res.data

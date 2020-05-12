@@ -7,6 +7,7 @@ import {
   FlatList,
   ScrollView,
   TextInput,
+  Image
 } from 'react-native';
 import {commonStyles} from '../commonStyles';
 import {
@@ -20,6 +21,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { addUserOpinion } from '../requests';
 import { Toast } from '@ant-design/react-native';
+import { ASSET_IMAGES } from '../config';
 
 export default class QuestionReport extends Component {
   constructor(props) {
@@ -37,7 +39,21 @@ export default class QuestionReport extends Component {
   render() {
     return (
       <SafeAreaView style={commonStyles.content}>
-        <Header title="意见反馈" navigation={this.props.navigation} />
+        <Header title="" navigation={this.props.navigation} />
+        <ScrollView contentContainerStyle={{ backgroundColor: '#eaeaea'}}>
+          <View style={styles.header}>
+            <Text style={styles.aboutText}>关于我们</Text>
+            <Text style={styles.actionText}>对准设备，完成二维码扫描</Text>
+          </View>
+
+          <View style={styles.imagesView}>
+            <Image style={styles.weChatImage} source={ASSET_IMAGES.ICON_WEIXIN_ERWEIMA} />
+            <Text style={styles.weixinText}>唯友官方微信号</Text>
+            <Image style={styles.weChatImage} source={ASSET_IMAGES.ICON_WEIXIN_KEFU} />
+            <Text style={styles.customerText}>唯友官方客服群</Text>
+          </View>
+        </ScrollView>
+        {/* <Header title="意见反馈" navigation={this.props.navigation} />
         <ScrollView style={commonStyles.body}>
           <Text style={styles.titleLabel}>
             请选择你在闪退、卡顿或界面异常中遇到的问题
@@ -80,7 +96,7 @@ export default class QuestionReport extends Component {
           <TouchableOpacity onPress={this.reportQuestion.bind(this)} style={styles.submitButton}>
             <Text style={styles.submitText}>提交</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </ScrollView> */}
       </SafeAreaView>
     );
   }
@@ -157,6 +173,43 @@ export default class QuestionReport extends Component {
 // #ED7539
 
 const styles = StyleSheet.create({
+  header: {
+    marginHorizontal: px(30),
+    marginVertical: px(30),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    paddingHorizontal: px(30),
+    paddingVertical: px(30),
+    borderRadius: px(20)
+  },
+  aboutText: {
+    fontSize: px(30),
+    color: '#333'
+  },
+  actionText: {
+    fontSize: px(24),
+    color: '#666',
+    marginTop: px(20)
+  },
+  imagesView: {
+    marginHorizontal: px(30),
+    backgroundColor: '#fff',
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: px(30)
+  },
+  weixinText: {
+    marginTop: px(20),
+    marginBottom: px(40)
+  },
+  weChatImage: {
+    resizeMode: 'contain'
+  },
+  customerText: {
+    marginTop: px(20),
+    marginBottom: px(40)
+  },
   titleLabel: {
     marginVertical: px(30),
     marginLeft: px(30),

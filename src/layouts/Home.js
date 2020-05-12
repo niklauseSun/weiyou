@@ -8,22 +8,15 @@ import {
   Image,
   LayoutAnimation,
   FlatList,
-  SectionList,
   ScrollView,
   DeviceEventEmitter,
   NativeModules,
   NativeEventEmitter,
   Platform,
   Linking,
-  RefreshControl
 } from 'react-native';
 import {
   Header,
-  SignItem,
-  AddItem,
-  WarnHeader,
-  SignSuccessModal,
-  MessageItem,
   WeekItem,
   NormalItem,
   SpecialItem,
@@ -33,7 +26,7 @@ import {
   ContractItem,
   HomeContactHeader,
   ContactListItem,
-  LineItem
+  LineItem,
 } from '../components';
 import {commonStyles} from '../commonStyles';
 import {px, getCurrentDays, formatDateToString, checkAll, getPosition, initAliyunOSS} from '../utils';
@@ -79,10 +72,9 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    // initAliyunOSS();
     initAliyunOSS();
     this.setState({
-      isShow: false
+      isShow: true
     })
     JPush.init();
     this.connectListener = result => {
@@ -145,7 +137,7 @@ class HomeScreen extends Component {
       this.setState({
         isShow: false,
       });
-    }, 3000);
+    }, 5000);
     if (Platform.OS == 'android') {
       checkAll();
     }
@@ -162,8 +154,8 @@ class HomeScreen extends Component {
     this.handleLocalNotification();
     Linking.getInitialURL().then((url) => {
       if (url && Platform.OS == 'android') {
-        if (url.split('=').length == 2) {
-          const query = decodeURIComponent(url.split('=')[1]);
+        if (url.split('=').length == 3) {
+          const query = decodeURIComponent(url);
           const { from_customer_id = null } = this.getQuery(query);
           if (from_customer_id != null && from_customer_id != '') {
             contractApplyByOther({
@@ -243,7 +235,7 @@ class HomeScreen extends Component {
           {this.renderGuardList()}
           {this.renderListItem()}
         </ScrollView>
-        <SignSuccessModal sign_total={this.state.sign_total} dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  />
+        {/* <SignSuccessModal sign_total={this.state.sign_total} dismiss={this.dismissSignSuccessModal.bind(this)} isShow={this.state.showSignSuccess}  /> */}
         <BeginModal isShow={this.state.isShow} sign_total={this.state.sign_total} />
       </SafeAreaView>
     );
@@ -289,7 +281,7 @@ class HomeScreen extends Component {
   }
 
   renderGuardList() {
-    if (this.state.guardList.filter((item) => item.username != null).length > 1) {
+    if (this.state.guardList.filter((item) => item.username != null).length >= 1) {
       return null
     }
     return (
@@ -426,6 +418,8 @@ class HomeScreen extends Component {
           return;
         }
         this.loadTasks();
+        this.loadContractList();
+        this.loadGradList();
       },
     );
     LayoutAnimation.easeInEaseOut();
@@ -553,8 +547,10 @@ loadGuardListCallback(res) {
 
   addSignCallback(res) {
     const {success, data } = res;
+    console.log('sign', res);
     if (success) {
       const { sign_total } = data;
+      console.log('add', sign_total);
       this.setState(
         {
           showSignSuccess: true,

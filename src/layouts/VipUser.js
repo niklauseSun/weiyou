@@ -38,6 +38,7 @@ export default class Test extends Component {
                     <View style={styles.vipRuleView}>
                         {
                             this.state.rules == null ? null: <WebView
+                                useWebKit={true}
                                 style={{
                                     height: px(100)
                                 }}

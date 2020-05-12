@@ -25,6 +25,18 @@ export default class NormalContractItem extends Component {
                 <Image style={styles.headImage} source={ASSET_IMAGES.ICON_SPECIAL_CONTRACT} />
                 <Text style={styles.title}>通知联系人</Text>
                 <TouchableOpacity onPress={this.showContractListView.bind(this)} style={styles.moreButton}>
+                    {
+                        this.state.contactList.map((item, index) => {
+                            if (this.props.contactList.indexOf(item.id) < 0) {
+                                return null
+                            }
+                            console.log('contact', item, this.props);
+                            if (item.avatar == '') {
+                                return <Image style={styles.contactHeadImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />
+                            }
+                            return <Image style={styles.contactHeadImage} source={{ uri: item.avatar}} />
+                        })
+                    }
                     <Image source={ASSET_IMAGES.ICON_MORE} />
                 </TouchableOpacity>
                 <Modal visible={isShow} transparent={true}>
@@ -103,6 +115,13 @@ const styles = StyleSheet.create({
     headImage: {
         width: px(44),
         height: px(44),
+        marginRight: px(20)
+    },
+    contactHeadImage: {
+        width: px(60),
+        height: px(60),
+        backgroundColor: '#999',
+        borderRadius: px(30),
         marginRight: px(20)
     },
     title: {

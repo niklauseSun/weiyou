@@ -20,7 +20,7 @@
 		4F2EA5D7F31848738E2365FE /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDC14B18FBAE4B8AB21086BB /* antoutline.ttf */; };
 		5608D47BACC4818AB2A52237 /* libPods-WeiYou-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFACD13E1B60EB57F184981F /* libPods-WeiYou-tvOS.a */; };
 		A9D0C0D34C87BB8CA72E89DE /* libPods-WeiYou-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A47939AFE3C712A9718AE870 /* libPods-WeiYou-tvOSTests.a */; };
-		F15982003F376D5FB0E46088 /* libPods-WeiYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6E633A5A6CB934A163FC07 /* libPods-WeiYou.a */; };
+		DD67EE383371C2C06D3E1333 /* libPods-WeiYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6E633A5A6CB934A163FC07 /* libPods-WeiYou.a */; };
 		F44A5A572401680C00F92B64 /* UNNotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A562401680C00F92B64 /* UNNotificationsManager.m */; };
 		F44A5A5A24016F0B00F92B64 /* AlarmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F44A5A5924016F0B00F92B64 /* AlarmManager.m */; };
 		F4D236E7241A7CAB00F7487F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236E6241A7CAB00F7487F /* SystemConfiguration.framework */; };
@@ -28,8 +28,8 @@
 		F4D236EB241A7CDB00F7487F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */; };
 		F4D236ED241A7CE800F7487F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EC241A7CE800F7487F /* libc++.tbd */; };
 		F4D236EF241A7CF100F7487F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D236EE241A7CF100F7487F /* libz.tbd */; };
-		F4EC0E7E24274AF1004F127A /* libJPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EC0E7D24274AF1004F127A /* libJPush.a */; };
-		F4EC0E8024274AF7004F127A /* libJCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EC0E7F24274AF7004F127A /* libJCore.a */; };
+		F4D9C7E22452D21300A9D138 /* libJCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D9C7E12452D21300A9D138 /* libJCore.a */; };
+		F4D9C7E42452D21B00A9D138 /* libJPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D9C7E32452D21B00A9D138 /* libJPush.a */; };
 		F4F9D8C4243978640006EB7B /* hotM_02.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8BE243978640006EB7B /* hotM_02.caf */; };
 		F4F9D8C5243978640006EB7B /* lightM_01.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8BF243978640006EB7B /* lightM_01.caf */; };
 		F4F9D8C6243978640006EB7B /* lightM_04.caf in Resources */ = {isa = PBXBuildFile; fileRef = F4F9D8C0243978640006EB7B /* lightM_04.caf */; };
@@ -100,8 +100,8 @@
 		F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		F4D236EC241A7CE800F7487F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		F4D236EE241A7CF100F7487F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		F4EC0E7D24274AF1004F127A /* libJPush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJPush.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4EC0E7F24274AF7004F127A /* libJCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4D9C7E12452D21300A9D138 /* libJCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4D9C7E32452D21B00A9D138 /* libJPush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJPush.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F9D8BE243978640006EB7B /* hotM_02.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = hotM_02.caf; path = resource/hotM_02.caf; sourceTree = "<group>"; };
 		F4F9D8BF243978640006EB7B /* lightM_01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = lightM_01.caf; path = resource/lightM_01.caf; sourceTree = "<group>"; };
 		F4F9D8C0243978640006EB7B /* lightM_04.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = lightM_04.caf; path = resource/lightM_04.caf; sourceTree = "<group>"; };
@@ -110,8 +110,6 @@
 		F4F9D8C3243978640006EB7B /* lightM_03.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = lightM_03.caf; path = resource/lightM_03.caf; sourceTree = "<group>"; };
 		F4F9F594241DD8B100A80567 /* EventEmitterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventEmitterManager.h; path = WeiYou/EventEmitterManager.h; sourceTree = "<group>"; };
 		F4F9F595241DD8B100A80567 /* EventEmitterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = EventEmitterManager.m; path = WeiYou/EventEmitterManager.m; sourceTree = "<group>"; };
-		F4F9F597241E162100A80567 /* libJPush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJPush.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4F9F599241E163300A80567 /* libJCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libJCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F9F59B241E164600A80567 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		F4F9F59D241E165300A80567 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -128,8 +126,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4EC0E8024274AF7004F127A /* libJCore.a in Frameworks */,
-				F4EC0E7E24274AF1004F127A /* libJPush.a in Frameworks */,
+				F4D9C7E42452D21B00A9D138 /* libJPush.a in Frameworks */,
+				F4D9C7E22452D21300A9D138 /* libJCore.a in Frameworks */,
 				F4F9F59E241E165300A80567 /* libresolv.tbd in Frameworks */,
 				F4F9F59C241E164600A80567 /* UserNotifications.framework in Frameworks */,
 				F4D236EF241A7CF100F7487F /* libz.tbd in Frameworks */,
@@ -137,7 +135,7 @@
 				F4D236EB241A7CDB00F7487F /* libsqlite3.0.tbd in Frameworks */,
 				F4D236E9241A7CB600F7487F /* CoreTelephony.framework in Frameworks */,
 				F4D236E7241A7CAB00F7487F /* SystemConfiguration.framework in Frameworks */,
-				F15982003F376D5FB0E46088 /* libPods-WeiYou.a in Frameworks */,
+				DD67EE383371C2C06D3E1333 /* libPods-WeiYou.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,12 +213,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4EC0E7F24274AF7004F127A /* libJCore.a */,
-				F4EC0E7D24274AF1004F127A /* libJPush.a */,
+				F4D9C7E32452D21B00A9D138 /* libJPush.a */,
+				F4D9C7E12452D21300A9D138 /* libJCore.a */,
 				F4F9F59D241E165300A80567 /* libresolv.tbd */,
 				F4F9F59B241E164600A80567 /* UserNotifications.framework */,
-				F4F9F599241E163300A80567 /* libJCore.a */,
-				F4F9F597241E162100A80567 /* libJPush.a */,
 				F4D236EE241A7CF100F7487F /* libz.tbd */,
 				F4D236EC241A7CE800F7487F /* libc++.tbd */,
 				F4D236EA241A7CDA00F7487F /* libsqlite3.0.tbd */,
@@ -536,7 +532,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WeiYou/Pods-WeiYou-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WeiYou/Pods-WeiYou-resources.sh",
 				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle",
@@ -549,7 +545,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WeiYou/Pods-WeiYou-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeiYou/Pods-WeiYou-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D26E164FD18246C7F56EE69B /* [CP] Check Pods Manifest.lock */ = {
@@ -726,14 +722,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1A00FEF92DBB4E9FFAE50E1 /* Pods-WeiYou.debug.xcconfig */;
+			baseConfigurationReference = 09854A787667C433C1D1E09D /* Pods-WeiYou.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeiYou/WeiYouDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: yujian sun (3TM9862A74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yujian sun (3TM9862A74)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 865KNJ3G54;
 				INFOPLIST_FILE = WeiYou/Info.plist;
@@ -777,6 +773,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-webview\"",
 					"\"${PODS_ROOT}/../../node_modules/react-native-wechat/ios\"",
 				);
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -791,13 +788,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC56E40AE16CC4D57884E17D /* Pods-WeiYou.release.xcconfig */;
+			baseConfigurationReference = 7C8D0C4DB96B5AE551984573 /* Pods-WeiYou.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeiYou/WeiYou.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Hefei Crewin Project Technology Co., Ltd. (865KNJ3G54)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 865KNJ3G54;
 				INFOPLIST_FILE = WeiYou/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -840,6 +837,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-webview\"",
 					"\"${PODS_ROOT}/../../node_modules/react-native-wechat/ios\"",
 				);
+				MARKETING_VERSION = 1.0.1;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -854,7 +853,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78EA8F8CC4C66671564F1684 /* Pods-WeiYou-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 69ED9959F40AB1B01BCA52F0 /* Pods-WeiYou-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -883,7 +882,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5455C3D07B728C04B6BA1DEC /* Pods-WeiYou-tvOS.release.xcconfig */;
+			baseConfigurationReference = E41A581808A6A638CA23A3C5 /* Pods-WeiYou-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -912,7 +911,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2687D00BDAFAABEBB6FCD3E /* Pods-WeiYou-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = A52E1D4A03CD41415D5887A3 /* Pods-WeiYou-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -940,7 +939,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69A9DF6FCA7E60CE2FD9FEE3 /* Pods-WeiYou-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 243CF9A06858E97BEE7283F9 /* Pods-WeiYou-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

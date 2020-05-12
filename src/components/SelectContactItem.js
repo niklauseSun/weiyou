@@ -17,7 +17,7 @@ export default class SelectContactItem extends Component {
         let isSelect = selectIndexArray.indexOf(id) >= 0;
         return (
             <View style={styles.content}>
-                { avatar == ''? <View style={styles.headImage} /> :<Image style={styles.headImage} source={{ uri: avatar }} />}
+                { avatar == ''? <Image source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} style={styles.headImage} /> :<Image style={styles.headImage} source={{ uri: avatar }} />}
                 <Text style={styles.title}>{nickname}</Text>
                 <TouchableOpacity onPress={this.changeSelect.bind(this)} style={styles.selectButton}>
                    {isSelect ? <Image style={styles.selectIcon} source={ASSET_IMAGES.ICON_CONTACT_SELECT} />: <Image style={styles.selectIcon} source={ASSET_IMAGES.ICON_CONTACT_UN_SELECT} />}

@@ -65,6 +65,7 @@ import RuleItem from './RuleItem'
 
 import PriceView from './PriceView'
 import PayViews from './PayViews'
+import AddEmergencyInput from './AddEmergencyInput'
 
 export {
     Header,
@@ -130,5 +131,6 @@ export {
     UserHeader,
     RuleItem,
     PriceView,
-    PayViews
+    PayViews,
+    AddEmergencyInput
 }

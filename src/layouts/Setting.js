@@ -7,6 +7,7 @@ import { getLoginInfo, logoutAction, addUserPushInfo } from '../requests';
 import { px, initAliyunOSS } from '../utils';
 import { Toast } from '@ant-design/react-native';
 import JPush from 'jpush-react-native';
+import * as WeChat from 'react-native-wechat'
 
 class SettingScreen extends Component {
     constructor(props) {
@@ -54,8 +55,9 @@ class SettingScreen extends Component {
                     loginAction={this.loginAction.bind(this)} />
                 {/* <AccountView enterAccount={this._enterAccount.bind(this)} score={this.state.score} /> */}
                 {/* <SetInfoItem setItemAction={this.navigateSettingDetail.bind(this)} imageUrl={ASSET_IMAGES.ICON_ABOUT_US} title={"关于我们"} /> */}
-                {/* <SetInfoItem setItemAction={this.navigateQuestionReport.bind(this)} imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} /> */}
-                {/* <SetInfoItem setItemAction={this.navigateEmergencyList.bind(this)} imageUrl={ASSET_IMAGES.ICON_EMERGENCY} title={"幸福寄语"} /> */}
+                {/* {this.renderContact()} */}
+                <SetInfoItem setItemAction={this.navigateQuestionReport.bind(this)} imageUrl={ASSET_IMAGES.ICON_OPINION} title={"意见反馈"} />
+                <SetInfoItem setItemAction={this.navigateEmergencyList.bind(this)} imageUrl={ASSET_IMAGES.ICON_EMERGENCY} title={"幸福寄语"} />
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_EVALUATION} title={"评价鼓励"} /> */}
                 {/* <SetInfoItem imageUrl={ASSET_IMAGES.ICON_RECOMMEND} title={"推荐给好友"} /> */}
                 {/* {this.state.isLogin ? <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logoutButton}>
@@ -79,7 +81,7 @@ class SettingScreen extends Component {
     }
 
     navigateEmergencyList() {
-        this.props.navigation.navigate('EmergencyList')
+        this.props.navigation.navigate('AddEmergency')
     }
 
     _enterAccount() {

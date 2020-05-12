@@ -31,7 +31,7 @@ export default class MyDetailItem extends Component {
                         <TouchableOpacity onPress={this.loginAction.bind(this)} activeOpacity={0.7} style={styles.loginButton}>
                             <Text style={styles.loginText}>{ isLogin? nickname: "登录/注册" }</Text>
                         </TouchableOpacity>
-                        <Text style={styles.loginSubText}>唯友在手  都是好友</Text>
+                        {/* <Text style={styles.loginSubText}>唯友在手  都是好友</Text> */}
                     </View>
                         {/* isLogin ? <TouchableOpacity activeOpacity={0.7} style={styles.updateVip} onPress={this.updateVip.bind(this)}>
                             <ImageBackground style={styles.vipImageBg} source={ASSET_IMAGES.IMAGE_VIP_BG}>

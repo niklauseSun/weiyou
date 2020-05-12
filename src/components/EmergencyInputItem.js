@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TextInput } from 'react-native'
+import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native'
 import { px } from '../utils';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -7,34 +7,44 @@ export default class EmergencyInputItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            titleArray: ['墓志铭', '我这一生', '身后事', '财产处置', '遗产处置', '未了心愿']
         }
     }
 
     render() {
-        const { selectIndex = 0, content = null } = this.props;
+        const { selectArrays = [], content = null } = this.props;
+        const { titleArray } = this.state;
         return (
             <View style={styles.content}>
-                <TextInput onChangeText={this._changeText.bind(this)} style={styles.inputItem} value={content} placeholder="#请写下您的遗嘱 遗体捐赠 心愿描述..." multiline={true} />
-                <View style={styles.selectButtonViews}>
-                    <TouchableOpacity onPress={this.changeAction.bind(this, 0)} style={[styles.defaultButton, 0 == selectIndex ? styles.selectButtonStyles: null]}>
-                        <Text style={[styles.willDefaultText, 0 == selectIndex? styles.selectTextStyle: null]}>遗嘱</Text>
+                <ScrollView horizontal={true} contentContainerStyle={styles.selectButtonViews}>
+                    {
+                        titleArray.map((item, index) => {
+                            return <TouchableOpacity key={index} onPress={this.changeAction.bind(this, index)} style={[styles.defaultButton, selectArrays.indexOf(index) >=0 ? styles.selectButtonStyles: null]}>
+                        <Text style={[styles.willDefaultText, selectArrays.indexOf(index) >=0 ? styles.selectTextStyle: null]}>{item}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeAction.bind(this, 1)} style={[styles.defaultButton, 1 == selectIndex ? styles.selectButtonStyles: null]}>
-                        <Text style={[styles.willDefaultText, 1 == selectIndex? styles.selectTextStyle: null]}>遗体捐赠</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this.changeAction.bind(this, 2)} style={[styles.defaultButton, 2 == selectIndex ? styles.selectButtonStyles: null]}>
-                        <Text style={[styles.willDefaultText, 2 == selectIndex? styles.selectTextStyle: null]}>心愿</Text>
-                    </TouchableOpacity>
-                </View>
+                        })
+                    }
+                </ScrollView>
             </View>
         )
     }
     changeAction(index) {
         const { changeSelectIndex } = this.props;
-        if (changeSelectIndex) {
-            changeSelectIndex(index);
+        console.log('click', index);
+
+        let res = this.props.selectArrays;
+        if (this.props.selectArrays.indexOf(index) >= 0) {
+            res = res.filter((item) => item != index);
+        } else {
+            res.push(index);
         }
+
+        changeSelectIndex(res);
+
+
+        // if (changeSelectIndex) {
+        //     changeSelectIndex(index);
+        // }
     }
 
     _changeText(text) {
@@ -49,12 +59,7 @@ export default class EmergencyInputItem extends Component {
 
 const styles = StyleSheet.create({
     content: {
-        height:px(370),
-        marginHorizontal: px(30),
-        backgroundColor: '#fff',
-        borderRadius: px(10),
-        marginTop: px(30),
-        paddingHorizontal: px(30)
+        marginHorizontal: px(20),
     },
     inputItem: {
         marginTop: px(20),

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import { px } from '../utils';
 import { Modal, Toast } from '@ant-design/react-native';
 import { contractApply } from '../requests';
+import { ASSET_IMAGES } from '../config';
 
 const prompt = Modal.prompt;
 
@@ -14,19 +15,13 @@ export default class SearchApplyItem extends Component {
         }
     }
 
-//     avatar: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erttzb5tiaXyLT8zxsh0L7WHN9AdT283jF2sbXcovKBtFARawicshZG7vx1Mpjia2DyUNG8icVt4mEScA/132"
-// id: 104
-// username: "15256015621"
-// nickname: "Sprlia"
-// email: ""
-// sex: "male"
-// login_date: null
-
     render() {
         const { avatar, nickname, sex } = this.props.data;
         return (
             <View style={styles.content}>
-                <Image style={styles.headImage} source={{ uri: avatar}} />
+                {
+                    avatar == ''? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_DEFAULT_HEAD_IMAGE} />: <Image style={styles.headImage} source={{ uri: avatar}} />
+                }
                 <View style={styles.detail}>
                     <Text style={styles.name}>{nickname}</Text>
                     <Text style={styles.male}>{sex == 'male'? '男': '女'}</Text>
@@ -34,7 +29,7 @@ export default class SearchApplyItem extends Component {
                 <View style={styles.applyButtonView}>
                     <TouchableOpacity onPress={() => {
                         prompt(
-                            '请求好友',
+                            '请求成为我的监护人',
                             '请输入添加理由',
                             [
                                 { text: '取消' },
@@ -75,6 +70,7 @@ const styles = StyleSheet.create({
     content: {
         paddingVertical: px(20),
         paddingHorizontal: px(30),
+        height: px(220),
         flexDirection: 'row',
         alignItems: 'center'
     },

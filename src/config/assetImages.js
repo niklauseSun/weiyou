@@ -65,6 +65,8 @@ const ASSET_IMAGES = {
     ICON_SIGN_END: require('../assets/icon_sign_end.png'),
     ICON_SPECIAL_SIGN_VIEW: require('../assets/icon_special_sign_view.png'),
     ICON_IMPORT_TIP: require('../assets/icon_import_tip.png'),
+    ICON_WEIXIN_KEFU: require('../assets/icon_weixin_kefu.png'),
+    ICON_WEIXIN_ERWEIMA: require('../assets/icon_weixin_erweima.png'),
 
     IMAGE_SHOW_BG: require('../assets/image_show_bg.png'),
     IMAGE_MY_DETAIL_BG: require('../assets/image_my_detail.png'),
@@ -72,7 +74,7 @@ const ASSET_IMAGES = {
     IMAGE_DEFAULT_UN_LOGIN: require('../assets/image_default_headImage_un_login.png'),
     IMAGE_DEFAULT_LOGIN: require('../assets/image_login_default.png'),
     IMAGE_NONE_CONTRACT: require('../assets/image_none_contracts.png'),
-    IMAGE_EMERGENCY_BG: require('../assets/image_emergency_bg.png')
+    IMAGE_EMERGENCY_BG: require('../assets/add_emergency_bg.png')
 
 }
 

@@ -42,7 +42,8 @@ export default class NewApplyItem extends Component {
             {avatar == '' || avatar == null ? <View style={styles.headImage}></View> :<Image style={styles.headImage} source={{ uri: avatar }} /> }
             <View style={styles.detail}>
                 <Text style={styles.name}>{nickname == null ? '': nickname}</Text>
-                <Text style={styles.reason}>{reason == null ? '': reason}</Text>
+                {/* <Text style={styles.reason}>{reason == null ? '': reason}</Text> */}
+                <Text style={styles.reason}>{`${nickname}用户申请您成为他的监护人`}</Text>
             </View>
             <View style={styles.applyStatusView}>
                 <TouchableOpacity onPress={this.agreeAction.bind(this, id)} style={styles.agreeButton}>
@@ -132,14 +133,14 @@ const styles = StyleSheet.create({
     detail: {
         flex: 1,
         flexDirection: 'column',
-        marginLeft: px(20)
+        marginHorizontal: px(30)
     },
     name: {
-        fontSize: px(30),
+        fontSize: px(28),
         color: '#333'
     },
     reason: {
-        fontSize: px(26),
+        fontSize: px(24),
         color: '#999',
         marginTop: px(10)
     },

@@ -157,6 +157,7 @@ export default class NormalSign extends Component {
                 Toast.info('延迟成功')
             } else {
                 Toast.info('打卡成功')
+                this.props.navigation.goBack();
             }
         } else {
             Toast.fail(error);

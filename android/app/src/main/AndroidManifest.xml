@@ -32,7 +32,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="weiyou"></data>
+                    android:scheme="weiyouprd"></data>
             </intent-filter>
 
         </activity>

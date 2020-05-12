@@ -60,7 +60,7 @@ export default class PredictContract extends Component {
         }
 // recommendContractApply
         prompt(
-            '请求好友',
+            '请求成为我的监护人',
             '请输入添加理由',
             [
                 { text: '取消' },

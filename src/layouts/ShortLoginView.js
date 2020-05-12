@@ -140,6 +140,7 @@ export default class ShortLoginView extends Component {
             initAliyunOSS();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
+            DeviceEventEmitter.emit('taskListReload');
             this.updateAlias(id)
             this.props.navigation.popToTop();
         } else {

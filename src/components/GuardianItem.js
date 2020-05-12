@@ -28,6 +28,7 @@ export default class GuardianItem extends Component {
                             <View style={styles.detailView}>
                                 <Text style={styles.name}>{item.nickname == null ? '': item.nickname}</Text>
                                 <Text style={styles.detailText}>{item.message == null ? '': item.message.content}</Text>
+                                {/* <Text style={styles.detailText}>{`${item.nickname}用户申请您成为他的监护人`}</Text> */}
                             </View>
                         </TouchableOpacity>
                     }}

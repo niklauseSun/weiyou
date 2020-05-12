@@ -372,7 +372,7 @@ const payVipOrder = ({ callback = null, order_id, paymode }) => {
     postAction('/api/customer/vipOrder/pay', callback, params);
 }
 
-const getPersonEmergencyList = ({ callback = null, pageNum, pageSize = 10, orderByColumn = '', isAsc = true, where = '' }) => {
+const getPersonEmergencyList = ({ callback = null, pageNum = 0, pageSize = 10, orderByColumn = '', isAsc = true, where = '' }) => {
     getAction(`/api/customer/emergency/list?pageNum=${pageNum}&pageSize=${pageSize}&orderByColumn=${orderByColumn}&isAsc=${isAsc}&where=${where}`, callback);
 }
 
@@ -418,6 +418,9 @@ const getOssToken = ({ callback = null }) => {
     getAction('/api/customer/oss', callback);
 }
 
+const getWill = ({ callback = null }) => {
+    getAction('/api/customer/emergency/list', callback);
+}
 
 postAction = (url, callback = null, params = null) => {
     console.log('postAction')
@@ -598,6 +601,7 @@ export {
     addUserPushInfo,
     getWxLogin,
     postWxLoginAuth,
-    getOssToken
+    getOssToken,
+    getWill
 }
 

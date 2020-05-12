@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: px(40),
         backgroundColor: '#eaeaea',
+        // backgroundColor: 'red',
         borderRadius: px(20),
         height: px(272),
         borderColor: '#ed7539',

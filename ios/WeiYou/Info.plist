@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -26,11 +26,9 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.lsd.weiyou</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>weiyouprd</string>
-			</array>
+			<array/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -44,7 +42,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -57,6 +55,8 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsLocalNetworking</key>
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
@@ -75,11 +75,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>APP需要获取拍照权限进行上传图片</string>
+	<string>APP需要获取拍照权限用于拍照并上传图片并使用照片来更改头像、修改任务头像等</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>APP需要在使用时获取定位权限用于在特殊打卡时可以实时获取用户的位置信息以进行实时上报来保障用户安全</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>APP需要在使用时获取定位权限用于在特殊打卡时可以实时获取用户的位置信息以进行实时上报来保障用户安全</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>APP需要图片权限进行上传图片</string>
+	<string>APP需要获取相册权限获取相册内的照片用于上传以并使用照片更改头像，修改任务图标</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>antfill.ttf</string>

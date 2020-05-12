@@ -98,6 +98,9 @@ class MessageScreen extends Component {
     }
 
     onChangeTabIndex(index) {
+        if (index == 0) {
+            this.loadContractList();
+        }
         this.setState({
             selectIndex: index
         })

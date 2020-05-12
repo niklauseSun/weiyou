@@ -33,7 +33,8 @@ export default class NormalDeleteItem extends Component {
                                 } },
                             ])
                         }} style={styles.deleteButton}>
-                            <Text style={styles.deleteTitle}>删除</Text>
+                            {/* <Text style={styles.deleteTitle}>删除</Text> */}
+                            <Image source={ASSET_IMAGES.ICON_DELETE} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.deleteView}>
@@ -70,7 +71,8 @@ export default class NormalDeleteItem extends Component {
             const { reloadTask } = this.props;
             if (reloadTask) {
                 reloadTask();
-                DeviceEventEmitter.emit('taskReload');
+                DeviceEventEmitter.emit('taskListReload');
+                DeviceEventEmitter.emit('listReload');
             }
         }
     }
@@ -138,13 +140,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: px(30),
-        marginTop: px(30)
+        marginBottom: px(30)
     },
     headImage: {
         width: px(90),
         height: px(90),
         borderRadius: px(5),
         resizeMode: 'contain',
+        borderRadius: px(45),
         marginRight: px(20)
     },
     nameView: {

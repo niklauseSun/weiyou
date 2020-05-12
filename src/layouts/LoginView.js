@@ -20,7 +20,8 @@ export default class LoginView extends Component {
             position: '',
             longitude: '',
             latitude: '',
-            city: ''
+            city: '',
+            isWeiXinInstall: false,
         }
     }
 
@@ -62,6 +63,8 @@ export default class LoginView extends Component {
             }).catch(err => {
             })
         });
+
+        this.wxInstallState();
     }
 
     render() {
@@ -85,11 +88,13 @@ export default class LoginView extends Component {
                             <Text style={styles.forgetText}>新用户注册</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.wxView}>
+                    {
+                        this.state.isWeiXinInstall ? <View style={styles.wxView}>
                         <TouchableOpacity onPress={this.wxLogin.bind(this)}>
                         <Image style={styles.wxIcon} source={ASSET_IMAGES.ICON_WX_ICON} />
                         </TouchableOpacity>
-                    </View>
+                    </View> : null
+                    }
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -146,6 +151,7 @@ export default class LoginView extends Component {
             initAliyunOSS();
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
+            DeviceEventEmitter.emit('taskListReload');
         } else {
             Toast.info(res.error);
         }
@@ -159,6 +165,16 @@ export default class LoginView extends Component {
             callback: this.addPushCallback.bind(this)
         })
         JPush.setAlias(alias)
+    }
+
+    wxInstallState() {
+        WeChat.isWXAppInstalled().then((res) => {
+            if (res) {
+                this.setState({
+                    isWeiXinInstall: true
+                })
+            }
+        })
     }
 
     addPushCallback(res) {
@@ -220,6 +236,7 @@ export default class LoginView extends Component {
             global.isLogin = true
             DeviceEventEmitter.emit('reloadLogin');
             DeviceEventEmitter.emit('taskReload');
+            DeviceEventEmitter.emit('taskListReload');
             this.props.navigation.goBack();
         }
     }

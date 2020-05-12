@@ -34,7 +34,7 @@ export default class SectionHeader extends Component {
 const styles = StyleSheet.create({
     content: {
         flexDirection: 'row',
-        height: px(60),
+        height: px(90),
         alignItems: 'center',
         paddingHorizontal: px(30),
         marginBottom: px(10)

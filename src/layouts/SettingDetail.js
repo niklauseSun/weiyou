@@ -62,6 +62,7 @@ export default class SettingDetail extends Component {
             this.deleteAlias(this.state.id);
             DeviceEventEmitter.emit('taskReload');
             DeviceEventEmitter.emit('reloadLogin');
+            DeviceEventEmitter.emit('taskListReload');
             this.setState({
                 isLogin: false
             })
@@ -87,5 +88,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#eaeaea',
         paddingTop: px(30)
+    },
+    logoutButton: {
+        marginHorizontal: px(60),
+        height: px(80),
+        backgroundColor: '#bfbfbf',
+        marginTop: px(60),
+        borderRadius: px(20),
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    logoutButtonText: {
+        color: '#fff',
+        fontSize: px(26)
     }
 })

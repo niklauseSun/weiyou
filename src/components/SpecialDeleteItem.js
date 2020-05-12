@@ -20,7 +20,7 @@ export default class SpecialDeleteItem extends Component {
         return (
             <TouchableOpacity onPress={this.navigateSpecialDetail.bind(this)} style={styles.content}>
                 <View style={styles.headImageView}>
-                    {icon == '' ? <Image source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} />: <Image style={styles.headImage} source={{ uri: icon }} />}
+                    {icon == '' ? <Image style={styles.headImage} source={ASSET_IMAGES.ICON_SPECIAL_DEFAULT} />: <Image style={styles.headImage} source={{ uri: icon }} />}
                 </View>
                 <View style={styles.detail}>
                     <Text style={styles.name}>{name}</Text>
@@ -37,7 +37,8 @@ export default class SpecialDeleteItem extends Component {
                             } },
                         ])
                     }} style={styles.deleteButton}>
-                    <Text style={styles.deleteButtonText}>删除</Text>
+                    {/* <Text style={styles.deleteButtonText}>删除</Text> */}
+                    <Image source={ASSET_IMAGES.ICON_DELETE} />
                 </TouchableOpacity>
             </TouchableOpacity>
         )
@@ -67,8 +68,9 @@ export default class SpecialDeleteItem extends Component {
             const { reloadTask } = this.props;
             if (reloadTask) {
                 reloadTask();
-                DeviceEventEmitter.emit('taskReload');
             }
+            DeviceEventEmitter.emit('taskListReload');
+            DeviceEventEmitter.emit('listReload');
         }
     }
 
@@ -90,15 +92,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: px(20),
-        marginTop: px(20)
+        marginBottom: px(20)
     },
     headImageView: {
         width: px(120)
     },
     headImage: {
         width: px(90),
-        height: px(90),
-        backgroundColor: 'red'
+        borderRadius: px(45),
+        height: px(90)
     },
     detail: {
         flex: 1,

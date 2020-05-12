@@ -49,29 +49,29 @@ public class MainActivity extends ReactActivity {
             requestIgnoreBatteryOptimizations();
         }
 
-        if (isHuawei()) {
-            goHuaweiSetting();
-        }
-
-        if (isXiaomi()) {
-            goXiaomiSetting();
-        }
-
-        if (isOPPO()) {
-            goOPPOSetting();
-        }
-
-        if (isVIVO()) {
-            goVIVOSetting();
-        }
-
-        if (isMeizu()) {
-            goMeizuSetting();
-        }
-
-        if (isSamsung()) {
-            goSamsungSetting();
-        }
+//        if (isHuawei()) {
+//            goHuaweiSetting();
+//        }
+//
+//        if (isXiaomi()) {
+//            goXiaomiSetting();
+//        }
+//
+//        if (isOPPO()) {
+//            goOPPOSetting();
+//        }
+//
+//        if (isVIVO()) {
+//            goVIVOSetting();
+//        }
+//
+//        if (isMeizu()) {
+//            goMeizuSetting();
+//        }
+//
+//        if (isSamsung()) {
+//            goSamsungSetting();
+//        }
     }
 
     private void sendNotificationToRN(ReactContext reactContext,

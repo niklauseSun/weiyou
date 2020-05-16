@@ -50,7 +50,9 @@ export default class Task extends Component {
               title={'日常'}
               addAction={this.navigateToNormal.bind(this)}
             />
-            <Text style={styles.tipText}>在这里，唯友记录你的日常，并告诉关心你的人——他的生活很规律，早睡早起按时吃药，偶尔加班也是生活的一部分。</Text>
+            <Text style = {
+                styles.tipText
+            }>记录日常生活，提醒用户按时用餐就寝，并将生活状态反馈给监护人。</Text>
             <FlatList
                 data={this.state.normalList.filter((item) => item.deleted == false)}
                 renderItem={({item}) => {
@@ -71,7 +73,7 @@ export default class Task extends Component {
               title={'特殊'}
               addAction={this.navigateToSpecial.bind(this)}
             />
-            <Text style={styles.tipText}>当你感到即将发生的事情也许存在风险，唯友会定时询问你的状态，并告诉担心你的人——他连续三次答错了预设的问题，请给他打电话。</Text>
+            <Text style={styles.tipText}>记录突发事件，对于即将发生可能存在风险的事件设置提醒，按固定频率推送问题，遇到无应答或多次答错状况立刻通知监护人。</Text>
             <FlatList
               data={this.state.specialList.filter((item) => item.deleted == false)}
               keyExtractor={(item, index) => index.toString()}

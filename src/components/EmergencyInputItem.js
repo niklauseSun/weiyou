@@ -7,7 +7,7 @@ export default class EmergencyInputItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            titleArray: ['墓志铭', '我这一生', '身后事', '财产处置', '遗产处置', '未了心愿']
+            titleArray: ['墓志铭', '我这一生', '身后事', '财产处置', '遗体处置', '未了心愿']
         }
     }
 

@@ -23,25 +23,25 @@ export default class NormalDeleteItem extends Component {
                 <View style={{flex: 1}}>
                     <View style={styles.nameView}>
                         <Text style={styles.nameTitle}>{name}</Text>
-                        <TouchableOpacity onPress={() => {
-                            alert('确认', '确定要删除么', [
-                                { text: '确认', onPress: () => {
-                                    this.removeTask()
-                                } },
-                                { text: '取消', onPress: () => {
-
-                                } },
-                            ])
-                        }} style={styles.deleteButton}>
-                            {/* <Text style={styles.deleteTitle}>删除</Text> */}
-                            <Image source={ASSET_IMAGES.ICON_DELETE} />
-                        </TouchableOpacity>
                     </View>
                     <View style={styles.deleteView}>
                         <Text style={styles.clockTitle}>{clock_time}</Text>
                         <Text style={styles.timeLabel}>{formateDateWithString(start_time)}-{endText}</Text>
                     </View>
                 </View>
+                <TouchableOpacity onPress={() => {
+                    alert('确认', '确定要删除么', [
+                        { text: '确认', onPress: () => {
+                            this.removeTask()
+                        } },
+                        { text: '取消', onPress: () => {
+
+                        } },
+                    ])
+                }} style={styles.deleteButton}>
+                    {/* <Text style={styles.deleteTitle}>删除</Text> */}
+                    <Image source={ASSET_IMAGES.ICON_DELETE} />
+                </TouchableOpacity>
             </TouchableOpacity>
         )
     }
@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     deleteButton: {
-        width: px(120),
-        height: px(60),
+        width: px(80),
+        height: px(120),
         alignItems: 'flex-end',
         justifyContent:'center'
     },

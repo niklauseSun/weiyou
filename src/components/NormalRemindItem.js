@@ -48,7 +48,7 @@ export default class NormalRemindItem extends Component {
             })
           }}
           mode='time'
-          title="选择日期"
+          title="选择时间"
         />
       </View>
     );

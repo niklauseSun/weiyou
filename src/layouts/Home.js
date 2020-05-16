@@ -269,7 +269,7 @@ class HomeScreen extends Component {
               <NormalAddItem
                 type="addContact"
                 title="添加我监护的人"
-                subTitle="关注您的健康生活状态"
+                subTitle="关注TA的健康生活状态"
                 imageUrl={ASSET_IMAGES.ICON_HOME_SPECIAL_ADD}
                 navigation={this.props.navigation}
               />

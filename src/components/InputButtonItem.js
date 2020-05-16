@@ -45,7 +45,7 @@ export default class InputButtonItem extends Component {
                     }}
                 />
                 <TouchableOpacity disabled={this.state.sendCode} onPress={this.sendCode.bind(this)} style={styles.sendButton}>
-                    <Text style={styles.sendButtonText}>{this.state.sendCode ? `${this.state.codeNum}秒`: "发送验证码"}</Text>
+                    <Text style={styles.sendButtonText}>{this.state.sendCode ? `${ this.state.codeNum <= 0 ? 0: this.state.codeNum }秒`: "发送验证码"}</Text>
                 </TouchableOpacity>
             </View>
         )

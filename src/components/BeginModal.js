@@ -42,8 +42,9 @@ export default class BeginModal extends Component {
                         source={{ uri: this.state.pic }}
                         resizeMode={FastImage.resizeMode.cover}
                         style={styles.imageBg}>
-                        <Text style={styles.day}>{date.getDate()}</Text>
-                        <Text style={styles.month}>{date.getMonth() + 1}月 {date.getFullYear()}</Text>
+                        {/* <Text style={styles.day}>{date.getDate()}</Text> */}
+                        {/* <Text style={styles.month}>{date.getMonth() + 1}月 {date.getFullYear()}</Text> */}
+                        <Text style={styles.month}>今天已签到成功!</Text>
                         <Text style={styles.content}>{sign_total == null || sign_total == 0 ? this.state.content : `您已${sign_total}天被唯友关爱`}</Text>
                         <Text style={styles.content_en} style={styles.content_en}>{this.state.content_en}</Text>
                 </FastImage>
